@@ -23,23 +23,17 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         }
 
         public ActionResult HotelRegistration()
-
         {
-
             return View();
-
         }
 
 
 
         [HttpPost]
-
         public async Task<ActionResult> HotelRegistrationAsync(HotelReg model)
-
         {
 			_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 			HttpResponseMessage rs = await _httpClient.PostAsync(_httpClient.BaseAddress + "SelectList/GetStates", null);
-
 
 			return View();
 		}
