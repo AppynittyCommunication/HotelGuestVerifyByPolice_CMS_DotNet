@@ -9,10 +9,13 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 {
     public class StatesController : Controller
     {
-        Uri baseUri = new Uri("https://hotelapi.ictsbm.com/api/");
+        
+        private readonly string _myApi;
         private readonly HttpClient _httpClient;
-        public StatesController() {
+        public StatesController(IConfiguration configuration) {
             _httpClient = new HttpClient();
+            _myApi = configuration["MyApi:API"];
+            Uri baseUri = new Uri(_myApi);
             _httpClient.BaseAddress = baseUri;
         }
 

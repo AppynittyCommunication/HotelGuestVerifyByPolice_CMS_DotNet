@@ -7,14 +7,16 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 {
     public class AccountController : Controller
     {
-		Uri baseUri = new Uri("https://hotelapi.ictsbm.com/api/");
-		private readonly HttpClient _httpClient;
+        private readonly string _myApi;
+        private readonly HttpClient _httpClient;
 
-		public AccountController()
+		public AccountController(IConfiguration configuration)
 		{
 			_httpClient = new HttpClient();
-			_httpClient.BaseAddress = baseUri;
-		}
+            _myApi = configuration["MyApi:API"];
+            Uri baseUri = new Uri(_myApi);
+            _httpClient.BaseAddress = baseUri;
+        }
 		public IActionResult Index()
         {
             return View();
