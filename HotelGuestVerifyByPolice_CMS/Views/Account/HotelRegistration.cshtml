@@ -10,6 +10,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7w-l0RWEUVqhXyshtsgdkqJDNxaKQ5lY&callback=initMap" async defer></script>
+
 <style>
     wordtune-read-extension{display:none !important}
     body{height:100%;
@@ -129,10 +131,9 @@
         <div class="form-group">
 
          @*    @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+            <div class="form-input">
 
-                    <div class="form-input">
-
-                        @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number" } })
+                            @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number", @type = "number", @minlength = "10", @maxlength = "10" } })
 
                 @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
 
@@ -144,9 +145,9 @@
 
           @*   @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-                    <div class="form-input">
+              <div class="form-input">
 
-                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control",placeholder = "Email Id" } })
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control",placeholder = "Email Id" } })
 
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
 
@@ -159,9 +160,9 @@
 
            @*  @Html.LabelFor(model => model.hotelName, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-                    <div class="form-input">
+                 <div class="form-input">
 
-                        @Html.EditorFor(model => model.hotelName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Hotel Name" } })
+                 @Html.EditorFor(model => model.hotelName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Hotel Name" } })
 
                 @Html.ValidationMessageFor(model => model.hotelName, "", new { @class = "text-danger" })
 
@@ -216,7 +217,7 @@
 
                         <div class="form-input">
 
-                            @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Latitude" } })
+                            @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Latitude",@readonly="readonly" } })
 
                             @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
 
@@ -228,7 +229,7 @@
 
                         <div class="form-input">
 
-                            @Html.EditorFor(model => model._long, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Longitide" } })
+                            @Html.EditorFor(model => model._long, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Longitide",@readonly="readonly" } })
 
                             @Html.ValidationMessageFor(model => model._long, "", new { @class = "text-danger" })
                             <p style="text-align:end;font-size:14px;color:red"> <button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#myModal">Use My Current Location</button></p>
@@ -245,6 +246,7 @@
                     <div class="form-input">
 
                 <select id="statelist" name="stateId" class="form-control" ></select>
+                            @Html.ValidationMessageFor(model => model.stateId, "", new { @class = "text-danger" })
 
             </div>
         </div>
@@ -254,9 +256,9 @@
                     <div class="form-input">
 
                 <select id="districtlist" name="distId" class="form-control">
-                    <option>Select District</option>
+                    <option value="">Select District</option>
                 </select>
-
+                            @Html.ValidationMessageFor(model => model.distId, "", new { @class = "text-danger" })
             </div>
         </div>
                 </div>
@@ -267,9 +269,9 @@
                     <div class="form-input">
 
                 <select id="citylist" name="cityId" class="form-control">
-                            <option>Select City</option>
+                                <option value="">Select City</option>
                 </select>
-
+                            @Html.ValidationMessageFor(model => model.cityId, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -278,9 +280,9 @@
                     <div class="form-input">
 
                 <select id="pslist" name="stationCode" class="form-control">
-                            <option>Select Police Station</option>
+                                <option value="">Select Police Station</option>
                 </select>
-
+                            @Html.ValidationMessageFor(model => model.stationCode, "", new { @class = "text-danger" })
             </div>
         </div>
                 </div>
@@ -327,8 +329,7 @@
                         <div id="map" style="height: 180px;"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="latlongsubmit()" class="btn btn-default" data-dismiss="modal" style="float:left">Done</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 
@@ -343,6 +344,8 @@
     @Html.ActionLink("Back to List", "Index")
 
 </div> *@
+
+//Using OpenStreet Map
 <script type="text/javascript">
     $(document).ready(function () {
         debugger;
@@ -356,6 +359,9 @@
             var defaultlat = position.coords.latitude;
             var defaultlong = position.coords.longitude;
             var map = L.map('map').setView([defaultlat, defaultlong], 13); // Set initial coordinates and zoom level
+
+            //document.getElementById('lat').value = defaultlat;
+            //document.getElementById('zlong').value = defaultlong;
 
             // Create a base layer with OpenStreetMap tiles
             var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -404,8 +410,8 @@
             var position = marker.getLatLng();
             alert("Marker dragged to latitude: " + position.lat.toFixed(4) + " and longitude: " + position.lng.toFixed(4));
 
-            document.getElementById(‘latitude’).value = position.lat;
-            document.getElementById(‘longitude’).value = position.lng;
+            document.getElementById('lat').value = position.lat;
+            document.getElementById('zlong').value = position.lng;
         }
         // Define a function to handle the onclick event
         function onMapClick(e) {
@@ -421,6 +427,123 @@
 
 
 </script>
+//Using Google Map
+@* <script>
+    debugger;
+    var map;
+    var marker;
+    var userCoordinates;
+
+    function initMap() {
+        debugger;
+        // Set initial coordinates as the center and zoom level
+
+        // Check if the Geolocation API is available
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                userCoordinates = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                // Create a map with the specified options after obtaining user's coordinates
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: userCoordinates,
+                    zoom: 13
+                });
+
+                // Specify the icon size using the iconSize property
+                var customIcon = {
+                    url: '../../images/map-marker.png', // Specify the URL to your custom marker icon
+                    scaledSize: new google.maps.Size(32, 32), // Set the size of the icon (e.g., 32x32 pixels)
+                };
+                // Create a custom marker
+                marker = new google.maps.Marker({
+                    position: userCoordinates,
+                    map: map,
+                    icon: customIcon, // Specify the URL to your custom marker icon
+                    draggable: true // Make the marker draggable
+                });
+
+                // Add a listener for the marker drag event
+                google.maps.event.addListener(marker, 'dragend', function () {
+                    var newPosition = marker.getPosition();
+                    document.getElementById('lat').value = newPosition.lat().toFixed(4);
+                    document.getElementById('zlong').value = newPosition.lng().toFixed(4);
+                    alert("Marker dragged to latitude: " + newPosition.lat().toFixed(4) + " and longitude: " + newPosition.lng().toFixed(4));
+                });
+
+                // Create map type controls for switching between Map View and Satellite View
+                var mapTypeControlDiv = document.createElement('div');
+                var mapTypeControl = new MapTypeControl(mapTypeControlDiv, map);
+
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(mapTypeControlDiv);
+
+            }, function (error) {
+                handleGeolocationError(error);
+            });
+        } else {
+            // Geolocation is not available in this browser
+            console.error("Geolocation is not available.");
+        }
+       
+    }
+    // Define a custom control for switching between Map View and Satellite View
+    function MapTypeControl(controlDiv, map) {
+        controlDiv.style.padding = '10px';
+
+        var mapTypeControlUI = document.createElement('div');
+        mapTypeControlUI.style.backgroundColor = 'white';
+        mapTypeControlUI.style.border = '2px solid #ccc';
+        mapTypeControlUI.style.borderRadius = '3px';
+        mapTypeControlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
+        mapTypeControlUI.style.cursor = 'pointer';
+        mapTypeControlUI.style.textAlign = 'center';
+        mapTypeControlUI.title = 'Click to toggle Map/Satellite View';
+        controlDiv.appendChild(mapTypeControlUI);
+
+        var mapTypeControlText = document.createElement('div');
+        mapTypeControlText.style.fontFamily = 'Arial,sans-serif';
+        mapTypeControlText.style.fontSize = '12px';
+        mapTypeControlText.style.padding = '5px 10px';
+        mapTypeControlText.innerHTML = 'Map View';
+        mapTypeControlUI.appendChild(mapTypeControlText);
+
+        mapTypeControlUI.addEventListener('click', function () {
+            toggleMapType();
+        });
+
+        function toggleMapType() {
+            if (map.getMapTypeId() === google.maps.MapTypeId.ROADMAP) {
+                map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+                mapTypeControlText.innerHTML = 'Satellite View';
+            } else {
+                map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                mapTypeControlText.innerHTML = 'Map View';
+            }
+        }
+    }
+
+
+    function handleGeolocationError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                console.error("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                console.error("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                console.error("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+            default:
+                console.error("An unknown error occurred while getting user location.");
+                break;
+        }
+    }
+    
+</script> *@
 <script>
   
 
@@ -434,7 +557,7 @@
             traditional: true,
             success: function (data) {
                 //console.log(data);
-                statelist = '<option value="-1">Select State</option>';
+                statelist = '<option value="">Select State</option>';
                 for (var i = 0; i < data.length; i++) {
                     statelist = statelist + '<option value=' + data[i].stateId + '>' + data[i].stateName + '</option>';
                 }
