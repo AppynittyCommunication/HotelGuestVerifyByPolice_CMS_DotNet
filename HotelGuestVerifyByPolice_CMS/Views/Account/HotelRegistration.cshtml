@@ -1,30 +1,106 @@
 ﻿@model HotelGuestVerifyByPolice_CMS.Models.HotelReg
 @{
-	ViewBag.Title = "Hotel Registration";
+    ViewBag.Title = "Hotel Registration";
+   Layout = "";
 }
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    wordtune-read-extension{display:none !important}
+    body{height:100%;
+    width:100%;}
+    .px-6{
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+    .nav-bg{
+        background-image: linear-gradient( 1deg, hsl(255deg 86% 72%) 0%, hsl(249deg 89% 74%) 11%, hsl(242deg 92% 75%) 24%, hsl(236deg 94% 75%) 38%, hsl(230deg 95% 74%) 52%, hsl(226deg 95% 74%) 64%, hsl(223deg 95% 73%) 74%, hsl(220deg 93% 73%) 82%, hsl(217deg 91% 72%) 89%, hsl(215deg 89% 72%) 95%, hsl(213deg 86% 72%) 100% )
+    }
 
+        .nav-bg p span {
+            color: #fff !important;
+            font-size: 18px;
+            font-weight:600;
+        }
+
+    .form-control {
+      
+        border: none !important;
+        border-bottom: 1px solid #787878 !important;
+        border-radius: 0px !important;
+       /*  color: #9979f6 !important; */
+        margin-right: 5% !important;
+        margin-bottom:18px;
+    }
+
+    .form-group {
+        width: 45% !important;
+        margin-right: 5% !important;
+    }
+
+    #form-heading{
+        margin-left:20px;
+        color:#fff;
+        background: #4594fc;
+        margin-bottom:0px;
+        width:22%;
+        padding:10px;
+        border-top-left-radius:10px;
+        border-top-right-radius:10px;
+        padding-left:25px;
+    }
+
+    .form-control:focus {
+        color: #212529;
+        background-color: #fff !important;
+        border-color: none;
+        outline: 0;
+        box-shadow: none !important;
+        border-bottom: 2px solid #9979f6 !important;
+    }
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #212529 !important;
+        opacity: 1; /* Firefox */
+    }
+
+    .modal-open .modal {
+       
+        top: 25%;
+    }
+</style>
 @using (Html.BeginForm())
 
 {
 
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="background:#ebebeb;padding-bottom:20px">
 
-        <h4>user</h4>
+        <div class="px-6 nav-bg" style="width:100%;height:60px">
+            <p class="d-flex justify-content-between pt-3">
+                <a href="../home">   <span>Home</span></a>
+                <span>Login</span>
+            </p>
 
-        <hr />
+      </div> 
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+      
+      <div class="px-6 pt-3">
+            <h5 id="form-heading">New Hotel Registration</h5>
+            <div style="background:#fff;border-radius:5px" class="px-5 py-4">       
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="d-flex">
         <div class="form-group">
 
-            @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label col-md-2" })
+          @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
 
-            <div class="col-md-10">
+                        <div class="form-input">
 
-                @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
                 @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
 
@@ -34,25 +110,27 @@
 
         <div class="form-group">
 
-            @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
+           @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
 
-            <div class="col-md-10">
+                        <div class="form-input">
 
-                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
 
                 @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
 
             </div>
 
-        </div>
+                </div>
+            </div>
+            <div class="d-flex">
 
         <div class="form-group">
 
-            @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+         @*    @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-            <div class="col-md-10">
+                    <div class="form-input">
 
-                @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number" } })
 
                 @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
 
@@ -62,87 +140,206 @@
 
         <div class="form-group">
 
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+          @*   @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-            <div class="col-md-10">
+                    <div class="form-input">
 
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control",placeholder = "Email Id" } })
 
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
 
             </div>
 
         </div>
-
+                </div>
+                <div class="d-flex">
         <div class="form-group">
 
-            @Html.LabelFor(model => model.hotelName, htmlAttributes: new { @class = "control-label col-md-2" })
+           @*  @Html.LabelFor(model => model.hotelName, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-            <div class="col-md-10">
+                    <div class="form-input">
 
-                @Html.EditorFor(model => model.hotelName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.hotelName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Hotel Name" } })
 
                 @Html.ValidationMessageFor(model => model.hotelName, "", new { @class = "text-danger" })
 
             </div>
 
         </div>
+                <div class="form-group">
+
+                    @*  @Html.LabelFor(model => model.hotelName, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+
+                    <div class="form-input">
+
+                        @Html.EditorFor(model => model.hotelRegNo, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Hotel License Number" } })
+
+                        @Html.ValidationMessageFor(model => model.hotelRegNo, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="form-group" style="width:100% !important;">
+
+                       
+                        <div class="form-input" style="width:100%;">
+
+                            @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Hotel Complete Address" } })
+
+                            @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+
+                        </div>
+
+                    </div>
+                 
+                </div>
+                <div class="d-flex">
+                    <div class="form-group">
+
+
+                        <div class="form-input" >
+
+                            @Html.EditorFor(model => model.pinCode, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Pincode" } })
+
+                            @Html.ValidationMessageFor(model => model.pinCode, "", new { @class = "text-danger" })
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+
+                        <div class="form-input">
+
+                            @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Latitude" } })
+
+                            @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+
+
+                        <div class="form-input">
+
+                            @Html.EditorFor(model => model._long, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Longitide" } })
+
+                            @Html.ValidationMessageFor(model => model._long, "", new { @class = "text-danger" })
+                            <p style="text-align:end;font-size:14px;color:red"> <button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#myModal">Use My Current Location</button></p>
+                           
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="d-flex">
         <div class="form-group">
-            @Html.LabelFor(model => model.stateId, htmlAttributes: new { @class = "control-label col-md-2" })
+           @*  @Html.LabelFor(model => model.stateId, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-            <div class="col-md-10">
+                    <div class="form-input">
 
-                <select id="statelist" name="stateId" class="form-control"></select>
-
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.distId, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <div class="col-md-10">
-
-                <select id="districtlist" name="distId" class="form-control"></select>
-
-            </div>
-        </div>
-          <div class="form-group">
-            @Html.LabelFor(model => model.cityId, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            <div class="col-md-10">
-
-                <select id="citylist" name="cityId" class="form-control"></select>
+                <select id="statelist" name="stateId" class="form-control" ></select>
 
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.stationCode, htmlAttributes: new { @class = "control-label col-md-2" })
+           @*  @Html.LabelFor(model => model.distId, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-            <div class="col-md-10">
+                    <div class="form-input">
 
-                <select id="pslist" name="stationCode" class="form-control"></select>
+                <select id="districtlist" name="distId" class="form-control">
+                    <option>Select District</option>
+                </select>
 
             </div>
         </div>
+                </div>
+                <div class="d-flex">       
+                    <div class="form-group">
+        @*     @Html.LabelFor(model => model.cityId, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
+                    <div class="form-input">
+
+                <select id="citylist" name="cityId" class="form-control">
+                            <option>Select City</option>
+                </select>
+
+            </div>
+        </div>
         <div class="form-group">
+           @*  @Html.LabelFor(model => model.stationCode, htmlAttributes: new { @class = "control-label col-md-2" }) *@
 
-            <div class="col-md-offset-2 col-md-10">
+                    <div class="form-input">
 
-                <input type="submit" value="Create" class="btn btn-default" />
+                <select id="pslist" name="stationCode" class="form-control">
+                            <option>Select Police Station</option>
+                </select>
+
+            </div>
+        </div>
+                </div>
+                <div class="d-flex">
+                    <div class="form-group">
+
+
+                        <div class="form-input">
+
+                            @Html.EditorFor(model => model.userId, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Username" } })
+
+                            @Html.ValidationMessageFor(model => model.userId, "", new { @class = "text-danger" })
+
+                        </div>
+                        <p style="text-align:end;font-size:14px;color:#016fff;">Note: Remember username for login in future.</p>
+                    </div>
+
+                </div>
+        <div class="">
+
+                    <div class="text-center">
+
+                <input type="submit" value="Create" class="btn btn-default btn-primary" />
 
             </div>
 
         </div>
+
+              
+            </div>
 
     </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 }
 
-<div>
+@* <div>
+
 
     @Html.ActionLink("Back to List", "Index")
 
-</div>
+</div> *@
 <script>
   
 
@@ -236,6 +433,10 @@
 
         });
     });
+
+
+  
+
 </script>
 @section Scripts {
 
