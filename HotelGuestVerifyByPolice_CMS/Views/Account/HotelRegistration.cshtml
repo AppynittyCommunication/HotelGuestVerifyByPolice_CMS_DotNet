@@ -20,7 +20,7 @@
         background-image: linear-gradient( 1deg, hsl(255deg 86% 72%) 0%, hsl(249deg 89% 74%) 11%, hsl(242deg 92% 75%) 24%, hsl(236deg 94% 75%) 38%, hsl(230deg 95% 74%) 52%, hsl(226deg 95% 74%) 64%, hsl(223deg 95% 73%) 74%, hsl(220deg 93% 73%) 82%, hsl(217deg 91% 72%) 89%, hsl(215deg 89% 72%) 95%, hsl(213deg 86% 72%) 100% )
     }
 
-        .nav-bg p span {
+        .nav-bg p a span {
             color: #fff !important;
             font-size: 18px;
             font-weight:600;
@@ -80,17 +80,17 @@
 
     <div class="form-horizontal" style="background:#ebebeb;padding-bottom:20px">
 
-        <div class="px-6 nav-bg" style="width:100%;height:60px">
+        <div class="px-6 nav-bg" style="width:100%;height:50px">
             <p class="d-flex justify-content-between pt-3">
                 <a href="../home">   <span>Home</span></a>
-                <span>Login</span>
+                <a href="./HotelLogin"> <span>Login</span></a>
             </p>
 
       </div> 
 
       
       <div class="px-6 pt-3">
-            <h5 id="form-heading">New Hotel Registration</h5>
+            <h4 id="form-heading">New Hotel Registration</h4>
             <div style="background:#fff;border-radius:5px" class="px-5 py-4">       
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="d-flex">
