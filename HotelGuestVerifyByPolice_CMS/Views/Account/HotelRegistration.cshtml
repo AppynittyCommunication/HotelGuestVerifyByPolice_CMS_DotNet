@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <style>
     wordtune-read-extension{display:none !important}
     body{height:100%;
@@ -322,9 +324,10 @@
                         <h4 class="modal-title">Modal Header</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Some text in the modal.</p>
+                        <div id="map" style="height: 180px;"></div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" onclick="latlongsubmit()" class="btn btn-default" data-dismiss="modal" style="float:left">Done</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -340,6 +343,84 @@
     @Html.ActionLink("Back to List", "Index")
 
 </div> *@
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setDefaultPosition);
+        }
+        else { x.innerHTML = "Geolocation is not supported by this browser."; }
+
+
+        function setDefaultPosition(position) {
+            var defaultlat = position.coords.latitude;
+            var defaultlong = position.coords.longitude;
+            var map = L.map('map').setView([defaultlat, defaultlong], 13); // Set initial coordinates and zoom level
+
+            // Create a base layer with OpenStreetMap tiles
+            var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19
+            });
+
+            // Create a satellite layer with satellite imagery tiles
+            var satelliteLayer = L.tileLayer('https://tiles.wmflabs.org/sat/{z}/{x}/{y}.jpg', {
+                maxZoom: 19
+            });
+
+            // Create a base layer group with both the OpenStreetMap and satellite layers
+            var baseLayers = {
+                "Map View": osmLayer,
+                "Satellite View": satelliteLayer
+            };
+
+            // Add the base layer group to the map and set the Map View as the default
+            osmLayer.addTo(map);
+
+
+            // Initialize a custom marker with a draggable option
+            var customIcon = L.icon({
+                iconUrl: '../../images/map-marker.png', // Specify the URL to your custom marker icon
+
+                iconSize: [32, 32], // Adjust the size of your custom icon
+                iconAnchor: [16, 32], // Adjust the icon's anchor point
+            });
+            var marker = L.marker([defaultlat, defaultlong], {
+                icon: customIcon,
+                draggable: true // Make the marker draggable
+            }).addTo(map);
+
+
+
+            // Attach the dragend event handler to the marker
+            marker.on('dragend', onMarkerDrag);
+            L.control.layers(baseLayers).addTo(map);
+        }
+
+
+
+        // Define a function to handle the marker drag event
+        function onMarkerDrag(e) {
+            var marker = e.target;
+            var position = marker.getLatLng();
+            alert("Marker dragged to latitude: " + position.lat.toFixed(4) + " and longitude: " + position.lng.toFixed(4));
+
+            document.getElementById(‘latitude’).value = position.lat;
+            document.getElementById(‘longitude’).value = position.lng;
+        }
+        // Define a function to handle the onclick event
+        function onMapClick(e) {
+            alert("You clicked the map at latitude: " + e.latlng.lat.toFixed(4) + " and longitude: " + e.latlng.lng.toFixed(4));
+        }
+
+
+        function latlongsubmit() {
+
+        }
+    });
+   
+
+
+</script>
 <script>
   
 
