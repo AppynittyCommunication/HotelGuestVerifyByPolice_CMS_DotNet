@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Hotel Login";
+    Layout = "";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<style>
+    .bg-gradient {
+        background-image: linear-gradient( 15deg, hsl(255deg 86% 72%) 0%, hsl(249deg 89% 74%) 26%, hsl(242deg 92% 75%) 39%, hsl(236deg 94% 75%) 48%, hsl(230deg 95% 74%) 55%, hsl(226deg 95% 74%) 61%, hsl(223deg 95% 73%) 68%, hsl(220deg 93% 73%) 75%, hsl(217deg 91% 72%) 82%, hsl(215deg 89% 72%) 91%, hsl(213deg 86% 72%) 100% ) !important;
+   height:100vh
+    }
+
+    wordtune-read-extension {
+        display: none !important
+    }
+
+    .login_form {
+        background: #fff;
+        width: 40%;
+        border-radius:20px;
+        padding: 50px;
+        padding-right:85px;
+        padding-bottom: 25px
+    }
+
+    .form-control {
+        border: none !important;
+        border-bottom: 1px solid #787878 !important;
+        border-radius: 0px !important;
+        /*  color: #9979f6 !important; */
+        margin-right: 5% !important;
+        margin-bottom: 35px;
+    }
+
+        .form-control:focus {
+            color: #212529;
+            background-color: #fff !important;
+            border-color: none;
+            outline: 0;
+            box-shadow: none !important;
+            border-bottom: 2px solid #9979f6 !important;
+        }
+
+        .login_img{
+        position: absolute;
+        top:11%;
+        right: 25%;
+        }
+</style>
+<div class=" bg-gradient">
+    <div class="container" style="padding-top: 8%;padding-left: 6%;">
+    <h2 style="color:#fff;margin-bottom:20px;font-weight:600">
+       Hotel Login
+    </h2>
+    <div class="login_form">
+        <div>
+                <input class="form-control" placeholder="USERNAME" />
+            </div>
+            <div>
+                <input class="form-control" placeholder="PASSWORD" style="margin-bottom:25px"/>
+                <p class="text-end">Forget Password?</p>
+            </div>
+
+            <div class="text-center" style="margin-top:30px"><button class="btn btn-primary" style="font-weight:700;background:#9979f6;border-color:#9979f6;padding:5px 30px;font-size:16px;border-radius:5px;">LOGIN</button></div>
+           
+        </div>
+        <div class="login_img">
+            <img src="/images/img_hotel.png" style="width:500px"/>
+        </div>
+
+
+        <div class="text-left" style="margin-top:30px;margin-left:8%">
+            <button class="btn btn-primary" style="font-weight:700;background:#2b7408;border-color:#2b7408;padding:5px 40px;font-size:16px;border-radius:5px">
+                <a href="../Account/HotelRegistration" style="color:#fff">  Hotel Registration!</a>
+            </button>
+            <p style="color:#fff;margin-top:10px">Click here for the hotel registration.</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+    @* @Scripts.Render("~/bundles/jqueryval") *@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+}

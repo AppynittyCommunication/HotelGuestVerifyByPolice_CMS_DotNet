@@ -27,6 +27,10 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             return View();
         }
 
+        public ActionResult HotelLogin()
+        {
+            return View();
+        }
 
 
         [HttpPost]
