@@ -1,9 +1,125 @@
 ﻿@model IEnumerable<HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.Location>
 @{
-    Layout = "~/Views/Shared/_layout.cshtml";
+    Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
 }
+<style>
+    body {
+     
+        background: #f5f5f7;
+        font-family: "Roboto", sans-serif;
+    }
 
-<div class="table-responsive">
+/*     h1 {
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0px 12px 16px rgba(0, 0, 0, 0.2);
+        margin: 100px auto;
+    } */
+
+    #about {
+        padding: 16px;
+    }
+
+    .bdr {
+        border: 1px solid red;
+    }
+
+    #portfolio {
+        background: #fafafa;
+        padding: 8px 0;
+    }
+
+        #portfolio .card {
+            margin: 0 -8px 32px -8px;
+            color: rgba(0, 0, 0, 0.87);
+            box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+            background:#fff;
+        }
+
+            #portfolio .card .card-title {
+                display: flex;
+                justify-content: flex-end;
+                padding: 16px;
+                font-weight: 300;
+            }
+
+            #portfolio .card .card-data {
+                display: flex;
+                justify-content: flex-end;
+                padding: 16px 16px 0 0;
+                font-size: 1.5rem;
+                font-weight: 300;
+            }
+
+            #portfolio .card hr {
+                width: 90%;
+            }
+
+            #portfolio .card .card-hint {
+                display: flex;
+                padding: 0 0 8px 8px;
+                font-size: 0.9rem;
+                font-weight: 300;
+            }
+
+                #portfolio .card .card-hint i {
+                    font-size: 1.3rem;
+                    color: red;
+                    margin-right: 8px;
+                }
+
+            #portfolio .card .card-icon {
+                display: flex;
+                position: absolute;
+                top: -20px;
+                left: 12px;
+                background: linear-gradient(60deg, #ffa726, #EF6C00);
+                color: white;
+                width: 90px;
+                height: 90px;
+                box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.15);
+                align-items: center;
+                justify-content: center;
+                border-radius: 25%;
+            }
+
+                #portfolio .card .card-icon i {
+                    font-size: 4rem;
+                }
+
+        #portfolio #storageCard .card-icon {
+            background: linear-gradient(60deg, #5E35B1, #039BE5);
+        }
+
+        #portfolio #storageCard .card-hint i {
+            color: red;
+        }
+
+        #portfolio #loveCard .card-icon {
+            background: linear-gradient(60deg, #F50057, #FF8A80);
+        }
+
+        #portfolio #loveCard .card-hint i {
+            color: blue;
+        }
+
+        #portfolio #pizzaCard .card-icon {
+            background: linear-gradient(60deg, #fb8c00, #FFCA29);
+        }
+
+        #portfolio #pizzaCard .card-hint i {
+            color: red;
+        }
+
+        #portfolio #gameCard .card-icon {
+            background: linear-gradient(60deg, #43A047, #FFEB3B);
+        }
+
+        #portfolio #gameCard .card-hint i {
+            color: green;
+        }
+</style>
+@* <div class="table-responsive">
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
@@ -32,4 +148,37 @@
             }
         </tbody>
     </table>
+</div> *@
+<div class="container">
+  
+    <div class="row" id="portfolio">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="card" id="storageCard">
+                <div class="card-title">Used space</div>
+                <div class="card-icon"><i class="material-icons"></i></div>
+                <div class="card-data">99/100 GB</div>
+                <hr />
+                <div class="card-hint"> <i class="material-icons">warning</i><a href="#">Get more space</a></div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="card" id="loveCard">
+                <div class="card-title">Love received</div>
+                <div class="card-icon"><i class="material-icons"></i></div>
+                <div class="card-data">101%</div>
+                <hr />
+                <div class="card-hint"> <i class="material-icons">share</i><a href="#">Share the love ASAP =)</a></div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+            <div class="card" id="pizzaCard">
+                <div class="card-title">Pizza eaten</div>
+                <div class="card-icon"><i class="material-icons"></i></div>
+                <div class="card-data">12 pcs</div>
+                <hr />
+                <div class="card-hint"> <i class="material-icons">local_drink</i><a href="#">Drink some Cola</a></div>
+            </div>
+        </div>
+     
+    </div>
 </div>
