@@ -31,7 +31,10 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         {
             return View();
         }
-
+        public ActionResult DepartmentLogin()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<ActionResult> HotelRegistrationAsync(HotelReg model)

@@ -12,8 +12,8 @@
 
 <style>
     .bg-gradient {
-        background-image: linear-gradient( 15deg, hsl(255deg 86% 72%) 0%, hsl(249deg 89% 74%) 26%, hsl(242deg 92% 75%) 39%, hsl(236deg 94% 75%) 48%, hsl(230deg 95% 74%) 55%, hsl(226deg 95% 74%) 61%, hsl(223deg 95% 73%) 68%, hsl(220deg 93% 73%) 75%, hsl(217deg 91% 72%) 82%, hsl(215deg 89% 72%) 91%, hsl(213deg 86% 72%) 100% ) !important;
-   height:100vh
+        background-image: linear-gradient( 45deg, hsl(264deg 73% 38%) 0%, hsl(259deg 68% 39%) 16%, hsl(253deg 64% 40%) 32%, hsl(247deg 61% 41%) 49%, hsl(241deg 58% 42%) 66%, hsl(234deg 65% 40%) 83%, hsl(228deg 78% 36%) 100% ) !important;
+        height: 100vh
     }
 
     wordtune-read-extension {
@@ -22,11 +22,12 @@
 
     .login_form {
         background: #fff;
-        width: 45%;
-        border-radius:20px;
+        width: 46%;
+        border-radius: 20px;
         padding: 50px;
-        padding-right:85px;
-        padding-bottom: 25px
+        padding-left: 85px;
+        padding-bottom: 25px;
+        margin-left:auto;
     }
 
     .form-control {
@@ -47,39 +48,40 @@
             border-bottom: 2px solid #9979f6 !important;
         }
 
-        .login_img{
+    .login_img {
         position: absolute;
-        top:11%;
-        right: 21%;
-        }
+        top: 11%;
+        left: 16%;
+    }
 </style>
 <div class=" bg-gradient">
-    <div class="container" style="padding-top: 8%;padding-left: 6%;">
-    <h2 style="color:#fff;margin-bottom:20px;font-weight:600">
-       Hotel Login
-    </h2>
-    <div class="login_form">
-        <div>
+    <div class="container" style="padding-top:8%;padding-right:11%">
+       
+        <h2 style="color:#fff;margin-bottom:20px;font-weight:600;text-align:end">
+            Department Login
+        </h2>
+        <div class="login_form">
+            <div>
                 <input class="form-control" placeholder="USERNAME" />
             </div>
             <div>
-                <input class="form-control" placeholder="PASSWORD" style="margin-bottom:25px"/>
+                <input class="form-control" placeholder="PASSWORD" style="margin-bottom:25px" />
                 <p class="text-end">Forget Password?</p>
             </div>
 
-            <div class="text-center" style="margin-top:30px"><button class="btn btn-primary" style="font-weight:700;background:#9979f6;border-color:#9979f6;padding:5px 30px;font-size:16px;border-radius:5px;">LOGIN</button></div>
-           
+            <div class="text-center" style="margin-top:30px"><button class="btn btn-primary" style="font-weight:700;background:#0b38ad;border-color:#0b38ad;padding:5px 30px;font-size:16px;border-radius:5px;">LOGIN</button></div>
+
         </div>
         <div class="login_img">
-            <img src="/images/img_hotel.png" style="width:500px"/>
+            <img src="/images/policestation.png" style="width:500px" />
         </div>
 
 
-        <div class="text-left" style="margin-top:30px;margin-left:10%">
+        <div class="text-right" style="margin-top:30px;margin-right:8%">
             <button class="btn btn-primary" style="font-weight:700;background:#2b7408;border-color:#2b7408;padding:5px 40px;font-size:16px;border-radius:5px">
-                <a href="../Account/HotelRegistration" style="color:#fff">  Hotel Registration!</a>
+                <a href="../Account/HotelRegistration" style="color:#fff">  Department Registration!</a>
             </button>
-            <p style="color:#fff;margin-top:10px">Click here for the hotel registration.</p>
+            <p style="color:#fff;margin-top:10px">Click here for the Department registration.</p>
         </div>
     </div>
 </div>
