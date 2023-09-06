@@ -12,6 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Department\Controllers\" />
+    <Folder Include="Areas\Department\Data\" />
+    <Folder Include="Areas\Department\Models\" />
+    <Folder Include="Areas\Department\Views\" />
+    <Folder Include="Areas\HotelDashboard\Controllers\" />
+    <Folder Include="Areas\HotelDashboard\Data\" />
+    <Folder Include="Areas\HotelDashboard\Models\" />
+    <Folder Include="Areas\HotelDashboard\Views\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
