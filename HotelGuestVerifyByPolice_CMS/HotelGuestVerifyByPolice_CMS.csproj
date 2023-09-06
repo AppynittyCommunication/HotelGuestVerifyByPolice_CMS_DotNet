@@ -15,7 +15,6 @@
     <Folder Include="Areas\Department\Data\" />
     <Folder Include="Areas\Department\Models\" />
     <Folder Include="Areas\HotelDashboard\Data\" />
-    <Folder Include="Areas\HotelDashboard\Models\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
