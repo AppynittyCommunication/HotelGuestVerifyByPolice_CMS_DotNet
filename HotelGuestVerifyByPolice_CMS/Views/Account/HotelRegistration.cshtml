@@ -175,10 +175,10 @@
 
                     <div class="form-input">
 
-                        @Html.EditorFor(model => model.hotelRegNo, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Hotel License Number" } })
+                            @Html.EditorFor(model => model.hotelRegNo, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Hotel License Number",@onfocusout="CheckHotelRegNoIsExist()" } })
 
                         @Html.ValidationMessageFor(model => model.hotelRegNo, "", new { @class = "text-danger" })
-
+                        <span id="hotelregexist"></span>
                     </div>
 
                     </div>
@@ -543,6 +543,34 @@
         }
     }
     
+</script>
+<script>
+
+    function CheckHotelRegNoIsExist() {
+       @*  var x = document.getElementById("hotelRegNo");
+        x.value = x.value.toUpperCase(); *@
+
+        // For loading all Active States
+        $.ajax({
+            type: "post",
+            url: "/Account/CheckHotelRegNo",
+            data: { hotelregno: $('#hotelRegNo').val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+               json = JSON.parse(data);
+               console.log(json.message);
+
+                    let button = document.getElementById("hotelregexist");
+                    if (json.status == "success") { // if button color is red change it green otherwise change it to red.
+                        button.style.color = 'green';
+                    } else {
+                        button.style.color = 'red';
+                    }
+                    $('#hotelregexist').text(json.message);
+            }
+        });
+    }
 </script>
 <script>
   
