@@ -2,7 +2,7 @@
 
 namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
 {
-    public class HomeController : Controller
+    public class HotelHomeController : Controller
     {
         public IActionResult Index()
         {
