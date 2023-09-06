@@ -20,8 +20,28 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+#pragma warning disable ASP0014
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapAreaControllerRoute(
+       name: "Department",
+       areaName: "Department",
+       pattern: "Department/{controller=Home}/{action=Index}"
+   );
+
+    endpoints.MapAreaControllerRoute(
+        name: "HotelDashboard",
+        areaName: "HotelDashboard",
+        pattern: "HotelDashboard/{controller}/{action=Index}"
+    );
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+});
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
