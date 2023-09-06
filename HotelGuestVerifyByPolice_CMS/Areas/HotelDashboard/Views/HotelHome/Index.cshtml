@@ -40,15 +40,16 @@
                 display: flex;
                 justify-content: flex-end;
                 padding: 16px;
-                font-weight: 300;
+                font-weight:600;
+                color: #939393
             }
 
             #portfolio .card .card-data {
                 display: flex;
                 justify-content: flex-end;
-                padding: 16px 16px 0 0;
-                font-size: 1.5rem;
-                font-weight: 300;
+                padding: 0px 16px 0 0;
+                font-size: 32px;
+                font-weight: 600;
             }
 
             #portfolio .card hr {
@@ -58,7 +59,7 @@
             #portfolio .card .card-hint {
                 display: flex;
                 padding: 0 0 8px 8px;
-                font-size: 0.9rem;
+                font-size: 14px;
                 font-weight: 300;
             }
 
@@ -72,11 +73,11 @@
                 display: flex;
                 position: absolute;
                 top: -20px;
-                left: 12px;
+                left: 30px;
                 background: linear-gradient(60deg, #ffa726, #EF6C00);
                 color: white;
                 width: 90px;
-                height: 90px;
+                height:90px;
                 box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.15);
                 align-items: center;
                 justify-content: center;
@@ -118,6 +119,16 @@
         #portfolio #gameCard .card-hint i {
             color: green;
         }
+      .card-hint a{
+        color: #939393;
+      }
+
+    .col-lg-4 {
+        width: 30.333333%;
+    }
+    .mr-2{
+        margin-right:2%;
+    }
 </style>
 @* <div class="table-responsive">
     <table class="table table-striped">
@@ -149,34 +160,34 @@
         </tbody>
     </table>
 </div> *@
-<div class="container">
+<div class="">
   
     <div class="row" id="portfolio">
-        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
             <div class="card" id="storageCard">
-                <div class="card-title">Used space</div>
+                <div class="card-title">CHECK-IN</div>
                 <div class="card-icon"><i class="material-icons"></i></div>
-                <div class="card-data">99/100 GB</div>
+                <div class="card-data" style="color:#484ebe">24</div>
                 <hr />
-                <div class="card-hint"> <i class="material-icons">warning</i><a href="#">Get more space</a></div>
+                <div class="card-hint"> <a href="#">View Details</a></div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
             <div class="card" id="loveCard">
-                <div class="card-title">Love received</div>
+                <div class="card-title">CHECK-OUT</div>
                 <div class="card-icon"><i class="material-icons"></i></div>
-                <div class="card-data">101%</div>
+                <div class="card-data" style="color:#f71f60">12</div>
                 <hr />
-                <div class="card-hint"> <i class="material-icons">share</i><a href="#">Share the love ASAP =)</a></div>
+                <div class="card-hint"> <a href="#">View Details</a></div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
             <div class="card" id="pizzaCard">
-                <div class="card-title">Pizza eaten</div>
+                <div class="card-title">EMPLOYEE</div>
                 <div class="card-icon"><i class="material-icons"></i></div>
-                <div class="card-data">12 pcs</div>
+                <div class="card-data" style="color:#fb9908">14</div>
                 <hr />
-                <div class="card-hint"> <i class="material-icons">local_drink</i><a href="#">Drink some Cola</a></div>
+                <div class="card-hint"><a href="#">View Details</a></div>
             </div>
         </div>
      
