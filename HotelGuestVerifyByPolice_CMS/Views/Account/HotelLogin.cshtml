@@ -77,7 +77,7 @@
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" ,placeholder = "PASSWORD"} })
 
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            <p class="text-end">Forget Password?</p>
+                    <p class="text-end"><a href="/Account/ForgetPassword">Forget Password ?</a></p>
         </div>
 
          <div class="text-center" style="margin-top:30px">
