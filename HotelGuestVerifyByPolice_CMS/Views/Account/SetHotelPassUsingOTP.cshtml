@@ -13,7 +13,7 @@
 <style>
     .bg-gradient {
         background-image: linear-gradient( 15deg, hsl(255deg 86% 72%) 0%, hsl(249deg 89% 74%) 26%, hsl(242deg 92% 75%) 39%, hsl(236deg 94% 75%) 48%, hsl(230deg 95% 74%) 55%, hsl(226deg 95% 74%) 61%, hsl(223deg 95% 73%) 68%, hsl(220deg 93% 73%) 75%, hsl(217deg 91% 72%) 82%, hsl(215deg 89% 72%) 91%, hsl(213deg 86% 72%) 100% ) !important;
-        height: 100vh
+      
     }
 
     wordtune-read-extension {
@@ -22,7 +22,7 @@
 
     .login_form {
         background: #fff;
-        width: 45%;
+        width: 60%;
         border-radius: 20px;
         padding: 50px;
         padding-right: 85px;
@@ -56,9 +56,10 @@
 
 
 <div class=" bg-gradient">
-    <div class="container" style="padding-top: 8%;padding-left: 6%;">
-        <h2 style="color:#fff;margin-bottom:20px;font-weight:600">
-            Hotel Login
+    <div class="container" style="padding-top: 8%;padding-left: 6%;padding-bottom:5%;">
+        <div style="margin-left:25%">
+        <h2 style="color:#fff;margin-bottom:20px;font-weight:600;margin-left:10%">
+           Set New Password
         </h2>
         @using (Html.BeginForm())
 
@@ -86,7 +87,8 @@
                 </div>
 
             </div>
-        }
+            }
+        </div>
     </div>
 
 </div>

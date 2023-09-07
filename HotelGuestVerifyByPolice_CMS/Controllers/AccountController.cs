@@ -197,7 +197,10 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         {
             return View();
         }
-
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<ActionResult> SetHotelPassUsingOTP(SetHotelPassUsingOTP model)
         {
