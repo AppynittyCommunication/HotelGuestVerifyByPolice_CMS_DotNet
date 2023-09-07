@@ -88,4 +88,15 @@
             </div>
         }
     </div>
+
 </div>
+
+@if (ViewBag.msg != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            alert("@ViewBag.msg");
+            window.location.href = "/Account/Hotellogin";
+        };
+    </script>
+}
