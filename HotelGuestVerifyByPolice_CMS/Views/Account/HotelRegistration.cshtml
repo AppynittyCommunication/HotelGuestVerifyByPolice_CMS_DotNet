@@ -560,8 +560,12 @@
             success: function (data) {
                json = JSON.parse(data);
                console.log(json.message);
-
+                    var myfield = $('#hotelRegNo');
+                    myfield.removeClass('field-validation-error');
+                    myfield.next('span[data-valmsg-for]').removeClass("field-validation-error").addClass("field-validation-valid").html("");
+                    
                     let button = document.getElementById("hotelregexist");
+                    button.style.display = "block";
                     if (json.status == "success") { // if button color is red change it green otherwise change it to red.
                         button.style.color = 'green';
                     } else {
