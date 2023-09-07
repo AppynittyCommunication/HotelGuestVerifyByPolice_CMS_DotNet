@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +13,7 @@ builder.Services.AddSession(option =>
     option.IdleTimeout = TimeSpan.FromHours(1);
 });
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +26,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Areas/HotelDashboard/Content")),
+    RequestPath = "/Areas/HotelDashboard/Content"
+});
 app.UseSession();
 app.UseRouting();
 
