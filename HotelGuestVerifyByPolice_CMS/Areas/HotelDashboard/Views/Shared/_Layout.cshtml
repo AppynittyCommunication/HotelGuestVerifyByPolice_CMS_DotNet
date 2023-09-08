@@ -45,7 +45,20 @@
                         <div class="navbar-header">
                             <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
                         </div>
-                        <div style="float:right;padding-top:8px;padding-right:40px"> <span style="color:#fff;font-size:16px;margin-right:35px;">UserName</span><span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span></div>
+                        <div style="float:right;padding-top:8px;padding-right:40px"> 
+                            <span style="color:#fff;font-size:16px;margin-right:35px;" id="hsessionusername">
+                                @if (ViewBag.hotelname != null)
+                                {
+                                    @ViewBag.hotelname
+                                }
+                                else
+                                {
+                                    
+                                }
+                            </span>
+
+                            <span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span>
+                        </div>
                     </div>
 
                    
