@@ -290,29 +290,27 @@
             </div>
         </div>
 
-    <div class="modal fade" id="verifyNo" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                 @*    <button type="button" class="close" data-dismiss="modal">&times;</button> *@
-                    <h4 class="modal-title text-center">Modal Header</h4>
-                </div>
-                <div class="modal-body" style="margin:auto">
-                   <input type="number" placeholder="enter OTP">
-                   <button class="btn btn-primary">Submit</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
    
 }
 
+<div class="modal fade" id="verifyNo" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                @*    <button type="button" class="close" data-dismiss="modal">&times;</button> *@
+                <h4 class="modal-title text-center">Modal Header</h4>
+            </div>
+            <div class="modal-body" style="margin:auto">
+                <input type="number" placeholder="enter OTP">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 @* <div>
 
 
@@ -577,6 +575,15 @@
         });
 
 
+        $("#mobile").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+                //display error message
+                //$("#err_mobile").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+                $("#err_mobile").html("Digits Only").show().delay(1500).show().fadeOut('slow');
+                return false;
+            }
+        });
         // For loading all Active States
         $.ajax({
             type: "post",
