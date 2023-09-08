@@ -32,6 +32,13 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            _contx.HttpContext.Session.SetString("hotelRegNo", "");
+            _contx.HttpContext.Session.SetString("hotelName", "");
+            return Redirect("/Account/HotelLogin");
+        }
         public ActionResult HotelRegistration()
         {
             return View();
