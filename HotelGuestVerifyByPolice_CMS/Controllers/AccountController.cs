@@ -382,7 +382,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/HotelRegistration", deptRegBody);
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/PoliceRegistration", deptRegBody);
 
                 if (response.IsSuccessStatusCode)
                 {

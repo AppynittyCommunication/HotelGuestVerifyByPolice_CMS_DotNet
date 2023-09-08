@@ -550,11 +550,32 @@
                 }
             });
     }
+
+
 </script>
 <script>
 
 
     $(document).ready(function () {
+
+
+        // For loading all Active DepartmentType
+        $.ajax({
+            type: "post",
+            url: "/States/deptTypeList",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                //console.log(data);
+                userList = '<option value="">Select Department Type</option>';
+                for (var i = 0; i < data.length; i++) {
+                    userList = userList + '<option value=' + data[i].departmentTypeID + '>' + data[i].departmentTypeName + '</option>';
+                }
+               
+                $('#userList').html(userList);
+            }
+        });
+
 
         // For loading all Active States
         $.ajax({
