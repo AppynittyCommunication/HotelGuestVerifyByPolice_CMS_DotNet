@@ -72,7 +72,18 @@
 
 
         function logout() {
-            window.location.href = '../Account/HotelLogin'
+            debugger;
+            //window.location.href = '../Account/HotelLogin'
+            $.ajax({
+                type: "post",
+                url: "/Account/Logout",
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    console.log(data);
+                    
+                }
+            });
         }
     </script>
 </body>
