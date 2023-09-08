@@ -32,6 +32,13 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            _contx.HttpContext.Session.SetString("hotelRegNo", "");
+            _contx.HttpContext.Session.SetString("hotelName", "");
+            return Redirect("/Account/HotelLogin");
+        }
         public ActionResult HotelRegistration()
         {
             return View();
@@ -323,6 +330,81 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 return Json("");
             }
 
+        }
+
+        public ActionResult DepartmentRegistration()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DepartmentRegistration(DepartmentReg model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                List<HotelRegResult> objResult = new();
+                //------------Get Ip Start---------------------
+
+                // Getting host name
+                string host = Dns.GetHostName();
+
+                //// Getting ip address using host name
+                IPHostEntry ip = Dns.GetHostEntry(host);
+                string hname = ip.HostName.ToString();
+                string ipAdd = (ip.AddressList[3].ToString());
+                //------------Get Ip End---------------------
+                DepartmentRegBody deptRegBody = new();
+
+                deptRegBody.userType = model.userType.ToString();
+                deptRegBody.email = model.email;
+                deptRegBody.mobile = model.mobile;
+                deptRegBody.userId = model.userId;
+                deptRegBody.lat = model.lat;
+                deptRegBody._long = model._long;
+                deptRegBody.stateId = model.stateId;
+                deptRegBody.distId = model.distId;
+                deptRegBody.cityId = model.cityId;
+                deptRegBody.stationCode = model.stationCode;
+                if (model.diviceIp == null)
+                {
+                    deptRegBody.diviceIp = ipAdd;
+                }
+                else
+                {
+                    deptRegBody.diviceIp = model.diviceIp;
+                }
+
+
+
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/HotelRegistration", deptRegBody);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    var code = (int)response.StatusCode;
+                    var status = dynamicobject.status.ToString();
+                    var message = dynamicobject.message.ToString();
+
+
+                    //TempData["message"] = message;
+                    return RedirectToAction("DepartmentRegistrationSuccess", "Account", new { msg = message });
+                }
+                else
+                {
+                    return View();
+                }
+            }
+
+
+            //return View();
         }
     }
 }
