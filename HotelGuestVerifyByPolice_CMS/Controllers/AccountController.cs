@@ -7,6 +7,7 @@ using HotelGuestVerifyByPolice_CMS.Models.APIModels;
 using Newtonsoft.Json;
 using System.Dynamic;
 using System.Drawing.Printing;
+using Microsoft.AspNetCore.Http;
 
 namespace HotelGuestVerifyByPolice_CMS.Controllers
 {
@@ -165,8 +166,13 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     var status = dynamicobject.status.ToString();
                     var otp = dynamicobject.otp;
                     var message = dynamicobject.message.ToString();
+                    var data = dynamicobject.data;
 
-                    if(status == "success" && otp == true)
+                    string hotelregno = data[0].hotelRegNo.ToString();
+                    string hotelname = data[0].hotelName.ToString();
+
+                   
+                    if (status == "success" && otp == true)
                     {
                         _contx.HttpContext.Session.SetString("husername", model.UserName);
                         _contx.HttpContext.Session.SetString("otp", model.Password);
@@ -175,6 +181,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     }
                     else if(status == "success" && otp != true)
                     {
+                        _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
+                        _contx.HttpContext.Session.SetString("hotelName", hotelname);
                         return RedirectToAction("Index", "HotelHome", new { area = "HotelDashboard" });
                     }
                     //TempData["message"] = message;
