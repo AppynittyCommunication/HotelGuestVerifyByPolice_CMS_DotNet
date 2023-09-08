@@ -6,16 +6,7 @@ namespace HotelGuestVerifyByPolice_CMS.Models
     public class DeptTypeList
     {
 
-        [Column("ID")]
-        public int Id { get; set; }
-
-        [Key]
-        [Column("DeptTypeID")]
-        public int StatDeptTypeIDeId { get; set; }
-
-        [StringLength(50)]
-        public string? DeptTypeName { get; set; }
-
-        public bool? IsActive { get; set; }
+        public int departmentTypeID { get; set; }
+        public string? departmentTypeName { get; set; }
     }
 }

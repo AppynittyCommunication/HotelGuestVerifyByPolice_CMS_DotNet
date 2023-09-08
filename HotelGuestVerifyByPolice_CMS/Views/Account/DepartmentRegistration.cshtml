@@ -81,6 +81,10 @@
     .modal-open .modal {
         top: 25%;
     }
+
+    input[type=checkbox] {
+        display: none;
+    }
 </style>
 @using (Html.BeginForm())
 
@@ -109,10 +113,10 @@
                       
                         <div class="form-input">
 
-                            @Html.EditorFor(model => model.userId, new { htmlAttributes = new { @class = "form-control",placeholder = "User Name" } })
+                            @Html.EditorFor(model => model.userId, new { htmlAttributes = new { @class = "form-control",placeholder = "User Name",@onfocusout="CheckDepartUsernameIsExist()" } })
 
                             @Html.ValidationMessageFor(model => model.userId, "", new { @class = "text-danger" })
-
+                            <span id="departusernameexist"></span>
                         </div>
 
                     </div>
@@ -136,14 +140,18 @@
                     <div class="form-group">
 
                         @*    @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+                        <span id="mobilenoerror"></span>
+                        <input type="hidden" id="getotp" value="" />
                         <div class="form-input">
 
                             @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number",minlength = "10", maxlength = "10"  } })
-
+                            @Html.CheckBoxFor(model => model.isMobileVerify, new { htmlAttributes = new { style = "display:none"} })
                             @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
 
                         </div>
-                        <p class="text-right text-primary"><button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static">Verify Number</button></p>
+                        <p class="text-right text-primary">
+                            <button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static" onclick="VerifyMobileNo()">Verify Number</button>
+                            </p>
 
                     </div>
 
@@ -300,11 +308,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 @*    <button type="button" class="close" data-dismiss="modal">&times;</button> *@
-                <h4 class="modal-title text-center">Modal Header</h4>
+                <h4 class="modal-title text-center"> <span id="sendotpres"></span></h4>
             </div>
             <div class="modal-body" style="margin:auto">
-                <input type="number" placeholder="enter OTP">
-                <button class="btn btn-primary">Submit</button>
+                <input type="number" id="enterotp" placeholder="enter OTP">
+                <button class="btn btn-primary" onclick="CheckOTP()">Submit</button>
             </div>
 
         </div>
@@ -518,33 +526,77 @@
 
 </script>
 <script>
+    function VerifyMobileNo() { 
+        
+        debugger;
+        if ($('#mobile').val() == null || $('#mobile').val() == "") {
+            $('#mobilenoerror').text("Please Enter Mobile No.");
+            let mobilenoerror = document.getElementById("mobilenoerror");
+            mobilenoerror.style.color = 'red';
+        }
+        else {
+            let mobilenoerror = document.getElementById("mobilenoerror");
+            mobilenoerror.style.display = 'none';
 
-    function CheckHotelRegNoIsExist() {
-    @*  var x = document.getElementById("hotelRegNo");
-            x.value = x.value.toUpperCase(); *@
-
-            // For loading all Active States
             $.ajax({
                 type: "post",
-                url: "/Account/CheckHotelRegNo",
-                data: { hotelregno: $('#hotelRegNo').val() },
+                url: "/Account/VerifyMoNo",
+                data: { mobileno: $('#mobile').val() },
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
                     json = JSON.parse(data);
                     console.log(json.message);
-                    var myfield = $('#hotelRegNo');
-                    myfield.removeClass('field-validation-error');
-                    myfield.next('span[data-valmsg-for]').removeClass("field-validation-error").addClass("field-validation-valid").html("");
+                    document.getElementById("getotp").value = json.otp;
 
-                    let button = document.getElementById("hotelregexist");
+                    let button = document.getElementById("sendotpres");
                     button.style.display = "block";
                     if (json.status == "success") { // if button color is red change it green otherwise change it to red.
                         button.style.color = 'green';
                     } else {
                         button.style.color = 'red';
                     }
-                    $('#hotelregexist').text(json.message);
+                    $('#sendotpres').text(json.message);
+                }
+            });
+        }
+    }
+    function CheckOTP() {
+        debugger;
+        var otp1 = document.getElementById("getotp").value;
+        var otp2 = document.getElementById("enterotp").value;
+
+        if (otp1 == otp2) {
+            document.getElementById("isMobileVerify").checked = true;
+        }
+        
+    }
+    function CheckDepartUsernameIsExist() {
+    @*  var x = document.getElementById("hotelRegNo");
+            x.value = x.value.toUpperCase(); *@
+
+            // For loading all Active States
+            $.ajax({
+                type: "post",
+                url: "/Account/CheckDepartUsername",
+                data: { dusername: $('#userId').val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    json = JSON.parse(data);
+                    console.log(json.message);
+                    var myfield = $('#userId');
+                    myfield.removeClass('field-validation-error');
+                    myfield.next('span[data-valmsg-for]').removeClass("field-validation-error").addClass("field-validation-valid").html("");
+
+                    let button = document.getElementById("departusernameexist");
+                    button.style.display = "block";
+                    if (json.status == "success") { // if button color is red change it green otherwise change it to red.
+                        button.style.color = 'green';
+                    } else {
+                        button.style.color = 'red';
+                    }
+                    $('#departusernameexist').text(json.message);
                 }
             });
     }
