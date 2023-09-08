@@ -3,6 +3,7 @@
     ViewBag.Title = "Department Registration";
     Layout = "";
 }
+
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -82,6 +83,7 @@
         top: 25%;
     }
 </style>
+
 @using (Html.BeginForm())
 
 {
@@ -401,7 +403,8 @@
 
 </script> *@
 @* //Using Google Map *@
-<script>
+
+<script type="text/javascript" >
     debugger;
     var map;
     var marker;
@@ -409,7 +412,7 @@
 
     function initMap() {
         debugger;
-        // Set initial coordinates as the center and zoom level
+      @*   // Set initial coordinates as the center and zoom level *@
 
         // Check if the Geolocation API is available
         if ('geolocation' in navigator) {
@@ -461,7 +464,7 @@
         }
 
     }
-    // Define a custom control for switching between Map View and Satellite View
+   @*  // Define a custom control for switching between Map View and Satellite View *@
     function MapTypeControl(controlDiv, map) {
         controlDiv.style.padding = '10px';
 
@@ -523,7 +526,7 @@
     @*  var x = document.getElementById("hotelRegNo");
             x.value = x.value.toUpperCase(); *@
 
-            // For loading all Active States
+           @*  For loading all Active States *@
             $.ajax({
                 type: "post",
                 url: "/Account/CheckHotelRegNo",
