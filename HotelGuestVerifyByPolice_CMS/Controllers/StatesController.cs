@@ -17,7 +17,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             _myApi = configuration["MyApi:API"];
             Uri baseUri = new Uri(_myApi);
             _httpClient.BaseAddress = baseUri;
-        }
+            }
 
         [HttpGet]
         public async Task<IActionResult> Index()

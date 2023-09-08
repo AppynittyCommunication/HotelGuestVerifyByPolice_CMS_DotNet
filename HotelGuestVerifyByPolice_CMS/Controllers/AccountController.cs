@@ -7,6 +7,7 @@ using HotelGuestVerifyByPolice_CMS.Models.APIModels;
 using Newtonsoft.Json;
 using System.Dynamic;
 using System.Drawing.Printing;
+using Microsoft.AspNetCore.Http;
 
 namespace HotelGuestVerifyByPolice_CMS.Controllers
 {
@@ -165,8 +166,13 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     var status = dynamicobject.status.ToString();
                     var otp = dynamicobject.otp;
                     var message = dynamicobject.message.ToString();
+                    var data = dynamicobject.data;
 
-                    if(status == "success" && otp == true)
+                    string hotelregno = data[0].hotelRegNo.ToString();
+                    string hotelname = data[0].hotelName.ToString();
+
+                   
+                    if (status == "success" && otp == true)
                     {
                         _contx.HttpContext.Session.SetString("husername", model.UserName);
                         _contx.HttpContext.Session.SetString("otp", model.Password);
@@ -175,6 +181,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     }
                     else if(status == "success" && otp != true)
                     {
+                        _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
+                        _contx.HttpContext.Session.SetString("hotelName", hotelname);
                         return RedirectToAction("Index", "HotelHome", new { area = "HotelDashboard" });
                     }
                     //TempData["message"] = message;
@@ -200,6 +208,51 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         public ActionResult ForgetPassword()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ForgetPassword(ForgetHotelPass model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                ForgetHotelPassBody FHPB = new();
+
+                FHPB.otpstatus = model.otpstatus;
+                FHPB.hUserId = model.username;
+                FHPB.hPassword = model.pass;
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/ForgetHotelPassword", FHPB);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    var code = (int)response.StatusCode;
+                    var status = dynamicobject.status.ToString();
+                    var message = dynamicobject.message.ToString();
+
+                    if (status == "success")
+                    {
+                        ViewBag.msg = message;
+                    }
+                    else if (status == "error")
+                    {
+                        ViewBag.msg = message;
+                    }
+
+                }
+                else
+                {
+                    return View(model);
+                }
+                return View();
+            }
         }
         [HttpPost]
         public async Task<ActionResult> SetHotelPassUsingOTP(SetHotelPassUsingOTP model)
@@ -244,6 +297,32 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 }
                 return View();
             }
+        }
+
+
+        public async Task<IActionResult> CheckHotelUsername(string username)
+        {
+
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("username", username);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/CheckHotelUsername", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                var otp = dynamicobject.otp.ToString();
+                ViewBag.userid = username;
+                //TempData.Keep("userid");
+                ViewBag.otp = otp;
+
+                return Json(responseString);
+            }
+            else
+            {
+                return Json("");
+            }
+
         }
     }
 }
