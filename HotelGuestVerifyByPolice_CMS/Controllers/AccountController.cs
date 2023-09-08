@@ -53,6 +53,23 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             return View();
         }
 
+        public async Task<IActionResult> VerifyMoNo(string mobileno)
+        {
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("mobileno", mobileno);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/VerifyMobileNo", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                return Json(responseString);
+            }
+            else
+            {
+                return Json("");
+            }
+        }
         public async Task<IActionResult> CheckHotelRegNo(string hotelregno)
         {
             
@@ -71,6 +88,26 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 return Json("");
             }
             
+        }
+
+        public async Task<IActionResult> CheckDepartUsername(string dusername)
+        {
+
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("userId", dusername);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/DepartUsernameExist", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                return Json(responseString);
+            }
+            else
+            {
+                return Json("");
+            }
+
         }
 
         [HttpPost]
@@ -382,7 +419,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/HotelRegistration", deptRegBody);
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/PoliceRegistration", deptRegBody);
 
                 if (response.IsSuccessStatusCode)
                 {

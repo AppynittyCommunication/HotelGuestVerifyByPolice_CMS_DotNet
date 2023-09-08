@@ -59,6 +59,26 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
         }
 
+        public async Task<IActionResult> deptTypeList()
+        {
+            List<DeptTypeList>? dtl = new();
+
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage rs = await _httpClient.PostAsync(_httpClient.BaseAddress + "SelectList/GetDepartmentType", null);
+
+            if (rs.IsSuccessStatusCode)
+            {
+                string data = rs.Content.ReadAsStringAsync().Result;
+
+                dtl = JsonConvert.DeserializeObject<List<DeptTypeList>>(data);
+
+
+            }
+
+            return Json(dtl);
+
+        }
+
         public async Task<IActionResult> DistrictList(string stateID)
         {
             List<DistictList>? districtList = new();

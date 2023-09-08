@@ -33,7 +33,8 @@ namespace HotelGuestVerifyByPolice_CMS.Models
         [Required(ErrorMessage = "Please Set Your Hotel Location Using Map.")]
         public double? _long { get; set; }
         public string? diviceIp { get; set; }
-
+        [Required]
+        public bool isMobileVerify { get; set; }
         public List<SelectListItem>? StateList { get; set; }
         public List<SelectListItem>? DistrictList { get; set; }
         public List<SelectListItem>? CityList { get; set; }
