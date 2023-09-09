@@ -86,6 +86,8 @@
     input[type=checkbox] {
         display: none;
     }
+
+    #verified{display:none}
 </style>
 
 @using (Html.BeginForm())
@@ -142,18 +144,21 @@
                     <div class="form-group">
 
                         @*    @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" }) *@
-                        <span id="mobilenoerror"></span>
+                       
                         <input type="hidden" id="getotp" value="" />
                         <div class="form-input">
 
-                            @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number",minlength = "10", maxlength = "10"  } })
+                            @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number",minlength = "10", maxlength = "10" ,@style="width:75%;display:inline" } })
                             @Html.CheckBoxFor(model => model.isMobileVerify, new { htmlAttributes = new { style = "display:none"} })
                             @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
-
+                            <span class="text-right text-primary" id="verifyModel">
+                                <button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static" onclick="VerifyMobileNo()">Verify Number</button>
+                            </span>
+                            <span class="text-right text-primary" id="verified">
+                                <img src="../images/verified.png" style="width:30px"><span style="color:#00d566;font-weight:600">verified</span>
+                            </span>
                         </div>
-                        <p class="text-right text-primary">
-                            <button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static" onclick="VerifyMobileNo()">Verify Number</button>
-                            </p>
+                        <span id="mobilenoerror"></span>
 
                     </div>
 
@@ -599,6 +604,8 @@
             document.getElementById("isMobileVerify").checked = true;
 
             $("#verifyNo").modal('hide');
+            $('#verifyModel').hide();
+            $('#verified').show();
         }
         
     }
