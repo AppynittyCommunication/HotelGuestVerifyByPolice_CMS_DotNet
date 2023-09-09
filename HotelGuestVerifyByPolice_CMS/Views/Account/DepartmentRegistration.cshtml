@@ -87,7 +87,18 @@
         display: none;
     }
 
-    #verified{display:none}
+    #verified {
+        display: none;
+        position: absolute;
+        top: 5px;
+        right: 0px;
+    }
+    #verifyModel{
+        position: absolute;
+        top: 5px;
+        right: 0px;
+    }
+    
 </style>
 
 @using (Html.BeginForm())
@@ -146,13 +157,13 @@
                         @*    @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" }) *@
                        
                         <input type="hidden" id="getotp" value="" />
-                        <div class="form-input">
+                        <div class="form-input" style="position:relative">
 
-                            @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number",minlength = "10", maxlength = "10" ,@style="width:75%;display:inline" } })
+                            @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number",minlength = "10", maxlength = "10"  } })
                             @Html.CheckBoxFor(model => model.isMobileVerify, new { htmlAttributes = new { style = "display:none"} })
                             @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
-                            <span class="text-right text-primary" id="verifyModel">
-                                <button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static" onclick="VerifyMobileNo()">Verify Number</button>
+                            <span class="text-right text-primary" id="verifyModel" onclick="VerifyMobileNo()">
+                                <button type="button" id="vefifyLink" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static" data-keyboard="false">Verify</button>
                             </span>
                             <span class="text-right text-primary" id="verified">
                                 <img src="../images/verified.png" style="width:30px"><span style="color:#00d566;font-weight:600">verified</span>
@@ -559,19 +570,24 @@
             $('#pslist').prop('disabled', false);
         };
     });
-
-    function VerifyMobileNo() { 
-        
+    $("#mobile").keypress(function () {
+        $('#vefifyLink').prop('disabled', false);
+    });
+    function VerifyMobileNo() {
+      
         debugger;
         if ($('#mobile').val() == null || $('#mobile').val() == "") {
+            $('#vefifyLink').prop('disabled', true);
             $('#mobilenoerror').text("Please Enter Mobile No.");
             let mobilenoerror = document.getElementById("mobilenoerror");
             mobilenoerror.style.color = 'red';
+           
         }
         else {
             let mobilenoerror = document.getElementById("mobilenoerror");
             mobilenoerror.style.display = 'none';
 
+          
             $.ajax({
                 type: "post",
                 url: "/Account/VerifyMoNo",
@@ -607,6 +623,8 @@
             $("#verifyNo").modal('hide');
             $('#verifyModel').hide();
             $('#verified').show();
+        } else {
+            alert('otp is wrong')
         }
         
     }
