@@ -344,11 +344,12 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         }
 
 
-        public async Task<IActionResult> CheckHotelUsername(string username)
+        public async Task<IActionResult> CheckHotelUsername(string username, string mobileno)
         {
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("username", username);
+            _httpClient.DefaultRequestHeaders.Add("mobileno", mobileno);
             HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/CheckHotelUsername", null);
 
             if (response.IsSuccessStatusCode)
