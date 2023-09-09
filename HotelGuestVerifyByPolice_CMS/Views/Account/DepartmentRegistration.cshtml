@@ -3,6 +3,7 @@
     ViewBag.Title = "Department Registration";
     Layout = "";
 }
+
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -86,6 +87,7 @@
         display: none;
     }
 </style>
+
 @using (Html.BeginForm())
 
 {
@@ -409,7 +411,8 @@
 
 </script> *@
 @* //Using Google Map *@
-<script>
+
+<script type="text/javascript" >
     debugger;
     var map;
     var marker;
@@ -417,7 +420,7 @@
 
     function initMap() {
         debugger;
-        // Set initial coordinates as the center and zoom level
+      @*   // Set initial coordinates as the center and zoom level *@
 
         // Check if the Geolocation API is available
         if ('geolocation' in navigator) {
@@ -469,7 +472,7 @@
         }
 
     }
-    // Define a custom control for switching between Map View and Satellite View
+   @*  // Define a custom control for switching between Map View and Satellite View *@
     function MapTypeControl(controlDiv, map) {
         controlDiv.style.padding = '10px';
 
@@ -526,6 +529,32 @@
 
 </script>
 <script>
+
+    $('#userList').on('change', function () {
+
+         if (this.value == '1') {
+           
+            $('#districtlist').prop('disabled', true);
+            $('#citylist').prop('disabled', true);
+            $('#pslist').prop('disabled', true);
+        };
+        if (this.value == '2') {
+            $('#districtlist').prop('disabled', false);
+            $('#citylist').prop('disabled', true);
+            $('#pslist').prop('disabled', true);
+        };
+        if (this.value == '3') {
+            $('#districtlist').prop('disabled', false);
+            $('#citylist').prop('disabled', false);
+            $('#pslist').prop('disabled', true);
+        };
+        if (this.value == '4') {
+            $('#districtlist').prop('disabled', false);
+            $('#citylist').prop('disabled', false);
+            $('#pslist').prop('disabled', false);
+        };
+    });
+
     function VerifyMobileNo() { 
         
         debugger;
@@ -577,7 +606,7 @@
     @*  var x = document.getElementById("hotelRegNo");
             x.value = x.value.toUpperCase(); *@
 
-            // For loading all Active States
+           @*  For loading all Active States *@
             $.ajax({
                 type: "post",
                 url: "/Account/CheckDepartUsername",
@@ -609,7 +638,7 @@
 
 
     $(document).ready(function () {
-
+      
 
         // For loading all Active DepartmentType
         $.ajax({
