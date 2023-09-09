@@ -575,7 +575,7 @@
     });
     function VerifyMobileNo() {
       
-        //debugger;
+        debugger;
         if ($('#mobile').val() == null || $('#mobile').val() == "") {
             $('#vefifyLink').prop('disabled', true);
             $('#mobilenoerror').text("Please Enter Mobile No.");
@@ -584,31 +584,39 @@
            
         }
         else {
-            let mobilenoerror = document.getElementById("mobilenoerror");
-            mobilenoerror.style.display = 'none';
 
-          
-            $.ajax({
-                type: "post",
-                url: "/Account/VerifyMoNo",
-                data: { mobileno: $('#mobile').val() },
-                datatype: "json",
-                traditional: true,
-                success: function (data) {
-                    json = JSON.parse(data);
-                    console.log(json.message);
-                    document.getElementById("getotp").value = json.otp;
+            var phoneno = /^\d{10}$/;
 
-                    let button = document.getElementById("sendotpres");
-                    button.style.display = "block";
-                    if (json.status == "success") { // if button color is red change it green otherwise change it to red.
-                        button.style.color = 'green';
-                    } else {
-                        button.style.color = 'red';
+            if ($('#mobile').val().match(phoneno)) {
+                let mobilenoerror = document.getElementById("mobilenoerror");
+                mobilenoerror.style.display = 'none';
+
+
+                $.ajax({
+                    type: "post",
+                    url: "/Account/VerifyMoNo",
+                    data: { mobileno: $('#mobile').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        json = JSON.parse(data);
+                        console.log(json.message);
+                        document.getElementById("getotp").value = json.otp;
+
+                        let button = document.getElementById("sendotpres");
+                        button.style.display = "block";
+                        if (json.status == "success") { // if button color is red change it green otherwise change it to red.
+                            button.style.color = 'green';
+                        } else {
+                            button.style.color = 'red';
+                        }
+                        $('#sendotpres').text(json.message);
                     }
-                    $('#sendotpres').text(json.message);
-                }
-            });
+                });
+            }
+            else {
+                alert('Invalid Mobile Number')
+            }
         }
     }
 
