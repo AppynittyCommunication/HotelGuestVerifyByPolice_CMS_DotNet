@@ -75,6 +75,19 @@
        
         top: 25%;
     }
+
+    #verified {
+        display: none;
+        position: absolute;
+        top: 5px;
+        right: 0px;
+    }
+
+    #verifyModel {
+        position: absolute;
+        top: 5px;
+        right: 0px;
+    }
 </style>
 @using (Html.BeginForm())
 
@@ -131,14 +144,20 @@
         <div class="form-group">
 
          @*    @Html.LabelFor(model => model.mobile, htmlAttributes: new { @class = "control-label col-md-2" }) *@
-            <div class="form-input">
+                        <div class="form-input" style="position:relative">
 
                             @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number",  @minlength = "10", @maxlength = "10"} })
 
                 @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
-
+                            <span class="text-right text-primary" id="verifyModel" onclick="VerifyMobileNo()">
+                                <button type="button" id="vefifyLink" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static" data-keyboard="false">Verify</button>
+                            </span>
+                            <span class="text-right text-primary" id="verified">
+                                <img src="../images/verified.png" style="width:30px"><span style="color:#00d566;font-weight:600">verified</span>
+                            </span>
             </div>
-                        <p class="text-right text-primary"><button type="button" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static">Verify Number</button></p>
+                        <span id="mobilenoerror"></span>
+                       
         </div>
 
         <div class="form-group">
@@ -348,7 +367,7 @@
             </div>
             <div class="modal-body" style="margin:auto">
                 <input type="number" placeholder="enter OTP">
-                <button class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary" onclick="CheckOTP()">Submit</button>
             </div>
 
         </div>
@@ -591,6 +610,44 @@
                     $('#hotelregexist').text(json.message);
             }
         });
+    }
+
+    $("#mobile").keypress(function () {
+        $('#vefifyLink').prop('disabled', false);
+        
+    });
+    function VerifyMobileNo() {
+
+        //debugger;
+        if ($('#mobile').val() == null || $('#mobile').val() == "") {
+            $('#vefifyLink').prop('disabled', true);
+            $('#mobilenoerror').text("Please Enter Mobile No.");
+            let mobilenoerror = document.getElementById("mobilenoerror");
+            mobilenoerror.style.color = 'red';
+
+        } else {
+            let mobilenoerror = document.getElementById("mobilenoerror");
+            mobilenoerror.style.display = 'none';
+        }
+    }
+
+    function CheckOTP() {
+        debugger;
+       @*  var otp1 = document.getElementById("getotp").value;
+        var otp2 = document.getElementById("enterotp").value; *@
+        $("#verifyNo").modal('hide');
+        $('#verifyModel').hide();
+        $('#verified').show();
+        @* if (otp1 == otp2) {
+            document.getElementById("isMobileVerify").checked = true;
+
+            $("#verifyNo").modal('hide');
+            $('#verifyModel').hide();
+            $('#verified').show();
+        } else {
+            alert('otp is wrong')
+        }
+ *@
     }
 </script>
 <script>
