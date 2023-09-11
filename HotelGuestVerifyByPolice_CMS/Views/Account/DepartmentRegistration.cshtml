@@ -711,7 +711,12 @@
 
 
     $(document).ready(function () {
-      
+        var mvs = $("#isMobileVerify:checked").val();
+        if ((mvs == "true")) {
+            $("#verifyNo").modal("hide");
+            $("#verifyModel").hide();
+            $("#verified").show();
+        }
 
         // For loading all Active DepartmentType
         $.ajax({
