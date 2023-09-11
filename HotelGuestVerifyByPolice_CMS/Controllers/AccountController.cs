@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Dynamic;
 using System.Drawing.Printing;
 using Microsoft.AspNetCore.Http;
+using System.Web;
 
 namespace HotelGuestVerifyByPolice_CMS.Controllers
 {
@@ -123,12 +124,15 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 //------------Get Ip Start---------------------
 
                 // Getting host name
-                string host = Dns.GetHostName();
+                //string host = Dns.GetHostName();
 
                 //// Getting ip address using host name
-                IPHostEntry ip = Dns.GetHostEntry(host);
-                string hname = ip.HostName.ToString();
-                string ipAdd = (ip.AddressList[3].ToString());
+                //IPHostEntry ip = Dns.GetHostEntry(host);
+                //string hname = ip.HostName.ToString();
+                //string ipAdd = (ip.AddressList[3].ToString());
+
+                string userIpAddress = _contx.HttpContext.Connection.RemoteIpAddress.ToString();
+                string ipAdd = HttpContext.Connection.RemoteIpAddress.ToString();
                 //------------Get Ip End---------------------
                 HotelRegBody hotelRegBody = new();
 
@@ -381,14 +385,16 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             {
                 List<HotelRegResult> objResult = new();
                 //------------Get Ip Start---------------------
-
                 // Getting host name
-                string host = Dns.GetHostName();
+                //string host = Dns.GetHostName();
 
                 //// Getting ip address using host name
-                IPHostEntry ip = Dns.GetHostEntry(host);
-                string hname = ip.HostName.ToString();
-                string ipAdd = (ip.AddressList[3].ToString());
+                //IPHostEntry ip = Dns.GetHostEntry(host);
+                //string hname = ip.HostName.ToString();
+                //string ipAdd = (ip.AddressList[3].ToString());
+
+                string userIpAddress = _contx.HttpContext.Connection.RemoteIpAddress.ToString();
+                string ipAdd = HttpContext.Connection.RemoteIpAddress.ToString();
                 //------------Get Ip End---------------------
                 DepartmentRegBody deptRegBody = new();
 
