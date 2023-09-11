@@ -1,3 +1,30 @@
 ﻿
 
-<h1>@ViewBag.msg</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<style>
+
+
+    body {
+        background-image: linear-gradient( 45deg, hsl(264deg 73% 38%) 0%, hsl(259deg 68% 39%) 16%, hsl(253deg 64% 40%) 32%, hsl(247deg 61% 41%) 49%, hsl(241deg 58% 42%) 66%, hsl(234deg 65% 40%) 83%, hsl(228deg 78% 36%) 100% ) !important;
+    }
+
+    .login_form {
+        background: #fff;
+        width: 45%;
+        border-radius: 20px;
+        padding: 50px;
+        padding-right: 85px;
+        padding-bottom: 25px
+    }
+</style>
+
+
+
+<div class="container my-5 py-5">
+    <div class="login_form" style="margin:auto">
+        <h4 class="text-center">@ViewBag.msg</h4>
+
+
+        <div class="text-center mt-5"><button class="btn btn-primary"><a href="../Account/Hotellogin" style="color:#fff;">Ok</a></button></div>
+    </div>
+</div>

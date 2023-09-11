@@ -128,7 +128,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 //// Getting ip address using host name
                 IPHostEntry ip = Dns.GetHostEntry(host);
                 string hname = ip.HostName.ToString();
-                string ipAdd = (ip.AddressList[3].ToString());
+                string ipAdd = (ip.AddressList[1].ToString());
                 //------------Get Ip End---------------------
                 HotelRegBody hotelRegBody = new();
 
@@ -439,6 +439,11 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
 
             //return View();
+        }
+        public ActionResult DepartmentRegistrationSuccess(string msg)
+        {
+            ViewBag.msg = msg;
+            return View();
         }
     }
 }
