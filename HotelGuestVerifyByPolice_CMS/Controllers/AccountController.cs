@@ -128,7 +128,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 //// Getting ip address using host name
                 IPHostEntry ip = Dns.GetHostEntry(host);
                 string hname = ip.HostName.ToString();
-                string ipAdd = (ip.AddressList[1].ToString());
+                string ipAdd = (ip.AddressList[3].ToString());
                 //------------Get Ip End---------------------
                 HotelRegBody hotelRegBody = new();
 
@@ -404,14 +404,9 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 deptRegBody.stationCode = model.stationCode;
                 deptRegBody.password = model.password;
                 deptRegBody.isMobileVerify = model.isMobileVerify;
-                if (model.diviceIp == null)
-                {
-                    deptRegBody.diviceIp = ipAdd;
-                }
-                else
-                {
-                    deptRegBody.diviceIp = model.diviceIp;
-                }
+                deptRegBody.diviceIp = ipAdd;
+                
+                
 
 
 
