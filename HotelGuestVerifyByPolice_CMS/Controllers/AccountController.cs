@@ -147,6 +147,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 hotelRegBody.distId = model.distId;
                 hotelRegBody.cityId = model.cityId;
                 hotelRegBody.stationCode = model.stationCode;
+                hotelRegBody.isMobileVerify = model.isMobileVerify;
                 hotelRegBody.diviceIp = ipAdd;
                 
                 
