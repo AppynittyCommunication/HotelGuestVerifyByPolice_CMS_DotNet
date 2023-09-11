@@ -33,7 +33,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Logout()
+        public ActionResult HotelLogout()
         {
             _contx.HttpContext.Session.SetString("hotelRegNo", "");
             _contx.HttpContext.Session.SetString("hotelName", "");
