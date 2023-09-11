@@ -147,15 +147,9 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 hotelRegBody.distId = model.distId;
                 hotelRegBody.cityId = model.cityId;
                 hotelRegBody.stationCode = model.stationCode;
-                if (model.diviceIp == null)
-                {
-                    hotelRegBody.diviceIp = ipAdd;
-                }
-                else
-                {
-                    hotelRegBody.diviceIp = model.diviceIp;
-                }
-
+                hotelRegBody.diviceIp = ipAdd;
+                
+                
 
 
 
@@ -407,6 +401,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 deptRegBody.distId = model.distId;
                 deptRegBody.cityId = model.cityId;
                 deptRegBody.stationCode = model.stationCode;
+                deptRegBody.password = model.password;
+                deptRegBody.isMobileVerify = model.isMobileVerify;
                 if (model.diviceIp == null)
                 {
                     deptRegBody.diviceIp = ipAdd;

@@ -162,6 +162,7 @@
                             @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control",placeholder = "Mobile Number",minlength = "10", maxlength = "10"  } })
                             @Html.CheckBoxFor(model => model.isMobileVerify, new { htmlAttributes = new { style = "display:none"} })
                             @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.isMobileVerify, "", new { @class = "text-danger" })
                             <span class="text-right text-primary" id="verifyModel" onclick="VerifyMobileNo()">
                                 <button type="button" id="vefifyLink" style="border:none;background:transparent" data-toggle="modal" data-target="#verifyNo" data-backdrop="static" data-keyboard="false">Verify</button>
                             </span>
@@ -264,6 +265,36 @@
                             </select>
                             @Html.ValidationMessageFor(model => model.stationCode, "", new { @class = "text-danger" })
                         </div>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+
+                    <div class="form-group">
+
+                        <div class="form-input" style="position:relative">
+
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control",placeholder = "Enter Password"} })
+
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                          
+                        </div>
+                       
+
+                    </div>
+
+                    <div class="form-group">
+
+                        @*   @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+
+                        <div class="form-input">
+
+                            @Html.EditorFor(model => model.cPassword, new { htmlAttributes = new { @class = "form-control",placeholder = "Enter Confirm Password" } })
+
+                            @Html.ValidationMessageFor(model => model.cPassword, "", new { @class = "text-danger" })
+
+                        </div>
+
                     </div>
                 </div>
                @*  <div class="d-flex">
@@ -637,10 +668,9 @@
         
     }
     function CheckDepartUsernameIsExist() {
-    @*  var x = document.getElementById("hotelRegNo");
-            x.value = x.value.toUpperCase(); *@
-
-           @*  For loading all Active States *@
+        debugger;
+        var duserid = $('#userId').val();
+        if (duserid.length > 1) {
             $.ajax({
                 type: "post",
                 url: "/Account/CheckDepartUsername",
@@ -664,6 +694,9 @@
                     $('#departusernameexist').text(json.message);
                 }
             });
+       }
+         
+           
     }
 
 

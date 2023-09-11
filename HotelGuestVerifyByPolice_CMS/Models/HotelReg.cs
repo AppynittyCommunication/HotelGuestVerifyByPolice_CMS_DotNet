@@ -39,11 +39,13 @@ namespace HotelGuestVerifyByPolice_CMS.Models
         public double? lat { get; set; }
         [Required(ErrorMessage = "Please Set Your Hotel Location Using Map.")]
         public double? _long { get; set; }
-        public string? diviceIp { get; set; }
-
-        public List<SelectListItem> StateList { get; set; }
-        public List<SelectListItem> DistrictList { get; set; }
-        public List<SelectListItem> CityList { get; set; }
-        public List<SelectListItem> PSList { get; set; }
+       // public string? diviceIp { get; set; }
+        [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Please Verify Your Mobile Number.")]
+        public bool isMobileVerify { get; set; }
+        public List<SelectListItem>? StateList { get; set; }
+        public List<SelectListItem>? DistrictList { get; set; }
+        public List<SelectListItem>? CityList { get; set; }
+        public List<SelectListItem>? PSList { get; set; }
     }
 }

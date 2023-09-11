@@ -14,5 +14,7 @@
         public double? lat { get; set; }
         public double? _long { get; set; }
         public string? diviceIp { get; set; }
+        public string? password { get; set; }
+        public bool? isMobileVerify { get; set; }
     }
 }

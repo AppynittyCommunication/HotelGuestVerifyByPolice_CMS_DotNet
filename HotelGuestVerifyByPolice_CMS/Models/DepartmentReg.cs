@@ -9,7 +9,12 @@ namespace HotelGuestVerifyByPolice_CMS.Models
         [Required(ErrorMessage = "Username is required.")]
         public string? userId { get; set; }
         [Required(ErrorMessage = "Password is required.")]
+        [DataType(DataType.Password)]
         public string? password { get; set; }
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string? cPassword { get; set; }
 
         [Required(ErrorMessage = "Mobile Number is required.")]
         [RegularExpression("^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
@@ -34,6 +39,7 @@ namespace HotelGuestVerifyByPolice_CMS.Models
         public double? _long { get; set; }
         public string? diviceIp { get; set; }
         [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Please Verify Your Mobile Number.")]
         public bool isMobileVerify { get; set; }
         public List<SelectListItem>? StateList { get; set; }
         public List<SelectListItem>? DistrictList { get; set; }
