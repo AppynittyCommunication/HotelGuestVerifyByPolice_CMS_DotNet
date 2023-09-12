@@ -16,5 +16,6 @@
         public string? diviceIp { get; set; }
         public string? password { get; set; }
         public bool? isMobileVerify { get; set; }
+        public string? policeName { get; set; }
     }
 }

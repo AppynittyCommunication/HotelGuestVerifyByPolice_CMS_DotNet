@@ -37,6 +37,11 @@ namespace HotelGuestVerifyByPolice_CMS.Models
         public double? lat { get; set; }
         [Required(ErrorMessage = "Please Set Your Hotel Location Using Map.")]
         public double? _long { get; set; }
+
+        [Required(ErrorMessage = "First Name Required")]
+        public string? firstName { get; set; }
+        [Required(ErrorMessage = "Last Name Required.")]
+        public string? lastName { get; set; }
         public string? diviceIp { get; set; }
         [Required]
         [Range(typeof(bool), "true", "true", ErrorMessage = "Please Verify Your Mobile Number.")]
