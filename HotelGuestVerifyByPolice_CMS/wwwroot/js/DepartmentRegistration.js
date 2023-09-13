@@ -258,7 +258,7 @@
             $('#psIdError').text("Please Select Police Station");
             return false
         };
-        });
+    });
 
     $('#userType').on('change', function () {
 
