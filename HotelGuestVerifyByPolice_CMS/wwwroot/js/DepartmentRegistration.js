@@ -238,29 +238,29 @@
 
 
     $("form").submit(function () {
-        if ($('#userList').val() == 1) {
+        if ($('#userType').val() == 1) {
 
            
             return true
         };
-        if ($('#userList').val() == 2 && $('#districtlist').val() == "-1" || $('#districtlist').val() == "") {
+        if ($('#userType').val() == 2 && $('#districtlist').val() == "-1" || $('#districtlist').val() == "") {
            
             $('#distIdError').text("Please Select District");
             return false
         };
-        if ($('#userList').val() == 3 && $('#citylist').val() == "-1" || $('#citylist').val() == "") {
+        if ($('#userType').val() == 3 && $('#citylist').val() == "-1" || $('#citylist').val() == "") {
 
             $('#cityIdError').text("Please Select City");
             return false
         };
-        if ($('#userList').val() == 4 && $('#pslist').val() == "-1" || $('#pslist').val() == "") {
+        if ($('#userType').val() == 4 && $('#pslist').val() == "-1" || $('#pslist').val() == "") {
 
             $('#psIdError').text("Please Select Police Station");
             return false
         };
         });
 
-    $('#userList').on('change', function () {
+    $('#userType').on('change', function () {
 
          if (this.value == '1') {
            
