@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Hotel Login";
+﻿@model HotelGuestVerifyByPolice_CMS.Models.DepartLogin
+@{
+    ViewBag.Title = "Department Login";
     Layout = "";
 }
 
@@ -60,12 +61,22 @@
         <h2 style="color:#fff;margin-bottom:20px;font-weight:600;text-align:end">
             Department Login
         </h2>
+            @using (Html.BeginForm())
+
+{
+
+    @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="login_form">
             <div>
-                <input class="form-control" placeholder="USERNAME" />
+                @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "USERNAME"} })
+
+                @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
             </div>
             <div>
-                <input class="form-control" placeholder="PASSWORD" style="margin-bottom:25px" type="password"/>
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" ,placeholder = "PASSWORD"} })
+
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                 <p class="text-end">Forget Password?</p>
             </div>
 
@@ -75,7 +86,7 @@
         <div class="login_img">
             <img src="/images/policestation.png" style="width:500px" />
         </div>
-
+}
 
         <div class="text-right" style="margin-top:30px;margin-right:1%">
             <button class="btn btn-primary" style="font-weight:700;background:#9e66ff;border-color:#9e66ff;padding:5px 40px;font-size:16px;border-radius:5px">

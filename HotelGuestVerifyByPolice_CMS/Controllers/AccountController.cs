@@ -5,10 +5,11 @@ using System.Net.Http;
 using System.Net;
 using HotelGuestVerifyByPolice_CMS.Models.APIModels;
 using Newtonsoft.Json;
-using System.Dynamic;
-using System.Drawing.Printing;
-using Microsoft.AspNetCore.Http;
-using System.Web;
+//using System.Dynamic;
+//using System.Drawing.Printing;
+//using Microsoft.AspNetCore.Http;
+//using System.Web;
+//using AspNetCore;
 
 namespace HotelGuestVerifyByPolice_CMS.Controllers
 {
@@ -229,7 +230,61 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                         return RedirectToAction("Index", "HotelHome", new { area = "HotelDashboard" });
                     }
                     //TempData["message"] = message;
-                    return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
+                    //return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DepartmentLogin(DepartLogin model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                DepartLoginBody departLoginBody = new();
+                departLoginBody.dUsername = model.userName;
+                departLoginBody.dPassword = model.password;
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/DeptLogin", departLoginBody);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    var code = (int)response.StatusCode;
+                    var status = dynamicobject.status.ToString();
+                    var otp = dynamicobject.otp;
+                    var message = dynamicobject.message.ToString();
+                    var data = dynamicobject.data;
+
+                    string hotelregno = data[0].policeId.ToString();
+                    string hotelname = data[0].userId.ToString();
+
+
+                    if (status == "success" && otp == true)
+                    {
+                        _contx.HttpContext.Session.SetString("dusername", model.userName);
+                        _contx.HttpContext.Session.SetString("dotp", model.password);
+
+                        return RedirectToAction("SetDepartPassUsingOTP", "Account");
+                    }
+                    else if (status == "success" && otp != true)
+                    {
+                        _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
+                        _contx.HttpContext.Session.SetString("hotelName", hotelname);
+                        return RedirectToAction("Index", "DepartmentHome", new { area = "Department" });
+                    }
+                 
                 }
                 else
                 {
@@ -245,6 +300,10 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         }
 
         public ActionResult SetHotelPassUsingOTP()
+        {
+            return View();
+        }
+        public ActionResult SetDepartPassUsingOTP()
         {
             return View();
         }
@@ -342,7 +401,50 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> SetDepartPassUsingOTP(SetDepartPassUsingOTP model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                SetHotelPassUsingOTPBody tn = new();
 
+                tn.hUsername = _contx.HttpContext.Session.GetString("dusername");
+                tn.otp = _contx.HttpContext.Session.GetString("dotp");
+                tn.pass = model.pass;
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/ResetHotelPasswordUsingOTP", tn);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    var code = (int)response.StatusCode;
+                    var status = dynamicobject.status.ToString();
+                    var message = dynamicobject.message.ToString();
+
+                    if (status == "success")
+                    {
+                        ViewBag.msg = message;
+                    }
+                    else if (status == "error")
+                    {
+                        ViewBag.msg = message;
+                    }
+
+                }
+                else
+                {
+                    return View(model);
+                }
+                return View();
+            }
+        }
         public async Task<IActionResult> CheckHotelUsername(string username, string mobileno)
         {
 
