@@ -410,6 +410,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 deptRegBody.stationCode = model.stationCode;
                 deptRegBody.password = model.password;
                 deptRegBody.isMobileVerify = model.isMobileVerify;
+                deptRegBody.policeName = model.firstName + " " + model.lastName;
                 deptRegBody.diviceIp = ipAdd;
                 
                 
