@@ -20,7 +20,7 @@
                 userList = userList + '<option value=' + data[i].departmentTypeID + '>' + data[i].departmentTypeName + '</option>';
             }
 
-            $('#userList').html(userList);
+            $('#userType').html(userList);
         }
     });
 
@@ -237,29 +237,70 @@
     }
 
 
-    $("form").submit(function () {
-        if ($('#userType').val() == 1) {
+    //$("form").submit(function () {
+    //    if ($('#userType').val() == 1) {
 
+           
+    //        return true
+    //    };
+    //    if ($('#userType').val() == 2 && $('#districtlist').val() == "-1" || $('#districtlist').val() == "") {
+           
+    //        $('#distIdError').text("Please Select District");
+    //        return false
+    //    };
+    //    if ($('#userType').val() == 3 && $('#citylist').val() == "-1" || $('#citylist').val() == "") {
+
+    //        $('#cityIdError').text("Please Select City");
+    //        return false
+    //    };
+    //    if ($('#userType').val() == 4 && $('#pslist').val() == "-1" || $('#pslist').val() == "") {
+
+    //        $('#psIdError').text("Please Select Police Station");
+    //        return false
+    //    };
+    //});
+$("form").submit(function () {
+    debugger;
+    $('#distIdError').text("");
+    $('#cityIdError').text("");
+    $('#psIdError').text("");
+        var vUserType = $('#userType').val()
+        if (vUserType == "1") {
+            return true
+        }
+        else if (vUserType == "2") {
+            if ($('#districtlist').val() == "-1" || $('#districtlist').val() == "") {
+                $('#distIdError').text("Please Select District");
+                return false
+            }
+            return true
+        }
+        else if (vUserType == "3") {
+            if ($('#districtlist').val() == "-1" || $('#districtlist').val() == "") {
+                $('#distIdError').text("Please Select District");
+                if ($('#citylist').val() == "-1" || $('#citylist').val() == "") {
+                    $('#cityIdError').text("Please Select City");
+                }
+                return false
+            }
            
             return true
-        };
-        if ($('#userType').val() == 2 && $('#districtlist').val() == "-1" || $('#districtlist').val() == "") {
-           
-            $('#distIdError').text("Please Select District");
-            return false
-        };
-        if ($('#userType').val() == 3 && $('#citylist').val() == "-1" || $('#citylist').val() == "") {
-
-            $('#cityIdError').text("Please Select City");
-            return false
-        };
-        if ($('#userType').val() == 4 && $('#pslist').val() == "-1" || $('#pslist').val() == "") {
-
-            $('#psIdError').text("Please Select Police Station");
-            return false
-        };
+        }
+        else if (vUserType == "4") {
+            if ($('#districtlist').val() == "-1" || $('#districtlist').val() == "") {
+                $('#distIdError').text("Please Select District");
+                if ($('#citylist').val() == "-1" || $('#citylist').val() == "") {
+                    $('#cityIdError').text("Please Select City");
+                    if ($('#pslist').val() == "-1" || $('#pslist').val() == "") {
+                        $('#psIdError').text("Please Select Police Station");
+                    }
+                }
+                return false
+            }
+            
+            return true
+        }
     });
-
     $('#userType').on('change', function () {
 
          if (this.value == '1') {
