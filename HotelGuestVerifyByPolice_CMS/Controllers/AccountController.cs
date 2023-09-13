@@ -408,7 +408,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 deptRegBody.distId = model.distId;
                 deptRegBody.cityId = model.cityId;
                 deptRegBody.stationCode = model.stationCode;
-                deptRegBody.password = model.password;
+                //deptRegBody.password = model.password;
                 deptRegBody.isMobileVerify = model.isMobileVerify;
                 deptRegBody.policeName = model.firstName + " " + model.lastName;
                 deptRegBody.diviceIp = ipAdd;
