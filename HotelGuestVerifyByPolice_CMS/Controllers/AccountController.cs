@@ -41,6 +41,13 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             _contx.HttpContext.Session.SetString("hotelName", "");
             return Redirect("/Account/HotelLogin");
         }
+        [HttpPost]
+        public ActionResult DepartLogout()
+        {
+           
+            _contx.HttpContext.Session.SetString("departUser", "");
+            return Redirect("/Account/DepartmentLogin");
+        }
         public ActionResult HotelRegistration()
         {
             return View();
@@ -268,7 +275,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     var data = dynamicobject.data;
 
                     string hotelregno = data[0].policeId.ToString();
-                    string hotelname = data[0].userId.ToString();
+                    string departuser = data[0].userId.ToString();
 
 
                     if (status == "success" && otp == true)
@@ -280,8 +287,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     }
                     else if (status == "success" && otp != true)
                     {
-                        _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
-                        _contx.HttpContext.Session.SetString("hotelName", hotelname);
+                       // _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
+                        _contx.HttpContext.Session.SetString("departUser", departuser);
                         return RedirectToAction("Index", "DepartmentHome", new { area = "Department" });
                     }
                  
@@ -410,14 +417,14 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             }
             else
             {
-                SetHotelPassUsingOTPBody tn = new();
+                SetDepartPassUsingOTPBody tn = new();
 
-                tn.hUsername = _contx.HttpContext.Session.GetString("dusername");
+                tn.dUsername = _contx.HttpContext.Session.GetString("dusername");
                 tn.otp = _contx.HttpContext.Session.GetString("dotp");
                 tn.pass = model.pass;
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/ResetHotelPasswordUsingOTP", tn);
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/ResetDeptPasswordUsingOTP", tn);
 
                 if (response.IsSuccessStatusCode)
                 {

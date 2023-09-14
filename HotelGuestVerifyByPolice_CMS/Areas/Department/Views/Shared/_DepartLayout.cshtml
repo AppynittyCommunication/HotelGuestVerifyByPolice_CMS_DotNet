@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/Areas/HotelDashboard/Content/css/Layout_CSS.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @*   <link href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> *@
+    @*     <link href="@Url.Content("~/Areas/HotelDashboard/Content/css/Layout_CSS.css")" rel="stylesheet" type="text/css" /> *@
+    <title>@ViewBag.Title</title>
+
+</head>
+
+<body>
+    <div>
+
+        <div id="wrapper">
+
+            <aside id="sidebar-wrapper">
+                <div class="sidebar-brand">
+                    <h2 style="color:#000">Logo</h2>
+
+                    <h4>Roshal</h4>
+                    <h6>Owner</h6>
+                    <hr />
+                </div>
+                <ul class="sidebar-nav">
+                    <li class="active">
+                        <a href="#"><i class="fa fa-home"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-solid fa-person-walking-luggage"></i>Guest Details</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-file-text"></i>Report</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <div id="navbar-wrapper" class="nav-bg">
+                <nav class="navbar navbar-inverse nav-bg">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <div style="float:right;padding-top:8px;padding-right:40px">
+                            <span style="color:#fff;font-size:16px;margin-right:35px;" id="hsessionusername">
+                                @if (ViewBag.departuser != null)
+                                {
+                                    @ViewBag.departuser
+                                }
+                                else
+                                {
+
+                                }
+                            </span>
+
+                            <span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span>
+                        </div>
+                    </div>
+
+
+                </nav>
+            </div>
+
+            <section id="content-wrapper">
+
+
+                @RenderBody()
+            </section>
+
+        </div>
+
+    </div>
+    <script>
+        const $button = document.querySelector('#sidebar-toggle');
+        const $wrapper = document.querySelector('#wrapper');
+
+        $button.addEventListener('click', (e) => {
+            e.preventDefault();
+            $wrapper.classList.toggle('toggled');
+        });
+
+
+
+        function logout() {
+            debugger;
+
+            $.ajax({
+                type: "post",
+                url: "/Account/DepartLogout",
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    console.log(data);
+                    window.location.href = '../Account/DepartmentLogin';
+
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript" language="javascript">
+        function DisableBackButton() {
+            window.history.forward()
+        }
+        DisableBackButton();
+        window.onload = DisableBackButton;
+        window.onpageshow = function (evt) { if (evt.persisted) DisableBackButton() }
+        window.onunload = function () { void (0) }
+    </script>
+</body>
+</html>
