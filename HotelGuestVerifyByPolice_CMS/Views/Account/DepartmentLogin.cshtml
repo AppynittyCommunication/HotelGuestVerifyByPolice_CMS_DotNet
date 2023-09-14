@@ -37,7 +37,7 @@
         border-radius: 0px !important;
         /*  color: #9979f6 !important; */
         margin-right: 5% !important;
-        margin-bottom: 35px;
+        margin-bottom: 20px;
     }
 
         .form-control:focus {
@@ -68,6 +68,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="login_form">
+               
             <div>
                 @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "USERNAME"} })
 
@@ -77,10 +78,12 @@
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" ,placeholder = "PASSWORD"} })
 
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                   
                     <p class="text-end"><a href="/Account/DepartForgetPassword">Forget Password ?</a></p>
+                    <p style="color:red"> @ViewBag.msg</p>
             </div>
-
-            <div class="text-center" style="margin-top:30px"><button class="btn btn-primary" style="font-weight:700;background:#0b38ad;border-color:#0b38ad;padding:5px 30px;font-size:16px;border-radius:5px;">LOGIN</button></div>
+              
+            <div class="text-center" style="margin-top:15px"><button class="btn btn-primary" style="font-weight:700;background:#0b38ad;border-color:#0b38ad;padding:5px 30px;font-size:16px;border-radius:5px;">LOGIN</button></div>
 
         </div>
         <div class="login_img">

@@ -243,6 +243,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     }
                     else
                     {
+                        ViewBag.msg = message;
                         return View();
                     }
                 }
@@ -303,6 +304,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     }
                     else
                     {
+                        ViewBag.msg = message;
                         return View();
                     }
                  
