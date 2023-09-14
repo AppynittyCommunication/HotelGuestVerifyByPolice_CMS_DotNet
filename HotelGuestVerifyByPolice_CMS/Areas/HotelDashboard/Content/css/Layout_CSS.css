@@ -3,7 +3,24 @@
     position: relative;
     min-height: 100%;
 }
+@font-face {
+    font-family: Lexend;
+    src: url('/wwwroot/Fonts/Lexend-VariableFont_wght.ttf');
+}
 
+body {
+    font-family: Lexend !important;
+    margin-bottom: 60px;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, input, label, select {
+    font-family: Lexend !important;
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+
+    font-family: Lexend !important;
+}
 a {
     transition: background 0.2s, color 0.2s;
 }
