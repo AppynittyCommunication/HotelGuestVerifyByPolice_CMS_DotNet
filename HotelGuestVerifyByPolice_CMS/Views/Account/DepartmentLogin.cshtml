@@ -61,12 +61,12 @@
         <h2 style="color:#fff;margin-bottom:20px;font-weight:600;text-align:end">
             Department Login
         </h2>
-            @using (Html.BeginForm())
+@using (Html.BeginForm())
 
 {
 
     @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="login_form">
             <div>
                 @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "USERNAME"} })
@@ -99,9 +99,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 @section Scripts {
 
