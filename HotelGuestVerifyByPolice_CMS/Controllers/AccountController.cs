@@ -219,25 +219,32 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     var message = dynamicobject.message.ToString();
                     var data = dynamicobject.data;
 
-                    string hotelregno = data[0].hotelRegNo.ToString();
-                    string hotelname = data[0].hotelName.ToString();
-
-                   
-                    if (status == "success" && otp == true)
+                    if(status == "success")
                     {
-                        _contx.HttpContext.Session.SetString("husername", model.UserName);
-                        _contx.HttpContext.Session.SetString("otp", model.Password);
+                        string hotelregno = data[0].hotelRegNo.ToString();
+                        string hotelname = data[0].hotelName.ToString();
 
-                        return RedirectToAction("SetHotelPassUsingOTP", "Account");
+
+                        if (status == "success" && otp == true)
+                        {
+                            _contx.HttpContext.Session.SetString("husername", model.UserName);
+                            _contx.HttpContext.Session.SetString("otp", model.Password);
+
+                            return RedirectToAction("SetHotelPassUsingOTP", "Account");
+                        }
+                        else if (status == "success" && otp != true)
+                        {
+                            _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
+                            _contx.HttpContext.Session.SetString("hotelName", hotelname);
+                            return RedirectToAction("Index", "HotelHome", new { area = "HotelDashboard" });
+                        }
+                        //TempData["message"] = message;
+                        //return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
                     }
-                    else if(status == "success" && otp != true)
+                    else
                     {
-                        _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
-                        _contx.HttpContext.Session.SetString("hotelName", hotelname);
-                        return RedirectToAction("Index", "HotelHome", new { area = "HotelDashboard" });
+                        return View();
                     }
-                    //TempData["message"] = message;
-                    //return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
                 }
                 else
                 {
@@ -274,22 +281,29 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     var message = dynamicobject.message.ToString();
                     var data = dynamicobject.data;
 
-                    string hotelregno = data[0].policeId.ToString();
-                    string departuser = data[0].userId.ToString();
-
-
-                    if (status == "success" && otp == true)
+                    if(status == "success")
                     {
-                        _contx.HttpContext.Session.SetString("dusername", model.userName);
-                        _contx.HttpContext.Session.SetString("dotp", model.password);
+                        string hotelregno = data[0].policeId.ToString();
+                        string departuser = data[0].userId.ToString();
 
-                        return RedirectToAction("SetDepartPassUsingOTP", "Account");
+
+                        if (status == "success" && otp == true)
+                        {
+                            _contx.HttpContext.Session.SetString("dusername", model.userName);
+                            _contx.HttpContext.Session.SetString("dotp", model.password);
+
+                            return RedirectToAction("SetDepartPassUsingOTP", "Account");
+                        }
+                        else if (status == "success" && otp != true)
+                        {
+                            // _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
+                            _contx.HttpContext.Session.SetString("departUser", departuser);
+                            return RedirectToAction("Index", "DepartmentHome", new { area = "Department" });
+                        }
                     }
-                    else if (status == "success" && otp != true)
+                    else
                     {
-                       // _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
-                        _contx.HttpContext.Session.SetString("departUser", departuser);
-                        return RedirectToAction("Index", "DepartmentHome", new { area = "Department" });
+                        return View();
                     }
                  
                 }
@@ -336,6 +350,55 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/ForgetHotelPassword", FHPB);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    var code = (int)response.StatusCode;
+                    var status = dynamicobject.status.ToString();
+                    var message = dynamicobject.message.ToString();
+
+                    if (status == "success")
+                    {
+                        ViewBag.msg = message;
+                    }
+                    else if (status == "error")
+                    {
+                        ViewBag.msg = message;
+                    }
+
+                }
+                else
+                {
+                    return View(model);
+                }
+                return View();
+            }
+        }
+        public ActionResult DepartForgetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DepartForgetPassword(ForgetDepartPass model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                ForgetDepartPassBody FHPB = new();
+
+                FHPB.otpstatus = model.otpstatus;
+                FHPB.dUserId = model.username;
+                FHPB.dPassword = model.pass;
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/ForgetDeptPassword", FHPB);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -477,7 +540,31 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             }
 
         }
+        public async Task<IActionResult> CheckDepartUsernameForOTP(string username, string mobileno)
+        {
 
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("username", username);
+            _httpClient.DefaultRequestHeaders.Add("mobileno", mobileno);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/CheckDeptUsername", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                var otp = dynamicobject.otp.ToString();
+                ViewBag.userid = username;
+                //TempData.Keep("userid");
+                ViewBag.otp = otp;
+
+                return Json(responseString);
+            }
+            else
+            {
+                return Json("");
+            }
+
+        }
         public ActionResult DepartmentRegistration()
         {
             return View();
