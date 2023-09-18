@@ -5,8 +5,9 @@
 
 <video id="video" width="640" height="480" autoplay></video>
 <button id="capture">Capture</button>
+<div id="image-placeholder"></div>
 
-@section scripts{
+
 
     <script>
         var video = document.getElementById('video');
@@ -22,12 +23,28 @@
 
         document.getElementById('capture').addEventListener('click', function () {
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // add time stamp
+            const timeNow = new Date()
+            context.fillStyle = '#000'
+            context.fontSize = '10px'
+            context.fillText(timeNow, 0, canvas.height - 5)
+
             var image = canvas.toDataURL();
-            uploadImage(image);
+            //uploadImage(image);
+
+        // image placeholder where the image will be displayed
+        var imagePlaceholder = document.getElementById('image-placeholder');
+
+        // display the image in placeholder
+        displayBase64Image(imagePlaceholder, image);
         });
 
-        function uploadImage(image) {
-            console.log(image)
+    function displayBase64Image(placeholder, base64Image) {
+        var image = document.createElement('img');
+        image.onload = function () {
+            placeholder.innerHTML = '';
+            placeholder.appendChild(this);
         }
+        image.src = base64Image;
+    }
     </script>
-}
