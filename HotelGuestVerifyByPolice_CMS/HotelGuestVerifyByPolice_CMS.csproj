@@ -42,4 +42,12 @@
     <None Include="wwwroot\images\HOTEL PROJECT %281%29.pdf" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\HotelDashboard\Views\HotelHome\ImageCapture.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\HotelDashboard\Views\HotelHome\ImageCapture.cshtml" />
+  </ItemGroup>
+
 </Project>

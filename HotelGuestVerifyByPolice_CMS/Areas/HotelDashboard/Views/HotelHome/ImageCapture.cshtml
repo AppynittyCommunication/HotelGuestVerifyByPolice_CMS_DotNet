@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+<video id="video" width="640" height="480" autoplay></video>
+<button id="capture">Capture</button>
+<div id="image-placeholder"></div>
+
+
+
+    <script>
+        var video = document.getElementById('video');
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+            video.srcObject = stream;
+            video.play();
+        }).catch(function (err) {
+            console.log(err);
+        });
+
+        document.getElementById('capture').addEventListener('click', function () {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // add time stamp
+            const timeNow = new Date()
+            context.fillStyle = '#000'
+            context.fontSize = '10px'
+            context.fillText(timeNow, 0, canvas.height - 5)
+
+            var image = canvas.toDataURL();
+            //uploadImage(image);
+
+        // image placeholder where the image will be displayed
+        var imagePlaceholder = document.getElementById('image-placeholder');
+
+        // display the image in placeholder
+        displayBase64Image(imagePlaceholder, image);
+        });
+
+    function displayBase64Image(placeholder, base64Image) {
+        var image = document.createElement('img');
+        image.onload = function () {
+            placeholder.innerHTML = '';
+            placeholder.appendChild(this);
+        }
+        image.src = base64Image;
+    }
+    </script>

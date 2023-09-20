@@ -46,10 +46,14 @@ app.UseEndpoints(endpoints =>
        areaName: "Department",
        pattern: "Department/{controller=Home}/{action=Index}"
    );
-
+    endpoints.MapAreaControllerRoute(
+      name: "HotelDashboard",
+      areaName: "HotelDashboard",
+      pattern: "HotelDashboard/{controller=HotelHome}/{action=Index}"
+  );
     endpoints.MapControllerRoute(
         name: "areaRoute",
-        pattern: "{area:exists}/{controller}/{action=Index}"
+        pattern: "{area:exists}/{controller}/{action}"
     );
     endpoints.MapControllerRoute(
         name: "default",
