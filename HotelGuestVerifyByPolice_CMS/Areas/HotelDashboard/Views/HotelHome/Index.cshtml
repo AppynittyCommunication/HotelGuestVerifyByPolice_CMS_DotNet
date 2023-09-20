@@ -138,9 +138,9 @@
 
     .chart_div {
         /*width:calc(100vw - 40px);*/
-        width: 293px;
+        width: 100%;
         /*height: calc(100vh - 40px);*/
-        height: 220px;
+        height: 100%;
         background-color: #fff;
         padding: 10px;
         box-sizing: border-box;
@@ -181,28 +181,28 @@
 <div class="">
   
     <div class="row" id="portfolio">
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mr-2">
             <div class="card" id="storageCard">
                 <div class="card-title">CHECK-IN</div>
-                <div class="card-icon"><img src="../Areas/HotelDashboard/Co"</div>
+                <div class="card-icon"><img src="../Areas/HotelDashboard/Content/Images/Icon/check-in.png"style="width:65px;"></div>
                 <div class="card-data" style="color:#484ebe">24</div>
                 <hr />
                 <div class="card-hint"> <a href="#">View Details</a></div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mr-2">
             <div class="card" id="loveCard">
                 <div class="card-title">CHECK-OUT</div>
-                <div class="card-icon"><i class="material-icons"></i></div>
+                <div class="card-icon"><img src="../Areas/HotelDashboard/Content/Images/Icon/check-out.png" style="width:65px;"></div>
                 <div class="card-data" style="color:#f71f60">12</div>
                 <hr />
                 <div class="card-hint"> <a href="#">View Details</a></div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mr-2">
             <div class="card" id="pizzaCard">
                 <div class="card-title">EMPLOYEE</div>
-                <div class="card-icon"><i class="material-icons"></i></div>
+                <div class="card-icon"><img src="../Areas/HotelDashboard/Content/Images/Icon/online-reservation.png" style="width:65px;"></div>
                 <div class="card-data" style="color:#fb9908">14</div>
                 <hr />
                 <div class="card-hint"><a href="#">View Details</a></div>
@@ -213,16 +213,22 @@
 
 
     <div class="row">
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mr-2">
             <div class="chart_div"><canvas id="Monthly" width="373" height="260"></canvas>
-              <p>Monthly Check In</p>  
+              <p style="text-align:center;font-weight:500">Monthly Check In</p>  
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 mr-2">
-        <div class="chart_div"><canvas id="Daily" width="273" height="166"></canvas></div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mr-2">
+        <div class="chart_div"><canvas id="Daily" width="373" height="260"></canvas>
+                <p style="text-align:center;font-weight:500">Monthly Check In</p>
+            </div>
+            
         </div>
-            <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-            <div class="chart_div"><canvas id="Weekly" width="273" height="166"></canvas></div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+            <div class="chart_div"><canvas id="Weekly" width="373" height="260"></canvas>
+                <p style="text-align:center;font-weight:500">Monthly Check In</p>
+            </div>
+           
         </div>
     </div>
 </div>
@@ -490,6 +496,7 @@
         },
         options: {
             layout: { padding: { right: 0, left: 2 ,bottom:5} },
+            responsive: true,
             maintainAspectRatio: true,
             legend: {
                 display: false
@@ -536,7 +543,8 @@
             }]
         },
         options: {
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
+            responsive: true,
             layout: { padding: { right: 10 } },
             legend: {
                 display: false
@@ -580,7 +588,8 @@
         },
         options: {
             layout: { padding: { right: 0, left: 2 } },
-            maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: true,
             legend: {
                 display: false
             },
