@@ -10,7 +10,7 @@
         public List<HotelLocOnDashboard>? hotelLocOnDashboards { get; set; }
         public List<HotelListDetailsForDashboard>? hotelListDetailsForDashboards { get; set; }
         public List<HotelGuestDetails_DeptDash1>? hotelGuestDetails_DeptDashes { get; set; }
-        public List<HotelGuestDetails_DeptDash2>? hotelGuestDetails_DeptDash2 { get; set; }
+        public List<HotelGuestDetails_DeptDash2>? hotelGuestDetails_DeptDashes2 { get; set; }
     }
 
     public class HotelLocOnDashboard

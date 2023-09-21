@@ -29,6 +29,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             deptDashboardRes.hotelLocOnDashboards = new();
             deptDashboardRes.hotelListDetailsForDashboards = new();
             deptDashboardRes.hotelGuestDetails_DeptDashes = new();
+            deptDashboardRes.hotelGuestDetails_DeptDashes2 = new();
 
 
 
@@ -87,7 +88,21 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                         checkInDate = hgd.checkInDate,
                     });
                 }
-
+                foreach(var hgdt in dynamicobject.hotelGuestDetails_DeptDash2)
+                {
+                    deptDashboardRes.hotelGuestDetails_DeptDashes2.Add(new HotelGuestDetails_DeptDash2
+                    {
+                        hotelName = hgdt.hotelName,
+                        guestName = hgdt.guestName,
+                        age = hgdt.age,
+                        visitPurpose = hgdt.visitPurpose,
+                        comingFrom = hgdt.comingFrom,
+                        reservation = hgdt.reservation,
+                        mobile = hgdt.mobile,  
+                        city = hgdt.city,
+                        checkInDate = hgdt.checkInDate,
+                    });
+                }
 
                 ViewBag.departuser = departuser;
 
