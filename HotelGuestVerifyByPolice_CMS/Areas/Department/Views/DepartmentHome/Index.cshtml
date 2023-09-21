@@ -252,10 +252,11 @@
            </div>
         </div>
         <div class="col-md-9 col-lg-9">
-            <div class="row">
-                <div class="col-md-6 col-lg-6">
+            <div class="row cardDeatils">
+                
                     @foreach (var hgd in Model.hotelGuestDetails_DeptDashes)
-                    {
+                {
+                    <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="d-flex">
                                 <div>
@@ -289,9 +290,10 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     }
                    
-                </div>
+               
                 @* <div class="col-md-6 col-lg-6">
                     <div class="card">
                         <div class="d-flex">
@@ -542,6 +544,25 @@
             $("#showSecRow").show();
             $("#hideSecRow").hide();
 
+        });
+
+
+        var children = $('.cardDeatils').children();
+        children.show().slice(-2).hide();
+        $("#hideSecRow").click(function () {
+            // hide last 2
+            children.show().slice(-2).hide();
+
+            // or use remove if you want them removing instead of hiding:
+            // children.slice(-2).remove();
+        });
+
+        $("#showSecRow").click(function () {
+            // hide all but last 2
+            children.show().slice( -2).show();
+
+            // or use remove if you want them removing instead of hiding:
+            // children.slice(0, -2).remove();
         });
     });
     // var map;
