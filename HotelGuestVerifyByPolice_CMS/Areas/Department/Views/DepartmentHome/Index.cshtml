@@ -251,39 +251,44 @@
                 </table>
            </div>
         </div>
-        <div class="col-md-9 col-lg-9">
-            <div class="row cardDeatils">
-                
-                    @foreach (var hgd in Model.hotelGuestDetails_DeptDashes)
-                {
-                    <div class="col-md-6 col-lg-6">
+        <div class="col-md-9 col-lg-9 cardDeatils">
+            @for (var i = 0; i < Model.hotelGuestDetails_DeptDashes.Count; i += 2)
+            {
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="d-flex">
                                 <div>
-                                    @if (@hgd.guestPhoto == null)
+                                    @if (@Model.hotelGuestDetails_DeptDashes[i].guestPhoto == null)
                                     {
                                         <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px" />
                                     }
                                     else
                                     {
-                                        
-                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@hgd.guestPhoto)" alt="Image" style="width:230px" />
+
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i].guestPhoto)" alt="Image" style="width:230px" />
                                     }
-                                    
+
                                 </div>
                                 <div class="guestDetails">
-                                    <h5>@hgd.guestName</h5>
-                                    <h6>Age : @hgd.age</h6>
-                                    <h6>City : @hgd.city</h6>
-                                    <h6>Purpose : @hgd.visitPurpose</h6>
-                                    <h6>Comeing From : @hgd.comingFrom</h6>
-                                    <h6>Reservation : @hgd.total_Adult Adults
-                                        <span>@if (@hgd.total_Child >= 1) { @hgd.total_Child <span>Child</span> }</span>
+                                    <h5>@Model.hotelGuestDetails_DeptDashes[i].guestName</h5>
+                                    <h6>Age : @Model.hotelGuestDetails_DeptDashes[i].age</h6>
+                                    <h6>City : @Model.hotelGuestDetails_DeptDashes[i].city</h6>
+                                    <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i].visitPurpose</h6>
+                                    <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i].comingFrom</h6>
+                                    <h6>
+                                        Reservation : @Model.hotelGuestDetails_DeptDashes[i].total_Adult Adults
+                                        <span>
+                                            @if (@Model.hotelGuestDetails_DeptDashes[i].total_Child >= 1)
+                                            {
+                                                @Model.hotelGuestDetails_DeptDashes[i].total_Child <span>Child</span>
+                                            }
+                                        </span>
                                     </h6>
 
-                                    <h6>@hgd.hotelName</h6>
+                                    <h6>@Model.hotelGuestDetails_DeptDashes[i].hotelName</h6>
                                     <h6>Check-In</h6>
-                                    <h5 class="dataTime">@hgd.checkInDate</h5>
+                                    <h5 class="dataTime">@Model.hotelGuestDetails_DeptDashes[i].checkInDate</h5>
 
                                     <h6>Remark : </h6>
                                     <h6 style="text-align:end">View All</h6>
@@ -291,33 +296,53 @@
                             </div>
                         </div>
                     </div>
-                    }
-                   
-               
-                @* <div class="col-md-6 col-lg-6">
-                    <div class="card">
-                        <div class="d-flex">
-                            <div><img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px" /></div>
-                            <div class="guestDetails">
-                                <h5>Ravi Sharma</h5>
-                                <h6>Age : 52</h6>
-                                <h6>City : Raipur</h6>
-                                <h6>Purpose : Bussiness</h6>
-                                <h6>Comeing From : Bhopal</h6>
-                                <h6>Reservation : 2 Adults 1 Child</h6>
 
-                                <h6>Hotel Herdeo</h6>
-                                <h6>Check-In</h6>
-                                <h5 class="dataTime">24 - 4 - 2023 15:00</h5>
+                    @if (i + 1 < Model.hotelGuestDetails_DeptDashes.Count)
+                    {
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="d-flex">
+                                    <div>
+                                        @if (@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto == null)
+                                        {
+                                            <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px" />
+                                        }
+                                        else
+                                        {
 
-                                <h6>Remark : </h6>
-                                <h6 style="text-align:end">View All</h6>
+                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto)" alt="Image" style="width:230px" />
+                                        }
+
+                                    </div>
+                                    <div class="guestDetails">
+                                        <h5>@Model.hotelGuestDetails_DeptDashes[i + 1].guestName</h5>
+                                        <h6>Age : @Model.hotelGuestDetails_DeptDashes[i + 1].age</h6>
+                                        <h6>City : @Model.hotelGuestDetails_DeptDashes[i + 1].city</h6>
+                                        <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i + 1].visitPurpose</h6>
+                                        <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i + 1].comingFrom</h6>
+                                        <h6>
+                                            Reservation : @Model.hotelGuestDetails_DeptDashes[i + 1].total_Adult Adults
+                                            <span>
+                                                @if (@Model.hotelGuestDetails_DeptDashes[i + 1].total_Child >= 1)
+                                                {
+                                                    @Model.hotelGuestDetails_DeptDashes[i + 1].total_Child <span>Child</span>
+                                                }
+                                            </span>
+                                        </h6>
+
+                                        <h6>@Model.hotelGuestDetails_DeptDashes[i + 1].hotelName</h6>
+                                        <h6>Check-In</h6>
+                                        <h5 class="dataTime">@Model.hotelGuestDetails_DeptDashes[i + 1].checkInDate</h5>
+
+                                        <h6>Remark : </h6>
+                                        <h6 style="text-align:end">View All</h6>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div> *@
-               
-             </div>
+                    }
+                </div>
+            }
             @* <div class="row" id="secRow">
                 <div class="col-md-6 col-lg-6">
                     <div class="card">
