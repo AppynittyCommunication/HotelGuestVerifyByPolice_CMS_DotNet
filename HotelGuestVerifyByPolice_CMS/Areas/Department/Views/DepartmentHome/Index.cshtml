@@ -276,15 +276,7 @@
                                     <h6>City : @Model.hotelGuestDetails_DeptDashes[i].city</h6>
                                     <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i].visitPurpose</h6>
                                     <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i].comingFrom</h6>
-                                    <h6>
-                                        Reservation : @Model.hotelGuestDetails_DeptDashes[i].total_Adult Adults
-                                        <span>
-                                            @if (@Model.hotelGuestDetails_DeptDashes[i].total_Child >= 1)
-                                            {
-                                                @Model.hotelGuestDetails_DeptDashes[i].total_Child <span>Child</span>
-                                            }
-                                        </span>
-                                    </h6>
+                                    <h6>Reservation : @Model.hotelGuestDetails_DeptDashes[i].reservation</h6>
 
                                     <h6>@Model.hotelGuestDetails_DeptDashes[i].hotelName</h6>
                                     <h6>Check-In</h6>
@@ -320,15 +312,7 @@
                                         <h6>City : @Model.hotelGuestDetails_DeptDashes[i + 1].city</h6>
                                         <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i + 1].visitPurpose</h6>
                                         <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i + 1].comingFrom</h6>
-                                        <h6>
-                                            Reservation : @Model.hotelGuestDetails_DeptDashes[i + 1].total_Adult Adults
-                                            <span>
-                                                @if (@Model.hotelGuestDetails_DeptDashes[i + 1].total_Child >= 1)
-                                                {
-                                                    @Model.hotelGuestDetails_DeptDashes[i + 1].total_Child <span>Child</span>
-                                                }
-                                            </span>
-                                        </h6>
+                                        <h6>Reservation : @Model.hotelGuestDetails_DeptDashes[i + 1].reservation</h6>
 
                                         <h6>@Model.hotelGuestDetails_DeptDashes[i + 1].hotelName</h6>
                                         <h6>Check-In</h6>
