@@ -251,10 +251,10 @@
                 </table>
            </div>
         </div>
-        <div class="col-md-9 col-lg-9 cardDeatils">
+        <div class="col-md-9 col-lg-9">
             @for (var i = 0; i < Model.hotelGuestDetails_DeptDashes.Count; i += 2)
             {
-                <div class="row">
+                <div class="row cardDeatils">
                     <div class="col-md-6">
                         <div class="card">
                             <div class="d-flex">
@@ -545,8 +545,9 @@
 
 <script>
     $(document).ready(function () {
-
-
+        $('div.cardDeatils').not(':eq(0)').hide();
+        // $('.cardDeatils').hide();
+        // $('.cardDeatils:first').show();
 
         var table = $('#example').DataTable({
             searching: false, paging: false, info: false
@@ -559,7 +560,7 @@
         });//End of create main table
 
         $("#showSecRow").click(function () {
-            $("#secRow").css('display', 'flex');;
+            $('.cardDeatils:second').show();
             $("#showSecRow").hide();
             $("#hideSecRow").show();
 
@@ -572,23 +573,6 @@
         });
 
 
-        var children = $('.cardDeatils').children();
-        children.show().slice(-2).hide();
-        $("#hideSecRow").click(function () {
-            // hide last 2
-            children.show().slice(-2).hide();
-
-            // or use remove if you want them removing instead of hiding:
-            // children.slice(-2).remove();
-        });
-
-        $("#showSecRow").click(function () {
-            // hide all but last 2
-            children.show().slice( -2).show();
-
-            // or use remove if you want them removing instead of hiding:
-            // children.slice(0, -2).remove();
-        });
     });
     // var map;
 
