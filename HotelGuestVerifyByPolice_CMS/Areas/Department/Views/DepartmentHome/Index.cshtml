@@ -388,13 +388,13 @@
                 map: map,
 
                 icon: customIcon,
-                label: {
-                   // text: locations[i].hotelName,
-                    color: "black",
-                    fontWeight: "bold",
-                    fontSize: "13px",
-                    margin: "55px"
-                }
+                // label: {
+                //     text: locations[i].hotelName,
+                //     color: "black",
+                //     fontWeight: "bold",
+                //     fontSize: "13px",
+                //     margin: "55px"
+                // }
             });
 
             loc = new google.maps.LatLng(locations[i].lat, locations[i]._long),
@@ -438,7 +438,7 @@
         map.fitBounds(bounds);
         map.panToBounds(bounds);
     }
-    google.maps.event.addDomListener(window, 'load', initMap);
+    //google.maps.event.addDomListener(window, 'load', initMap);
 
  
 
