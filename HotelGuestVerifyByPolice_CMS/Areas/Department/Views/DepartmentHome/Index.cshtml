@@ -255,7 +255,7 @@
             @for (var i = 0; i < Model.hotelGuestDetails_DeptDashes.Count; i += 2)
             {
                 <div class="row cardDeatils">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-lg-6">
                         <div class="card">
                             <div class="d-flex">
                                 <div>
@@ -291,7 +291,7 @@
 
                     @if (i + 1 < Model.hotelGuestDetails_DeptDashes.Count)
                     {
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-lg-6">
                             <div class="card">
                                 <div class="d-flex">
                                     <div>
@@ -529,9 +529,9 @@
 
 <script>
     $(document).ready(function () {
-        $('div.cardDeatils').not(':eq(0)').hide();
-        // $('.cardDeatils').hide();
-        // $('.cardDeatils:first').show();
+       
+        $('.cardDeatils').hide();
+        $('.cardDeatils:first').show();
 
         var table = $('#example').DataTable({
             searching: false, paging: false, info: false
@@ -544,13 +544,14 @@
         });//End of create main table
 
         $("#showSecRow").click(function () {
-            $('.cardDeatils:second').show();
+            $(".cardDeatils:eq(1)").show();
+           
             $("#showSecRow").hide();
             $("#hideSecRow").show();
 
         });
         $("#hideSecRow").click(function () {
-            $("#secRow").css('display', 'none');;
+            $(".cardDeatils:eq(1)").hide();
             $("#showSecRow").show();
             $("#hideSecRow").hide();
 
