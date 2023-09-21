@@ -358,6 +358,12 @@ $("form").submit(function () {
                     data: { mobileno: $('#mobile').val() },
                     datatype: "json",
                     traditional: true,
+                    beforeSend: function () {
+                        // setting a timeout
+                        mobilenoerror.style.color = "black";
+                        mobilenoerror.style.display = "block";
+                        $("#mobilenoerror").text("Please Wait");
+                    },
                     success: function (data) {
                         json = JSON.parse(data);
                         console.log(json.message);
@@ -367,8 +373,14 @@ $("form").submit(function () {
                         button.style.display = "block";
                         if (json.status == "success") { // if button color is red change it green otherwise change it to red.
                             button.style.color = 'green';
+                            $("#verifyNo").modal({ backdrop: 'static', keyboard: false }, "show");
+                            mobilenoerror.style.display = "none";
                         } else {
-                            button.style.color = 'red';
+                            button.style.color = "red";
+                            mobilenoerror.style.color = "red";
+                            mobilenoerror.style.display = "block";
+                            $("#mobilenoerror").text("Invalid Mobile Number");
+                           
                         }
                         $('#sendotpres').text(json.message);
                     }
