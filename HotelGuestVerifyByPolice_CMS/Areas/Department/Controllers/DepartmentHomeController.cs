@@ -82,8 +82,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                         city = hgd.city,
                         visitPurpose = hgd.visitPurpose,
                         comingFrom = hgd.comingFrom,
-                        total_Adult = hgd.total_Adult,
-                        total_Child = hgd.total_Child,
+                        reservation = hgd.reservation,
                         hotelName = hgd.hotelName,
                         checkInDate = hgd.checkInDate,
                     });

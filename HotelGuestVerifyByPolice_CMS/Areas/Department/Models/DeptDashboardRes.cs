@@ -10,6 +10,7 @@
         public List<HotelLocOnDashboard>? hotelLocOnDashboards { get; set; }
         public List<HotelListDetailsForDashboard>? hotelListDetailsForDashboards { get; set; }
         public List<HotelGuestDetails_DeptDash1>? hotelGuestDetails_DeptDashes { get; set; }
+        public List<HotelGuestDetails_DeptDash2>? hotelGuestDetails_DeptDash2 { get; set; }
     }
 
     public class HotelLocOnDashboard
@@ -41,9 +42,26 @@
         public string? city { get; set; }
         public string? visitPurpose { get; set; }
         public string? comingFrom { get; set; }
-        public int total_Adult { get; set; }
-        public int total_Child { get; set; }
+        public string? reservation { get; set; }
         public string? hotelName { get; set; }
         public DateTime checkInDate { get; set; }
+    }
+
+    public class HotelGuestDetails_DeptDash2
+    {
+        public string? hotelName { get; set; }
+        public string? guestName { get; set; }
+        public int age { get; set; }
+        public string? visitPurpose { get; set; }
+
+        public string? comingFrom { get; set; }
+        // public int total_Adult { get; set; }
+        //  public int total_Child { get; set; }
+
+        public string? reservation { get; set; }
+
+        public string? mobile { get; set; }
+        public string? city { get; set; }
+        public DateTime? checkInDate { get; set; }
     }
 }
