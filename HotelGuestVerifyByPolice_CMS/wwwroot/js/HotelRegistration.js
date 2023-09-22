@@ -1,6 +1,7 @@
 ﻿
 $(document).ready(function () {
     debugger;
+ 
     var mvs = $("#isMobileVerify:checked").val();
     if ((mvs == "true")) {
         $("#verifyNo").modal("hide");
@@ -216,6 +217,7 @@ $(document).ready(function () {
 
     function CheckHotelRegNoIsExist() {
         // For loading all Active States
+        debugger;
         $.ajax({
             type: "post",
             url: "/Account/CheckHotelRegNo",
@@ -235,9 +237,38 @@ $(document).ready(function () {
                     // if button color is red change it green otherwise change it to red.
                     button.style.color = "green";
                 } else {
+                    $("#hotelRegNo").val("")
                     button.style.color = "red";
                 }
                 $("#hotelregexist").text(json.message);
+            },
+        });
+    }
+    function CheckHotelUsernameExist() {
+        debugger;
+        $.ajax({
+            type: "post",
+            url: "/Account/CheckHotelUserid",
+            data: { hoteluserid: $("#userId").val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                json = JSON.parse(data);
+                console.log(json.message);
+                var myfield = $("#userId");
+                myfield.removeClass("field-validation-error");
+                myfield.next("span[data-valmsg-for]").removeClass("field-validation-error").addClass("field-validation-valid").html("");
+
+                let button = document.getElementById("hoteluseridexist");
+                button.style.display = "block";
+                if (json.status == "success") {
+                    // if button color is red change it green otherwise change it to red.
+                    button.style.color = "green";
+                } else {
+                    $("#userId").val("")
+                    button.style.color = "red";
+                }
+                $("#hoteluseridexist").text(json.message);
             },
         });
     }

@@ -50,6 +50,12 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         }
         public ActionResult HotelRegistration()
         {
+            string hotelauthpin = _contx.HttpContext.Session.GetString("sethotelauthpin");
+
+            if(hotelauthpin == null)
+            {
+                return Redirect("/Account/HotelAuthentication");
+            }
             return View();
         }
 
@@ -62,6 +68,44 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             return View();
         }
 
+        public ActionResult HotelAuthentication()
+        {
+            return View();
+        }
+        public async Task<IActionResult> CheckHotelAuthentication(string auth_Pin)
+        {
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("authPin", auth_Pin);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/CheckAuthPin", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                var code = (int)response.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+
+                if(status == "success")
+                {
+                    _contx.HttpContext.Session.SetString("sethotelauthpin", auth_Pin);
+                    return Json(responseString);
+                }
+                else
+                {
+                    ViewBag.msg = dynamicobject.message.ToString();
+                    return Json(responseString);
+                }
+            }
+            else
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                ViewBag.msg = dynamicobject.message.ToString();
+                return Json("");
+            }
+        }
         public async Task<IActionResult> VerifyMoNo(string mobileno)
         {
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -98,7 +142,45 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             }
             
         }
+        public async Task<IActionResult> CheckHotelUserid(string hoteluserid)
+        {
 
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("userId", hoteluserid);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/HotelUsernameExist", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                return Json(responseString);
+            }
+            else
+            {
+                return Json("");
+            }
+
+        }
+
+        public async Task<IActionResult> CheckAuthPin(string authPin)
+        {
+
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("authPin", authPin);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/CheckAuthPin", null);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                return Json(responseString);
+            }
+            else
+            {
+                return Json("");
+            }
+
+        }
         public async Task<IActionResult> CheckDepartUsername(string dusername)
         {
 
@@ -161,8 +243,10 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 hotelRegBody.stationCode = model.stationCode;
                 hotelRegBody.isMobileVerify = model.isMobileVerify;
                 hotelRegBody.diviceIp = ipAdd;
-                
-                
+                hotelRegBody.password = model.cPass;
+
+
+
 
 
 
@@ -177,10 +261,47 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     var code = (int)response.StatusCode;
                     var status = dynamicobject.status.ToString();
                     var message = dynamicobject.message.ToString();
+                    if(status == "success")
+                    {
+                        string hotelauthpin = _contx.HttpContext.Session.GetString("sethotelauthpin");
 
+                        SaveAuthBody sab = new();
 
-                    //TempData["message"] = message;
-                    return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
+                        sab.authPin = hotelauthpin;
+                        sab.userID = model.userId;
+                        sab.useFor = model.hotelName;
+                        sab.isUse = true;
+                        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        HttpResponseMessage response2 = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/SaveAuthUser", sab);
+                        if (response2.IsSuccessStatusCode)
+                        {
+                            var responseString2 = await response2.Content.ReadAsStringAsync();
+                            var dynamicobject2 = JsonConvert.DeserializeObject<dynamic>(responseString2);
+
+                            var code2 = (int)response.StatusCode;
+                            var status2 = dynamicobject2.status.ToString();
+                            var message2 = dynamicobject2.message.ToString();
+
+                            if (status2 == "success")
+                            {
+                                return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
+                            }
+                            else
+                            {
+                                return View();
+                            }
+                        }
+                        else
+                        {
+                            return View();
+                        }
+                            
+                    }
+
+                    else
+                    {
+                        return View();
+                    }
                 }
                 else
                 {
