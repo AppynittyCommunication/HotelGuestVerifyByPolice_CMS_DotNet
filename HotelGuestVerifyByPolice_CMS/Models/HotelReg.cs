@@ -43,6 +43,15 @@ namespace HotelGuestVerifyByPolice_CMS.Models
         [Required]
         [Range(typeof(bool), "true", "true", ErrorMessage = "Please Verify Your Mobile Number.")]
         public bool isMobileVerify { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string? pass { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("pass", ErrorMessage = "The password and confirmation password do not match.")]
+        public string? cPass { get; set; }
         public List<SelectListItem>? StateList { get; set; }
         public List<SelectListItem>? DistrictList { get; set; }
         public List<SelectListItem>? CityList { get; set; }
