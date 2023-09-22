@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -54,6 +55,13 @@
         top: 11%;
         left: 16%;
     }
+
+    .toggle-password {
+        float: right;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-top: -40px;
+    }
 </style>
 <div class=" bg-gradient">
     <p class="text-right py-3" style="padding-right:10%;font-size:20px;color:#fff;font-weight:600">  <a href="../Home/index" style="color:#fff">Home</a></p>
@@ -79,7 +87,7 @@
                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" ,placeholder = "PASSWORD"} })
 
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                   
+                    <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                     <p class="text-end"><a href="/Account/DepartForgetPassword">Forget Password ?</a></p>
                     <p style="color:red"> @ViewBag.msg</p>
             </div>
@@ -111,3 +119,14 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 
 }
+<script>
+    $(".toggle-password").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        input = $(this).parent().find("input");
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>
