@@ -273,35 +273,6 @@ $(document).ready(function () {
         });
     }
 
-    function CheckAuthPinExist() {
-        debugger;
-
-        $.ajax({
-            type: "post",
-            url: "/Account/CheckAuthPin",
-            data: { authPin: $("#authPin").val() },
-            datatype: "json",
-            traditional: true,
-            success: function (data) {
-                json = JSON.parse(data);
-                console.log(json.message);
-                var myfield = $("#authPin");
-                myfield.removeClass("field-validation-error");
-                myfield.next("span[data-valmsg-for]").removeClass("field-validation-error").addClass("field-validation-valid").html("");
-
-                let button = document.getElementById("authpinexist");
-                button.style.display = "block";
-                if (json.status == "success") {
-                    // if button color is red change it green otherwise change it to red.
-                    button.style.color = "green";
-                } else {
-                    $("#authPin").val("")
-                    button.style.color = "red";
-                }
-                $("#authpinexist").text(json.message);
-            },
-        });
-    }
     $("#mobile").change(function () {
         $("#vefifyLink").prop("disabled", false);
     });

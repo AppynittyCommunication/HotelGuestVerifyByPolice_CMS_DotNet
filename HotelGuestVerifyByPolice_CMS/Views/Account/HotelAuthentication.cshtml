@@ -63,7 +63,8 @@
             <div class="login_form">
                 <div>
                    <input id="auth_pin" class="form-control" placeholder="Authentication Pin" required/>
-                <p style="color:red"> @ViewBag.authmsg</p>
+                <span id="autherror" style="color:red"></span>
+                <span id="authmsg"></span>
                 </div>
               
 
@@ -85,24 +86,34 @@
 
     function authpinSubmit() {
         debugger;
-        $.ajax({
-            type: "post",
-            url: "/Account/CheckHotelAuthentication",
-            data: { auth_Pin: $("#auth_pin").val() },
-            datatype: "json",
-            traditional: true,
-            success: function (data) {
-                json = JSON.parse(data);
-                console.log(json.message);
+        if ($("#auth_pin").val() == null || $("#auth_pin").val() == "") {
+            $("#autherror").text("Please Enter Authentication Pin.");
+        }
+        else {
+            $.ajax({
+                type: "post",
+                url: "/Account/CheckHotelAuthentication",
+                data: { auth_Pin: $("#auth_pin").val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    json = JSON.parse(data);
+                    console.log(json.message);
+                    let button = document.getElementById("authmsg");
+                    button.style.display = "block";
+                    if (json.status == "success") {
 
-                if (json.status == "success") {
-                    window.location = "/Account/HotelRegistration";
-                } else {
-                    window.location = "/Account/HotelAuthentication";
-                }
-                
-            },
-        });
+                        window.location = "/Account/HotelRegistration";
+                    } else {
+                        button.style.color = "red";
+                        $("#authmsg").text(json.message);
+                        //window.location = "/Account/HotelAuthentication";
+                    }
+                   
+                },
+            });
+        }
+  
     }
 </script>
 @section Scripts {
