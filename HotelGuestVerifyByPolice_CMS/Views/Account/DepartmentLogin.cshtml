@@ -62,6 +62,51 @@
         margin-right: 10px;
         margin-top: -40px;
     }
+
+
+
+    @@media only screen and (max-device-width: 600px) {
+        #departImg {
+            width: 360px
+        }
+
+        .login_img {
+            top: 9%;
+        }
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @@media only screen and (min-device-width: 768px) and (max-device-width:992px) {
+        #departImg {
+            width: 380px
+        }
+
+        .login_img {
+            top: 13%;
+        }
+    }
+
+    @@media only screen and (min-device-width: 992px) and (max-device-width: 1024px) {
+        /* For landscape layouts only */
+        #departImg {
+            width: 400px
+        }
+
+        .login_img {
+            top: 15%;
+        }
+    }
+
+    /* styles for browsers larger than 960px; */
+
+    @@media only screen and (min-width: 1440px) {
+        #departImg {
+            width: 500px
+        }
+    }
 </style>
 <div class=" bg-gradient">
     <p class="text-right py-3" style="padding-right:10%;font-size:20px;color:#fff;font-weight:600">  <a href="../Home/index" style="color:#fff">Home</a></p>
@@ -96,7 +141,7 @@
 
         </div>
         <div class="login_img">
-            <img src="/images/policestation.png" style="width:500px" />
+                <img src="/images/policestation.png" id="departImg" />
         </div>
 }
 

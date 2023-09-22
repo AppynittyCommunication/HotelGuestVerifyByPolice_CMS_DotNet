@@ -49,3 +49,10 @@ img {
 .bg-department {
     background-image: linear-gradient( 45deg, hsl(264deg 73% 38%) 0%, hsl(259deg 68% 39%) 16%, hsl(253deg 64% 40%) 32%, hsl(247deg 61% 41%) 49%, hsl(241deg 58% 42%) 66%, hsl(234deg 65% 40%) 83%, hsl(228deg 78% 36%) 100% );
 }
+
+
+@media only screen and (max-device-width: 600px) {
+    .cardWidth{width:100%!important}
+
+    #interlink{width:115% !important}
+}
