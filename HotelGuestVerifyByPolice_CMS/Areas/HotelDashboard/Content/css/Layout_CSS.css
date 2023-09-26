@@ -68,7 +68,9 @@ a {
         font-size: 24px;
         color: #fff;
     }
-
+#sidebar-toggle-sm {
+    display: none
+}
 .sidebar-nav {
     position: absolute;
     top: 165px;
@@ -235,6 +237,9 @@ a {
         position: relative;
         margin-right: 250px;
     }
+    .col-sm-6 {
+        width: 31% !important;
+    }
 }
 
 @media (max-width: 767px) {
@@ -264,10 +269,10 @@ a {
         position: relative;
     }
 
-    #wrapper.toggled {
+    /*#wrapper.toggled {
         padding-left: 250px;
-    }
-
+    }*/
+    #sidebar-toggle-sm{display:block}
     #content-wrapper {
         position: relative;
         top: 0;

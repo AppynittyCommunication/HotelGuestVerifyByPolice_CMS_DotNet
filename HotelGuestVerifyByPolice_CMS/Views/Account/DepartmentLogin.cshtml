@@ -30,6 +30,7 @@
         padding-left: 85px;
         padding-bottom: 25px;
         margin-left:auto;
+        position:relative;
     }
 
     .form-control {
@@ -52,8 +53,8 @@
 
     .login_img {
         position: absolute;
-        top: 11%;
-        left: 16%;
+        top: -50%;
+        right: 85%;
     }
 
     .toggle-password {
@@ -64,7 +65,7 @@
     }
 
     #departImg {
-        width: 500px
+        width: 485px
     }
 
     @@media only screen and (max-device-width: 600px) {
@@ -73,7 +74,14 @@
         }
 
         .login_img {
-            top: 9%;
+            top: -24%;
+            right: 74%;
+        }
+
+        .login_form {
+           
+            width: 55%;
+           
         }
     }
 
@@ -87,7 +95,12 @@
         }
 
         .login_img {
-            top: 13%;
+            top: -28%;
+            right: 78%;
+        }
+
+        .login_form {
+            width: 55%;
         }
     }
 
@@ -98,31 +111,23 @@
         }
 
         .login_img {
-            top: 15%;
+            top: -30%;
+            right: 82%;
         }
     }
 
     /* styles for browsers larger than 960px; */
 
-    @@media only screen and (min-width: 1440px) and (max-device-width: 1500px) {
+   /*  @@media only screen and (min-width: 1440px) and (max-device-width: 1500px) {
         #departImg {
-            width: 500px
+            width: 485px
         }
 
         .login_img {
-            left: 16%;
+            left: 17%;
         }
     }
-
-    @@media only screen and (min-width: 1800px) {
-        #departImg {
-            width: 500px
-        }
-
-        .login_img {
-            left: 28%;
-        }
-    }
+ */
 </style>
 <div class=" bg-gradient">
     <p class="text-right py-3" style="padding-right:10%;font-size:20px;color:#fff;font-weight:600">  <a href="../Home/index" style="color:#fff">Home</a></p>
@@ -154,11 +159,11 @@
             </div>
               
             <div class="text-center" style="margin-top:15px"><button class="btn btn-primary" style="font-weight:700;background:#0b38ad;border-color:#0b38ad;padding:5px 30px;font-size:16px;border-radius:5px;">LOGIN</button></div>
-
+                <div class="login_img">
+                    <img src="/images/policestation.png" id="departImg" />
+                </div>
         </div>
-        <div class="login_img">
-                <img src="/images/policestation.png" id="departImg" />
-        </div>
+      
 }
 
         <div class="text-right" style="margin-top:30px;margin-right:6%">
