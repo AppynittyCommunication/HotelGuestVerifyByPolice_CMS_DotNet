@@ -19,7 +19,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         private readonly IHttpContextAccessor _contx;
         private readonly string _myApi;
         private readonly HttpClient _httpClient;
-        private object msg;
+        //private object msg;
 
         public AccountController(IConfiguration configuration, IHttpContextAccessor contx)
 		{

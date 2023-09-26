@@ -141,7 +141,7 @@
            </div>
 
             <div class="p-1 mt-1" style="background:#1831a5;border-radius:5px">
-                <h6 class="text-white">Nagpur Rigion</h6>
+                <h6 class="text-white">Hotels Locations</h6>
                 <div id="map" style="height: 220px;"></div>
            </div>
            <div class="mt-2">
@@ -440,6 +440,20 @@
     }
     //google.maps.event.addDomListener(window, 'load', initMap);
 
- 
 
+    function logout() {
+        debugger;
+
+        $.ajax({
+            type: "post",
+            url: "/Account/DepartLogout",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                window.location.href = '../Account/DepartmentLogin';
+
+            }
+        });
+    }
 </script>
