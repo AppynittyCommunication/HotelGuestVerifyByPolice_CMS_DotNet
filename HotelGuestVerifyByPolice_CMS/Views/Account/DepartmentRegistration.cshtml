@@ -98,7 +98,18 @@
         top: 5px;
         right: 0px;
     }
-    
+
+    .customBtn {
+        border-radius: 0px;
+        padding: 10px;
+    }
+
+    form input {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
 </style>
 
 @using (Html.BeginForm())
@@ -382,8 +393,17 @@
                 <h4 class="modal-title text-center"> <span id="sendotpres"></span></h4>
             </div>
             <div class="modal-body" style="margin:auto">
-                <input type="number" id="enterotp" placeholder="enter OTP">
-                <button class="btn btn-primary" onclick="CheckOTP()">Submit</button>
+                <form id="otp-form" action="" class="mt-5">
+                    <input class="otp" type="text" maxlength="1" pattern="[0-9]" required tabindex="1">
+                    <input class="otp" type="text" maxlength="1" pattern="[0-9]" required tabindex="2">
+                    <input class="otp" type="text" maxlength="1" pattern="[0-9]" required tabindex="3">
+                    <input class="otp" type="text" maxlength="1" pattern="[0-9]" required tabindex="4">
+                    <input class="otp" type="text" maxlength="1" pattern="[0-9]" required tabindex="5">
+                    <input class="otp" type="text" maxlength="1" pattern="[0-9]" required tabindex="6">
+
+
+                    <button class='btn btn-primary btn-block mt-4 mb-4 customBtn' type="submit">Verify</button>
+                </form>
             </div>
 
         </div>

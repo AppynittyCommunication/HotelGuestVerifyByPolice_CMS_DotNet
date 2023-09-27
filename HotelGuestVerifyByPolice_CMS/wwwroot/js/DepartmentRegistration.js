@@ -393,10 +393,48 @@ $("form").submit(function () {
         }
     }
 
+let otpValue;
+document.addEventListener("DOMContentLoaded", function () {
+    debugger;
+    const otpForm = document.getElementById("otp-form");
+    const otpInputs = otpForm.querySelectorAll(".otp");
+
+    // Add event listeners to move focus to the next input on key press
+    otpInputs.forEach(function (input, index) {
+        input.addEventListener("input", function () {
+            if (this.value && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+        });
+
+        // Add event listener to move focus to the previous input on backspace key press
+        input.addEventListener("keydown", function (event) {
+            if (event.key === "Backspace" && index > 0 && !this.value) {
+                otpInputs[index - 1].focus();
+            }
+        });
+    });
+
+    otpForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const otpInputs = otpForm.querySelectorAll(".otp");
+        const otpDigits = [];
+
+        otpInputs.forEach(function (input) {
+            otpDigits.push(input.value);
+        });
+
+        otpValue = otpDigits.join("");
+        console.log("OTP Value:", otpValue);
+        CheckOTP();
+    });
+});
     function CheckOTP() {
         debugger;
         var otp1 = document.getElementById("getotp").value;
-        var otp2 = document.getElementById("enterotp").value;
+        //var otp2 = document.getElementById("enterotp").value;
+        var otp2 = otpValue;
 
         if (otp1 == otp2) {
             document.getElementById("isMobileVerify").checked = true;
