@@ -336,6 +336,7 @@ $("form").submit(function () {
     function VerifyMobileNo() {
       
         debugger;
+
         if ($('#mobile').val() == null || $('#mobile').val() == "") {
             $('#vefifyLink').prop('disabled', true);
             $('#mobilenoerror').text("Please Enter Mobile No.");
@@ -350,7 +351,16 @@ $("form").submit(function () {
             if ($('#mobile').val().match(phoneno)) {
                 let mobilenoerror = document.getElementById("mobilenoerror");
                 mobilenoerror.style.display = 'none';
-
+                let lod = document.getElementById("loader");
+               
+                var styleElement = document.createElement('style');
+                styleElement.innerHTML = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+                document.head.appendChild(styleElement);
 
                 $.ajax({
                     type: "post",
@@ -362,7 +372,9 @@ $("form").submit(function () {
                         // setting a timeout
                         mobilenoerror.style.color = "black";
                         mobilenoerror.style.display = "block";
+                        lod.style.display = "block";
                         $("#mobilenoerror").text("Please Wait");
+                        
                     },
                     success: function (data) {
                         json = JSON.parse(data);
@@ -375,6 +387,7 @@ $("form").submit(function () {
                             button.style.color = 'green';
                             $("#verifyNo").modal({ backdrop: 'static', keyboard: false }, "show");
                             mobilenoerror.style.display = "none";
+                            lod.style.display = "none";
                         } else {
                             button.style.color = "red";
                             mobilenoerror.style.color = "red";
