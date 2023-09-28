@@ -41,6 +41,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 HotelDashboardRes hotelDashRes = new();
                 HotelDashResData hotelDashResData = new();
                 hotelDashResData.guestDetails = new();
+                hotelDashResData.monthlyCheckInOutCounts = new();
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 _httpClient.DefaultRequestHeaders.Add("hotelRegNo", hotelregno);
                 HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Hotel/GetGuestCheckInOutInfo", null);
@@ -70,6 +71,16 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                               state = i.state,
                               country = i.country,
                               checkInDate = i.checkInDate,
+                            });
+                        }
+                        foreach(var c in dynamicobject.data[0].monthlyCheckInOutCounts)
+                        {
+                            hotelDashResData.monthlyCheckInOutCounts.Add(new MonthlyCheckInOutCount
+                            {
+                                month = c.month,
+                                monthName = c.monthName,
+                                checkInCount = c.checkInCount,
+                                checkOutCount = c.checkOutCount,
                             });
                         }
                         return View(hotelDashResData);
