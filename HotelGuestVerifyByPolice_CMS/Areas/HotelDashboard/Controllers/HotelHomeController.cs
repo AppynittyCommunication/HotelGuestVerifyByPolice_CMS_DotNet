@@ -1,6 +1,9 @@
-﻿using HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models;
+﻿using HotelGuestVerifyByPolice_CMS.Areas.Department.Models;
+using HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
 {
@@ -20,8 +23,8 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
             _httpClient.BaseAddress = baseUri;
             _contx = contx;
         }
-       
-        public IActionResult Index()
+
+        public async Task<IActionResult> IndexAsync()
         {
             string hotelregno = _contx.HttpContext.Session.GetString("hotelRegNo");
             string hotelname = _contx.HttpContext.Session.GetString("hotelName");
@@ -35,27 +38,45 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
             }
             else
             {
-                Location[] salesLocation = new Location[] {
-                new Location
+                HotelDashboardRes hotelDashRes = new();
+                HotelDashResData hotelDashResData = new();
+                hotelDashResData.guestDetails = new();
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                _httpClient.DefaultRequestHeaders.Add("hotelRegNo", hotelregno);
+                HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Hotel/GetGuestCheckInOutInfo", null);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    ID = 1,
-                    Address = "A Road",
-                    City = "Pune"
-                },
-                new Location
-                {
-                    ID = 2,
-                    Address = "B Road",
-                    City = "London"
-                },
-                new Location
-                {
-                    ID = 3,
-                    Address = "K Road",
-                    City = "New York"
-                },
-            };
-                return View(salesLocation);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    hotelDashRes.code = dynamicobject.code;
+                    hotelDashRes.status = dynamicobject.status;
+                    hotelDashRes.message = dynamicobject.message;
+
+                    if(hotelDashRes.status == "success")
+                    {
+                        hotelDashResData.totalGuest = dynamicobject.data[0].totalGuest;
+                        hotelDashResData.todaysCheckIn = dynamicobject.data[0].todaysCheckIn;
+                        hotelDashResData.todaysCheckOut = dynamicobject.data[0].todaysCheckOut;
+                        foreach (var i in dynamicobject.data[0].guestDetails)
+                        {
+                            hotelDashResData.guestDetails.Add(new GuestDetail
+                            {
+                              guestName = i.guestName,
+                              guestPhoto = i.guestPhoto,
+                              reservation = i.reservation,
+                              mobile = i.mobile,
+                              state = i.state,
+                              country = i.country,
+                              checkInDate = i.checkInDate,
+                            });
+                        }
+                        return View(hotelDashResData);
+                    }
+                    return View();
+                }
+                return View();
             }
             
             //return View();
