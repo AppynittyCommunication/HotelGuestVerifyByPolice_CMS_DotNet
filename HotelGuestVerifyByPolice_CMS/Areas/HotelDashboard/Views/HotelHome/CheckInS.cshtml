@@ -115,7 +115,7 @@
             <input class="form-control_Date" id="currentTime" type="text" disabled style="font-weight:600;font-size:16px;" />
         </div>
         <div class="col-md-6 text-right">
-            <button class="btn btn-md addAdult">Add Adult</button>
+            <button class="btn btn-md addAdult" onclick="addAdult()">Add Adult</button>
             <button class="btn btn-md addChild">Add Child</button>
         </div>
     </div>
@@ -170,8 +170,10 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Relation" />
-
+                   
+                    <select name="Relation" class="form-control">
+                        <option value="">Select Relation</option>
+                    </select>
 
                 </div>
 
@@ -181,8 +183,10 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Select Gender" />
-
+                   
+                    <select name="Gender" class="form-control">
+                        <option value="">Select Gender</option>
+                    </select>
 
                 </div>
 
@@ -193,8 +197,10 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Select Age" />
-
+                   
+                    <select name="Age" class="form-control">
+                        <option value="">Select Age</option>
+                    </select>
 
                 </div>
 
@@ -207,7 +213,10 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Country" />
+                  
+                    <select name="Country" class="form-control">
+                        <option value="">Select Country</option>
+                    </select>
 
 
                 </div>
@@ -219,7 +228,10 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="State" />
+                   
+                    <select name="State" class="form-control">
+                        <option value="">Select State</option>
+                    </select>
 
 
                 </div>
@@ -230,8 +242,10 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="City" />
-
+                  
+                    <select name="City" class="form-control">
+                        <option value="">Select City</option>
+                    </select>
 
                 </div>
 
@@ -245,8 +259,10 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Visit Purpose" />
-
+                   
+                    <select name="VisitPurpose" class="form-control">
+                        <option value="">Select Visit Purpose</option>
+                    </select>
 
                 </div>
 
@@ -263,7 +279,19 @@
                 </div>
 
             </div>
+            <div class="form-group">
 
+
+
+                <div class="form-input">
+
+                    <select name="IdType"class="form-control">
+                        <option value="">Select ID Type</option>
+                    </select>
+
+                </div>
+
+            </div>
         </div>
         <div class="d-flex">
             <div class="profile-pic">
@@ -290,6 +318,220 @@
 
 </div>
 
+
+
+
+
+<div class="modal fade" id="addAdult" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+              
+                <h4 class="modal-title text-center"> <span id="sendotpres"></span></h4>
+            </div>
+           
+            <div class="modal-body" style="margin:auto">
+                <div>
+                    <h4>Adult 1</h4>
+                    <div class="d-flex">
+                        <div class="form-group">
+
+                            @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
+
+                            <div class="form-input">
+                                <input class="form-control" placeholder="First Name" />
+                                @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
+
+                                @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
+
+                            <div class="form-input">
+                                <input class="form-control" placeholder="Last Name" />
+                                @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
+
+                                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+                                <input class="form-control" placeholder="Mobile" />
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex">
+
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Relation" class="form-control">
+                                    <option value="">Select Relation</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Gender" class="form-control">
+                                    <option value="">Select Gender</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Age" class="form-control">
+                                    <option value="">Select Age</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Country" class="form-control">
+                                    <option value="">Select Country</option>
+                                </select>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="State" class="form-control">
+                                    <option value="">Select State</option>
+                                </select>
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="City" class="form-control">
+                                    <option value="">Select City</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="VisitPurpose" class="form-control">
+                                    <option value="">Select Visit Purpose</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+                                <input class="form-control" placeholder="Coming From" />
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="IdType" class="form-control">
+                                    <option value="">Select ID Type</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="profile-pic">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200">
+                            <input id="profile-image-upload" class="hidden" type="file" onchange="previewFile()">
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
+                        </div>
+                        <div class="profile-pic">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
+                            <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-md addChild">Done</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 <script>
     // var today = new Date();
     // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -330,41 +572,45 @@
             document.getElementById("currentTime").value = dateTime;
         }
     })
-    function previewFile() {
-        var preview = document.querySelector('img');
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
+    // function previewFile() {
+    //     var preview = document.querySelector('img');
+    //     var file = document.querySelector('input[type=file]').files[0];
+    //     var reader = new FileReader();
 
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-        }, false);
+    //     reader.addEventListener("load", function () {
+    //         preview.src = reader.result;
+    //     }, false);
 
-        if (file) {
-            reader.readAsDataURL(file);
-        }
+    //     if (file) {
+    //         reader.readAsDataURL(file);
+    //     }
+    // }
+    // $(function () {
+    //     $('#profile-image1').on('click', function () {
+    //         $('#profile-image-upload').click();
+    //     });
+    // });
+    // function previewFile_ID() {
+    //     var preview = document.querySelector('img');
+    //     var file = document.querySelector('input[type=file]').files[0];
+    //     var reader = new FileReader();
+
+    //     reader.addEventListener("load", function () {
+    //         preview.src = reader.result;
+    //     }, false);
+
+    //     if (file) {
+    //         reader.readAsDataURL(file);
+    //     }
+    // }
+    // $(function () {
+    //     $('#profile-image1_ID').on('click', function () {
+    //         $('#profile-image-upload_ID').click();
+    //     });
+    // });
+
+    function addAdult() {
+        $("#addAdult").modal({ backdrop: 'static', keyboard: false }, "show");
     }
-    $(function () {
-        $('#profile-image1').on('click', function () {
-            $('#profile-image-upload').click();
-        });
-    });
-    function previewFile_ID() {
-        var preview = document.querySelector('img');
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
-
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-        }, false);
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
-    $(function () {
-        $('#profile-image1_ID').on('click', function () {
-            $('#profile-image-upload_ID').click();
-        });
-    });
 </script>
 
