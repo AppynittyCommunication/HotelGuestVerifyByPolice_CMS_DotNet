@@ -2,5 +2,365 @@
     Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Dashboard";
 }
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<style>
 
-<h1>Umesh</h1>
+    
+
+#content-wrapper{padding-top:15px}
+    .formCheckIn{
+background:#fff;
+        box-shadow: -1px 0px 8px 2px rgb(151 126 252 / 50%);
+        /* //margin-right:25px; */
+        padding-top:20px;
+        padding-bottom: 20px;
+        margin-bottom:2%
+    }
+
+    .form-control_Date {
+        border: none !important;
+      /*  // border-bottom: 1px solid #787878 !important; */
+        border-radius: 0px !important;
+       
+        margin-right: 5% !important;
+        margin-bottom: 18px;
+        background:#fff !important;    
+    }
+
+    .form-control {
+        border: none !important;
+        border-bottom: 1px solid #787878 !important;
+        border-radius: 0px !important;
+        /*  color: #9979f6 !important; */
+        margin-right: 5% !important;
+        margin-bottom: 18px;
+    }
+
+    .form-group {
+        width: 45% !important;
+        margin-right: 5% !important;
+    }
+
+    #form-heading {
+        margin-left: 20px;
+        color: #fff;
+        background: #4594fc;
+        margin-bottom: 0px;
+        width: 22%;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding-left: 25px;
+    }
+
+    .form-control:focus {
+        color: #212529;
+        background-color: #fff !important;
+        border-color: none;
+        outline: 0;
+        box-shadow: none !important;
+        border-bottom: 2px solid #9979f6 !important;
+    }
+
+    .addAdult {
+       
+        background: #8786fa;
+        color:#fff;
+    }
+
+    .addChild {
+       /*  position: absolute;
+        bottom:35px;
+        right: 25%; */
+        background: #8786fa;
+        color: #fff;
+    }
+
+    .profile-pic {
+       /*  position: absolute; */
+        height: 120px;
+        width: 50%;
+        left: 50%;
+      /*   transform: translateX(-50%); */
+        top: 0px;
+        z-index: 1001;
+        padding: 10px;
+        justify-content:center;
+        display:flex
+    }
+
+        .profile-pic img {
+          /*   border-radius: 50%;
+            box-shadow: 0px 0px 5px 0px #c1c1c1; */
+            cursor: pointer;
+           /*  width: 100px; */
+            height: 100px;
+        }
+</style>
+
+    <div class="formCheckIn px-5">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-left" style="margin:0px">
+                    Check-In Date   
+               
+                </p>
+            <input class="form-control_Date" id="currentTime" type="text" disabled style="font-weight:600;font-size:16px;" />
+            </div>
+            <div class="col-md-6 text-right">
+            <button class="btn btn-md addAdult">Add Adult</button>
+            <button class="btn btn-md addChild">Add Child</button>
+            </div>
+        </div>
+   
+        <div>
+            <h4>Adult 1</h4>
+        <div class="d-flex">
+            <div class="form-group">
+
+                @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="First Name" />
+                   @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
+
+                    @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Last Name" />
+                   @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
+
+                    @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
+
+                </div>
+
+            </div>
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Mobile" />
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex">
+           
+
+            <div class="form-group">
+
+             
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Relation" />
+                  
+
+                </div>
+
+            </div>
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Select Gender" />
+
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Select Age" />
+
+
+                </div>
+
+            </div>
+        </div>
+       
+        <div class="d-flex">
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Country" />
+
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="State" />
+
+
+                </div>
+
+            </div>
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="City" />
+
+
+                </div>
+
+            </div>
+
+           
+        </div>
+        <div class="d-flex">
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Visit Purpose" />
+
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    <input class="form-control" placeholder="Coming From" />
+
+
+                </div>
+
+            </div>
+           
+        </div>
+        <div class="d-flex">
+        <div class="profile-pic">
+
+            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200">
+            <input id="profile-image-upload" class="hidden" type="file" onchange="previewFile()">
+            <div style="color:#999;">  </div>
+                <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
+        </div>
+        <div class="profile-pic">
+
+            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
+            <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+            <div style="color:#999;">  </div>
+                <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
+        </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-md addChild">Done</button>
+        </div>
+        </div>
+
+
+
+    </div>
+
+    <script>
+    // var today = new Date();
+    // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+   
+    // var dateTime = date + ' ' + time;
+    // document.getElementById("currentDateTime").value = dateTime;
+    $(document).ready(function () {
+        clock();
+        function clock() {
+         
+            var now = new Date();
+            var date = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+            var TwentyFourHour = now.getHours();
+            var hour = now.getHours();
+            var min = now.getMinutes();
+            var sec = now.getSeconds();
+            var mid = 'pm';
+            if (sec < 10) {
+                sec = "0" + sec;
+            }
+            if (min < 10) {
+                min = "0" + min;
+            }
+            if (hour > 12) {
+                hour = hour - 12;
+            }
+            if (hour < 10) {
+                hour = "0" + hour;
+            }
+            if (hour == 0) {
+                hour = 12;
+            }
+            if (TwentyFourHour < 12) {
+                mid = 'am';
+            }
+            var dateTime = date + ' ' + hour + ':' + min  + ' ' + mid;
+            // setTimeout(clock, 1000);
+            document.getElementById("currentTime").value = dateTime;
+        }
+    })
+    function previewFile() {
+        var preview = document.querySelector('img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    $(function () {
+        $('#profile-image1').on('click', function () {
+            $('#profile-image-upload').click();
+        });
+    });
+    function previewFile_ID() {
+        var preview = document.querySelector('img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    $(function () {
+        $('#profile-image1_ID').on('click', function () {
+            $('#profile-image-upload_ID').click();
+        });
+    });
+</script>
