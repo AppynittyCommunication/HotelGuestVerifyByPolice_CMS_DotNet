@@ -65,5 +65,9 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
         {
             return View();
         }
+        public IActionResult CheckIn()
+        {
+            return View();
+        }
     }
 }

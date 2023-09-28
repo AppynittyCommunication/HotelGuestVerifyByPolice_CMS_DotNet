@@ -146,7 +146,31 @@
         box-sizing: border-box;
        /*  margin: 20px; */
         box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+       
     }
+
+    .buttonCheck{
+        border-radius: 50%;
+        padding: 10px;
+        height: 70px;
+        width: 70px;
+        border: 1px #efefefef;
+        background: #8b84f9;
+        box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+        margin-bottom: 15px;
+        
+    }
+   .slide-left {
+  animation: 8s slide-left;
+}
+@@keyframes slide-left {
+  from {
+    margin-left: 100%;
+  }
+  to {
+    margin-left:0%;
+  }
+}
 </style>
 @* <div class="table-responsive">
     <table class="table table-striped">
@@ -199,7 +223,7 @@
                 <div class="card-hint"> <a href="#">View Details</a></div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mr-2">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4 mr-2" style="margin-right: 1%;">
             <div class="card" id="pizzaCard">
                 <div class="card-title">EMPLOYEE</div>
                 <div class="card-icon"><img src="../Areas/HotelDashboard/Content/Images/Icon/online-reservation.png" style="width:65px;"></div>
@@ -208,7 +232,12 @@
                 <div class="card-hint"><a href="#">View Details</a></div>
             </div>
         </div>
-     
+        <div class="slide-left">
+            <button class="buttonCheck"><a href="/HotelDashboard/HotelHome/CheckIn"><img src="../Areas/HotelDashboard/Content/Images/Icon/check-in.png" style="width:45px;"></a></button>
+     </div>
+        <div class="slide-left mt-5">
+            <button class="buttonCheck"><img src="../Areas/HotelDashboard/Content/Images/Icon/check-out.png" style="width:45px;"></button>
+        </div>
     </div>
 
 
