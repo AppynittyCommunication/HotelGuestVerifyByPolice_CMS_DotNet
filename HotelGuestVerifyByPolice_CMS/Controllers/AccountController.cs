@@ -39,7 +39,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         {
             _contx.HttpContext.Session.SetString("hotelRegNo", "");
             _contx.HttpContext.Session.SetString("hotelName", "");
-            return Redirect("/Account/HotelLogin");
+            //return Redirect("~/Account/HotelLogin");
+            return RedirectToActionPermanent("HotelLogin", "Account", new { area = "" });
         }
         [HttpPost]
         public ActionResult DepartLogout()
