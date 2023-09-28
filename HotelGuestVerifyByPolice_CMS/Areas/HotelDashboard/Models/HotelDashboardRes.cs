@@ -14,7 +14,9 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models
         public int totalGuest { get; set; }
         public int todaysCheckIn { get; set; }
         public int todaysCheckOut { get; set; }
-        public List<GuestDetail> guestDetails { get; set; }
+        public List<GuestDetail>? guestDetails { get; set; }
+
+        public List<MonthlyCheckInOutCount>? monthlyCheckInOutCounts { get; set; }
     }
 
     public class GuestDetail
@@ -26,5 +28,13 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models
         public string state { get; set; }
         public string country { get; set; }
         public string checkInDate { get; set; }
+    }
+
+    public class MonthlyCheckInOutCount
+    {
+        public int month { get; set; }
+        public string? monthName { get; set; }
+        public int checkInCount { get; set; }
+        public int checkOutCount { get; set; }
     }
 }

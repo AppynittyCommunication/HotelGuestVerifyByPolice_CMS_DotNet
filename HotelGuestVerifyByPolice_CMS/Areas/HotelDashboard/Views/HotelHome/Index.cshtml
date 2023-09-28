@@ -1,4 +1,5 @@
-﻿@model HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.HotelDashResData
+﻿@using Newtonsoft.Json
+@model HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.HotelDashResData
 @{
     Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Dashboard";
@@ -255,7 +256,7 @@
         </div>
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
             <div class="chart_div"><canvas id="Weekly" width="373" height="260"></canvas>
-                <p style="text-align:center;font-weight:500">Monthly Check In</p>
+                <p style="text-align:center;font-weight:500">Monthly Check Out</p>
             </div>
            
         </div>
@@ -345,13 +346,15 @@
     Chart.defaults.global.defaultFontFamily = '"Open Sans"';
     //Chart.defaults.global.legend = false;
     var MonthlyCtx = document.getElementById("Monthly");
+    debugger;
+    var monthlyData  = @Html.Raw(JsonConvert.SerializeObject(Model.monthlyCheckInOutCounts));
     var Monthly = new Chart(MonthlyCtx, {
         type: 'bar',
         data: {
-            labels: ["Jan", "Feb", "March", "April", "May", "Jun", "July", "Agust", "Sep", "oct", "Nov","Dec"],
+            labels: monthlyData.map(item => item.monthName),
             datasets: [{
-                label: 'Projekt',
-                data: [11, 34, 7, 11, 34, 7, 11, 34, 7, 11, 34, 7,],
+                label: 'Check-In',
+                data: monthlyData.map(item => item.checkInCount),
                 fill: true,
                 backgroundColor: [blue, green, red, lightgreen, lightblue, orange, yellow, lightgreen, lightblue,'blue','pink','orange'],
 
@@ -394,10 +397,10 @@
     var Daily = new Chart(DailyCtx, {
         type: 'line',
         data: {
-            labels: ["M", "T", "W", "T", "F", "S", "S"],
+            labels: monthlyData.map(item => item.monthName),
             datasets: [ {
-                label: 'Debitering inkl Prospekt, SEK',
-                data: [10, 20,35, 48, 65, 29, 23],
+                label: 'Check-In',
+                data: monthlyData.map(item => item.checkInCount),
                 fill: false,
                 backgroundColor: orange,
                 borderColor: orange,
@@ -440,10 +443,10 @@
     var Weekly = new Chart(WeekCtx, {
         type: 'bar',
         data: {
-            labels: ["Jan", "Feb", "March", "April", "May", "Jun", "July", "Agust", "Sep", "oct", "Nov", "Dec"],
+            labels: monthlyData.map(item => item.monthName),
             datasets: [{
-                label: 'Projekt',
-                data: [11, 34, 7, 11, 34, 7, 11, 34, 7, 11, 34, 7,],
+                label: 'Check-Out',
+                data: monthlyData.map(item => item.checkOutCount),
                 fill: true,
                 backgroundColor: [blue, green, red, lightgreen, lightblue, orange, yellow, lightgreen, lightblue, 'blue', 'pink', 'orange'],
 
