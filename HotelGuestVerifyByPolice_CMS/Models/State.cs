@@ -5,16 +5,14 @@ namespace HotelGuestVerifyByPolice_CMS.Models
 {
     public class State
     {
-        [Column("ID")]
-        public int Id { get; set; }
-
-        [Key]
-        [Column("StateID")]
+        public int Code { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
+        public List<StateData> Data { get; set; }
+    }
+    public class StateData
+    {
         public int StateId { get; set; }
-
-        [StringLength(50)]
-        public string? StateName { get; set; }
-
-        public bool? IsActive { get; set; }
+        public string StateName { get; set; }
     }
 }
