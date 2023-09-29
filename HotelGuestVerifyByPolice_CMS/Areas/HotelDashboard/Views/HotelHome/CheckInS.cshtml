@@ -107,6 +107,8 @@
         }
 
     .px-5{padding-left:5%;padding-right:2%}
+
+    #formTable{display:block}
 </style>
 
 <div class="formCheckIn px-5">
@@ -118,21 +120,22 @@
             </p>
             <input class="form-control_Date" id="currentTime" type="text" disabled style="font-weight:600;font-size:16px;" />
         </div>
-        <div class="col-md-6 text-right">
+        @* <div class="col-md-6 text-right">
             <button class="btn btn-md addAdult" onclick="addAdult()">Add Adult</button>
             <button class="btn btn-md addChild" onclick="addChild()">Add Child</button>
-        </div>
+        </div> *@
     </div>
 
     <div>
-        <h4>Adult 1</h4>
+        <form id="main-form">
+            <h4 style="color:#5520eb;font-weight:700;">Adult 1</h4>
         <div class="d-flex">
             <div class="form-group">
 
                 @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="First Name" />
+                    <input class="form-control" id="firstNameMain" placeholder="First Name" />
                     @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
                     @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
@@ -146,7 +149,7 @@
                 @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Last Name" />
+                        <input class="form-control" id="lastNameMain" placeholder="Last Name" />
                     @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
 
                     @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
@@ -159,7 +162,7 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Mobile" />
+                        <input class="form-control" id="mobileMain" placeholder="Mobile" />
 
 
                 </div>
@@ -168,30 +171,45 @@
         </div>
         <div class="d-flex">
 
+                <div class="form-group">
 
-            <div class="form-group">
+
+
+                    <div class="form-input">
+                        <input class="form-control" id="emailMain" placeholder="Email" />
+                      
+                    </div>
+
+                </div>
+           @*  <div class="form-group">
 
 
 
                 <div class="form-input">
-                   
-                    <select name="Relation" class="form-control">
+
+                        <select name="Relation" class="form-control" id="relationMain">
                         <option value="">Select Relation</option>
+                         <option value="">Father</option>
+                            <option value="">Mother</option>
+                            <option value="">Son</option>
+                            <option value="">Daughter</option>
+                            <option value="">Brother</option>
+                            <option value="">Sister</option>
                     </select>
 
                 </div>
 
-            </div>
+            </div> *@
             <div class="form-group">
 
 
 
                 <div class="form-input">
                    
-                    <select name="Gender" class="form-control">
+                    <select name="Gender" class="form-control" id="genderMain">
                         <option value="">Select Gender</option>
-                        <option value="">Male</option>
-                        <option value="">Female</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
                     </select>
 
                 </div>
@@ -203,10 +221,10 @@
 
 
                 <div class="form-input">
-                   
-                    <select name="Age" class="form-control">
+                        <input class="form-control" id="ageMain" placeholder="Age" />
+                       @*  <select name="Age" class="form-control" >
                         <option value="">Select Age</option>
-                    </select>
+                        </select> *@
 
                 </div>
 
@@ -220,8 +238,9 @@
 
                 <div class="form-input">
                   
-                    <select name="Country" class="form-control">
+                    <select name="Country" class="form-control" id="countryMain">
                         <option value="">Select Country</option>
+                            <option value="india">India</option>
                     </select>
 
 
@@ -234,9 +253,10 @@
 
 
                 <div class="form-input">
-                   
-                    <select name="State" class="form-control">
+
+                        <select name="State" class="form-control" id="stateMain">
                         <option value="">Select State</option>
+                            <option value="maharashtra">Maharashtra</option>
                     </select>
 
 
@@ -249,8 +269,9 @@
 
                 <div class="form-input">
                   
-                    <select name="City" class="form-control">
+                    <select name="City" class="form-control" id="cityMain">
                         <option value="">Select City</option>
+                            <option value="nagpur">Nagpur</option>
                     </select>
 
                 </div>
@@ -266,8 +287,9 @@
 
                 <div class="form-input">
                    
-                    <select name="VisitPurpose" class="form-control">
+                    <select name="VisitPurpose" class="form-control" id="visitMain">
                         <option value="">Select Visit Purpose</option>
+                            <option value="other">others</option>
                     </select>
 
                 </div>
@@ -279,7 +301,7 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Coming From" />
+                    <input class="form-control" placeholder="Coming From"  id="comingMain"/>
 
 
                 </div>
@@ -291,8 +313,9 @@
 
                 <div class="form-input">
 
-                    <select name="IdType"class="form-control">
+                    <select name="IdType"class="form-control" id="idtypeMain">
                         <option value="">Select ID Type</option>
+                            <option value="adharcard">Adhar Card</option>
                     </select>
 
                 </div>
@@ -316,10 +339,32 @@
             </div>
         </div>
         <div class="text-center">
-            <button class="btn btn-md addChild">Done</button>
+            <button class="btn btn-md addChild" type="submit">Done</button>
         </div>
+        </form>
     </div>
-
+    <div id="formTable">
+        <div class="text-right" style="margin-bottom:2%">
+            <button class="btn btn-md addAdult" onclick="addAdult()">Add Adult</button>
+            <button class="btn btn-md addChild" onclick="addChild()">Add Child</button>
+        </div>
+        <table id="formdataTable" class="display">
+            <thead>
+                <tr>
+                    <th>Guest Name</th>
+                    
+                    <th>Gender</th>
+                    <th>age</th>
+                   
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Comeing Form</th>
+                    <th>Id Type</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 
 
 </div>
@@ -356,7 +401,7 @@
             </div>
            
             <div class="modal-body" style="margin:auto">
-                <div>
+                <form id="formAdult">
                     <h4>Adult 1</h4>
                     <div class="d-flex">
                         <div class="form-group">
@@ -364,7 +409,7 @@
                             @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
 
                             <div class="form-input">
-                                <input class="form-control" placeholder="First Name" />
+                                <input class="form-control" id="firstNameAdult" placeholder="First Name" />
                                 @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
                                 @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
@@ -378,7 +423,7 @@
                             @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
 
                             <div class="form-input">
-                                <input class="form-control" placeholder="Last Name" />
+                                <input class="form-control" id="lastNameAdult" placeholder="Last Name" />
                                 @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
 
                                 @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
@@ -391,7 +436,7 @@
 
 
                             <div class="form-input">
-                                <input class="form-control" placeholder="Mobile" />
+                                <input class="form-control" id="mobileAdult" placeholder="Mobile" />
 
 
                             </div>
@@ -407,8 +452,14 @@
 
                             <div class="form-input">
 
-                                <select name="Relation" class="form-control">
+                                <select name="Relation" class="form-control" id="relationAdult">
                                     <option value="">Select Relation</option>
+                                    <option value="Father">Father</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Brother">Brother</option>
+                                    <option value="Sister">Sister</option>
+                                    <option value="Son">Son</option>
+                                    <option value="Dauther">Dauther</option>
                                 </select>
 
                             </div>
@@ -420,10 +471,10 @@
 
                             <div class="form-input">
 
-                                <select name="Gender" class="form-control">
+                                <select name="Gender" class="form-control" id="genderAdult">
                                     <option value="">Select Gender</option>
-                                    <option value="">Male</option>
-                                    <option value="">Female</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
                                 </select>
 
                             </div>
@@ -435,10 +486,10 @@
 
 
                             <div class="form-input">
-
-                                <select name="Age" class="form-control">
+                                <input class="form-control" id="ageAdult" placeholder="Age" />
+                               @*  <select name="Age" class="form-control">
                                     <option value="">Select Age</option>
-                                </select>
+                                </select> *@
 
                             </div>
 
@@ -452,8 +503,9 @@
 
                             <div class="form-input">
 
-                                <select name="Country" class="form-control">
+                                <select name="Country" class="form-control" id="countryAdult">
                                     <option value="">Select Country</option>
+                                    <option value="India">India</option>
                                 </select>
 
 
@@ -467,8 +519,9 @@
 
                             <div class="form-input">
 
-                                <select name="State" class="form-control">
+                                <select name="State" class="form-control" id="stateAdult">
                                     <option value="">Select State</option>
+                                    <option value="Maharashtra">Maharashtra</option>
                                 </select>
 
 
@@ -481,8 +534,9 @@
 
                             <div class="form-input">
 
-                                <select name="City" class="form-control">
+                                <select name="City" class="form-control" id="cityAdult">
                                     <option value="">Select City</option>
+                                    <option value="Nagpur">Nagpur</option>
                                 </select>
 
                             </div>
@@ -498,8 +552,9 @@
 
                             <div class="form-input">
 
-                                <select name="VisitPurpose" class="form-control">
+                                <select name="VisitPurpose" class="form-control" id="visitAdult">
                                     <option value="">Select Visit Purpose</option>
+                                    <option value="Others">Others</option>
                                 </select>
 
                             </div>
@@ -511,7 +566,7 @@
 
 
                             <div class="form-input">
-                                <input class="form-control" placeholder="Coming From" />
+                                <input class="form-control" placeholder="Coming From" id="comingAdult" />
 
 
                             </div>
@@ -523,8 +578,9 @@
 
                             <div class="form-input">
 
-                                <select name="IdType" class="form-control">
+                                <select name="IdType" class="form-control" id="idTypeAdult">
                                     <option value="">Select ID Type</option>
+                                    <option value="Adhar">Adhar Card</option>
                                 </select>
 
                             </div>
@@ -548,9 +604,9 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-md addChild">Done</button>
+                        <button class="btn btn-md addChild" type="submit">Done</button>
                     </div>
-                </div>
+                </form>
 
             </div>
         </div>
@@ -570,7 +626,7 @@
             </div>
 
             <div class="modal-body" style="margin:auto">
-                <div>
+                <form id="formChild">
                     <h4>Adult 1</h4>
                     <div class="d-flex">
                         <div class="form-group">
@@ -638,8 +694,8 @@
 
                                 <select name="Gender" class="form-control">
                                     <option value="">Select Gender</option>
-                                    <option value="">Male</option>
-                                    <option value="">Female</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
                                 </select>
 
                             </div>
@@ -665,9 +721,9 @@
                       
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-md addChild">Done</button>
+                        <button class="btn btn-md addChild" type="submit">Done</button>
                     </div>
-                </div>
+                </form>
 
             </div>
         </div>
@@ -675,11 +731,7 @@
     </div>
 </div>
 <script>
-    // var today = new Date();
-    // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
-    // var dateTime = date + ' ' + time;
-    // document.getElementById("currentDateTime").value = dateTime;
+   
     $(document).ready(function () {
         clock();
         function clock() {
@@ -713,6 +765,7 @@
             // setTimeout(clock, 1000);
             document.getElementById("currentTime").value = dateTime;
         }
+        
     })
     function previewFile() {
        
@@ -734,24 +787,7 @@
     //         $('#profile-image-upload').click();
     //     });
     // });
-    // function previewFile_ID() {
-    //     var preview = document.querySelector('img');
-    //     var file = document.querySelector('input[type=file]').files[0];
-    //     var reader = new FileReader();
-
-    //     reader.addEventListener("load", function () {
-    //         preview.src = reader.result;
-    //     }, false);
-
-    //     if (file) {
-    //         reader.readAsDataURL(file);
-    //     }
-    // }
-    // $(function () {
-    //     $('#profile-image1_ID').on('click', function () {
-    //         $('#profile-image-upload_ID').click();
-    //     });
-    // });
+    
 
     function addAdult() {
         $("#addAdult").modal({ backdrop: 'static', keyboard: false }, "show");
@@ -759,6 +795,120 @@
     function addChild() {
         $("#addChild").modal({ backdrop: 'static', keyboard: false }, "show");
     }
-    
+
+    const dataTable = $("#formdataTable").DataTable();
+    const childDataArray = [];
+    $("#main-form").submit(function (e) {
+       // alert()
+        // debugger
+         e.preventDefault();
+        const firstName = $("#firstNameMain").val();
+        const lastName = $("#lastNameMain").val();
+        const mobile = $("#mobileMain").val();
+        const age = $("#ageMain").val();
+        const gender = $("#genderMain").val();
+        const email = $("#emailMain").val();
+        const country = $("#countryMain").val();
+        const state = $("#stateMain").val();
+        const city = $("#cityMain").val();
+        const visitPurpose = $("#visitMain").val();
+        const comingFrom = $("#comingMain").val();
+        const guestIdType = $("#idtypeMain").val();
+        var formMaindata = {
+            // firstName : firstName,
+            // lastName : lastName,
+            hotelRegNo: "Collection123",
+            guestName: "" + firstName + ' ' + lastName,
+            guestType: "Adult",
+            gender: gender,
+            email: email,
+            country: country,
+            state: state,
+            city: city,
+            numberOfGuest: 3,
+            age: age,
+            mobile: mobile,
+            visitPurpose: visitPurpose,
+            roomType: "AC",
+            roomNo: 108,
+            comingFrom: comingFrom,
+            guestIdType: guestIdType,
+            guestIDProof: "data:image/png;base64,iVBORw0KGg",
+            "guestPhoto": "data:image/jpeg;base64,/9j/4AA",
+            paymentMode: "Cash",
+        }
+
+        // Save main data in localStorage
+        localStorage.setItem("mainData", JSON.stringify(formMaindata));
+
+        // Add main data as the first row in DataTable
+        dataTable.row.add([formMaindata.guestName, formMaindata.gender, formMaindata.age, formMaindata.city, formMaindata.state, formMaindata.comingFrom, formMaindata.guestIdType]).draw();
+        console.log(formMaindata)
+        $("#main-form").hide();
+        $("#formTable").show();
+        e.target.reset();
+
+    });
+
+    $("#addAdult").submit(function (e) {
+        e.preventDefault();
+
+        // Retrieve main data from localStorage
+        const mainDataJSON = localStorage.getItem("mainData");
+
+        if (mainDataJSON) {
+            const mainData = JSON.parse(mainDataJSON);
+            var formChilddata = {
+                guestName: $("#firstNameAdult").val() + " " + $("#lastNameAdult").val(),
+                age: $("#ageAdult").val(),
+                mobile: $("#mobileAdult").val(),
+                relationWithGuest: $("#relationAdult").val(),
+                guestType: "Adult",
+                gender: $("#genderAdult").val(),
+                email: $("#emailAdult").val(),
+                country: $("#countryAdult").val(),
+                state: $("#stateAdult").val(),
+                city: $("#cityAdult").val(),
+                comingFrom: $("#comingAdult").val(),
+                guestIdType: $("#idTypeAdult").val(),
+                guestIDProof: "data:image/png;base64,iVBORw0",
+                guestPhoto: "data:image/jpeg;base64,/9j/4AAQSkZJ"
+            }
+
+           
+
+            // Add child data as the second row in DataTable
+            dataTable.row.add([formChilddata.guestName, formChilddata.gender, formChilddata.age, formChilddata.city, formChilddata.state, formChilddata.comingFrom, formChilddata.guestIdType]).draw();
+
+            // Save the last child data in the array
+            childDataArray.push(formChilddata);
+            const formData = {
+                mainData,
+                addOnGuest: [
+                    childDataArray
+                ]
+            };
+            console.log(formData)
+            // Clear the child form input
+            $(formChilddata).val("");
+        } else {
+            alert("Please submit main data first.");
+        }
+    });
+
+
+
+    for (var i = 0; i < shopData.length; i++) {
+        document.querySelector('.shop').innerHTML += `
+      <div class="card">
+          <img src="${shopData[i].image}" alt="">
+          <h3>$${shopData[i].price}</h3>
+          <h1> ${shopData[i].title}</h1>
+          <p> ${shopData[i].description}</p>
+          <button>Buy now</button>
+       </div>
+      `;
+
+    }
 </script>
 
