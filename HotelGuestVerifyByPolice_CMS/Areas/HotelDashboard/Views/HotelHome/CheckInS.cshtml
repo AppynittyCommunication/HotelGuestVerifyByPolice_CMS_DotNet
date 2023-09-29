@@ -634,7 +634,7 @@
                             @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
 
                             <div class="form-input">
-                                <input class="form-control" placeholder="First Name" />
+                                <input class="form-control" id="firstNameChild" placeholder="First Name" />
                                 @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
                                 @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
@@ -648,7 +648,7 @@
                             @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
 
                             <div class="form-input">
-                                <input class="form-control" placeholder="Last Name" />
+                                <input class="form-control" id="lastNameChild" placeholder="Last Name" />
                                 @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
 
                                 @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
@@ -664,11 +664,8 @@
 
 
                             <div class="form-input">
-
-                                <select name="Age" class="form-control">
-                                    <option value="">Select Age</option>
-                                </select>
-
+                                <input class="form-control" id="ageChild" placeholder="Age" />
+                               
                             </div>
 
                         </div>
@@ -679,8 +676,10 @@
 
                             <div class="form-input">
 
-                                <select name="Relation" class="form-control">
+                                <select name="Relation" id="realationChild" class="form-control">
                                     <option value="">Select Relation</option>
+                                    <option value="Son">Son</option>
+                                    <option value="Dauther">Dauther</option>
                                 </select>
 
                             </div>
@@ -692,7 +691,7 @@
 
                             <div class="form-input">
 
-                                <select name="Gender" class="form-control">
+                                <select name="Gender" class="form-control" id="genderChild">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
@@ -705,10 +704,10 @@
                        
                     </div>
 
-                    <div class="d-flex">
+                   @*  <div class="d-flex">
                       
 
-                    </div>
+                    </div> *@
                   
                     <div class="d-flex">
                         <div class="profile-pic" style="width:100%">
@@ -818,7 +817,7 @@
             // firstName : firstName,
             // lastName : lastName,
             hotelRegNo: "Collection123",
-            guestName: "" + firstName + ' ' + lastName,
+            guestName:  firstName + " " + lastName,
             guestType: "Adult",
             gender: gender,
             email: email,
@@ -850,7 +849,7 @@
 
     });
 
-    $("#addAdult").submit(function (e) {
+    $("#formAdult").submit(function (e) {
         e.preventDefault();
 
         // Retrieve main data from localStorage
@@ -889,6 +888,8 @@
                 ]
             };
             console.log(formData)
+            $("#addAdult").modal("hide");
+            
             // Clear the child form input
             $(formChilddata).val("");
         } else {
@@ -896,7 +897,48 @@
         }
     });
 
+    $("#formChild").submit(function (e) {
+        e.preventDefault();
 
+        // Retrieve main data from localStorage
+        const mainDataJSON = localStorage.getItem("mainData");
+
+        if (mainDataJSON) {
+            const mainData = JSON.parse(mainDataJSON);
+            var formChilddata = {
+                guestName: $("#firstNameChild").val() + " " + $("#lastNameChild").val(),
+                age: $("#ageChild").val(),
+              
+                relationWithGuest: $("#relationChild").val(),
+                guestType: "Child",
+                gender: $("#genderChild").val(),
+               
+               
+               
+                guestIDProof: "data:image/png;base64,iVBORw0",
+                guestPhoto: "data:image/jpeg;base64,/9j/4AAQSkZJ"
+            }
+
+
+
+            // Add child data as the second row in DataTable
+            dataTable.row.add([formChilddata.guestName, formChilddata.gender, formChilddata.age, formChilddata.city, formChilddata.state, formChilddata.comingFrom, formChilddata.guestIdType]).draw();
+
+            // Save the last child data in the array
+            childDataArray.push(formChilddata);
+            const formData = {
+                mainData,
+                addOnGuest: [
+                    childDataArray
+                ]
+            };
+            console.log(formData)
+            // Clear the child form input
+            $(formChilddata).val("");
+        } else {
+            alert("Please submit main data first.");
+        }
+    });
 
     for (var i = 0; i < shopData.length; i++) {
         document.querySelector('.shop').innerHTML += `
