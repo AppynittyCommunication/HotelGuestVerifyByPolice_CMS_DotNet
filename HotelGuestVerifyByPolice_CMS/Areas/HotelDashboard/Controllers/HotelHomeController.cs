@@ -103,7 +103,21 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
         }
         public IActionResult CheckInS()
         {
-            return View();
+            string hotelregno = _contx.HttpContext.Session.GetString("hotelRegNo");
+            string hotelname = _contx.HttpContext.Session.GetString("hotelName");
+
+            ViewBag.hotelregno = hotelregno;
+            ViewBag.hotelname = hotelname;
+            if (string.IsNullOrEmpty(hotelregno))
+            {
+                // return RedirectToAction("HotelLogin", "Account");
+                return Redirect("/Account/HotelLogin");
+            }
+            else
+            {
+                return View();
+            }
+           
         }
     }
 }

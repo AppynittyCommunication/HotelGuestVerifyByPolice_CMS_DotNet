@@ -3,8 +3,11 @@
     ViewData["Title"] = "CheckInS";
     Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
 <link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <style>
@@ -69,7 +72,8 @@
     }
 
     .addAdult {
-        background: #8786fa;
+       /*  background: #8786fa; */
+        background: #5520eb;
         color: #fff;
     }
 
@@ -77,7 +81,7 @@
         /*  position: absolute;
             bottom:35px;
             right: 25%; */
-        background: #8786fa;
+        background: #5520eb;
         color: #fff;
     }
 
@@ -103,6 +107,8 @@
         }
 
     .px-5{padding-left:5%;padding-right:2%}
+
+    #formTable{display:block}
 </style>
 
 <div class="formCheckIn px-5">
@@ -114,21 +120,22 @@
             </p>
             <input class="form-control_Date" id="currentTime" type="text" disabled style="font-weight:600;font-size:16px;" />
         </div>
-        <div class="col-md-6 text-right">
-            <button class="btn btn-md addAdult">Add Adult</button>
-            <button class="btn btn-md addChild">Add Child</button>
-        </div>
+        @* <div class="col-md-6 text-right">
+            <button class="btn btn-md addAdult" onclick="addAdult()">Add Adult</button>
+            <button class="btn btn-md addChild" onclick="addChild()">Add Child</button>
+        </div> *@
     </div>
 
     <div>
-        <h4>Adult 1</h4>
+        <form id="main-form">
+            <h4 style="color:#5520eb;font-weight:700;">Adult 1</h4>
         <div class="d-flex">
             <div class="form-group">
 
                 @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="First Name" />
+                    <input class="form-control" id="firstNameMain" placeholder="First Name" />
                     @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
                     @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
@@ -142,7 +149,7 @@
                 @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Last Name" />
+                        <input class="form-control" id="lastNameMain" placeholder="Last Name" />
                     @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
 
                     @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
@@ -155,7 +162,7 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Mobile" />
+                        <input class="form-control" id="mobileMain" placeholder="Mobile" />
 
 
                 </div>
@@ -164,37 +171,60 @@
         </div>
         <div class="d-flex">
 
+                <div class="form-group">
 
+
+
+                    <div class="form-input">
+                        <input class="form-control" id="emailMain" placeholder="Email" />
+                      
+                    </div>
+
+                </div>
+           @*  <div class="form-group">
+
+
+
+                <div class="form-input">
+
+                        <select name="Relation" class="form-control" id="relationMain">
+                        <option value="">Select Relation</option>
+                         <option value="">Father</option>
+                            <option value="">Mother</option>
+                            <option value="">Son</option>
+                            <option value="">Daughter</option>
+                            <option value="">Brother</option>
+                            <option value="">Sister</option>
+                    </select>
+
+                </div>
+
+            </div> *@
             <div class="form-group">
 
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Relation" />
-
+                   
+                    <select name="Gender" class="form-control" id="genderMain">
+                        <option value="">Select Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
 
                 </div>
 
             </div>
-            <div class="form-group">
-
-
-
-                <div class="form-input">
-                    <input class="form-control" placeholder="Select Gender" />
-
-
-                </div>
-
-            </div>
 
             <div class="form-group">
 
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Select Age" />
-
+                        <input class="form-control" id="ageMain" placeholder="Age" />
+                       @*  <select name="Age" class="form-control" >
+                        <option value="">Select Age</option>
+                        </select> *@
 
                 </div>
 
@@ -207,7 +237,11 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Country" />
+                  
+                    <select name="Country" class="form-control" id="countryMain">
+                        <option value="">Select Country</option>
+                            <option value="india">India</option>
+                    </select>
 
 
                 </div>
@@ -219,7 +253,11 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="State" />
+
+                        <select name="State" class="form-control" id="stateMain">
+                        <option value="">Select State</option>
+                            <option value="maharashtra">Maharashtra</option>
+                    </select>
 
 
                 </div>
@@ -230,8 +268,11 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="City" />
-
+                  
+                    <select name="City" class="form-control" id="cityMain">
+                        <option value="">Select City</option>
+                            <option value="nagpur">Nagpur</option>
+                    </select>
 
                 </div>
 
@@ -245,8 +286,11 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Visit Purpose" />
-
+                   
+                    <select name="VisitPurpose" class="form-control" id="visitMain">
+                        <option value="">Select Visit Purpose</option>
+                            <option value="other">others</option>
+                    </select>
 
                 </div>
 
@@ -257,19 +301,32 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Coming From" />
+                    <input class="form-control" placeholder="Coming From"  id="comingMain"/>
 
 
                 </div>
 
             </div>
+            <div class="form-group">
 
+
+
+                <div class="form-input">
+
+                    <select name="IdType"class="form-control" id="idtypeMain">
+                        <option value="">Select ID Type</option>
+                            <option value="adharcard">Adhar Card</option>
+                    </select>
+
+                </div>
+
+            </div>
         </div>
         <div class="d-flex">
             <div class="profile-pic">
 
-                <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200">
-                <input id="profile-image-upload" class="hidden" type="file" onchange="previewFile()">
+                <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200" onclick="previewFile()">
+               @*  <input id="profile-image-upload" class="hidden"> *@
                 <div style="color:#999;">  </div>
                 <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
             </div>
@@ -282,20 +339,398 @@
             </div>
         </div>
         <div class="text-center">
-            <button class="btn btn-md addChild">Done</button>
+            <button class="btn btn-md addChild" type="submit">Done</button>
         </div>
+        </form>
     </div>
-
+    <div id="formTable">
+        <div class="text-right" style="margin-bottom:2%">
+            <button class="btn btn-md addAdult" onclick="addAdult()">Add Adult</button>
+            <button class="btn btn-md addChild" onclick="addChild()">Add Child</button>
+        </div>
+        <table id="formdataTable" class="display">
+            <thead>
+                <tr>
+                    <th>Guest Name</th>
+                    
+                    <th>Gender</th>
+                    <th>age</th>
+                   
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Comeing Form</th>
+                    <th>Id Type</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 
 
 </div>
 
-<script>
-    // var today = new Date();
-    // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-    // var dateTime = date + ' ' + time;
-    // document.getElementById("currentDateTime").value = dateTime;
+
+<div class="modal fade" id="addImage" role="dialog">
+    <div class="modal-dialog" style="width: 100%;height:100%">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+            <div class="modal-body" style="margin:auto">
+               
+                <iframe src="./ImageCapture" style="width:100%;height:550px"></iframe>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="addAdult" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+              
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+           
+            <div class="modal-body" style="margin:auto">
+                <form id="formAdult">
+                    <h4>Adult 1</h4>
+                    <div class="d-flex">
+                        <div class="form-group">
+
+                            @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
+
+                            <div class="form-input">
+                                <input class="form-control" id="firstNameAdult" placeholder="First Name" />
+                                @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
+
+                                @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
+
+                            <div class="form-input">
+                                <input class="form-control" id="lastNameAdult" placeholder="Last Name" />
+                                @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
+
+                                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+                                <input class="form-control" id="mobileAdult" placeholder="Mobile" />
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex">
+
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Relation" class="form-control" id="relationAdult">
+                                    <option value="">Select Relation</option>
+                                    <option value="Father">Father</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Brother">Brother</option>
+                                    <option value="Sister">Sister</option>
+                                    <option value="Son">Son</option>
+                                    <option value="Dauther">Dauther</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Gender" class="form-control" id="genderAdult">
+                                    <option value="">Select Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+                                <input class="form-control" id="ageAdult" placeholder="Age" />
+                               @*  <select name="Age" class="form-control">
+                                    <option value="">Select Age</option>
+                                </select> *@
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Country" class="form-control" id="countryAdult">
+                                    <option value="">Select Country</option>
+                                    <option value="India">India</option>
+                                </select>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="State" class="form-control" id="stateAdult">
+                                    <option value="">Select State</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                </select>
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="City" class="form-control" id="cityAdult">
+                                    <option value="">Select City</option>
+                                    <option value="Nagpur">Nagpur</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="VisitPurpose" class="form-control" id="visitAdult">
+                                    <option value="">Select Visit Purpose</option>
+                                    <option value="Others">Others</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+                                <input class="form-control" placeholder="Coming From" id="comingAdult" />
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="IdType" class="form-control" id="idTypeAdult">
+                                    <option value="">Select ID Type</option>
+                                    <option value="Adhar">Adhar Card</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="profile-pic">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200">
+                            <input id="profile-image-upload" class="hidden" type="file" onchange="previewFile()">
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
+                        </div>
+                        <div class="profile-pic">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
+                            <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-md addChild" type="submit">Done</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="addChild" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+            <div class="modal-body" style="margin:auto">
+                <form id="formChild">
+                    <h4>Adult 1</h4>
+                    <div class="d-flex">
+                        <div class="form-group">
+
+                            @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
+
+                            <div class="form-input">
+                                <input class="form-control" id="firstNameChild" placeholder="First Name" />
+                                @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
+
+                                @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
+
+                            <div class="form-input">
+                                <input class="form-control" id="lastNameChild" placeholder="Last Name" />
+                                @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
+
+                                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
+
+                            </div>
+
+                        </div>
+                       
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+                                <input class="form-control" id="ageChild" placeholder="Age" />
+                               
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Relation" id="realationChild" class="form-control">
+                                    <option value="">Select Relation</option>
+                                    <option value="Son">Son</option>
+                                    <option value="Dauther">Dauther</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+
+                            <div class="form-input">
+
+                                <select name="Gender" class="form-control" id="genderChild">
+                                    <option value="">Select Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                       
+                    </div>
+
+                   @*  <div class="d-flex">
+                      
+
+                    </div> *@
+                  
+                    <div class="d-flex">
+                        <div class="profile-pic" style="width:100%">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200">
+                            <input id="profile-image-upload" class="hidden" type="file" onchange="previewFile()">
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
+                        </div>
+                      
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-md addChild" type="submit">Done</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+   
     $(document).ready(function () {
         clock();
         function clock() {
@@ -329,42 +764,193 @@
             // setTimeout(clock, 1000);
             document.getElementById("currentTime").value = dateTime;
         }
+        
     })
     function previewFile() {
-        var preview = document.querySelector('img');
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
+       
+        $("#addImage").modal({ backdrop: 'static', keyboard: false }, "show");
+        // var preview = document.querySelector('img');
+        // // var file = document.querySelector('input[type=file]').files[0];
+        // var reader = new FileReader();
 
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-        }, false);
+        // reader.addEventListener("load", function () {
+        //     preview.src = reader.result;
+        // }, false);
 
-        if (file) {
-            reader.readAsDataURL(file);
-        }
+        // if (file) {
+        //     reader.readAsDataURL(file);
+        // }
     }
-    $(function () {
-        $('#profile-image1').on('click', function () {
-            $('#profile-image-upload').click();
-        });
-    });
-    function previewFile_ID() {
-        var preview = document.querySelector('img');
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
+    // $(function () {
+    //     $('#profile-image1').on('click', function () {
+    //         $('#profile-image-upload').click();
+    //     });
+    // });
+    
 
-        reader.addEventListener("load", function () {
-            preview.src = reader.result;
-        }, false);
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
+    function addAdult() {
+        $("#addAdult").modal({ backdrop: 'static', keyboard: false }, "show");
     }
-    $(function () {
-        $('#profile-image1_ID').on('click', function () {
-            $('#profile-image-upload_ID').click();
-        });
+    function addChild() {
+        $("#addChild").modal({ backdrop: 'static', keyboard: false }, "show");
+    }
+
+    const dataTable = $("#formdataTable").DataTable();
+    const childDataArray = [];
+    $("#main-form").submit(function (e) {
+       // alert()
+        // debugger
+         e.preventDefault();
+        const firstName = $("#firstNameMain").val();
+        const lastName = $("#lastNameMain").val();
+        const mobile = $("#mobileMain").val();
+        const age = $("#ageMain").val();
+        const gender = $("#genderMain").val();
+        const email = $("#emailMain").val();
+        const country = $("#countryMain").val();
+        const state = $("#stateMain").val();
+        const city = $("#cityMain").val();
+        const visitPurpose = $("#visitMain").val();
+        const comingFrom = $("#comingMain").val();
+        const guestIdType = $("#idtypeMain").val();
+        var formMaindata = {
+            // firstName : firstName,
+            // lastName : lastName,
+            hotelRegNo: "Collection123",
+            guestName:  firstName + " " + lastName,
+            guestType: "Adult",
+            gender: gender,
+            email: email,
+            country: country,
+            state: state,
+            city: city,
+            numberOfGuest: 3,
+            age: age,
+            mobile: mobile,
+            visitPurpose: visitPurpose,
+            roomType: "AC",
+            roomNo: 108,
+            comingFrom: comingFrom,
+            guestIdType: guestIdType,
+            guestIDProof: "data:image/png;base64,iVBORw0KGg",
+            "guestPhoto": "data:image/jpeg;base64,/9j/4AA",
+            paymentMode: "Cash",
+        }
+
+        // Save main data in localStorage
+        localStorage.setItem("mainData", JSON.stringify(formMaindata));
+
+        // Add main data as the first row in DataTable
+        dataTable.row.add([formMaindata.guestName, formMaindata.gender, formMaindata.age, formMaindata.city, formMaindata.state, formMaindata.comingFrom, formMaindata.guestIdType]).draw();
+        console.log(formMaindata)
+        $("#main-form").hide();
+        $("#formTable").show();
+        e.target.reset();
+
     });
+
+    $("#formAdult").submit(function (e) {
+        e.preventDefault();
+
+        // Retrieve main data from localStorage
+        const mainDataJSON = localStorage.getItem("mainData");
+
+        if (mainDataJSON) {
+            const mainData = JSON.parse(mainDataJSON);
+            var formChilddata = {
+                guestName: $("#firstNameAdult").val() + " " + $("#lastNameAdult").val(),
+                age: $("#ageAdult").val(),
+                mobile: $("#mobileAdult").val(),
+                relationWithGuest: $("#relationAdult").val(),
+                guestType: "Adult",
+                gender: $("#genderAdult").val(),
+                email: $("#emailAdult").val(),
+                country: $("#countryAdult").val(),
+                state: $("#stateAdult").val(),
+                city: $("#cityAdult").val(),
+                comingFrom: $("#comingAdult").val(),
+                guestIdType: $("#idTypeAdult").val(),
+                guestIDProof: "data:image/png;base64,iVBORw0",
+                guestPhoto: "data:image/jpeg;base64,/9j/4AAQSkZJ"
+            }
+
+           
+
+            // Add child data as the second row in DataTable
+            dataTable.row.add([formChilddata.guestName, formChilddata.gender, formChilddata.age, formChilddata.city, formChilddata.state, formChilddata.comingFrom, formChilddata.guestIdType]).draw();
+
+            // Save the last child data in the array
+            childDataArray.push(formChilddata);
+            const formData = {
+                mainData,
+                addOnGuest: [
+                    childDataArray
+                ]
+            };
+            console.log(formData)
+            $("#addAdult").modal("hide");
+            
+            // Clear the child form input
+            $(formChilddata).val("");
+        } else {
+            alert("Please submit main data first.");
+        }
+    });
+
+    $("#formChild").submit(function (e) {
+        e.preventDefault();
+
+        // Retrieve main data from localStorage
+        const mainDataJSON = localStorage.getItem("mainData");
+
+        if (mainDataJSON) {
+            const mainData = JSON.parse(mainDataJSON);
+            var formChilddata = {
+                guestName: $("#firstNameChild").val() + " " + $("#lastNameChild").val(),
+                age: $("#ageChild").val(),
+              
+                relationWithGuest: $("#relationChild").val(),
+                guestType: "Child",
+                gender: $("#genderChild").val(),
+               
+               
+               
+                guestIDProof: "data:image/png;base64,iVBORw0",
+                guestPhoto: "data:image/jpeg;base64,/9j/4AAQSkZJ"
+            }
+
+
+
+            // Add child data as the second row in DataTable
+            dataTable.row.add([formChilddata.guestName, formChilddata.gender, formChilddata.age, formChilddata.city, formChilddata.state, formChilddata.comingFrom, formChilddata.guestIdType]).draw();
+
+            // Save the last child data in the array
+            childDataArray.push(formChilddata);
+            const formData = {
+                mainData,
+                addOnGuest: [
+                    childDataArray
+                ]
+            };
+            console.log(formData)
+            // Clear the child form input
+            $(formChilddata).val("");
+        } else {
+            alert("Please submit main data first.");
+        }
+    });
+
+    // for (var i = 0; i < shopData.length; i++) {
+    //     document.querySelector('.shop').innerHTML += `
+    //   <div class="card">
+    //       <img src="${shopData[i].image}" alt="">
+    //       <h3>$${shopData[i].price}</h3>
+    //       <h1> ${shopData[i].title}</h1>
+    //       <p> ${shopData[i].description}</p>
+    //       <button>Buy now</button>
+    //    </div>
+    //   `;
+
+    // }
 </script>
 
