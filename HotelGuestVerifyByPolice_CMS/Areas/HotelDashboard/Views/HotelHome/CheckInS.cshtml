@@ -779,22 +779,95 @@
             // setTimeout(clock, 1000);
             document.getElementById("currentTime").value = dateTime;
         }
-        // For loading all Active States
+
+        // For loading all Visit Purpose List
         $.ajax({
             type: "post",
-            url: "/States/StateList",
+            url: "/States/VisitPurposeList",
             datatype: "json",
             traditional: true,
             success: function (data) {
                 console.log(data);
-                statelist = '<option value="">Select State</option>';
+                vplist = '<option value="">Select Visit Purpose</option>';
                 for (var i = 0; i < data.length; i++) {
-                    statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+                    vplist = vplist + "<option value=" + data[i].id + ">" + data[i].purpose + "</option>";
                 }
                 //district = district + '</select>';
-                $("#stateMain").html(statelist);
+                $("#visitMain").html(vplist);
             },
         });
+
+        // For loading all ID Proof Type List
+        $.ajax({
+            type: "post",
+            url: "/States/IdProofTypeList",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                idprooflist = '<option value="">Select ID Proof</option>';
+                for (var i = 0; i < data.length; i++) {
+                    idprooflist = idprooflist + "<option value=" + data[i].id + ">" + data[i].idProofType + "</option>";
+                }
+                //district = district + '</select>';
+                $("#idtypeMain").html(idprooflist);
+            },
+        });
+
+        // For loading all Active Country
+        $.ajax({
+            type: "post",
+            url: "/States/CountryList",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                countrylist = '<option value="">Select Country</option>';
+                for (var i = 0; i < data.length; i++) {
+                    countrylist = countrylist + "<option value=" + data[i].countryCode + ">" + data[i].countryName + "</option>";
+                }
+                //district = district + '</select>';
+                $("#countryMain").html(countrylist);
+            },
+        });
+
+        // for loading Country Wise State List
+        $("#countryMain").change(function () {
+            $.ajax({
+                type: "post",
+                url: "/States/CountryWiseStateList",
+                data: { cCode: $("#countryMain").val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    // console.log("Selected State Id:" + $('#statelist').val());
+                    // console.log(data);
+                    var statelist = '<option value="-1">Select State</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+                    }
+                    $("#stateMain").html(statelist);
+                },
+            });
+        });
+        // For loading all Active States
+        // $.ajax({
+        //     type: "post",
+        //     url: "/States/StateList",
+        //     datatype: "json",
+        //     traditional: true,
+        //     success: function (data) {
+        //         console.log(data);
+        //         statelist = '<option value="">Select State</option>';
+        //         for (var i = 0; i < data.length; i++) {
+        //             statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+        //         }
+        //         //district = district + '</select>';
+        //         $("#stateMain").html(statelist);
+        //     },
+        // });
+
+     
         // for loading District List
         $("#stateMain").change(function () {
             $.ajax({
