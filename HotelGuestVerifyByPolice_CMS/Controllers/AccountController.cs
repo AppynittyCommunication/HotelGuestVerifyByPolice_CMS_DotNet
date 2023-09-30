@@ -396,6 +396,12 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                         {
                             _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
                             _contx.HttpContext.Session.SetString("hotelName", hotelname);
+
+                            string hregno = _contx.HttpContext.Session.GetString("hotelRegNo");
+                            string hname = _contx.HttpContext.Session.GetString("hotelName");
+
+                            ViewBag.hotelregno = hregno;
+                            ViewBag.hotelname = hname;
                             return RedirectToAction("Index", "HotelHome", new { area = "HotelDashboard" });
                         }
                         //TempData["message"] = message;
