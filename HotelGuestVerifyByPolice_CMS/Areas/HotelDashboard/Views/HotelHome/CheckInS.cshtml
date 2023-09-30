@@ -764,7 +764,22 @@
             // setTimeout(clock, 1000);
             document.getElementById("currentTime").value = dateTime;
         }
-        
+        // For loading all Active States
+        $.ajax({
+            type: "post",
+            url: "/States/StateList",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                statelist = '<option value="">Select State</option>';
+                for (var i = 0; i < data.length; i++) {
+                    statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+                }
+                //district = district + '</select>';
+               // $("#statelist").html(statelist);
+            },
+        });
     })
     function previewFile() {
        
@@ -889,9 +904,9 @@
             };
             console.log(formData)
             $("#addAdult").modal("hide");
-            
+            e.target.reset();
             // Clear the child form input
-            $(formChilddata).val("");
+           
         } else {
             alert("Please submit main data first.");
         }
