@@ -135,7 +135,7 @@
                 @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                    <input class="form-control" id="firstNameMain" placeholder="First Name" />
+                    <input class="form-control" id="firstNameMain" placeholder="First Name" required/>
                     @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
                     @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
@@ -149,7 +149,7 @@
                 @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                        <input class="form-control" id="lastNameMain" placeholder="Last Name" />
+                        <input class="form-control" id="lastNameMain" placeholder="Last Name" required />
                     @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
 
                     @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
@@ -162,7 +162,7 @@
 
 
                 <div class="form-input">
-                        <input class="form-control" id="mobileMain" placeholder="Mobile" maxlength="10" pattern="\d{10}" />
+                        <input class="form-control" id="mobileMain" placeholder="Mobile" maxlength="10" pattern="\d{10}" type="number" required />
 
 
                 </div>
@@ -176,7 +176,7 @@
 
 
                     <div class="form-input">
-                        <input class="form-control" id="emailMain" placeholder="Email" />
+                        <input class="form-control" id="emailMain" placeholder="Email" type="email" required />
                       
                     </div>
 
@@ -205,8 +205,8 @@
 
 
                 <div class="form-input">
-                   
-                    <select name="Gender" class="form-control" id="genderMain">
+
+                        <select name="Gender" class="form-control" id="genderMain" required>
                         <option value="">Select Gender</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
@@ -221,7 +221,7 @@
 
 
                 <div class="form-input">
-                        <input class="form-control" id="ageMain" placeholder="Age" />
+                        <input class="form-control" id="ageMain" placeholder="Age" required />
                        @*  <select name="Age" class="form-control" >
                         <option value="">Select Age</option>
                         </select> *@
@@ -237,8 +237,8 @@
 
 
                 <div class="form-input">
-                  
-                    <select name="Country" class="form-control" id="countryMain">
+
+                        <select name="Country" class="form-control" id="countryMain" required>
                         <option value="">Select Country</option>
                          
                     </select>
@@ -254,7 +254,7 @@
 
                 <div class="form-input">
 
-                        <select name="State" class="form-control" id="stateMain">
+                        <select name="State" class="form-control" id="stateMain" required>
                         <option value="">Select State</option>
                         
                     </select>
@@ -269,7 +269,7 @@
 
                     <div class="form-input">
 
-                        <select name="District" class="form-control" id="districtMain">
+                        <select name="District" class="form-control" id="districtMain" required>
                             <option value="">Select District</option>
 
                         </select>
@@ -283,8 +283,8 @@
 
 
                 <div class="form-input">
-                  
-                    <select name="City" class="form-control" id="cityMain">
+
+                        <select name="City" class="form-control" id="cityMain" required>
                         <option value="">Select City</option>
                           
                     </select>
@@ -301,8 +301,8 @@
 
 
                 <div class="form-input">
-                   
-                    <select name="VisitPurpose" class="form-control" id="visitMain">
+
+                        <select name="VisitPurpose" class="form-control" id="visitMain" required>
                         <option value="">Select Visit Purpose</option>
                             <option value="other">others</option>
                     </select>
@@ -316,7 +316,7 @@
 
 
                 <div class="form-input">
-                    <input class="form-control" placeholder="Coming From"  id="comingMain"/>
+                        <input class="form-control" placeholder="Coming From" id="comingMain" required/>
 
 
                 </div>
@@ -328,7 +328,7 @@
 
                 <div class="form-input">
 
-                    <select name="IdType"class="form-control" id="idtypeMain">
+                        <select name="IdType" class="form-control" id="idtypeMain" required>
                         <option value="">Select ID Type</option>
                             <option value="adharcard">Adhar Card</option>
                     </select>
