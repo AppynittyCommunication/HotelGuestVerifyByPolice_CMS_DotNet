@@ -17,7 +17,7 @@
             console.log(data);
             userList = '<option value="">Select Department Type</option>';
             for (var i = 0; i < data.length; i++) {
-                userList = userList + '<option value=' + data[i].departmentTypeID + '>' + data[i].departmentTypeName + '</option>';
+                userList = userList + '<option value=' + data[i].deptTypeId + '>' + data[i].deptTypeName + '</option>';
             }
 
             $('#userType').html(userList);
@@ -41,7 +41,7 @@
         datatype: "json",
         traditional: true,
         success: function (data) {
-            //console.log(data);
+            console.log(data);
             statelist = '<option value="">Select State</option>';
             for (var i = 0; i < data.length; i++) {
                 statelist = statelist + '<option value=' + data[i].stateId + '>' + data[i].stateName + '</option>';

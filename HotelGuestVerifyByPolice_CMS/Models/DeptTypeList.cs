@@ -5,8 +5,16 @@ namespace HotelGuestVerifyByPolice_CMS.Models
 {
     public class DeptTypeList
     {
+        public int Code { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
+        public List<DeptData> Data { get; set; }
+       
+    }
 
-        public int departmentTypeID { get; set; }
-        public string? departmentTypeName { get; set; }
+    public class DeptData
+    {
+        public int DeptTypeId { get; set; }
+        public string? DeptTypeName { get; set; }
     }
 }

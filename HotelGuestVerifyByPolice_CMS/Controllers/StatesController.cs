@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 
 namespace HotelGuestVerifyByPolice_CMS.Controllers
@@ -41,36 +42,61 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
         public async Task<IActionResult> StateList()
         {
-            List<State>? states = new();
+            //List<State>? states = new();
+            List<StateData> stateList = new();
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage rs = await _httpClient.PostAsync(_httpClient.BaseAddress + "SelectList/GetStates", null);
+            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "SelectList/GetStates");
 
-            if (rs.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                string data = rs.Content.ReadAsStringAsync().Result;
+                var responseString = await response.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                State stateResponse = JsonConvert.DeserializeObject<State>(responseString);
 
-                states = JsonConvert.DeserializeObject<List<State>>(data);
+                var code = (int)response.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+                var data = dynamicobject.data;
+                if (status == "success")
+                {
+                     stateList = stateResponse.Data;
+
+                    return Json(stateList);
+                }
+                
+                
 
 
             }
          
-           return Json(states);
+           return Json(stateList);
 
         }
 
         public async Task<IActionResult> deptTypeList()
         {
-            List<DeptTypeList>? dtl = new();
+            List<DeptData>? dtl = new();
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage rs = await _httpClient.PostAsync(_httpClient.BaseAddress + "SelectList/GetDepartmentType", null);
+            HttpResponseMessage rs = await _httpClient.GetAsync(_httpClient.BaseAddress + "SelectList/GetDepartmentType");
 
             if (rs.IsSuccessStatusCode)
             {
-                string data = rs.Content.ReadAsStringAsync().Result;
+                var responseString = await rs.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                DeptTypeList deprtResponse = JsonConvert.DeserializeObject<DeptTypeList>(responseString);
 
-                dtl = JsonConvert.DeserializeObject<List<DeptTypeList>>(data);
+                var code = (int)rs.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+                var data = dynamicobject.data;
+                if (status == "success")
+                {
+                    dtl = deprtResponse.Data;
+
+                    return Json(dtl);
+                }
 
 
             }
@@ -81,17 +107,28 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
         public async Task<IActionResult> DistrictList(string stateID)
         {
-            List<DistictList>? districtList = new();
+            List<DistData>? districtList = new();
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("stateID", stateID);
-            HttpResponseMessage rs = await _httpClient.PostAsync(_httpClient.BaseAddress + "SelectList/GetDistrict", null);
+            HttpResponseMessage rs = await _httpClient.GetAsync(_httpClient.BaseAddress + "SelectList/GetDistrict");
 
             if (rs.IsSuccessStatusCode)
             {
-                string data = rs.Content.ReadAsStringAsync().Result;
+                var responseString = await rs.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                DistictList distResponse = JsonConvert.DeserializeObject<DistictList>(responseString);
 
-                districtList = JsonConvert.DeserializeObject<List<DistictList>>(data);
+                var code = (int)rs.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+                var data = dynamicobject.data;
+                if (status == "success")
+                {
+                    districtList = distResponse.Data;
+
+                    return Json(districtList);
+                }
 
 
             }
@@ -102,18 +139,29 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
         public async Task<IActionResult> CityList(string stateID, string distID)
         {
-            List<CityList>? cityList = new();
+            List<CityData>? cityList = new();
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("stateID", stateID);
             _httpClient.DefaultRequestHeaders.Add("distID", distID);
-            HttpResponseMessage rs = await _httpClient.PostAsync(_httpClient.BaseAddress + "SelectList/GetCities", null);
+            HttpResponseMessage rs = await _httpClient.GetAsync(_httpClient.BaseAddress + "SelectList/GetCities");
 
             if (rs.IsSuccessStatusCode)
             {
-                string data = rs.Content.ReadAsStringAsync().Result;
+                var responseString = await rs.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                CityList cityResponse = JsonConvert.DeserializeObject<CityList>(responseString);
 
-                cityList = JsonConvert.DeserializeObject<List<CityList>>(data);
+                var code = (int)rs.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+                var data = dynamicobject.data;
+                if (status == "success")
+                {
+                    cityList = cityResponse.Data;
+
+                    return Json(cityList);
+                }
 
 
             }
@@ -124,19 +172,31 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
         public async Task<IActionResult> PoliceStationList(string stateID, string distID, string cityID)
         {
-            List<PoliceStationList>? psList = new();
+            List<PSList>? psList = new();
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("stateID", stateID);
             _httpClient.DefaultRequestHeaders.Add("distID", distID);
             _httpClient.DefaultRequestHeaders.Add("cityID", cityID);
-            HttpResponseMessage rs = await _httpClient.PostAsync(_httpClient.BaseAddress + "SelectList/GetPoliceStation", null);
+            HttpResponseMessage rs = await _httpClient.GetAsync(_httpClient.BaseAddress + "SelectList/GetPoliceStation");
 
             if (rs.IsSuccessStatusCode)
             {
-                string data = rs.Content.ReadAsStringAsync().Result;
+                var responseString = await rs.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                PoliceStationList cityResponse = JsonConvert.DeserializeObject<PoliceStationList>(responseString);
 
-                psList = JsonConvert.DeserializeObject<List<PoliceStationList>>(data);
+                var code = (int)rs.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+                var data = dynamicobject.data;
+                if (status == "success")
+                {
+                    psList = cityResponse.Data;
+
+                    return Json(psList);
+                }
+
 
 
             }
