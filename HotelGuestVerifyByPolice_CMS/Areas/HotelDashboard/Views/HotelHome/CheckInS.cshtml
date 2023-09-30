@@ -240,7 +240,7 @@
                   
                     <select name="Country" class="form-control" id="countryMain">
                         <option value="">Select Country</option>
-                            <option value="india">India</option>
+                         
                     </select>
 
 
@@ -256,13 +256,28 @@
 
                         <select name="State" class="form-control" id="stateMain">
                         <option value="">Select State</option>
-                            <option value="maharashtra">Maharashtra</option>
+                        
                     </select>
 
 
                 </div>
 
             </div>
+                <div class="form-group">
+
+
+
+                    <div class="form-input">
+
+                        <select name="District" class="form-control" id="districtMain">
+                            <option value="">Select District</option>
+
+                        </select>
+
+
+                    </div>
+
+                </div>
             <div class="form-group">
 
 
@@ -271,7 +286,7 @@
                   
                     <select name="City" class="form-control" id="cityMain">
                         <option value="">Select City</option>
-                            <option value="nagpur">Nagpur</option>
+                          
                     </select>
 
                 </div>
@@ -777,8 +792,47 @@
                     statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
                 }
                 //district = district + '</select>';
-               // $("#statelist").html(statelist);
+                $("#stateMain").html(statelist);
             },
+        });
+        // for loading District List
+        $("#stateMain").change(function () {
+            $.ajax({
+                type: "post",
+                url: "/States/DistrictList",
+                data: { stateID: $("#statelist").val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    // console.log("Selected State Id:" + $('#statelist').val());
+                    // console.log(data);
+                    var distlist = '<option value="-1">Select District</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        distlist = distlist + "<option value=" + data[i].distId + ">" + data[i].distName + "</option>";
+                    }
+                    $("#districtMain").html(distlist);
+                },
+            });
+        });
+
+        // for loading City List
+        $("#districtMain").change(function () {
+            $.ajax({
+                type: "post",
+                url: "/States/CityList",
+                data: { stateID: $("#statelist").val(), distID: $("#districtlist").val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    // console.log("Selected State Id:" + $('#statelist').val());
+                    // console.log(data);
+                    var citylist = '<option value="-1">Select City</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
+                    }
+                    $("#cityMain").html(citylist);
+                },
+            });
         });
     })
     function previewFile() {
