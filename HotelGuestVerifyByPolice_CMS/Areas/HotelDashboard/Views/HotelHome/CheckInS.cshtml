@@ -162,7 +162,7 @@
 
 
                 <div class="form-input">
-                        <input class="form-control" id="mobileMain" placeholder="Mobile" />
+                        <input class="form-control" id="mobileMain" placeholder="Mobile" maxlength="10" pattern="\d{10}" />
 
 
                 </div>
@@ -800,7 +800,7 @@
             $.ajax({
                 type: "post",
                 url: "/States/DistrictList",
-                data: { stateID: $("#statelist").val() },
+                data: { stateID: $("#stateMain").val() },
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
@@ -820,7 +820,7 @@
             $.ajax({
                 type: "post",
                 url: "/States/CityList",
-                data: { stateID: $("#statelist").val(), distID: $("#districtlist").val() },
+                data: { stateID: $("#stateMain").val(), distID: $("#districtMain").val() },
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
@@ -834,6 +834,9 @@
                 },
             });
         });
+
+
+
     })
     function previewFile() {
        
