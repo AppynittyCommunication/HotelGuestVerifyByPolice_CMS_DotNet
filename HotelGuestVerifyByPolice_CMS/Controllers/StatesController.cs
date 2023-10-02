@@ -340,7 +340,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         public async Task<IActionResult> RelationTypeList()
         {
             //List<State>? states = new();
-            List<IdProofTypeData> idProofList = new();
+            List<RelationTypeData> relationList = new();
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Hotel/SelectRelation");
@@ -349,7 +349,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             {
                 var responseString = await response.Content.ReadAsStringAsync();
                 var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
-                IdProofType purposeResponse = JsonConvert.DeserializeObject<IdProofType>(responseString);
+                RelationType purposeResponse = JsonConvert.DeserializeObject<RelationType>(responseString);
 
                 var code = (int)response.StatusCode;
                 var status = dynamicobject.status.ToString();
@@ -357,14 +357,14 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 var data = dynamicobject.data;
                 if (status == "success")
                 {
-                    idProofList = purposeResponse.Data;
+                    relationList = purposeResponse.Data;
 
-                    return Json(idProofList);
+                    return Json(relationList);
                 }
 
             }
 
-            return Json(idProofList);
+            return Json(relationList);
 
         }
     }

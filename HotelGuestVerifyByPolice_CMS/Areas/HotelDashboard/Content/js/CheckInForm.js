@@ -68,7 +68,22 @@ $(document).ready(function () {
             $("#idTypeAdult").html(idprooflist);
         },
     });
-
+    // For loading all Relation Type  List
+    $.ajax({
+        type: "post",
+        url: "/States/RelationTypeList",
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            relationlist = '<option value="">Select Relation</option>';
+            for (var i = 0; i < data.length; i++) {
+                relationlist = relationlist + "<option value=" + data[i].id + ">" + data[i].name + "</option>";
+            }
+            //district = district + '</select>';
+            $("#relationAdult").html(relationlist);
+        },
+    });
     // For loading all Active Country
     $.ajax({
         type: "post",
