@@ -109,6 +109,13 @@
     .px-5{padding-left:5%;padding-right:2%}
 
     #formTable{display:block}
+
+   .card {
+        margin: 0 -8px 32px -8px;
+        color: rgba(0, 0, 0, 0.87);
+        box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+        background: #fff;
+    }
 </style>
 
 <div class="formCheckIn px-5">
@@ -363,7 +370,7 @@
             <button class="btn btn-md addAdult" onclick="addAdult()">Add Adult</button>
             <button class="btn btn-md addChild" onclick="addChild()">Add Child</button>
         </div>
-        <table id="formdataTable" class="display">
+       @*  <table id="formdataTable" class="display">
             <thead>
                 <tr>
                     <th>Guest Name</th>
@@ -378,7 +385,15 @@
                 </tr>
             </thead>
             <tbody></tbody>
-        </table>
+        </table> *@
+
+        <div>
+
+            <div class="formDetails">
+
+            </div>
+
+        </div>
     </div>
 
 
@@ -842,7 +857,7 @@
                 success: function (data) {
                     // console.log("Selected State Id:" + $('#statelist').val());
                     // console.log(data);
-                    var statelist = '<option value="-1">Select State</option>';
+                    var statelist = '<option value="">Select State</option>';
                     for (var i = 0; i < data.length; i++) {
                         statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
                     }
@@ -879,7 +894,7 @@
                 success: function (data) {
                     // console.log("Selected State Id:" + $('#statelist').val());
                     // console.log(data);
-                    var distlist = '<option value="-1">Select District</option>';
+                    var distlist = '<option value="">Select District</option>';
                     for (var i = 0; i < data.length; i++) {
                         distlist = distlist + "<option value=" + data[i].distId + ">" + data[i].distName + "</option>";
                     }
@@ -899,7 +914,7 @@
                 success: function (data) {
                     // console.log("Selected State Id:" + $('#statelist').val());
                     // console.log(data);
-                    var citylist = '<option value="-1">Select City</option>';
+                    var citylist = '<option value="">Select City</option>';
                     for (var i = 0; i < data.length; i++) {
                         citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
                     }
@@ -912,8 +927,19 @@
 
     })
     function previewFile() {
+        navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia);
+
+        navigator.getMedia({ video: true }, function () {
+            $("#addImage").modal({ backdrop: 'static', keyboard: false }, "show");
+        }, function () {
+            // webcam is not available
+            alert("Web Cam Is Not Available");
+        });
        
-        $("#addImage").modal({ backdrop: 'static', keyboard: false }, "show");
+
         // var preview = document.querySelector('img');
         // // var file = document.querySelector('input[type=file]').files[0];
         // var reader = new FileReader();
@@ -942,6 +968,8 @@
 
     const dataTable = $("#formdataTable").DataTable();
     const childDataArray = [];
+    const addOnGuest = [];
+   
     $("#main-form").submit(function (e) {
        // alert()
         // debugger
@@ -986,8 +1014,18 @@
         localStorage.setItem("mainData", JSON.stringify(formMaindata));
 
         // Add main data as the first row in DataTable
-        dataTable.row.add([formMaindata.guestName, formMaindata.gender, formMaindata.age, formMaindata.city, formMaindata.state, formMaindata.comingFrom, formMaindata.guestIdType]).draw();
+       // dataTable.row.add([formMaindata.guestName, formMaindata.gender, formMaindata.age, formMaindata.city, formMaindata.state, formMaindata.comingFrom, formMaindata.guestIdType]).draw();
+       
+      
         console.log(formMaindata)
+        document.querySelector('.formDetails').innerHTML += `
+         <div class="card">
+                 <h2>${formMaindata.guestName}</h2>
+                 <h3>${formMaindata.age}</h3>
+                 <p> ${formMaindata.city}</p>
+              
+           </div>
+          `;
         $("#main-form").hide();
         $("#formTable").show();
         e.target.reset();
@@ -999,7 +1037,10 @@
 
         // Retrieve main data from localStorage
         const mainDataJSON = localStorage.getItem("mainData");
-
+        const firstName = $("#firstNameAdult").val() + " " + $("#lastNameAdult").val();
+        const age = $("#ageAdult").val();
+        const gender = $("#genderAdult option:selected").text();;
+       
         if (mainDataJSON) {
             const mainData = JSON.parse(mainDataJSON);
             var formChilddata = {
@@ -1026,13 +1067,21 @@
 
             // Save the last child data in the array
             childDataArray.push(formChilddata);
-            const formData = {
-                mainData,
-                addOnGuest: [
-                    childDataArray
-                ]
-            };
-            console.log(formData)
+            document.querySelector('.formDetails').innerHTML += `
+             <div class="card">
+                         <h2>${firstName}</h2>
+                         <h3>${gender}</h3>
+                         
+
+               </div>
+              `;
+            // const formData = {
+            //     mainData,
+            //     addOnGuest: [
+            //         childDataArray
+            //     ]
+            // };
+            // console.log(formData)
             $("#addAdult").modal("hide");
             e.target.reset();
             // Clear the child form input
@@ -1071,13 +1120,13 @@
 
             // Save the last child data in the array
             childDataArray.push(formChilddata);
-            const formData = {
-                mainData,
-                addOnGuest: [
-                    childDataArray
-                ]
-            };
-            console.log(formData)
+            // const formData = {
+            //     mainData,
+            //     addOnGuest: [
+            //         childDataArray
+            //     ]
+            // };
+            // console.log(formData)
             // Clear the child form input
             $(formChilddata).val("");
         } else {
@@ -1086,7 +1135,7 @@
     });
 
     // for (var i = 0; i < shopData.length; i++) {
-    //     document.querySelector('.shop').innerHTML += `
+    //     document.querySelector('.formDetails').innerHTML += `
     //   <div class="card">
     //       <img src="${shopData[i].image}" alt="">
     //       <h3>$${shopData[i].price}</h3>
