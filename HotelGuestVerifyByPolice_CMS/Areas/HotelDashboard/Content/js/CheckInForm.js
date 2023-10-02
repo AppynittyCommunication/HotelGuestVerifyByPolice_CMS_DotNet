@@ -47,6 +47,7 @@ $(document).ready(function () {
             }
             //district = district + '</select>';
             $("#visitMain").html(vplist);
+            $("#visitAdult").html(vplist);
         },
     });
 
@@ -64,6 +65,7 @@ $(document).ready(function () {
             }
             //district = district + '</select>';
             $("#idtypeMain").html(idprooflist);
+            $("#idTypeAdult").html(idprooflist);
         },
     });
 
@@ -81,6 +83,7 @@ $(document).ready(function () {
             }
             //district = district + '</select>';
             $("#countryMain").html(countrylist);
+            $("#countryAdult").html(countrylist);
         },
     });
 
@@ -100,6 +103,24 @@ $(document).ready(function () {
                     statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
                 }
                 $("#stateMain").html(statelist);
+            },
+        });
+    });
+    $("#countryAdult").change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/CountryWiseStateList",
+            data: { cCode: $("#countryAdult").val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var statelist = '<option value="">Select State</option>';
+                for (var i = 0; i < data.length; i++) {
+                    statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+                }
+                $("#stateAdult").html(statelist);
             },
         });
     });
@@ -140,6 +161,24 @@ $(document).ready(function () {
             },
         });
     });
+    $("#stateAdult").change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/DistrictList",
+            data: { stateID: $("#stateAdult").val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var distlist = '<option value="">Select District</option>';
+                for (var i = 0; i < data.length; i++) {
+                    distlist = distlist + "<option value=" + data[i].distId + ">" + data[i].distName + "</option>";
+                }
+                $("#districtAdult").html(distlist);
+            },
+        });
+    });
 
     // for loading City List
     $("#districtMain").change(function () {
@@ -161,7 +200,24 @@ $(document).ready(function () {
         });
     });
 
-
+    $("#districtAdult").change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/CityList",
+            data: { stateID: $("#stateAdult").val(), distID: $("#districtAdult").val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var citylist = '<option value="">Select City</option>';
+                for (var i = 0; i < data.length; i++) {
+                    citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
+                }
+                $("#cityAdult").html(citylist);
+            },
+        });
+    });
 
 })
 var video = document.getElementById('video');
@@ -225,6 +281,21 @@ function previewFile() {
 
 
     
+}
+
+function AddAdultPhoto() {
+    debugger;
+    navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
+
+    navigator.getMedia({ video: true }, function () {
+        $("#addAdultImage").modal({ backdrop: 'static', keyboard: false }, "show");
+    }, function () {
+        // webcam is not available
+        alert("Web Cam Is Not Available");
+    });
 }
  $(function () {
      $('#image-placeholder').on('click', function () {

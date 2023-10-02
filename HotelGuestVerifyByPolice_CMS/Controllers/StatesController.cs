@@ -336,5 +336,36 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
             return Json(idProofList);
 
         }
+
+        public async Task<IActionResult> RelationTypeList()
+        {
+            //List<State>? states = new();
+            List<IdProofTypeData> idProofList = new();
+
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Hotel/SelectRelation");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                IdProofType purposeResponse = JsonConvert.DeserializeObject<IdProofType>(responseString);
+
+                var code = (int)response.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+                var data = dynamicobject.data;
+                if (status == "success")
+                {
+                    idProofList = purposeResponse.Data;
+
+                    return Json(idProofList);
+                }
+
+            }
+
+            return Json(idProofList);
+
+        }
     }
 }
