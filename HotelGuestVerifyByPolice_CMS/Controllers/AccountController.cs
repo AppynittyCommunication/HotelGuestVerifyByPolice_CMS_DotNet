@@ -186,7 +186,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("userId", hoteluserid);
-            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/HotelUsernameExist", null);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/UsernameExist", null);
 
             if (response.IsSuccessStatusCode)
             {
@@ -225,7 +225,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("userId", dusername);
-            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/DepartUsernameExist", null);
+            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/UsernameExist", null);
 
             if (response.IsSuccessStatusCode)
             {
