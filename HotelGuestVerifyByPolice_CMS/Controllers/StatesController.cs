@@ -201,6 +201,40 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
         }
 
+
+        public async Task<IActionResult> HotelList(string psId)
+        {
+            List<HotelData>? hotelList = new();
+
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("psId", psId);
+            HttpResponseMessage rs = await _httpClient.GetAsync(_httpClient.BaseAddress + "SelectList/GetHotel");
+
+            if (rs.IsSuccessStatusCode)
+            {
+                var responseString = await rs.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                HotelList hotelResponse = JsonConvert.DeserializeObject<HotelList>(responseString);
+
+                var code = (int)rs.StatusCode;
+                var status = dynamicobject.status.ToString();
+                var message = dynamicobject.message.ToString();
+                var data = dynamicobject.data;
+                if (status == "success")
+                {
+                    hotelList = hotelResponse.Data;
+
+                    return Json(hotelList);
+                }
+
+
+            }
+
+            return Json(hotelList);
+
+        }
+
+
         public async Task<IActionResult> CityList(string stateID, string distID)
         {
             List<CityData>? cityList = new();

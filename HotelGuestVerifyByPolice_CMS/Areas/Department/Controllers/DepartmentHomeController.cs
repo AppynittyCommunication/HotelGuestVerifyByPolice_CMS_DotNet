@@ -116,5 +116,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             }
             return View();
         }
+
+ 
     }
 }

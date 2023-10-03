@@ -210,5 +210,12 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                
         }
 
+
+        public ActionResult SearchHotel()
+        {
+            //string departauthpin = _contx.HttpContext.Session.GetString("setdepartauthpin");
+            return View();
+        }
+
     }
 }
