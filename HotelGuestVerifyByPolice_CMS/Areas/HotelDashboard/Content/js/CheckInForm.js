@@ -329,56 +329,88 @@ function addChild() {
 const dataTable = $("#formdataTable").DataTable();
 
 const childDataArray = [];
+$("#main-form").validate({
+    // Specify validation rules
+    rules: {
+        // The key name on the left side is the name attribute
+        // of an input field. Validation rules are defined
+        // on the right side
+        firstname: "required",
+        lastname: "required",
+        email: {
+            required: true,
+            // Specify that email should be validated
+            // by the built-in "email" rule
+            email: true
+        },
+        //password: {
+        //    required: true,
+        //    minlength: 5
+        //}
+    },
+    // Specify validation error messages
+    messages: {
+        firstname: "Please enter your firstname",
+        lastname: "Please enter your lastname",
+        password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long"
+        },
+        email: "Please enter a valid email address"
+    },
+    // Make sure the form is submitted to the destination defined
+    // in the "action" attribute of the form when valid
+    submitHandler: function (form) {
+        
+            // alert()
+            // debugger
+        alert();
+        //form.preventDefault();
+            const firstName = $("#firstNameMain").val();
+            const lastName = $("#lastNameMain").val();
+            const mobile = $("#mobileMain").val();
+            const age = $("#ageMain").val();
+            const gender = $("#genderMain").val();
+            const email = $("#emailMain").val();
+            const country = $("#countryMain").val();
+            const state = $("#stateMain").val();
+            const city = $("#cityMain").val();
+            const visitPurpose = $("#visitMain").val();
+            const comingFrom = $("#comingMain").val();
+            const guestIdType = $("#idtypeMain").val();
+            var formMaindata = {
+                // firstName : firstName,
+                // lastName : lastName,
+                hotelRegNo: "Collection123",
+                guestName: firstName + " " + lastName,
+                guestType: "Adult",
+                gender: gender,
+                email: email,
+                country: country,
+                state: state,
+                city: city,
+                numberOfGuest: 3,
+                age: age,
+                mobile: mobile,
+                visitPurpose: visitPurpose,
+                roomType: "AC",
+                roomNo: 108,
+                comingFrom: comingFrom,
+                guestIdType: guestIdType,
+                guestIDProof: "data:image/png;base64,iVBORw0KGg",
+                guestPhoto: $('#image-placeholder img').attr('src'),
+                paymentMode: "Cash",
+            }
 
-$("#main-form").submit(function (e) {
-    // alert()
-    // debugger
-    e.preventDefault();
-    const firstName = $("#firstNameMain").val();
-    const lastName = $("#lastNameMain").val();
-    const mobile = $("#mobileMain").val();
-    const age = $("#ageMain").val();
-    const gender = $("#genderMain").val();
-    const email = $("#emailMain").val();
-    const country = $("#countryMain").val();
-    const state = $("#stateMain").val();
-    const city = $("#cityMain").val();
-    const visitPurpose = $("#visitMain").val();
-    const comingFrom = $("#comingMain").val();
-    const guestIdType = $("#idtypeMain").val();
-    var formMaindata = {
-        // firstName : firstName,
-        // lastName : lastName,
-        hotelRegNo: "Collection123",
-        guestName: firstName + " " + lastName,
-        guestType: "Adult",
-        gender: gender,
-        email: email,
-        country: country,
-        state: state,
-        city: city,
-        numberOfGuest: 3,
-        age: age,
-        mobile: mobile,
-        visitPurpose: visitPurpose,
-        roomType: "AC",
-        roomNo: 108,
-        comingFrom: comingFrom,
-        guestIdType: guestIdType,
-        guestIDProof: "data:image/png;base64,iVBORw0KGg",
-        guestPhoto: $('#image-placeholder img').attr('src'),
-        paymentMode: "Cash",
-    }
+            // Save main data in localStorage
+            localStorage.setItem("mainData", JSON.stringify(formMaindata));
 
-    // Save main data in localStorage
-    localStorage.setItem("mainData", JSON.stringify(formMaindata));
-
-    // Add main data as the first row in DataTable
-    // dataTable.row.add([formMaindata.guestName, formMaindata.gender, formMaindata.age, formMaindata.city, formMaindata.state, formMaindata.comingFrom, formMaindata.guestIdType]).draw();
+            // Add main data as the first row in DataTable
+            // dataTable.row.add([formMaindata.guestName, formMaindata.gender, formMaindata.age, formMaindata.city, formMaindata.state, formMaindata.comingFrom, formMaindata.guestIdType]).draw();
 
 
-    console.log(formMaindata)
-    document.querySelector('.formDetails').innerHTML += `
+            console.log(formMaindata)
+            document.querySelector('.formDetails').innerHTML += `
          <div class="card">
          <div class="d-flex">
          <div>
@@ -393,11 +425,14 @@ $("#main-form").submit(function (e) {
                   </div>
            </div>
           `;
-    $("#main-form").hide();
-    $("#formTable").show();
-    e.target.reset();
+            $("#main-form").hide();
+            $("#formTable").show();
+           /* e.target.reset();*/
 
+        
+    }
 });
+
 
 $("#formAdult").submit(function (e) {
     e.preventDefault();
@@ -533,11 +568,26 @@ $("#formChild").submit(function (e) {
 
 
 const mainDataJSON = localStorage.getItem("mainData");
-const mainData = JSON.parse(mainDataJSON);
-const formData = {mainData,
+var mainData = JSON.parse(mainDataJSON);
+var formData = {mainData,
                 addOnGuest: [childDataArray] };
 function submit() {
-console.log(formData)
+    console.log(mainData)
+
+    $.ajax({
+        url: '../HotelHome/HotelGuestReg',
+        type: 'POST', // or 'GET' depending on your server
+        data: JSON.stringify(formData), // Serialize the form data
+        success: function (response) {
+            // Handle the success response from the server
+            console.log('Form submitted successfully');
+            // You can update the UI or perform other actions here
+        },
+        error: function (xhr) {
+            // Handle the error response from the server
+            console.error('Form submission failed');
+        }
+    });
 }
 
    

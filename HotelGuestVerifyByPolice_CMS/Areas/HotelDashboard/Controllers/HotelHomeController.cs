@@ -125,7 +125,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
            
         }
 
-        public async Task<ActionResult> HotelGuestReg([FromBody] HotelGuestRegistration model)
+        public async Task<ActionResult> HotelGuestReg(HotelGuestRegistration model)
         {
             HotelGuestRegBody HRegBody = new();
             List<AddOnGuestSource> addguestlist = new List<AddOnGuestSource>();

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <style>
@@ -116,6 +117,11 @@
         box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
         background: #fff;
     }
+
+    .error {
+        color: red;
+       font-size:12px;
+    }
     img{height:120px !important}
     h3,h4{margin-top:5px !important;margin-bottom:5px !important}
 </style>
@@ -144,7 +150,7 @@
                 @*   @Html.LabelFor(model => model.firstName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                    <input class="form-control" id="firstNameMain" placeholder="First Name" required/>
+                        <input class="form-control" id="firstNameMain" placeholder="First Name" name="firstname" />
                     @*  @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
                     @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" }) *@
@@ -158,7 +164,7 @@
                 @*  @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label" }) *@
 
                 <div class="form-input">
-                        <input class="form-control" id="lastNameMain" placeholder="Last Name" required />
+                        <input class="form-control" id="lastNameMain" placeholder="Last Name" name="lastname" />
                     @*  @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control",placeholder = "Last Name" } })
 
                     @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" }) *@
@@ -185,7 +191,7 @@
 
 
                     <div class="form-input">
-                        <input class="form-control" id="emailMain" placeholder="Email" type="email" required />
+                        <input class="form-control" id="emailMain" placeholder="Email" type="email" name="email" />
                       
                     </div>
 
@@ -215,7 +221,7 @@
 
                 <div class="form-input">
 
-                        <select name="Gender" class="form-control" id="genderMain" required>
+                        <select name="Gender" class="form-control" id="genderMain" >
                         <option value="">Select Gender</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
@@ -230,7 +236,7 @@
 
 
                 <div class="form-input">
-                        <input class="form-control" id="ageMain" placeholder="Age" required />
+                        <input class="form-control" id="ageMain" placeholder="Age"  />
                        @*  <select name="Age" class="form-control" >
                         <option value="">Select Age</option>
                         </select> *@
@@ -247,7 +253,7 @@
 
                 <div class="form-input">
 
-                        <select name="Country" class="form-control" id="countryMain" required>
+                        <select name="Country" class="form-control" id="countryMain" >
                         <option value="">Select Country</option>
                          
                     </select>
@@ -263,7 +269,7 @@
 
                 <div class="form-input">
 
-                        <select name="State" class="form-control" id="stateMain" required>
+                        <select name="State" class="form-control" id="stateMain" >
                         <option value="">Select State</option>
                         
                     </select>
@@ -278,7 +284,7 @@
 
                     <div class="form-input">
 
-                        <select name="District" class="form-control" id="districtMain" required>
+                        <select name="District" class="form-control" id="districtMain" >
                             <option value="">Select District</option>
 
                         </select>
@@ -293,7 +299,7 @@
 
                 <div class="form-input">
 
-                        <select name="City" class="form-control" id="cityMain" required>
+                        <select name="City" class="form-control" id="cityMain" >
                         <option value="">Select City</option>
                           
                     </select>
@@ -311,7 +317,7 @@
 
                 <div class="form-input">
 
-                        <select name="VisitPurpose" class="form-control" id="visitMain" required>
+                        <select name="VisitPurpose" class="form-control" id="visitMain" >
                         <option value="">Select Visit Purpose</option>
                             <option value="other">others</option>
                     </select>
