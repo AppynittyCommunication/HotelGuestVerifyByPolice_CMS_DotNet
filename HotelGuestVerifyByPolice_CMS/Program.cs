@@ -33,6 +33,12 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(builder.Environment.ContentRootPath, "Areas/HotelDashboard")),
     RequestPath = "/Areas/HotelDashboard"
 });
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Areas/Department")),
+    RequestPath = "/Areas/Department"
+});
 app.UseSession();
 app.UseRouting();
 
