@@ -1,0 +1,82 @@
+﻿@model HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.SearchHotel
+@{
+    ViewBag.Title = "Search Hotels";
+    Layout = "";
+}
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7w-l0RWEUVqhXyshtsgdkqJDNxaKQ5lY&callback=initMap" async defer></script>
+
+@using (Html.BeginForm())
+
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="d-flex">
+        <div class="form-group">
+            @*  @Html.LabelFor(model => model.stateId, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+
+            <div class="form-input">
+
+                <select id="statelist" name="stateId" class="form-control"></select>
+                @Html.ValidationMessageFor(model => model.stateId, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @*  @Html.LabelFor(model => model.distId, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+
+            <div class="form-input">
+
+                <select id="districtlist" name="distId" class="form-control">
+                    <option value="">Select District</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.distId, "", new { @class = "text-danger",@id="distIdError" })
+
+            </div>
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="form-group">
+            @*     @Html.LabelFor(model => model.cityId, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+
+            <div class="form-input">
+
+                <select id="citylist" name="cityId" class="form-control">
+                    <option value="">Select City</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.cityId, "", new { @class = "text-danger",@id="cityIdError" })
+            </div>
+        </div>
+        <div class="form-group">
+            @*  @Html.LabelFor(model => model.stationCode, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+
+            <div class="form-input">
+
+                <select id="pslist" name="stationCode" class="form-control">
+                    <option value="">Select Police Station</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.stationCode, "", new { @class = "text-danger",@id="psIdError" })
+            </div>
+        </div>
+        <div class="form-group">
+            @*  @Html.LabelFor(model => model.stationCode, htmlAttributes: new { @class = "control-label col-md-2" }) *@
+
+            <div class="form-input">
+
+                <select id="hotellist" name="hotels" class="form-control">
+                    <option value="">Select Hotels</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.hotelRegNo, "", new { @class = "text-danger",@id="hotelIdError" })
+            </div>
+        </div>
+    </div>
+
+}
