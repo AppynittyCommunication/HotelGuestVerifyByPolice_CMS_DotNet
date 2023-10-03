@@ -69,5 +69,7 @@ app.UseEndpoints(endpoints =>
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.UseExceptionHandler("/Home/Error");
+app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
+app.UseHsts();
 app.Run();

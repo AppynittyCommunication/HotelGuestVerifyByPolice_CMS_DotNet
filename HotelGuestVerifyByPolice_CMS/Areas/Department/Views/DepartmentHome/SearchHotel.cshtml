@@ -164,7 +164,7 @@
                     <select id="shotellist" class="form-control"></select>
                 </div>
                 <div class="searchbtn">
-                    <button class="btn btn-primary" type="submit" onclick="SearchHotel">Search</button>
+                    <button id="hsearchbtn" class="btn btn-primary" type="submit" onclick="SearchHotel">Search</button>
                 </div>
                
             </div>
@@ -177,7 +177,7 @@
 </div>
 
 <script type="text/javascript">
-
+    document.getElementById("hsearchbtn").disabled = true;
     
     console.log("Department Login Type" + '@ViewBag.dType');
     debugger;
@@ -224,7 +224,7 @@
             success: function (data) {
                 // console.log("Selected State Id:" + $('#statelist').val());
                 // console.log(data);
-                var pslist = '<option value="-1">Select Police Station</option>';
+                var pslist = '<option value="">Select Police Station</option>';
                 for (var i = 0; i < data.length; i++) {
                     pslist = pslist + "<option value=" + data[i].id + ">" + data[i].stationName + "</option>";
                 }
@@ -244,13 +244,23 @@
             success: function (data) {
                 // console.log("Selected State Id:" + $('#statelist').val());
                 // console.log(data);
-                var hotellist = '<option value="-1">Select Hotel</option>';
+                var hotellist = '<option value="">Select Hotel</option>';
                 for (var i = 0; i < data.length; i++) {
                     hotellist = hotellist + "<option value=" + data[i].hotelRegNo + ">" + data[i].hotelName + "</option>";
                 }
                 $("#shotellist").html(hotellist);
             },
         });
+    });
+
+    // 
+    $("#shotellist").change(function () {
+        debugger;
+        var hregno = $("#shotellist").val()
+
+        if (hregno != "") {
+            document.getElementById("hsearchbtn").disabled = false;
+        }
     });
     if (departType == "1") {
         sdlist.style.display = "block";
@@ -315,7 +325,7 @@
             success: function (data) {
                 // console.log("Selected State Id:" + $('#statelist').val());
                 // console.log(data);
-                var pslist = '<option value="-1">Select Police Station</option>';
+                var pslist = '<option value="">Select Police Station</option>';
                 for (var i = 0; i < data.length; i++) {
                     pslist = pslist + "<option value=" + data[i].id + ">" + data[i].stationName + "</option>";
                 }
@@ -337,7 +347,7 @@
             success: function (data) {
                 // console.log("Selected State Id:" + $('#statelist').val());
                 // console.log(data);
-                var hotellist = '<option value="-1">Select Hotel</option>';
+                var hotellist = '<option value="">Select Hotel</option>';
                 for (var i = 0; i < data.length; i++) {
                     hotellist = hotellist + "<option value=" + data[i].hotelRegNo + ">" + data[i].hotelName + "</option>";
                 }
