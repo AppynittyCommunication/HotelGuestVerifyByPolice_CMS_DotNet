@@ -1,0 +1,374 @@
+﻿@using Newtonsoft.Json
+@{
+    Layout = "";
+    ViewData["Title"] = "Find Hotel";
+}
+<link rel="stylesheet" href="/Areas/HotelDashboard/Content/css/Layout_CSS.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+
+<script src="../../Areas/Department/Content/js/SearchHotel.js"></script>
+
+<style>
+    wordtune-read-extension {
+        display: none
+    }
+
+    body {
+        margin: 0px;
+        padding: 0px
+    }
+
+    .nav-bg {
+        background-image: linear-gradient( 45deg, hsl(264deg 73% 38%) 0%, hsl(259deg 68% 39%) 16%, hsl(253deg 64% 40%) 32%, hsl(247deg 61% 41%) 49%, hsl(241deg 58% 42%) 66%, hsl(234deg 65% 40%) 83%, hsl(228deg 78% 36%) 100% ) !important;
+    }
+
+    .navbar-header a span {
+        color: #fff;
+        margin-left: 25px;
+        font-size: 16px
+    }
+
+    .ml-auto {
+        margin-left: auto
+    }
+
+    #nav-details span {
+        color: #fff;
+        margin-right: 12px;
+    }
+
+    #userDetails {
+        background: #1831a5;
+        border-radius: 5px;
+        color: #fff;
+    }
+
+    th {
+        background: #1831a5;
+        font-weight: 500;
+        padding: 4px;
+        color: #fff;
+        width: 100px
+    }
+
+    tbody, td, tfoot, thead, tr {
+        font-size: 13px;
+        text-align: center;
+        padding: 4px;
+        /*  background: #220a52; */
+        background: #fff;
+        color: #303030;
+    }
+
+    table td:nth-child(3) {
+        color: #0ca10c
+    }
+
+    table td:nth-child(4) {
+        color: #cb0000
+    }
+
+    .card {
+        margin: 0 -8px 32px -8px;
+        color: rgba(0, 0, 0, 0.87);
+        box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+        background: #fff;
+    }
+
+    .guestDetails {
+        padding-top: 2%;
+        padding-left: 2%;
+        padding-bottom: 1%;
+    }
+
+        .guestDetails h6 {
+        }
+
+        .guestDetails h6 {
+            font-size: 12px;
+            margin-bottom: 4px
+        }
+
+    .dataTime {
+        font-size: 16px
+    }
+
+    #secRow {
+        display: none
+    }
+
+    #hideSecRow {
+        display: none
+    }
+
+    .width {
+        width: 110px !important
+    }
+
+    .searchbtn {
+        margin-left: 35%;
+        margin-top: 10%;
+    }
+
+    #sdlist, #sclist, #spolicelist{
+        display:none;
+    }
+</style>
+
+<div>
+    <div class="px-6 nav-bg" style="width:100%;height:50px">
+
+        <div class="container-fluid" style="padding-top:1%;">
+            <div class="navbar-header" style="display:inline">
+                <a href="./DepartmentHome">   <span><i class="fa-solid fa-house" style="color: #ffffff;margin-right: 10px"></i>Dashboard</span></a>
+                <a href="./DepartmentHome/SearchHotel"> <span><i class="fa-solid fa-hotel" style="color:#fff;margin-right: 10px"></i>Find Hotels Details</span></a>
+            </div>
+            <div style="float:right;padding-right:40px" id="nav-details">
+               
+                <span style="display:inline-block;background:red;height:15px;width:15px;border-radius:50%"></span>
+                <span><i class="fa-regular fa-bell" style="color: #ffffff;"></i></span>
+                <span style="color:#fff;font-size:16px;">
+                    @if (ViewBag.departuser != null)
+                    {
+                        @ViewBag.departuser
+                    }
+                    else
+                    {
+
+                    }
+                </span>
+
+                <span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mx-1 py-2">
+        <div class="col-md-3 col-lg-3">
+            <div id="userDetails" class="py-3">
+                <div class="form-input" id="sdlist">
+                    <select id="sdistlist" class="form-control"></select>
+                </div>
+                <div class="form-input" id="sclist">
+                    <select id="scitylist" class="form-control"></select>
+                </div>
+                <div class="form-input" id="spolicelist">
+                    <select id="spslist" class="form-control"></select>
+                </div>
+                <div class="form-input" id="shlist">
+                    <select id="shotellist" class="form-control"></select>
+                </div>
+                <div class="searchbtn">
+                    <button id="hsearchbtn" class="btn btn-primary" type="submit" onclick="SearchHotel">Search</button>
+                </div>
+               
+            </div>
+
+         
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById("hsearchbtn").disabled = true;
+    
+    console.log("Department Login Type" + '@ViewBag.dType');
+    debugger;
+    var departType = @ViewBag.dType;
+    var dSId = parseInt(@ViewBag.dStateId);
+    var dDId = parseInt(@ViewBag.dDistId);
+    var dCId = parseInt(@ViewBag.dCityId);
+    var dSCode = parseInt(@ViewBag.dSCode);
+  
+  
+    var sdlist = document.getElementById('sdlist');
+    var sclist = document.getElementById('sclist');
+    var spolicelist = document.getElementById('spolicelist');
+
+    // for loading City List
+    $("#sdistlist").change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/CityList",
+            data: { stateID: dSId, distID: $("#sdistlist").val()},
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var citylist = '<option value="">Select City</option>';
+                for (var i = 0; i < data.length; i++) {
+                    citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
+                }
+                $("#scitylist").html(citylist);
+            },
+        });
+    });
+
+
+    // for loading Police Station List
+    $("#scitylist").change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/PoliceStationList",
+            data: { stateID: dSId, distID: dDId, cityID: $("#scitylist").val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var pslist = '<option value="">Select Police Station</option>';
+                for (var i = 0; i < data.length; i++) {
+                    pslist = pslist + "<option value=" + data[i].id + ">" + data[i].stationName + "</option>";
+                }
+                $("#spslist").html(pslist);
+            },
+        });
+    });
+
+    // for loading Police Station List
+    $("#spslist").change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/HotelList",
+            data: { psId: $("#spslist").val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var hotellist = '<option value="">Select Hotel</option>';
+                for (var i = 0; i < data.length; i++) {
+                    hotellist = hotellist + "<option value=" + data[i].hotelRegNo + ">" + data[i].hotelName + "</option>";
+                }
+                $("#shotellist").html(hotellist);
+            },
+        });
+    });
+
+    // 
+    $("#shotellist").change(function () {
+        debugger;
+        var hregno = $("#shotellist").val()
+
+        if (hregno != "") {
+            document.getElementById("hsearchbtn").disabled = false;
+        }
+    });
+    if (departType == "1") {
+        sdlist.style.display = "block";
+        sclist.style.display = "block";
+        spolicelist.style.display = "block";
+
+        $.ajax({
+            type: "post",
+            url: "/States/DistrictList",
+            data: { stateID: dSId },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var distlist = '<option value="">Select District</option>';
+                for (var i = 0; i < data.length; i++) {
+                    distlist = distlist + "<option value=" + data[i].distId + ">" + data[i].distName + "</option>";
+                }
+                $("#sdistlist").html(distlist);
+            },
+        });
+
+       
+
+    }
+    else if (departType == "2") {
+
+        sclist.style.display = "block";
+        spolicelist.style.display = "block";
+
+
+        $.ajax({
+            type: "post",
+            url: "/States/CityList",
+            data: { stateID: dSId, distID: dDId },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var citylist = '<option value="">Select City</option>';
+                for (var i = 0; i < data.length; i++) {
+                    citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
+                }
+                $("#scitylist").html(citylist);
+            },
+        });
+
+       
+    }
+    else if (departType == "3") {
+
+        spolicelist.style.display = "block";
+
+        $.ajax({
+            type: "post",
+            url: "/States/PoliceStationList",
+            data: { stateID: dSId, distID: dDId, cityID: dCId },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var pslist = '<option value="">Select Police Station</option>';
+                for (var i = 0; i < data.length; i++) {
+                    pslist = pslist + "<option value=" + data[i].id + ">" + data[i].stationName + "</option>";
+                }
+                $("#spslist").html(pslist);
+            },
+        });
+
+        
+    }
+
+    else if (departType == "4") {
+
+        $.ajax({
+            type: "post",
+            url: "/States/HotelList",
+            data: { psId: dSCode },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var hotellist = '<option value="">Select Hotel</option>';
+                for (var i = 0; i < data.length; i++) {
+                    hotellist = hotellist + "<option value=" + data[i].hotelRegNo + ">" + data[i].hotelName + "</option>";
+                }
+                $("#shotellist").html(hotellist);
+            },
+        });
+    }
+
+    function logout() {
+        debugger;
+
+        $.ajax({
+            type: "post",
+            url: "/Account/DepartLogout",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                window.location.href = '../../Account/DepartmentLogin';
+
+            }
+        });
+    }
+</script>

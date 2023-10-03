@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net;
 using HotelGuestVerifyByPolice_CMS.Models.APIModels;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 //using System.Dynamic;
 //using System.Drawing.Printing;
 //using Microsoft.AspNetCore.Http;
@@ -452,12 +453,18 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     {
                         string hotelregno = data[0].policeId.ToString();
                         string departuser = data[0].userId.ToString();
+                        string dusertype = data[0].userType.ToString();
+                        string dstateid = data[0].stateId.ToString();
+                        string ddistid = data[0].distId.ToString();
+                        string dcityid = data[0].cityId.ToString();
+                        string dstationcode = data[0].stationCode.ToString();
 
 
                         if (status == "success" && otp == true)
                         {
                             _contx.HttpContext.Session.SetString("dusername", model.userName);
                             _contx.HttpContext.Session.SetString("dotp", model.password);
+                            _contx.HttpContext.Session.SetString("dusertype", dusertype);
 
                             return RedirectToAction("SetDepartPassUsingOTP", "Account");
                         }
@@ -465,6 +472,11 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                         {
                             // _contx.HttpContext.Session.SetString("hotelRegNo", hotelregno);
                             _contx.HttpContext.Session.SetString("departUser", departuser);
+                            _contx.HttpContext.Session.SetString("dusertype", dusertype);
+                            _contx.HttpContext.Session.SetString("dstateid", dstateid);
+                            _contx.HttpContext.Session.SetString("ddistid", ddistid);
+                            _contx.HttpContext.Session.SetString("dcityid", dcityid);
+                            _contx.HttpContext.Session.SetString("dstationcode", dstationcode);
                             return RedirectToAction("Index", "DepartmentHome", new { area = "Department" });
                         }
                     }

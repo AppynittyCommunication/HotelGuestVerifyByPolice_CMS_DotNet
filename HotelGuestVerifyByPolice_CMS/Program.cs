@@ -33,6 +33,12 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(builder.Environment.ContentRootPath, "Areas/HotelDashboard")),
     RequestPath = "/Areas/HotelDashboard"
 });
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Areas/Department")),
+    RequestPath = "/Areas/Department"
+});
 app.UseSession();
 app.UseRouting();
 
@@ -63,5 +69,7 @@ app.UseEndpoints(endpoints =>
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.UseExceptionHandler("/Home/Error");
+app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
+app.UseHsts();
 app.Run();
