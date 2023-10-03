@@ -327,8 +327,8 @@ function addChild() {
 }
 
 const dataTable = $("#formdataTable").DataTable();
+
 const childDataArray = [];
-const addOnGuest = [];
 
 $("#main-form").submit(function (e) {
     // alert()
@@ -436,8 +436,19 @@ $("#formAdult").submit(function (e) {
         childDataArray.push(formChilddata);
         document.querySelector('.formDetails').innerHTML += `
              <div class="card">
-                         <h2>${firstName}</h2>
-                         <h3>${gender}</h3>
+                         <div class="card">
+         <div class="d-flex">
+         <div>
+         <img src="${formChilddata.guestPhoto}"/>
+         </div>
+         <div style="margin-left:4%">
+                 <h3><span>Name:</span>${formChilddata.guestName}</h3>
+                     <h4><span>Age:</span>${formChilddata.age}</h4>
+                     <p><span>Mobile No:</span> ${formChilddata.mobile}</p>
+                     <p><span>Coming From:</span> ${formChilddata.comingFrom}</p>
+                     </div>
+                  </div>
+           </div>
                          
 
                </div>
@@ -487,6 +498,25 @@ $("#formChild").submit(function (e) {
 
         // Save the last child data in the array
         childDataArray.push(formChilddata);
+        document.querySelector('.formDetails').innerHTML += `
+             <div class="card">
+                         <div class="card">
+         <div class="d-flex">
+         <div>
+         <img src="${formChilddata.guestPhoto}"/>
+         </div>
+         <div style="margin-left:4%">
+                 <h3><span>Name:</span>${formChilddata.guestName}</h3>
+                     <h4><span>Age:</span>${formChilddata.age}</h4>
+                     <p><span>Relation With Guest:</span> ${formChilddata.relationWithGuest}</p>
+                     
+                     </div>
+                  </div>
+           </div>
+                         
+
+               </div>
+              `;
         // const formData = {
         //     mainData,
         //     addOnGuest: [
@@ -501,15 +531,13 @@ $("#formChild").submit(function (e) {
     }
 });
 
-    // for (var i = 0; i < shopData.length; i++) {
-    //     document.querySelector('.formDetails').innerHTML += `
-    //   <div class="card">
-    //       <img src="${shopData[i].image}" alt="">
-    //       <h3>$${shopData[i].price}</h3>
-    //       <h1> ${shopData[i].title}</h1>
-    //       <p> ${shopData[i].description}</p>
-    //       <button>Buy now</button>
-    //    </div>
-    //   `;
 
-    // }
+const mainDataJSON = localStorage.getItem("mainData");
+const mainData = JSON.parse(mainDataJSON);
+const formData = {mainData,
+                addOnGuest: [childDataArray] };
+function submit() {
+console.log(formData)
+}
+
+   
