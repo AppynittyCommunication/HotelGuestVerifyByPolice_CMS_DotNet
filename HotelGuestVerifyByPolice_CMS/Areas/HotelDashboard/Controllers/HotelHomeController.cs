@@ -131,7 +131,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
             List<AddOnGuestSource> addguestlist = new List<AddOnGuestSource>();
             List<AddOnGuest> addguestdata = new List<AddOnGuest>();
             HRegBody.hotelRegNo = model.hotelRegNo;
-            HRegBody.guestName = model.guestName;
+            HRegBody.guestName = model.firstName + " "+ model.lastName;
             HRegBody.guestType = model.guestType;
             HRegBody.gender = model.gender;
             HRegBody.email = model.email;
@@ -231,7 +231,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 List<AddOnGuestSource> addguestlist = new List<AddOnGuestSource>();
                 List<AddOnGuest> addguestdata = new List<AddOnGuest>();
                 HRegBody.hotelRegNo = model.hotelRegNo;
-                HRegBody.guestName = model.guestName;
+                HRegBody.guestName = model.firstName + " " + model.lastName;
                 HRegBody.guestType = model.guestType;
                 HRegBody.gender = model.gender;
                 HRegBody.email = model.email;

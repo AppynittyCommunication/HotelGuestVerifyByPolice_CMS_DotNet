@@ -1,13 +1,240 @@
 ﻿@model HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.HotelGuestRegistration
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        @Html.EditorFor(model => model.guestName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
-        @Html.ValidationMessageFor(model => model.guestName, "", new { @class = "text-danger" })
+@{
+    ViewData["Title"] = "CheckInS";
+    Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    .d-flex {
+        display: flex
+    }
+    .form-control {
+        border: none !important;
+        border-bottom: 1px solid #787878 !important;
+        border-radius: 0px !important;
+        /*  color: #9979f6 !important; */
+        margin-right: 5% !important;
+        margin-bottom: 18px;
+    }
+
+    .form-group {
+        width: 45% !important;
+        margin-right: 5% !important;
+    }
+
+    .form-control:focus {
+        color: #212529;
+        background-color: #fff !important;
+        border-color: none;
+        outline: 0;
+        box-shadow: none !important;
+        border-bottom: 2px solid #9979f6 !important;
+    }
+
+    img {
+        height: 120px !important
+    }
+
+    .profile-pic {
+        /*  position: absolute; */
+        height: 120px;
+        width: 50%;
+        left: 50%;
+        /*   transform: translateX(-50%); */
+        top: 0px;
+        z-index: 1001;
+        padding: 10px;
+        justify-content: center;
+        display: flex
+    }
+
+        .profile-pic img {
+            /*   border-radius: 50%;
+                    box-shadow: 0px 0px 5px 0px #c1c1c1; */
+            cursor: pointer;
+            /*  width: 100px; */
+            height: 100px;
+        }
+</style>
+<form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
+    <div id="mainHotelGuest">
+        <div class="d-flex">
+    <div class="form-group">
+        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
+
+        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+    </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Last Name"} })
+
+                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Mobile"} })
+
+                @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="d-flex">
+
+            <div class="form-group">
+                 <div class="form-input">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Email"} })
+
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+           <div class="form-group">
+                <div class="form-input">
+                    <select name="Gender" class="form-control" id="genderMain">                        
+                        <option value="">Select Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-input">
+                    @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Age"} })
+
+                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
+                    </div>
+
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+
+                    <select name="Country" class="form-control" id="countryMain">
+                        <option value="">Select Country</option>
+                        @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+                    </select>
+
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+
+                    <select name="State" class="form-control" id="stateMain">
+                        <option value="">Select State</option>
+                        @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+                    </select>
+
+
+                </div>
+
+            </div>
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+
+                    <select name="District" class="form-control" id="districtMain">
+                        <option value="">Select District</option>
+                        @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+                    </select>
+
+
+                </div>
+
+            </div>
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+
+                    <select name="City" class="form-control" id="cityMain">
+                        <option value="">Select City</option>
+                        @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
+                    </select>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="d-flex">
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+
+                    <select name="VisitPurpose" class="form-control" id="visitMain">
+                        <option value="">Select Visit Purpose</option>
+                        <option value="other">others</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.visitPurpose, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+                    @Html.EditorFor(model => model.comingFrom, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form"} })
+
+                    @Html.ValidationMessageFor(model => model.comingFrom, "", new { @class = "text-danger" })
+
+
+                </div>
+
+            </div>
+            <div class="form-group">
+
+
+
+                <div class="form-input">
+
+                    <select name="IdType" class="form-control" id="idtypeMain" >
+                        <option value="">Select ID Type</option>
+                       
+                    </select>
+                    @Html.ValidationMessageFor(model => model.guestIdType, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="profile-pic" id="image-placeholder">
+                @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
+                <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200" onclick="previewFile()">
+                @*  <input id="profile-image-upload" class="hidden"> *@
+                <div style="color:#999;">  </div>
+                <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
+                <input type="hidden" id="myField" value="" />
+            </div>
+            <div class="profile-pic">
+
+                <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
+                <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+                <div style="color:#999;">  </div>
+                <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
+            </div>
+        </div>
     </div>
     <!-- Add other form fields for HotelGuestRegistration properties -->
     <!-- Add multiple AddOnGuest entries -->
+    
+    
     <input type="hidden" id="addOnGuestCount" value="@Model.addOnGuest.Count" />
     <div id="addOnGuests">
         <h4>Add-On Guests</h4>
@@ -27,10 +254,141 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<div class="modal fade" id="addAdultImage" role="dialog">
+    <div class="modal-dialog" style="width: 100%;height:100%">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+            <div class="modal-body" style="margin:auto">
+                <div class="d-flex">
+                    <div>
+                        <video id="video" width="640" height="480" autoplay></video>
+                        <button id="capture">Capture</button>
+                    </div>
+                    <div>
+                        <div id="image-capture"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <script>
 
     $(document).ready(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/CountryList",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                countrylist = '<option value="">Select Country</option>';
+                for (var i = 0; i < data.length; i++) {
+                    countrylist = countrylist + "<option value=" + data[i].countryCode + ">" + data[i].countryName + "</option>";
+                }
+                //district = district + '</select>';
+                $("#countryMain").html(countrylist);
+                $("#countryAdult").html(countrylist);
+            },
+        });
+        $("#countryMain").change(function () {
+            $.ajax({
+                type: "post",
+                url: "/States/CountryWiseStateList",
+                data: { cCode: $("#countryMain").val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    // console.log("Selected State Id:" + $('#statelist').val());
+                    // console.log(data);
+                    var statelist = '<option value="">Select State</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+                    }
+                    $("#stateMain").html(statelist);
+                },
+            });
+        });
+        $("#stateMain").change(function () {
+            $.ajax({
+                type: "post",
+                url: "/States/DistrictList",
+                data: { stateID: $("#stateMain").val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    // console.log("Selected State Id:" + $('#statelist').val());
+                    // console.log(data);
+                    var distlist = '<option value="">Select District</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        distlist = distlist + "<option value=" + data[i].distId + ">" + data[i].distName + "</option>";
+                    }
+                    $("#districtMain").html(distlist);
+                },
+            });
+        });
+        $("#districtMain").change(function () {
+            $.ajax({
+                type: "post",
+                url: "/States/CityList",
+                data: { stateID: $("#stateMain").val(), distID: $("#districtMain").val() },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    // console.log("Selected State Id:" + $('#statelist').val());
+                    // console.log(data);
+                    var citylist = '<option value="">Select City</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
+                    }
+                    $("#cityMain").html(citylist);
+                },
+            });
+        });
+
+        // For loading all Visit Purpose List
+        $.ajax({
+            type: "post",
+            url: "/States/VisitPurposeList",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                vplist = '<option value="">Select Visit Purpose</option>';
+                for (var i = 0; i < data.length; i++) {
+                    vplist = vplist + "<option value=" + data[i].id + ">" + data[i].purpose + "</option>";
+                }
+                //district = district + '</select>';
+                $("#visitMain").html(vplist);
+                $("#visitAdult").html(vplist);
+            },
+        });
+        // For loading all ID Proof Type List
+        $.ajax({
+            type: "post",
+            url: "/States/IdProofTypeList",
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                console.log(data);
+                idprooflist = '<option value="">Select ID Proof</option>';
+                for (var i = 0; i < data.length; i++) {
+                    idprooflist = idprooflist + "<option value=" + data[i].id + ">" + data[i].idProofType + "</option>";
+                }
+                //district = district + '</select>';
+                $("#idtypeMain").html(idprooflist);
+                $("#idTypeAdult").html(idprooflist);
+            },
+        });
         $('#addAddOnGuest').click(function () {
             var addOnGuestCount = parseInt($('#addOnGuestCount').val());
             var addOnGuestHtml = `
@@ -46,4 +404,68 @@
             $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
         });
     });
+
+    var video = document.getElementById('video');
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+        video.srcObject = stream;
+        video.play();
+    }).catch(function (err) {
+        console.log(err);
+    });
+
+    document.getElementById('capture').addEventListener('click', function () {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // add time stamp
+        const timeNow = new Date()
+        context.fillStyle = '#000'
+        context.fontSize = '10px'
+        context.fillText(timeNow, 0, canvas.height - 5)
+
+        var image = canvas.toDataURL();
+        //uploadImage(image);
+        //console.log(image)
+        // image placeholder where the image will be displayed
+        var imagecapture = document.getElementById('image-capture');
+        var imagePlaceholder = document.getElementById('image-placeholder');
+
+        // display the image in placeholder
+        displayBase64Image(imagePlaceholder, imagecapture, image);
+    });
+
+    function displayBase64Image(placeholder, placeholdercapture, base64Image) {
+        var image = document.createElement('img');
+        var image1 = document.createElement('img');
+        image.onload = function () {
+            placeholdercapture.innerHTML = '';
+            placeholdercapture.appendChild(this);
+
+        }
+        image1.onload = function () {
+
+            placeholder.innerHTML = '';
+            placeholder.appendChild(this);
+        }
+        image1.src = base64Image;
+        image.src = base64Image;
+        ocument.getElementById('guestPhoto').value = base64Image;
+    }
+    function previewFile() {
+        navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia);
+
+        navigator.getMedia({ video: true }, function () {
+            $("#addImage").modal({ backdrop: 'static', keyboard: false }, "show");
+        }, function () {
+            // webcam is not available
+            alert("Web Cam Is Not Available");
+        });
+
+
+
+    }
 </script>

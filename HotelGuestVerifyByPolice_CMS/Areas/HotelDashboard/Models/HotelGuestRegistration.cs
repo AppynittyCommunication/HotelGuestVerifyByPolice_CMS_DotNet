@@ -3,7 +3,8 @@
     public class HotelGuestRegistration
     {
         public string? hotelRegNo { get; set; }
-        public string? guestName { get; set; }
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
         public string? guestType { get; set; }
         public string? gender { get; set; }
         public string? email { get; set; }
