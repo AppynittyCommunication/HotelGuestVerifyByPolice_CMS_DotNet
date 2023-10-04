@@ -233,7 +233,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
 
                 string hotelregno = _contx.HttpContext.Session.GetString("hotelRegNo");
 
-
+                var nofguest = model.addOnGuest != null ? model.addOnGuest.Count : 0;
                 HRegBody.hotelRegNo = hotelregno;
                 HRegBody.guestName = model.firstName + " " + model.lastName;
                 HRegBody.guestType = model.guestType;
@@ -242,7 +242,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 HRegBody.country = model.country;
                 HRegBody.state = model.state;
                 HRegBody.city = model.city;
-                HRegBody.numberOfGuest = 1 + model.addOnGuest.Count;
+                HRegBody.numberOfGuest = 1 + nofguest;
                 HRegBody.age = model.age;
                 HRegBody.mobile = model.mobile;
                 HRegBody.visitPurpose = model.visitPurpose;
