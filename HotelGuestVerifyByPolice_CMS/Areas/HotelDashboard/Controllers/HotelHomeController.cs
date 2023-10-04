@@ -230,7 +230,11 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 HotelGuestRegBody HRegBody = new();
                 List<AddOnGuestSource> addguestlist = new List<AddOnGuestSource>();
                 List<AddOnGuest> addguestdata = new List<AddOnGuest>();
-                HRegBody.hotelRegNo = model.hotelRegNo;
+
+                string hotelregno = _contx.HttpContext.Session.GetString("hotelRegNo");
+
+
+                HRegBody.hotelRegNo = hotelregno;
                 HRegBody.guestName = model.firstName + " " + model.lastName;
                 HRegBody.guestType = model.guestType;
                 HRegBody.gender = model.gender;
