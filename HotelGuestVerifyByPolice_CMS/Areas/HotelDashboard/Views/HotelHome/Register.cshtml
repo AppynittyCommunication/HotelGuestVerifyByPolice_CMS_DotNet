@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/css/bootstrap-modal-bs3patch.css" integrity="sha512-PLPZdOXQAXELGb6+1GKTjIRzI9fiIYmI6280sxmd9dGDgPND3cWmxBddOtQHmUELldeVLIgl8FrLUHyz3B9Y3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <style>
     .d-flex {
         display: flex
@@ -218,8 +217,9 @@
             </div>
         </div>
         <div class="d-flex">
+            @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
             <div class="profile-pic" id="image-placeholder">
-                @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
+               
                 <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200" onclick="previewFile()">
                 @*  <input id="profile-image-upload" class="hidden"> *@
                 <div style="color:#999;">  </div>
@@ -258,7 +258,7 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<div class="modal fade" id="addAdultImage" role="dialog">
+<div class="modal fade" id="addImage" role="dialog">
     <div class="modal-dialog" style="width: 100%;height:100%">
 
         <!-- Modal content-->
