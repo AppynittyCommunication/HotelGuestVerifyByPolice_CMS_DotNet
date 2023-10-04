@@ -207,7 +207,7 @@
 
                 <div class="form-input">
 
-                    <select name="IdType" class="form-control" id="idtypeMain" >
+                    <select name="guestIdType" class="form-control" id="idtypeMain">
                         <option value="">Select ID Type</option>
                        
                     </select>
@@ -454,7 +454,7 @@
         }
         image1.src = base64Image;
         image.src = base64Image;
-        ocument.getElementById('guestPhoto').value = base64Image;
+        document.getElementById('guestPhoto').value = base64Image;
     }
     function previewFile() {
         navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
