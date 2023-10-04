@@ -210,7 +210,108 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            var model = new HotelGuestRegistration
+            {
+                // Initialize the addOnGuest property as an empty list
+                addOnGuest = new List<AddOnGuestSource>()
+            };
 
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Register(HotelGuestRegistration model)
+        {
+            if (ModelState.IsValid)
+            {
+                HotelGuestRegBody HRegBody = new();
+                List<AddOnGuestSource> addguestlist = new List<AddOnGuestSource>();
+                List<AddOnGuest> addguestdata = new List<AddOnGuest>();
+                HRegBody.hotelRegNo = model.hotelRegNo;
+                HRegBody.guestName = model.guestName;
+                HRegBody.guestType = model.guestType;
+                HRegBody.gender = model.gender;
+                HRegBody.email = model.email;
+                HRegBody.country = model.country;
+                HRegBody.state = model.state;
+                HRegBody.city = model.city;
+                HRegBody.numberOfGuest = model.numberOfGuest;
+                HRegBody.age = model.age;
+                HRegBody.mobile = model.mobile;
+                HRegBody.visitPurpose = model.visitPurpose;
+                HRegBody.roomType = model.roomType;
+                HRegBody.roomNo = model.roomNo;
+                HRegBody.comingFrom = model.comingFrom;
+                HRegBody.guestIdType = model.guestIdType;
+                HRegBody.guestIDProof = model.guestIDProof;
+                HRegBody.guestPhoto = model.guestPhoto;
+                HRegBody.paymentMode = model.paymentMode;
+
+                if (model.addOnGuest != null)
+                {
+                    foreach (AddOnGuestSource item in addguestlist)
+                    {
+                        AddOnGuest addguestitem = new AddOnGuest
+                        {
+                            guestName = item.guestName,
+                            age = item.age,
+                            mobile = item.mobile,
+                            relationWithGuest = item.relationWithGuest,
+                            guestType = item.guestType,
+                            gender = item.gender,
+                            email = item.email,
+                            country = item.country,
+                            state = item.state,
+                            city = item.city,
+                            comingFrom = item.comingFrom,
+                            guestIdType = item.guestIdType,
+                            guestIDProof = item.guestIDProof,
+                            guestPhoto = item.guestPhoto,
+
+                        };
+                        addguestdata.Add(addguestitem);
+                        HRegBody.addOnGuest = addguestdata;
+                    }
+                }
+
+
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Hotel/HotelGuestRegistration", HRegBody);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+                    var code = (int)response.StatusCode;
+                    var status = dynamicobject.status.ToString();
+                    var message = dynamicobject.message.ToString();
+
+                    if (status == "success")
+                    {
+                        ViewBag.msg = message;
+                        return View();
+                    }
+                    else
+                    {
+                        ViewBag.msg = message;
+                        return View();
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+
+            // If the model state is not valid, return to the form view with errors
+            return View(model);
+        }
         public ActionResult SearchHotel()
         {
             string hotelregno = _contx.HttpContext.Session.GetString("hotelRegNo");
