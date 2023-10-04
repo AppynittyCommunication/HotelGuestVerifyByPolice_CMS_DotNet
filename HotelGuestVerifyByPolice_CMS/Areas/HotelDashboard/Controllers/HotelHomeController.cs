@@ -156,7 +156,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 {
                     AddOnGuest addguestitem = new AddOnGuest
                     {
-                        guestName = item.guestName,
+                        guestName = item.firstName +" "+item.lastName,
                         age = item.age,
                         mobile = item.mobile,
                         relationWithGuest = item.relationWithGuest,
@@ -260,7 +260,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                     {
                         AddOnGuest addguestitem = new AddOnGuest
                         {
-                            guestName = item.guestName,
+                            guestName = item.firstName + " " + item.lastName,
                             age = item.age,
                             mobile = item.mobile,
                             relationWithGuest = item.relationWithGuest,

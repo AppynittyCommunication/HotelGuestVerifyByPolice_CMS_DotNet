@@ -26,7 +26,8 @@
     }
     public class AddOnGuestSource
     {
-        public string? guestName { get; set; }
+        public string? firstName { get; set; }
+        public string? lastName { get; set; }
         public int age { get; set; }
         public string? mobile { get; set; }
         public string? relationWithGuest { get; set; }
