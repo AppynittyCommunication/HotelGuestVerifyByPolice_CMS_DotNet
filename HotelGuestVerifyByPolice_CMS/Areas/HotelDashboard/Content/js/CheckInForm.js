@@ -570,7 +570,10 @@ $("#formChild").submit(function (e) {
 const mainDataJSON = localStorage.getItem("mainData");
 var mainData = JSON.parse(mainDataJSON);
 var formData = {mainData,
-                addOnGuest: [childDataArray] };
+    addOnGuest: [childDataArray]
+};
+
+
 function submit() {
     console.log(mainData)
 
