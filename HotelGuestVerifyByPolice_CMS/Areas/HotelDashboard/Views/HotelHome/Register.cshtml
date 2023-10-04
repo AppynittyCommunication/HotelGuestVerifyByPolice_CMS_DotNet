@@ -1,0 +1,49 @@
+﻿@model HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.HotelGuestRegistration
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        @Html.EditorFor(model => model.guestName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
+
+        @Html.ValidationMessageFor(model => model.guestName, "", new { @class = "text-danger" })
+    </div>
+    <!-- Add other form fields for HotelGuestRegistration properties -->
+    <!-- Add multiple AddOnGuest entries -->
+    <input type="hidden" id="addOnGuestCount" value="@Model.addOnGuest.Count" />
+    <div id="addOnGuests">
+        <h4>Add-On Guests</h4>
+        @for (int i = 0; i < Model.addOnGuest.Count; i++)
+        {
+            <div class="add-on-guest">
+                <h5>Add-On Guest @(i + 1)</h5>
+                @Html.TextBoxFor(model => model.addOnGuest[i].guestName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.addOnGuest[i].guestName, "", new { @class = "text-danger" })
+
+                <!-- Add form fields for other AddOnGuestSource properties -->
+            </div>
+        }
+    </div>
+
+    <button type="button" id="addAddOnGuest">Add Add-On Guest</button>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+
+    $(document).ready(function () {
+        $('#addAddOnGuest').click(function () {
+            var addOnGuestCount = parseInt($('#addOnGuestCount').val());
+            var addOnGuestHtml = `
+                    <div class="add-on-guest">
+                        <h5>Add-On Guest ${addOnGuestCount + 1}</h5>
+                        <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].guestName" />
+                        <!-- Add form fields for other AddOnGuestSource properties -->
+                    </div>
+                `;
+
+            $('#addOnGuests').append(addOnGuestHtml);
+            addOnGuestCount++;
+            $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
+        });
+    });
+</script>
