@@ -242,7 +242,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 HRegBody.country = model.country;
                 HRegBody.state = model.state;
                 HRegBody.city = model.city;
-                HRegBody.numberOfGuest = model.numberOfGuest;
+                HRegBody.numberOfGuest = 1 + model.addOnGuest.Count;
                 HRegBody.age = model.age;
                 HRegBody.mobile = model.mobile;
                 HRegBody.visitPurpose = model.visitPurpose;
