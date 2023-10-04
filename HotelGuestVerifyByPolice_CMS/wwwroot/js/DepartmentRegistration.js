@@ -37,7 +37,8 @@
     // For loading all Active States
     $.ajax({
         type: "post",
-        url: "/States/StateList",
+        url: "/States/CountryWiseStateList",
+        data: { cCode: "IN" },
         datatype: "json",
         traditional: true,
         success: function (data) {
