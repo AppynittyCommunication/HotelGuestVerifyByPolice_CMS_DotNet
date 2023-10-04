@@ -294,17 +294,36 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                     if (status == "success")
                     {
                         ViewBag.msg = message;
-                        return View();
+                        var addguestcount = new HotelGuestRegistration
+                        {
+                            // Initialize the addOnGuest property as an empty list
+                            addOnGuest = new List<AddOnGuestSource>()
+                        };
+
+                        return View(addguestcount);
+                        //return View();
                     }
                     else
                     {
                         ViewBag.msg = message;
-                        return View();
+                        var addguestcount = new HotelGuestRegistration
+                        {
+                            // Initialize the addOnGuest property as an empty list
+                            addOnGuest = new List<AddOnGuestSource>()
+                        };
+
+                        return View(addguestcount);
                     }
                 }
                 else
                 {
-                    return View();
+                    var addguestcount = new HotelGuestRegistration
+                    {
+                        // Initialize the addOnGuest property as an empty list
+                        addOnGuest = new List<AddOnGuestSource>()
+                    };
+
+                    return View(addguestcount);
                 }
 
             }
