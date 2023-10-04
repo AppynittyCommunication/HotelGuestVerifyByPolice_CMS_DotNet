@@ -22,5 +22,6 @@
         public string? diviceIp { get; set; }
         public bool? isMobileVerify { get; set; }
         public string? password { get; set; }
+        public string? authPin { get; set;}
     }
 }
