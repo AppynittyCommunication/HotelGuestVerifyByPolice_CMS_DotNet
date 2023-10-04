@@ -82,7 +82,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         {
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("authPin", auth_Pin);
-            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/CheckAuthPin", null);
+            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Account/CheckAuthPin");
 
             if (response.IsSuccessStatusCode)
             {
@@ -116,7 +116,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
         {
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("authPin", auth_Pin);
-            HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Account/CheckAuthPin", null);
+            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Account/CheckAuthPin");
 
             if (response.IsSuccessStatusCode)
             {
@@ -263,6 +263,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
                 string userIpAddress = _contx.HttpContext.Connection.RemoteIpAddress.ToString();
                 string ipAdd = HttpContext.Connection.RemoteIpAddress.ToString();
+                string hotelauthpin = _contx.HttpContext.Session.GetString("sethotelauthpin");
                 //------------Get Ip End---------------------
                 HotelRegBody hotelRegBody = new();
 
@@ -284,6 +285,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 hotelRegBody.isMobileVerify = model.isMobileVerify;
                 hotelRegBody.diviceIp = ipAdd;
                 hotelRegBody.password = model.cPass;
+                hotelRegBody.authPin = hotelauthpin;
+
 
 
 
@@ -303,39 +306,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                     var message = dynamicobject.message.ToString();
                     if(status == "success")
                     {
-                        string hotelauthpin = _contx.HttpContext.Session.GetString("sethotelauthpin");
-
-                        SaveAuthBody sab = new();
-
-                        sab.authPin = hotelauthpin;
-                        sab.userID = model.userId;
-                        sab.useFor = model.hotelName;
-                        sab.isUse = true;
-                        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        HttpResponseMessage response2 = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/SaveAuthUser", sab);
-                        if (response2.IsSuccessStatusCode)
-                        {
-                            var responseString2 = await response2.Content.ReadAsStringAsync();
-                            var dynamicobject2 = JsonConvert.DeserializeObject<dynamic>(responseString2);
-
-                            var code2 = (int)response.StatusCode;
-                            var status2 = dynamicobject2.status.ToString();
-                            var message2 = dynamicobject2.message.ToString();
-
-                            if (status2 == "success")
-                            {
-                                return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
-                            }
-                            else
-                            {
-                                return View();
-                            }
-                        }
-                        else
-                        {
-                            return View();
-                        }
-                            
+                        return RedirectToAction("HotelRegistrationSuccess", "Account", new { msg = message });
+                         
                     }
 
                     else
@@ -777,6 +749,7 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
                 string userIpAddress = _contx.HttpContext.Connection.RemoteIpAddress.ToString();
                 string ipAdd = HttpContext.Connection.RemoteIpAddress.ToString();
+                string departauthpin = _contx.HttpContext.Session.GetString("setdepartauthpin");
                 //------------Get Ip End---------------------
                 DepartmentRegBody deptRegBody = new();
 
@@ -794,8 +767,12 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
                 deptRegBody.isMobileVerify = model.isMobileVerify;
                 deptRegBody.policeName = model.firstName + " " + model.lastName;
                 deptRegBody.diviceIp = ipAdd;
-                
-                
+                deptRegBody.isMobileVerify = model.isMobileVerify;
+                deptRegBody.password = model.password;
+                deptRegBody.authPin = departauthpin;
+
+
+
 
 
 
@@ -814,39 +791,8 @@ namespace HotelGuestVerifyByPolice_CMS.Controllers
 
                     if (status == "success")
                     {
-                        string departauthpin = _contx.HttpContext.Session.GetString("setdepartauthpin");
-
-                        SaveAuthBody sab = new();
-
-                        sab.authPin = departauthpin;
-                        sab.userID = model.userId;
-                        sab.useFor = "Department";
-                        sab.isUse = true;
-                        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        HttpResponseMessage response2 = await _httpClient.PostAsJsonAsync(_httpClient.BaseAddress + "Account/SaveAuthUser", sab);
-                        if (response2.IsSuccessStatusCode)
-                        {
-                            var responseString2 = await response2.Content.ReadAsStringAsync();
-                            var dynamicobject2 = JsonConvert.DeserializeObject<dynamic>(responseString2);
-
-                            var code2 = (int)response.StatusCode;
-                            var status2 = dynamicobject2.status.ToString();
-                            var message2 = dynamicobject2.message.ToString();
-
-                            if (status2 == "success")
-                            {
-                                return RedirectToAction("DepartmentRegistrationSuccess", "Account", new { msg = message });
-                            }
-                            else
-                            {
-                                return View();
-                            }
-                        }
-                        else
-                        {
-                            return View();
-                        }
-
+                        return RedirectToAction("DepartmentRegistrationSuccess", "Account", new { msg = message });
+                       
                     }
 
                     else
