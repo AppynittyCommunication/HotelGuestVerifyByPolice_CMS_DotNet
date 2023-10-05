@@ -527,6 +527,57 @@
     });
  function showCard(){
         alert()
+      
+       
+  var name = document.userForm.name.value;
+  var age = document.userForm.age.value;
+  var city = document.userForm.city.value;
+  var valid = 0;
+  
+ 
+  /* Name validation */
+  
+   if (name==""){
+    document.getElementById("nameError").innerHTML = "You must enter name to submit.";
+  } else {       document.getElementById("nameError").innerHTML = "";
+    valid++;
+  }
+  
+  /* Age validation */
+  
+  if (age == ""){
+    document.getElementById("ageError").innerHTML = "You must enter age to submit.";
+  } 
+  else if (age > 130 || age < 1){
+    document.getElementById("ageError").innerHTML = "Age must be between 1 and 130.";
+  }  else {
+    document.getElementById("ageError").innerHTML = "";
+    valid++;
+  }
+  
+  /* Hometown validation */
+  
+  if (city == ""){
+    document.getElementById("cityError").innerHTML = "You must enter city to submit.";
+  } else {
+    document.getElementById("cityError").innerHTML = "";
+    valid++;
+  }
+  
+  /* Final validation */
+  
+   if (valid == 3)  {
+       document.getElementById("preview").innerHTML = "";
+    
+var userData = "Your name is " + name + ", you are " + age + " years old and you are from " + city + ".<br>";
+  
+  document.getElementById("preview").innerHTML += userData;    
+     
+  }  else {
+        document.getElementById("preview").innerHTML = "Fix all errors to get user data." 
+     }
+ 
+ 
         $("#mainHotelGuest").hide();
         $("#finalData").show();
 
@@ -545,7 +596,7 @@
           `;
     }
     function showCardAdult(){
-        alert()
+        
         $("#mainHotelGuest").hide();
         $("#finalData").show();
 
