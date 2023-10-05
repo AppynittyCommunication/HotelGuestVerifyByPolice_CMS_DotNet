@@ -46,7 +46,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
 
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 _httpClient.DefaultRequestHeaders.Add("userID", departuser);
-                HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Department/DeptDashboard", null);
+                HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/DeptDashboard");
 
                 if (response.IsSuccessStatusCode)
                 {
