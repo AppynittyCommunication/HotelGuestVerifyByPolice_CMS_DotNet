@@ -359,7 +359,7 @@
                         <div class="form-group">
                          <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].city" class="form-control" id="districtAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].district" class="form-control" id="districtAdult${appendData}">
                                    
                                 </select>
 
@@ -420,7 +420,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-md addChild" type="submit">Done</button>
+                        <button class="addbtn btn btn-md" type="button">Done</button>
                     </div>
                 </div>
                     </div>
@@ -431,8 +431,139 @@
         addOnGuestCount++;
         $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
     });
+    $('#addAddOnChild').click(function () {
+        appendData++
+         // For loading all Relation Type  List
+   
+        $("#mainHotelGuest").hide();
+        var name = $("#firstName").val();
+       
+        if(addOnGuestCount > 0){
+        var hideOnCount=addOnGuestCount-1;
+            
+             $("#formAdult"+hideOnCount).hide();
+             
+        }
+         
+        var addOnGuestHtml = `
+        
+                    <div class="add-on-guest">
+                          <!--  <h5>Add-On Guest ${addOnGuestCount}</h5>
+                        <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="firstname"/>
+                          <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
+                        <!-- Add form fields for other AddOnGuestSource properties -->
+                         <div id="formAdult${addOnGuestCount}">
+                    <h4>Adult ${addOnGuestCount}</h4>
+                    <div class="d-flex">
+                        <div class="form-group">
+                         <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Child" />
+                            <div class="form-input">
+                                <input class="form-control" id="firstNameAdult"name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+        
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-input">
+                                <input class="form-control" id="lastNameAdult"name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                            </div>
+                        </div>
+                  
+                    </div>
+                    <div class="d-flex">
 
+                        <div class="form-group">
+
+                            <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                        <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderAdult">
+                                    <option value="">Select Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                      <div class="form-input">
+                                <input class="form-control" id="ageAdult" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                   
+                    <div class="d-flex">
+                        <div class="profile-pic">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" data-toggle="modal" data-target="#addImage" height="200">
+                            <input id="profile-image-upload" class="hidden" type="file" >
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
+                        </div>
+                       
+                    </div>
+                    <div class="text-center">
+                        <button class="addbtn btn btn-md" type="button">Done</button>
+                    </div>
+                </div>
+                    </div>
+                `;
+
+        $('#addOnGuests').append(addOnGuestHtml);
+      
+        addOnGuestCount++;
+        $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
+    });
  function showCard(){
+        alert()
+        $("#mainHotelGuest").hide();
+        $("#finalData").show();
+
+         document.querySelector('#displayFormData').innerHTML += `
+         <div class="card">
+         <div class="d-flex">
+         <div>
+        
+         </div>
+         <div style="margin-left:4%">
+                 <h3><span>Name:</span>${$("#firstName").val() }</h3>
+                    
+                     </div>
+                  </div>
+           </div>
+          `;
+    }
+    function showCardAdult(){
+        alert()
+        $("#mainHotelGuest").hide();
+        $("#finalData").show();
+
+         document.querySelector('#displayFormData').innerHTML += `
+         <div class="card">
+         <div class="d-flex">
+         <div>
+        
+         </div>
+         <div style="margin-left:4%">
+                 <h3><span>Name:</span>${$("#firstName").val() }</h3>
+                    
+                     </div>
+                  </div>
+           </div>
+          `;
+    }
+       function showCardChild(){
         alert()
         $("#mainHotelGuest").hide();
         $("#finalData").show();
