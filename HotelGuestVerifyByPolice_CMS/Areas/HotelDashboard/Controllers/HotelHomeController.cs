@@ -256,7 +256,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
 
                 if (model.addOnGuest != null)
                 {
-                    foreach (AddOnGuestSource item in addguestlist)
+                    foreach (AddOnGuestSource item in model.addOnGuest)
                     {
                         AddOnGuest addguestitem = new AddOnGuest
                         {
