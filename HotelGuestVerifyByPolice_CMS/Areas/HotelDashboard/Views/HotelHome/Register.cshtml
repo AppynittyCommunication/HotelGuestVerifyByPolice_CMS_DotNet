@@ -60,7 +60,7 @@
             /*  width: 100px; */
             height: 100px;
         }
-        #finalData{display:none}
+        #finalData{display:block}
 </style>
 <form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
     <div id="mainHotelGuest">
@@ -250,7 +250,7 @@
                 <h5>Add-On Guest @(i + 1)</h5>
                @*  @Html.TextBoxFor(model => model.addOnGuest[i].guestName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.addOnGuest[i].guestName, "", new { @class = "text-danger" }) *@
-                <div class="d-flex">
+               @*  <div class="d-flex">
                     <div class="form-group">
                         @Html.EditorFor(model => model.addOnGuest[i].firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
@@ -266,8 +266,8 @@
 
                         @Html.ValidationMessageFor(model => model.addOnGuest[i].mobile, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="d-flex">
+                </div> *@
+               @*  <div class="d-flex">
 
                     <div class="form-group">
                         <div class="form-input">
@@ -294,7 +294,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> *@
                @*  <div class="d-flex">
                     <div class="form-group">
 

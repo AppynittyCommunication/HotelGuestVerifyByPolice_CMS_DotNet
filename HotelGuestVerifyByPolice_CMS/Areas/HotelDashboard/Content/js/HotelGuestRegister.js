@@ -12,7 +12,7 @@
             }
             //district = district + '</select>';
             $("#countryMain").html(countrylist);
-            $("#countryAdult").html(countrylist);
+            
         },
     });
     $("#countryMain").change(function () {
@@ -104,38 +104,334 @@
             $("#idTypeAdult").html(idprooflist);
         },
     });
-
+      $.ajax({
+        type: "post",
+        url: "/States/CountryList",
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            countrylist = '<option value="">Select Country</option>';
+            for (var i = 0; i < data.length; i++) {
+                countrylist = countrylist + "<option value=" + data[i].countryCode + ">" + data[i].countryName + "</option>";
+            }
+            //district = district + '</select>';
+            $("#countryMain").html(countrylist);
+            $("#countryAdult").html(countrylist);
+        },
+    });
+      $("#countryAdult").change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/CountryWiseStateList",
+            data: { cCode: $("#countryAdult").val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var statelist = '<option value="">Select State</option>';
+                for (var i = 0; i < data.length; i++) {
+                    statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+                }
+                $("#stateAdult").html(statelist);
+            },
+        });
+    });
+   
    
 
+});
+
+
+ var addOnGuestCount = parseInt($('#addOnGuestCount').val());
+ var appendData=0
     $('#addAddOnGuest').click(function () {
+        appendData++
+         // For loading all Relation Type  List
+    $.ajax({
+        type: "post",
+        url: "/States/RelationTypeList",
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            relationlist = '<option value="">Select Relation</option>';
+            for (var i = 0; i < data.length; i++) {
+                relationlist = relationlist + "<option value=" + data[i].id + ">" + data[i].name + "</option>";
+            }
+            //district = district + '</select>';
+            $("#relationAdult"+appendData).html(relationlist);
+        },
+    });
+     $.ajax({
+        type: "post",
+        url: "/States/IdProofTypeList",
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            idprooflist = '<option value="">Select ID Proof</option>';
+            for (var i = 0; i < data.length; i++) {
+                idprooflist = idprooflist + "<option value=" + data[i].id + ">" + data[i].idProofType + "</option>";
+            }
+            //district = district + '</select>';
+            
+            $("#idTypeAdult"+appendData).html(idprooflist);
+        },
+    });
+          $.ajax({
+        type: "post",
+        url: "/States/CountryList",
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            countrylist = '<option value="">Select Country</option>';
+            for (var i = 0; i < data.length; i++) {
+                countrylist = countrylist + "<option value=" + data[i].countryCode + ">" + data[i].countryName + "</option>";
+            }
+            //district = district + '</select>';
+          alert("#countryAdult"+appendData)
+            $("#countryAdult"+appendData).html(countrylist);
+        },
+    });
+   $(function(){ /* DOM ready */
+    $("#countryAdult"+appendData).change(function() {
+      
+        $.ajax({
+            type: "post",
+            url: "/States/CountryWiseStateList",
+            data: { cCode: $("#countryAdult"+appendData).val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var statelist = '<option value="">Select State</option>';
+                for (var i = 0; i < data.length; i++) {
+                    statelist = statelist + "<option value=" + data[i].stateId + ">" + data[i].stateName + "</option>";
+                }
+                $("#stateAdult"+appendData).html(statelist);
+            },
+        });
+    });
+});
+     $(function(){
+       $("#stateAdult"+appendData).change(function () {
+          
+        $.ajax({
+            type: "post",
+            url: "/States/DistrictList",
+            data: { stateID: $("#stateAdult"+appendData).val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var distlist = '<option value="">Select District</option>';
+                for (var i = 0; i < data.length; i++) {
+                    distlist = distlist + "<option value=" + data[i].distId + ">" + data[i].distName + "</option>";
+                }
+                $("#districtAdult"+appendData).html(distlist);
+            },
+        });
+    });})
+    $(function(){
+       $("#districtAdult"+appendData).change(function () {
+        $.ajax({
+            type: "post",
+            url: "/States/CityList",
+            data: { stateID: $("#stateAdult"+appendData).val(), distID: $("#districtAdult"+appendData).val() },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+                // console.log("Selected State Id:" + $('#statelist').val());
+                // console.log(data);
+                var citylist = '<option value="">Select City</option>';
+                for (var i = 0; i < data.length; i++) {
+                    citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
+                }
+                $("#cityAdult"+appendData).html(citylist);
+            },
+        });
+    })
+
+})
         $("#mainHotelGuest").hide();
         var name = $("#firstName").val();
-        var addOnGuestCount = parseInt($('#addOnGuestCount').val());
+       
+        if(addOnGuestCount > 0){
+        var hideOnCount=addOnGuestCount-1;
+            
+             $("#formAdult"+hideOnCount).hide();
+             
+        }
+         
         var addOnGuestHtml = `
-          <div class="d-flex">
-                    <div class="form-group">
-                        @Html.EditorFor(model => model.addOnGuest[i].firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
+        
+                    <div class="add-on-guest">
+                          <!--  <h5>Add-On Guest ${addOnGuestCount}</h5>
+                        <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="firstname"/>
+                          <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
+                        <!-- Add form fields for other AddOnGuestSource properties -->
+                         <div id="formAdult${addOnGuestCount}">
+                    <h4>Adult ${addOnGuestCount}</h4>
+                    <div class="d-flex">
+                        <div class="form-group">
 
-                        @Html.ValidationMessageFor(model =>  model.addOnGuest[i].firstName, "", new { @class = "text-danger" })
+                            <div class="form-input">
+                                <input class="form-control" id="firstNameAdult"name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+        
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-input">
+                                <input class="form-control" id="lastNameAdult"name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                           <div class="form-input">
+                                <input class="form-control" id="mobileAdult"name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" />
+                           </div>
+
+                        </div>
                     </div>
-                    <div class="form-group">
-                        @Html.EditorFor(model => model.addOnGuest[i].lastName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Last Name"} })
+                    <div class="d-flex">
 
-                        @Html.ValidationMessageFor(model => model.addOnGuest[i].lastName, "", new { @class = "text-danger" })
+                        <div class="form-group">
+
+                            <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                        <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderAdult">
+                                    <option value="">Select Gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                      <div class="form-input">
+                                <input class="form-control" id="ageAdult" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="form-group">
-                        @Html.EditorFor(model => model.addOnGuest[i].mobile, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Mobile"} })
 
-                        @Html.ValidationMessageFor(model => model.addOnGuest[i].mobile, "", new { @class = "text-danger" })
+                    <div class="d-flex">
+                        <div class="form-group">
+                          <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].country" class="form-control" id="countryAdult${appendData}" >
+                                    <option value="">Select Country</option>
+                                    <option value="India">India</option>
+                                </select>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].state" class="form-control" id="stateAdult${appendData}">
+                                    <option value="">Select State</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                         <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].city" class="form-control" id="districtAdult${appendData}">
+                                   
+                                </select>
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                          <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].city" class="form-control" id="cityAdult${appendData}">
+                                    <option value="">Select City</option>
+                                    <option value="Nagpur">Nagpur</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="d-flex">
+                      
+                       <div class="form-group">
+                            <div class="form-input">
+                                <input class="form-control" name="addOnGuest[${addOnGuestCount}].comingFrom" placeholder="Coming From" id="comingAdult" />
+
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                            <div class="form-input">
+
+                                <select name="addOnGuest[${addOnGuestCount}].guestIdType" class="form-control" id="idTypeAdult${appendData}">
+                                    <option value="">Select ID Type</option>
+                                    <option value="Adhar">Adhar Card</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="profile-pic">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" data-toggle="modal" data-target="#addImage" height="200">
+                            <input id="profile-image-upload" class="hidden" type="file" >
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
+                        </div>
+                        <div class="profile-pic">
+
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
+                            <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+                            <div style="color:#999;">  </div>
+                            <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-md addChild" type="submit">Done</button>
                     </div>
                 </div>
+                    </div>
                 `;
 
         $('#addOnGuests').append(addOnGuestHtml);
+      
         addOnGuestCount++;
         $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
     });
-});
+
  function showCard(){
         alert()
         $("#mainHotelGuest").hide();
