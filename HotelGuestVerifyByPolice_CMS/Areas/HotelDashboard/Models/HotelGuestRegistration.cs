@@ -36,6 +36,7 @@
         public string? email { get; set; }
         public string? country { get; set; }
         public string? state { get; set; }
+        public string? district { get; set; }
         public string? city { get; set; }
         public string? comingFrom { get; set; }
         public string? guestIdType { get; set; }

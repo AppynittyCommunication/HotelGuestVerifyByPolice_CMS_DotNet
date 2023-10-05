@@ -236,7 +236,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 var nofguest = model.addOnGuest != null ? model.addOnGuest.Count : 0;
                 HRegBody.hotelRegNo = hotelregno;
                 HRegBody.guestName = model.firstName + " " + model.lastName;
-                HRegBody.guestType = model.guestType;
+                HRegBody.guestType = "Adult";
                 HRegBody.gender = model.gender;
                 HRegBody.email = model.email;
                 HRegBody.country = model.country;
@@ -304,7 +304,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                             addOnGuest = new List<AddOnGuestSource>()
                         };
 
-                        return View(addguestcount);
+                        return RedirectToAction("Index", "HotelHome", new { area = "HotelDashboard" });
                         //return View();
                     }
                     else
@@ -316,7 +316,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                             addOnGuest = new List<AddOnGuestSource>()
                         };
 
-                        return View(addguestcount);
+                        return View();
                     }
                 }
                 else
