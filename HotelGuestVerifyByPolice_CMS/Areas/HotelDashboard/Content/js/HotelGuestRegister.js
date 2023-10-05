@@ -279,7 +279,7 @@
                     <h4>Adult ${addOnGuestCount}</h4>
                     <div class="d-flex">
                         <div class="form-group">
-
+                         <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Adult" />
                             <div class="form-input">
                                 <input class="form-control" id="firstNameAdult"name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
         
