@@ -49,7 +49,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                 hotelDashResData.monthlyCheckInOutCounts = new();
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 _httpClient.DefaultRequestHeaders.Add("hotelRegNo", hotelregno);
-                HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Hotel/GetGuestCheckInOutInfo", null);
+                HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Hotel/GetGuestCheckInOutInfo");
 
                 if (response.IsSuccessStatusCode)
                 {
