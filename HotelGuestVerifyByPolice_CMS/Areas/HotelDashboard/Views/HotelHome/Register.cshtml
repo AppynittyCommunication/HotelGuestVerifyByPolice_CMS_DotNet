@@ -60,6 +60,7 @@
             /*  width: 100px; */
             height: 100px;
         }
+        #finalData{display:none}
 </style>
 <form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
     <div id="mainHotelGuest">
@@ -234,6 +235,7 @@
                 <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
             </div>
         </div>
+        <button type="button" onclick="showCard()">Done</button>
     </div>
     <!-- Add other form fields for HotelGuestRegistration properties -->
     <!-- Add multiple AddOnGuest entries -->
@@ -425,8 +427,11 @@
     </div>
 
     <button type="button" id="addAddOnGuest">Add Add-On Guest</button>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
+   
+    <div id="finalData">
+     <div id="displayFormData"></div>
+    <div id="submitbtn"></div><button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 <div class="modal fade" id="addImage" role="dialog">
     <div class="modal-dialog" style="width: 100%;height:100%">
@@ -454,10 +459,10 @@
 
     </div>
 </div>
-
+<script src="../../Areas/HotelDashboard/Content/js/HotelGuestRegister.js"></script>
 <script>
 
-    $(document).ready(function () {
+ @*    $(document).ready(function () {
         $.ajax({
             type: "post",
             url: "/States/CountryList",
@@ -642,5 +647,5 @@
 
 
 
-    }
+    } *@
 </script>
