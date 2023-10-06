@@ -529,9 +529,9 @@
         alert()
       
        
-  var name = document.userForm.name.value;
-  var age = document.userForm.age.value;
-  var city = document.userForm.city.value;
+  var name = $("#firstName").val();
+  var lastname = $("#lastName").val();
+ 
   var valid = 0;
   
  
@@ -542,7 +542,12 @@
   } else {       document.getElementById("nameError").innerHTML = "";
     valid++;
   }
-  
+   if (lastname == ""){
+    document.getElementById("cityError").innerHTML = "You must enter city to submit.";
+  } else {
+    document.getElementById("cityError").innerHTML = "";
+    valid++;
+  }
   /* Age validation */
   
   if (age == ""){
@@ -557,12 +562,7 @@
   
   /* Hometown validation */
   
-  if (city == ""){
-    document.getElementById("cityError").innerHTML = "You must enter city to submit.";
-  } else {
-    document.getElementById("cityError").innerHTML = "";
-    valid++;
-  }
+ 
   
   /* Final validation */
   
