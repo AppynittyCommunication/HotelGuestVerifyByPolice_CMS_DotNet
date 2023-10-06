@@ -90,9 +90,15 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                         }
                         return View(hotelDashResData);
                     }
-                    return View();
+                    ViewBag.msg = "Please Try After Some Time";
+                    return Redirect("/Account/HotelLogin");
                 }
-                return View();
+                else
+                {
+                    ViewBag.msg = "Please Try After Some Time";
+                    return Redirect("/Account/HotelLogin");
+                }
+               
             }
             
             //return View();
