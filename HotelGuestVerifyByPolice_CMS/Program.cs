@@ -12,7 +12,10 @@ builder.Services.AddSession(option =>
 {
     option.IdleTimeout = TimeSpan.FromMinutes(30);
 });
-
+builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
+{
+    options.Conventions.AddAreaPageRoute("Department", "/DepartmentHome", "Index");
+});
 
 var app = builder.Build();
 

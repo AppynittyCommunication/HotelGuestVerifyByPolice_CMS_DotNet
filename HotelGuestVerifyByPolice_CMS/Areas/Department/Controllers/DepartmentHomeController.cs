@@ -1,4 +1,5 @@
 ﻿using HotelGuestVerifyByPolice_CMS.Areas.Department.Models;
+using HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models;
 using HotelGuestVerifyByPolice_CMS.Models.APIModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -166,17 +167,42 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             }
             else
             {
-                return View();
+                var model = new DeptSearchHotelRes
+                {
+                    // Initialize the addOnGuest property as an empty list
+                   
+                    hotelGuests = new List<HotelGuest>(),
+                };
+
+                return View(model);
+
+                
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> SearchHotel(String hotelRegNo)
+        public async Task<ActionResult> SearchHotel(HotelSearchFormModal obj)
         {
+            string departuser = _contx.HttpContext.Session.GetString("departUser");
+            string departtype = _contx.HttpContext.Session.GetString("dusertype");
+            string dstateID = _contx.HttpContext.Session.GetString("dstateid");
+            string ddistID = _contx.HttpContext.Session.GetString("ddistid");
+            string dcityID = _contx.HttpContext.Session.GetString("dcityid");
+            string dStationCode = _contx.HttpContext.Session.GetString("dstationcode");
+
+            ViewBag.departuser = departuser;
+            ViewBag.dType = departtype;
+            ViewBag.dStateId = dstateID;
+            ViewBag.dDistId = ddistID;
+            ViewBag.dCityId = dcityID;
+            ViewBag.dSCode = dStationCode;
+
             DeptSearchHotelRes deptSearchHotelRes = new();
             deptSearchHotelRes.hotelTitle = new();
+            deptSearchHotelRes.hotelGuests = new();
+            deptSearchHotelRes.lastVisitors = new();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Add("hotelRegNo", hotelRegNo);
+            _httpClient.DefaultRequestHeaders.Add("hotelRegNo", obj.hotelRegNo);
             HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/SearchHotel");
 
             if(response.IsSuccessStatusCode)
@@ -188,18 +214,46 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                 deptSearchHotelRes.status = dynamicobject.status;
                 deptSearchHotelRes.message = dynamicobject.message;
 
-                foreach (var i in dynamicobject.hotelLocOnDashboard)
+                if(dynamicobject.hotelTitle != null)
                 {
-                    deptSearchHotelRes.hotelTitle.Add(new HotelTitle
-                    {
-                        hotelName = i.hotelName,
-                        mobile = i.mobile,
-                        address = i.address,
-                        city = i.city,
-                        policeSation = i.policeSation,
-                    });
-
+                    deptSearchHotelRes.hotelTitle.hotelName = dynamicobject.hotelTitle.hotelName;
+                    deptSearchHotelRes.hotelTitle.mobile = dynamicobject.hotelTitle.mobile;
+                    deptSearchHotelRes.hotelTitle.address = dynamicobject.hotelTitle.address;
+                    deptSearchHotelRes.hotelTitle.city = dynamicobject.hotelTitle.city;
+                    deptSearchHotelRes.hotelTitle.policeSation = dynamicobject.hotelTitle.policeSation;
+                  
                 }
+                if(dynamicobject.hotelGuests != null)
+                {
+                    foreach(var h in dynamicobject.hotelGuests)
+                    {
+                        deptSearchHotelRes.hotelGuests.Add(new HotelGuest
+                        {
+                            guestName = h.guestName,
+                            reservation = h.reservation,
+                            nightStayed = h.nightStayed,
+                            lastVisit = h.lastVisit,
+                            mobile = h.mobile,
+                            city = h.city,
+                            address = h.address,
+                            country = h.country,
+                        });
+                    }
+                }
+                if(dynamicobject.lastVisitors != null)
+                {
+                    deptSearchHotelRes.lastVisitors.guestName = dynamicobject.lastVisitors.guestName;
+                    deptSearchHotelRes.lastVisitors.age = dynamicobject.lastVisitors.age;
+                    deptSearchHotelRes.lastVisitors.city = dynamicobject.lastVisitors.city;
+                    deptSearchHotelRes.lastVisitors.purpose = dynamicobject.lastVisitors.purpose;
+                    deptSearchHotelRes.lastVisitors.commingFrom = dynamicobject.lastVisitors.commingFrom;
+                    deptSearchHotelRes.lastVisitors.reservaion = dynamicobject.lastVisitors.reservaion;
+                    deptSearchHotelRes.lastVisitors.checkInDate = dynamicobject.lastVisitors.checkInDate;
+                    deptSearchHotelRes.lastVisitors.guestPhoto = dynamicobject.lastVisitors.photo;
+                     
+                    
+                }
+               
                 return View(deptSearchHotelRes);
             }
             else
@@ -207,5 +261,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                 return View();
             }
         }
+
+
     }
 }

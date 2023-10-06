@@ -1,4 +1,5 @@
 ﻿@using Newtonsoft.Json
+@model HotelGuestVerifyByPolice_CMS.Areas.Department.Models.DeptSearchHotelRes
 @{
     Layout = "";
     ViewData["Title"] = "Find Hotel";
@@ -150,34 +151,110 @@
 
     <div class="row mx-1 py-2">
         <div class="col-md-3 col-lg-3">
-            <div id="userDetails" class="py-3">
-                <div class="form-input" id="sdlist">
-                    <select id="sdistlist" class="form-control"></select>
-                </div>
-                <div class="form-input" id="sclist">
-                    <select id="scitylist" class="form-control"></select>
-                </div>
-                <div class="form-input" id="spolicelist">
-                    <select id="spslist" class="form-control"></select>
-                </div>
-                <div class="form-input" id="shlist">
-                    <select id="shotellist" class="form-control"></select>
-                </div>
-                <div class="searchbtn">
-                    <button id="hsearchbtn" class="btn btn-primary" type="submit" onclick="SearchHotel">Search</button>
-                </div>
-               
-            </div>
+            @using (Html.BeginForm())
 
-         
+            {
+                <div id="userDetails" class="py-3">
+                    <div class="form-input" id="sdlist">
+                        <select id="sdistlist" name="distId" class="form-control"></select>
+                    </div>
+                    <div class="form-input" id="sclist">
+                        <select id="scitylist" name="cityId" class="form-control"></select>
+                    </div>
+                    <div class="form-input" id="spolicelist">
+                        <select id="spslist" name="psId" class="form-control"></select>
+                    </div>
+                    <div class="form-input" id="shlist">
+                        <select id="shotellist" name="hotelRegNo" class="form-control"></select>
+                    </div>
+                    <div class="searchbtn">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+               
+                </div>
+            }
+        
+          
+            <div id="lastvisitor" class="card">
+                @if(Model.lastVisitors != null)
+                {
+                    <div class="row">
+                        <div class="col-md-6">
+                             @if (@Model.lastVisitors.guestPhoto == null)
+                                    {
+                                        <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:150px;height: 165px;" />
+                                    }
+                                    else
+                                    {
+
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.lastVisitors.guestPhoto)" alt="Image" style="width:150px;height: 165px;" />
+                                    }
+                        </div>
+                        <div class="col-md-6">
+
+                            <h6>@Model.lastVisitors.guestName</h6>
+                            <p><span>Age</span>@Model.lastVisitors.age</p>
+                            <p><span>City</span>@Model.lastVisitors.city</p>
+                            <p><span>Purpose</span>@Model.lastVisitors.purpose</p>
+                            <p><span>Comming From</span>@Model.lastVisitors.commingFrom</p>
+                            <p><span>Reservation</span>@Model.lastVisitors.reservaion</p>
+                            <p><span>Check-In</span>@Model.lastVisitors.checkInDate</p>
+                        </div>
+                    </div>
+                }
+             
+                
+              </div>
+            </div>
+            
+          
         </div>
 
-
     </div>
-</div>
+
 
 <script type="text/javascript">
-    document.getElementById("hsearchbtn").disabled = true;
+
+    $("#hsearchbtn").click(function () {
+        debugger;
+        var hregno = $("#shotellist").val()
+        $.ajax({
+            type: "post",
+            url: "/Department/DepartmentHome/SearchHotel",
+            data: { hotelRegNo: hregno },
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+              
+               //console.log(data);
+               //var newdata = JSON.stringify(data);
+               console.log(data);
+               var outputElement = document.getElementById('lastvisitor');
+
+               // Create HTML content with the data
+                var htmlContent = '<div class="row">' +
+                                  '  <div class="col-md-6">';
+                if(data.lastVisitors.guestPhoto != null){
+                       htmlContent +=  '<img src="data:image/jpeg;base64,' + data.lastVisitors.guestPhoto + '" alt="Image" style="width:230px;height: 250px;" />' +
+                                       '</div>';
+                }
+                else{
+                    htmlContent +=  '<img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />' +
+                                       '</div>';
+                }
+                htmlContent += '<div class="col-md-6">'+
+                               '<p>Name: ' + data.lastVisitors.guestName + '</p>' +
+                               '</div>';
+                htmlContent += '</div>';
+                // Set the HTML content of the output element
+                outputElement.innerHTML = htmlContent;
+                 
+                
+            },
+        });
+    });
+    //document.getElementById("hsearchbtn").disabled = true;
+
     
     console.log("Department Login Type" + '@ViewBag.dType');
     debugger;
@@ -204,10 +281,17 @@
                 // console.log("Selected State Id:" + $('#statelist').val());
                 // console.log(data);
                 var citylist = '<option value="">Select City</option>';
-                for (var i = 0; i < data.length; i++) {
+                if(data != null)
+                {
+                     for (var i = 0; i < data.length; i++) {
                     citylist = citylist + "<option value=" + data[i].cityId + ">" + data[i].cityName + "</option>";
                 }
                 $("#scitylist").html(citylist);
+                }
+                else{
+                     $("#scitylist").html(citylist);
+                }
+                
             },
         });
     });
@@ -225,10 +309,16 @@
                 // console.log("Selected State Id:" + $('#statelist').val());
                 // console.log(data);
                 var pslist = '<option value="">Select Police Station</option>';
-                for (var i = 0; i < data.length; i++) {
-                    pslist = pslist + "<option value=" + data[i].id + ">" + data[i].stationName + "</option>";
+                if(data != null)
+                {
+                     for (var i = 0; i < data.length; i++) {
+                    pslist = pslist + "<option value=" + data[i].stationCode + ">" + data[i].stationName + "</option>";
                 }
                 $("#spslist").html(pslist);
+                }
+               else{
+                      $("#spslist").html(pslist);
+               }
             },
         });
     });
@@ -245,10 +335,17 @@
                 // console.log("Selected State Id:" + $('#statelist').val());
                 // console.log(data);
                 var hotellist = '<option value="">Select Hotel</option>';
-                for (var i = 0; i < data.length; i++) {
-                    hotellist = hotellist + "<option value=" + data[i].hotelRegNo + ">" + data[i].hotelName + "</option>";
-                }
-                $("#shotellist").html(hotellist);
+                   if(data != null)
+                   {
+                      for (var i = 0; i < data.length; i++)
+                      {
+                        hotellist = hotellist + "<option value=" + data[i].hotelRegNo + ">" + data[i].hotelName + "</option>";
+                      }
+                        $("#shotellist").html(hotellist);
+                   }
+                    else{
+                         $("#shotellist").html(hotellist);
+                    }
             },
         });
     });

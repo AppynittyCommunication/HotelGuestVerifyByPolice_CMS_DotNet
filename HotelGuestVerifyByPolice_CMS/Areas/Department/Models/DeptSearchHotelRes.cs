@@ -1,4 +1,6 @@
-﻿namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Models
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Models
 {
     public class DeptSearchHotelRes
     {
@@ -6,11 +8,24 @@
         public string? status { get; set; }
         public string? message { get; set; }
 
-        public List<HotelTitle>? hotelTitle { get; set; }
+        public HotelSearchFormModal? hotelSearchFormModal { get; set; }
+        public HotelTitle? hotelTitle { get; set; }
         public List<HotelGuest>? hotelGuests { get; set; }
-        public List<LastVisitor>? lastVisitors { get; set; }
+        public LastVisitor? lastVisitors { get; set; }
     }
 
+    public class HotelSearchFormModal
+    {
+        public string? distId { get; set; }
+        public string? cityId { get; set; }
+        public string? psId { get; set; }
+        public string? hotelRegNo { get; set; }
+
+        public List<SelectListItem>? sdistlist { get; set; }
+        public List<SelectListItem>? scitylist { get; set; }
+        public List<SelectListItem>? spslist { get; set; }
+        public List<SelectListItem>? shotellist { get; set; }
+    }
     public class HotelGuest
     {
         public string? guestName { get; set; }
@@ -41,5 +56,6 @@
         public string? commingFrom { get; set; }
         public string? reservaion { get; set; }
         public string? checkInDate { get; set; }
+        public byte[]? guestPhoto { get; set; }
     }
 }
