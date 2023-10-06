@@ -89,7 +89,7 @@ $(document).ready(function () {
                 // console.log(data);
                 var pslist = '<option value="-1">Select Police Station</option>';
                 for (var i = 0; i < data.length; i++) {
-                    pslist = pslist + "<option value=" + data[i].stationID + ">" + data[i].stationName + "</option>";
+                    pslist = pslist + "<option value=" + data[i].stationCode + ">" + data[i].stationName + "</option>";
                 }
                 $("#pslist").html(pslist);
             },

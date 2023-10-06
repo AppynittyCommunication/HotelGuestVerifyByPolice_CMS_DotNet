@@ -32,7 +32,7 @@ namespace HotelGuestVerifyByPolice_CMS.Models
         public int? stateId { get; set; }
         public int? distId { get; set; }
         public int? cityId { get; set; }
-        public string? stationCode { get; set; }
+        public int? stationCode { get; set; }
         [Required(ErrorMessage = "Please Set Your Hotel Location Using Map.")]
         public double? lat { get; set; }
         [Required(ErrorMessage = "Please Set Your Hotel Location Using Map.")]

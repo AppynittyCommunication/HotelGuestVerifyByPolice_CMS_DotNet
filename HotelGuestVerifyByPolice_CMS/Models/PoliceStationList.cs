@@ -10,7 +10,7 @@
     }
     public class PSList
     {
-        public int id { get; set; }
+        public int stationCode { get; set; }
         //public string? stationCode { get; set; }
         public string? stationName { get; set; }
     }

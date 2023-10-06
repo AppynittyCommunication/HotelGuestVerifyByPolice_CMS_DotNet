@@ -58,69 +58,88 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                     deptDashboardRes.message = dynamicobject.message;
                     deptDashboardRes.stationName = dynamicobject.stationName;
 
-                    foreach (var i in dynamicobject.hotelLocOnDashboard)
+                    if(dynamicobject.hotelLocOnDashboard != null)
                     {
-                        deptDashboardRes.hotelLocOnDashboards.Add(new HotelLocOnDashboard
+                        foreach (var i in dynamicobject.hotelLocOnDashboard)
                         {
-                            hotelName = i.hotelName,
-                            Mobile = i.mobile,
-                            Address = i.address,
-                            lat = i.lat,
-                            _long = i._long,
-                        });
+                            deptDashboardRes.hotelLocOnDashboards.Add(new HotelLocOnDashboard
+                            {
+                                hotelName = i.hotelName,
+                                Mobile = i.mobile,
+                                Address = i.address,
+                                lat = i.lat,
+                                _long = i._long,
+                            });
 
+                        }
                     }
-                    foreach (var hld in dynamicobject.hotelListDetailsForDashboards)
+              
+                    if(dynamicobject.hotelListDetailsForDashboards != null)
                     {
-
-                        deptDashboardRes.hotelListDetailsForDashboards.Add(new HotelListDetailsForDashboard
+                        foreach (var hld in dynamicobject.hotelListDetailsForDashboards)
                         {
-                            stationName = hld.stationName,
-                            hotelCount = hld.hotelCount,
-                            totalCheckIn = hld.totalCheckIn,
-                            todaysCheckIn = hld.todaysCheckIn,
-                            todaysCheckOut = hld.todaysCheckOut,
 
-                        });
+                            deptDashboardRes.hotelListDetailsForDashboards.Add(new HotelListDetailsForDashboard
+                            {
+                                stationName = hld.stationName,
+                                hotelCount = hld.hotelCount,
+                                totalCheckIn = hld.totalCheckIn,
+                                todaysCheckIn = hld.todaysCheckIn,
+                                todaysCheckOut = hld.todaysCheckOut,
+
+                            });
+                        }
                     }
-
-                    foreach (var hgd in dynamicobject.hotelGuestDetails_DeptDashes)
+                  
+                    if(dynamicobject.hotelGuestDetails_DeptDashes != null)
                     {
-                        deptDashboardRes.hotelGuestDetails_DeptDashes.Add(new HotelGuestDetails_DeptDash1
+                        foreach (var hgd in dynamicobject.hotelGuestDetails_DeptDashes)
                         {
-                            roomBookingID = hgd.roomBookingID,
-                            guestName = hgd.guestName,
-                            guestPhoto = hgd.guestPhoto,
-                            age = hgd.age,
-                            city = hgd.city,
-                            visitPurpose = hgd.visitPurpose,
-                            comingFrom = hgd.comingFrom,
-                            reservation = hgd.reservation,
-                            hotelName = hgd.hotelName,
-                            checkInDate = hgd.checkInDate,
-                        });
+                            deptDashboardRes.hotelGuestDetails_DeptDashes.Add(new HotelGuestDetails_DeptDash1
+                            {
+                                roomBookingID = hgd.roomBookingID,
+                                guestName = hgd.guestName,
+                                guestPhoto = hgd.guestPhoto,
+                                age = hgd.age,
+                                city = hgd.city,
+                                visitPurpose = hgd.visitPurpose,
+                                comingFrom = hgd.comingFrom,
+                                reservation = hgd.reservation,
+                                hotelName = hgd.hotelName,
+                                checkInDate = hgd.checkInDate,
+                            });
+                        }
                     }
-                    foreach (var hgdt in dynamicobject.hotelGuestDetails_DeptDash2)
+                  if(dynamicobject.hotelGuestDetails_DeptDash2 != null)
                     {
-                        deptDashboardRes.hotelGuestDetails_DeptDashes2.Add(new HotelGuestDetails_DeptDash2
+                        foreach (var hgdt in dynamicobject.hotelGuestDetails_DeptDash2)
                         {
-                            hotelName = hgdt.hotelName,
-                            guestName = hgdt.guestName,
-                            age = hgdt.age,
-                            visitPurpose = hgdt.visitPurpose,
-                            comingFrom = hgdt.comingFrom,
-                            reservation = hgdt.reservation,
-                            mobile = hgdt.mobile,
-                            city = hgdt.city,
-                            checkInDate = hgdt.checkInDate,
-                        });
+                            deptDashboardRes.hotelGuestDetails_DeptDashes2.Add(new HotelGuestDetails_DeptDash2
+                            {
+                                hotelName = hgdt.hotelName,
+                                guestName = hgdt.guestName,
+                                age = hgdt.age,
+                                visitPurpose = hgdt.visitPurpose,
+                                comingFrom = hgdt.comingFrom,
+                                reservation = hgdt.reservation,
+                                mobile = hgdt.mobile,
+                                city = hgdt.city,
+                                checkInDate = hgdt.checkInDate,
+                            });
+                        }
                     }
+                 
 
                     ViewBag.departuser = departuser;
 
                     return View(deptDashboardRes);
                 }
-                return View();
+                else
+                {
+                    return Redirect("/Account/DepartmentLogin");
+                   
+                }
+              
             }
           
         }
@@ -144,6 +163,44 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             {
                 // return RedirectToAction("HotelLogin", "Account");
                 return Redirect("/Account/DepartmentLogin");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SearchHotel(String hotelRegNo)
+        {
+            DeptSearchHotelRes deptSearchHotelRes = new();
+            deptSearchHotelRes.hotelTitle = new();
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("hotelRegNo", hotelRegNo);
+            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/SearchHotel");
+
+            if(response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                deptSearchHotelRes.code = dynamicobject.code;
+                deptSearchHotelRes.status = dynamicobject.status;
+                deptSearchHotelRes.message = dynamicobject.message;
+
+                foreach (var i in dynamicobject.hotelLocOnDashboard)
+                {
+                    deptSearchHotelRes.hotelTitle.Add(new HotelTitle
+                    {
+                        hotelName = i.hotelName,
+                        mobile = i.mobile,
+                        address = i.address,
+                        city = i.city,
+                        policeSation = i.policeSation,
+                    });
+
+                }
+                return View(deptSearchHotelRes);
             }
             else
             {
