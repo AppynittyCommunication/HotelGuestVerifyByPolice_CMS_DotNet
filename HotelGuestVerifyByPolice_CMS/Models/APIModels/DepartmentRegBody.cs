@@ -10,7 +10,7 @@
         public int? stateId { get; set; }
         public int? distId { get; set; }
         public int? cityId { get; set; }
-        public string? stationCode { get; set; }
+        public int? stationCode { get; set; }
         public double? lat { get; set; }
         public double? _long { get; set; }
         public string? diviceIp { get; set; }
