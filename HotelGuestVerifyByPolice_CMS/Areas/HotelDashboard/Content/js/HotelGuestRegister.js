@@ -1,4 +1,19 @@
 ﻿$(document).ready(function () {
+    $("#mobile").keypress(function (e) {
+        var $input = $(this),
+        value = $input.val(),
+        length = value.length
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+            //display error message
+            //$("#err_mobile").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+            $("#mobileerror").html("Digits Only").show().delay(1500).show().fadeOut("slow");
+            return false;
+        }
+        if (length === 10) {
+       return false
+     }
+    });
     $.ajax({
         type: "post",
         url: "/States/CountryList",
@@ -525,59 +540,135 @@
         addOnGuestCount++;
         $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
     });
+
+
+
  function showCard(){
         alert()
       
        
-  var name = document.userForm.name.value;
-  var age = document.userForm.age.value;
-  var city = document.userForm.city.value;
+  var name = $("#firstName").val();
+  var lastname = $("#lastName").val();
+  var mobile = $("#mobile").val();
+  var email = $("#email").val();
+   var age = $("#age").val();
+  var gender = $("#genderMain").val();
+  var country = $("#countryMain").val();
+  var state = $("#stateMain").val();
+  var district = $("#districtMain").val();
+  var city = $("#cityMain").val();
+  var visitPurpose = $("#visitMain").val();
+  var comingForm = $("#comingFrom").val();
+  var idProof = $("#idtypeMain").val();
   var valid = 0;
-  
+  var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
  
   /* Name validation */
   
    if (name==""){
-    document.getElementById("nameError").innerHTML = "You must enter name to submit.";
+    document.getElementById("nameError").innerHTML = "Pleae Enter First Name";
   } else {       document.getElementById("nameError").innerHTML = "";
     valid++;
   }
-  
-  /* Age validation */
-  
+   if (lastname == ""){
+    document.getElementById("lastError").innerHTML = "Pleae Enter Last Name";
+  } else {
+    document.getElementById("lastError").innerHTML = "";
+    valid++;
+  }
+   /* Mobile validation */
+  if (mobile == ""){
+    document.getElementById("mobileError").innerHTML = "Please Enter Mobile Number";
+  } else {
+    document.getElementById("mobileError").innerHTML = "";
+    valid++;
+  }
+   /* Email validation */
+  if (email == ""){
+    document.getElementById("emailError").innerHTML = "Please Enter Email";
+  } else if(email.match(pattern)) {
+     document.getElementById("emailError").innerHTML = "";
+     valid++;
+   }else{
+       document.getElementById("emailError").innerHTML = "Please Enter Valid  Email";
+   
+   }
+   /* Gender validation */
+  if (gender == ""){
+    document.getElementById("genderError").innerHTML = "Please Select Gender";
+  } else {
+    document.getElementById("genderError").innerHTML = "";
+    valid++;
+  }
   if (age == ""){
-    document.getElementById("ageError").innerHTML = "You must enter age to submit.";
+    document.getElementById("ageError").innerHTML = "Please Enter Age";
   } 
-  else if (age > 130 || age < 1){
-    document.getElementById("ageError").innerHTML = "Age must be between 1 and 130.";
+  else if (age > 100 || age < 18){
+    document.getElementById("ageError").innerHTML = "Age must be between 18 and 100.";
   }  else {
     document.getElementById("ageError").innerHTML = "";
     valid++;
   }
-  
-  /* Hometown validation */
-  
+  if (country == ""){
+    document.getElementById("countryError").innerHTML = "Please Select Country";
+  } else {
+    document.getElementById("countryError").innerHTML = "";
+    valid++;
+  }
+  if (state == ""){
+    document.getElementById("stateError").innerHTML = "Please Select State";
+  } else {
+    document.getElementById("stateError").innerHTML = "";
+    valid++;
+  }
+  if (district == ""){
+    document.getElementById("districtError").innerHTML = "Please Select District";
+  } else {
+    document.getElementById("districtError").innerHTML = "";
+    valid++;
+  }
   if (city == ""){
-    document.getElementById("cityError").innerHTML = "You must enter city to submit.";
+    document.getElementById("cityError").innerHTML = "Please Select City";
   } else {
     document.getElementById("cityError").innerHTML = "";
     valid++;
   }
+   if (visitPurpose == ""){
+    document.getElementById("visitError").innerHTML = "Please Select Visit purpose";
+  } else {
+    document.getElementById("visitError").innerHTML = "";
+    valid++;
+  }
+  if (comingForm == ""){
+    document.getElementById("comeingformError").innerHTML = "Please Enter Coming Form";
+  } else {
+    document.getElementById("comeingformError").innerHTML = "";
+    valid++;
+  }
+  if (idProof == ""){
+    document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+  } else {
+    document.getElementById("idproofError").innerHTML = "";
+    valid++;
+  }
+  /* Age validation */
+  
+  
+  
+  /* Hometown validation */
+  
+  
   
   /* Final validation */
   
-   if (valid == 3)  {
-       document.getElementById("preview").innerHTML = "";
-    
-var userData = "Your name is " + name + ", you are " + age + " years old and you are from " + city + ".<br>";
-  
-  document.getElementById("preview").innerHTML += userData;    
+   if (valid == 6)  {
+       alert('u')
      
   }  else {
-        document.getElementById("preview").innerHTML = "Fix all errors to get user data." 
+        return false
      }
  
- 
+  
         $("#mainHotelGuest").hide();
         $("#finalData").show();
 
@@ -692,7 +783,70 @@ function previewFile() {
         // webcam is not available
         alert("Web Cam Is Not Available");
     });
+}
 
 
 
+
+    //Guest Id Proof Photo
+
+var video = document.getElementById('video');
+var canvas = document.createElement('canvas');
+var context = canvas.getContext('2d');
+
+navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+    video.srcObject = stream;
+    video.play();
+}).catch(function (err) {
+    console.log(err);
+});
+
+document.getElementById('capture').addEventListener('click', function () {
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // add time stamp
+    const timeNow = new Date()
+    context.fillStyle = '#000'
+    context.fontSize = '10px'
+    context.fillText(timeNow, 0, canvas.height - 5)
+
+    var image = canvas.toDataURL();
+    //uploadImage(image);
+    //console.log(image)
+    // image placeholder where the image will be displayed
+    var imagecapture = document.getElementById('image-capture');
+    var imagePlaceholder = document.getElementById('image-placeholder');
+
+    // display the image in placeholder
+    displayBase64Image(imagePlaceholder, imagecapture, image);
+});
+
+function displayBase64Image(placeholder, placeholdercapture, base64Image) {
+    var image = document.createElement('img');
+    var image1 = document.createElement('img');
+    image.onload = function () {
+        placeholdercapture.innerHTML = '';
+        placeholdercapture.appendChild(this);
+
+    }
+    image1.onload = function () {
+
+        placeholder.innerHTML = '';
+        placeholder.appendChild(this);
+    }
+    image1.src = base64Image;
+    image.src = base64Image;
+    document.getElementById('guestPhoto').value = base64Image;
+}
+function previewFile() {
+    navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
+
+    navigator.getMedia({ video: true }, function () {
+        $("#addImage").modal({ backdrop: 'static', keyboard: false }, "show");
+    }, function () {
+        // webcam is not available
+        alert("Web Cam Is Not Available");
+    });
 }
