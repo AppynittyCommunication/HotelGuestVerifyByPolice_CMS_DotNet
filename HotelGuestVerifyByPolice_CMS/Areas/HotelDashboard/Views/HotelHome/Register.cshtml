@@ -78,25 +78,26 @@
         padding-top: 15px
     }
      .px-5{padding-left:5%;padding-right:2%}
+     .text-red{color:red}
 </style>
 <form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
-    <forn id="mainHotelGuest" class="formCheckIn px-5">
+    <div id="mainHotelGuest" class="formCheckIn px-5">
         <div class="d-flex">
     <div class="form-group">
         @*  @Html.EditorFor(model => model.guestType, new { htmlAttributes = new { @class = "form-control" ,Type="hidden",} }) *@
         @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
         @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
-          <span id="nameError"></span>
+          <span id="nameError" class="text-red"></span>
     </div>
             <div class="form-group">
                 @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Last Name"} })
 
                 @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
-                <span id="cityError"></span>
+                <span id="cityError" class="text-red"></span>
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Mobile"} })
+                @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Mobile",type="number",@minlength = "10", @maxlength = "10"} })
 
                 @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
             </div>
@@ -123,8 +124,8 @@
             <div class="form-group">
                 <div class="form-input">
                     @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Age"} })
-
-                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
+                     <span id="ageError" class="text-red"></span>
+                    @* @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" }) *@
                     </div>
 
             </div>
@@ -256,7 +257,7 @@
             </div>
         </div>
         <div  class="text-center" style="margin-top:5%"><button type="button" class="addbtn btn btn-md" onclick="showCard()">Done</button></div>
-    </forn>
+    </div>
     <!-- Add other form fields for HotelGuestRegistration properties -->
     <!-- Add multiple AddOnGuest entries -->
     

@@ -531,7 +531,8 @@
        
   var name = $("#firstName").val();
   var lastname = $("#lastName").val();
- 
+  var mobile = $("#mobile").val();
+  var age = $("#age").val();
   var valid = 0;
   
  
@@ -553,8 +554,8 @@
   if (age == ""){
     document.getElementById("ageError").innerHTML = "You must enter age to submit.";
   } 
-  else if (age > 130 || age < 1){
-    document.getElementById("ageError").innerHTML = "Age must be between 1 and 130.";
+  else if (age > 100 || age < 18){
+    document.getElementById("ageError").innerHTML = "Age must be between 18 and 100.";
   }  else {
     document.getElementById("ageError").innerHTML = "";
     valid++;
@@ -567,17 +568,13 @@
   /* Final validation */
   
    if (valid == 3)  {
-       document.getElementById("preview").innerHTML = "";
-    
-var userData = "Your name is " + name + ", you are " + age + " years old and you are from " + city + ".<br>";
-  
-  document.getElementById("preview").innerHTML += userData;    
+       alert('u')
      
   }  else {
-        document.getElementById("preview").innerHTML = "Fix all errors to get user data." 
+        alert('b')
      }
  
- 
+  
         $("#mainHotelGuest").hide();
         $("#finalData").show();
 
@@ -692,7 +689,70 @@ function previewFile() {
         // webcam is not available
         alert("Web Cam Is Not Available");
     });
+}
 
 
 
+
+    //Guest Id Proof Photo
+
+var video = document.getElementById('video');
+var canvas = document.createElement('canvas');
+var context = canvas.getContext('2d');
+
+navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+    video.srcObject = stream;
+    video.play();
+}).catch(function (err) {
+    console.log(err);
+});
+
+document.getElementById('capture').addEventListener('click', function () {
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // add time stamp
+    const timeNow = new Date()
+    context.fillStyle = '#000'
+    context.fontSize = '10px'
+    context.fillText(timeNow, 0, canvas.height - 5)
+
+    var image = canvas.toDataURL();
+    //uploadImage(image);
+    //console.log(image)
+    // image placeholder where the image will be displayed
+    var imagecapture = document.getElementById('image-capture');
+    var imagePlaceholder = document.getElementById('image-placeholder');
+
+    // display the image in placeholder
+    displayBase64Image(imagePlaceholder, imagecapture, image);
+});
+
+function displayBase64Image(placeholder, placeholdercapture, base64Image) {
+    var image = document.createElement('img');
+    var image1 = document.createElement('img');
+    image.onload = function () {
+        placeholdercapture.innerHTML = '';
+        placeholdercapture.appendChild(this);
+
+    }
+    image1.onload = function () {
+
+        placeholder.innerHTML = '';
+        placeholder.appendChild(this);
+    }
+    image1.src = base64Image;
+    image.src = base64Image;
+    document.getElementById('guestPhoto').value = base64Image;
+}
+function previewFile() {
+    navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
+
+    navigator.getMedia({ video: true }, function () {
+        $("#addImage").modal({ backdrop: 'static', keyboard: false }, "show");
+    }, function () {
+        // webcam is not available
+        alert("Web Cam Is Not Available");
+    });
 }
