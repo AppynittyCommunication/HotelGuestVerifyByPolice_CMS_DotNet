@@ -87,19 +87,19 @@
         @*  @Html.EditorFor(model => model.guestType, new { htmlAttributes = new { @class = "form-control" ,Type="hidden",} }) *@
         @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
 
-        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
-          <span id="nameError" class="text-red"></span>
+        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-red",@id="nameError" })
+         @*  <span id="nameError" class="text-red"></span> *@
     </div>
             <div class="form-group">
                 @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Last Name"} })
 
-                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
-                <span id="cityError" class="text-red"></span>
+                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-red",id="lastError" })
+               @*  <span id="cityError" class="text-red"></span> *@
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Mobile",type="number",@minlength = "10", @maxlength = "10"} })
+                @Html.EditorFor(model => model.mobile, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Mobile",type="number" } })
 
-                @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.mobile, "", new { @class = "text-red",id="mobileError" })
             </div>
         </div>
         <div class="d-flex">
@@ -108,24 +108,24 @@
                  <div class="form-input">
                     @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Email"} })
 
-                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-red",id="emailError" })
                 </div>
             </div>
            <div class="form-group">
                 <div class="form-input">
-                    <select name="Gender" class="form-control" id="genderMain">                        
+                    <select name="gender" class="form-control" id="genderMain">                        
                         <option value="">Select Gender</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                     </select>
-                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-red",id="genderError" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="form-input">
                     @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Age"} })
-                     <span id="ageError" class="text-red"></span>
-                    @* @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" }) *@
+                    @*  <span id="ageError" class="text-red"></span> *@
+                    @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-red" ,id="ageError"})
                     </div>
 
             </div>
@@ -139,9 +139,9 @@
 
                     <select name="Country" class="form-control" id="countryMain">
                         <option value="">Select Country</option>
-                        @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+                       
                     </select>
-
+                     @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-red",id="countryError" })
 
                 </div>
 
@@ -155,9 +155,9 @@
 
                     <select name="State" class="form-control" id="stateMain">
                         <option value="">Select State</option>
-                        @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+                        
                     </select>
-
+                    @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-red",id="stateError" })
 
                 </div>
 
@@ -170,9 +170,9 @@
 
                     <select name="District" class="form-control" id="districtMain">
                         <option value="">Select District</option>
-                        @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+                       
                     </select>
-
+                     @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-red" ,id="districtError"})
 
                 </div>
 
@@ -185,9 +185,9 @@
 
                     <select name="City" class="form-control" id="cityMain">
                         <option value="">Select City</option>
-                        @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
+                        
                     </select>
-
+                    @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-red",id="cityError"})
                 </div>
 
             </div>
@@ -205,7 +205,7 @@
                         <option value="">Select Visit Purpose</option>
                         <option value="other">others</option>
                     </select>
-                    @Html.ValidationMessageFor(model => model.visitPurpose, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.visitPurpose, "", new { @class = "text-red",id="visitError" })
                 </div>
 
             </div>
@@ -217,7 +217,7 @@
                 <div class="form-input">
                     @Html.EditorFor(model => model.comingFrom, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form"} })
 
-                    @Html.ValidationMessageFor(model => model.comingFrom, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.comingFrom, "", new { @class = "text-red" ,id="comeingformError"})
 
 
                 </div>
@@ -233,7 +233,7 @@
                         <option value="">Select ID Type</option>
                        
                     </select>
-                    @Html.ValidationMessageFor(model => model.guestIdType, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.guestIdType, "", new { @class = "text-red",id="idproofError" })
                 </div>
 
             </div>

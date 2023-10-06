@@ -1,4 +1,19 @@
 ﻿$(document).ready(function () {
+    $("#mobile").keypress(function (e) {
+        var $input = $(this),
+        value = $input.val(),
+        length = value.length
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
+            //display error message
+            //$("#err_mobile").html("केवल अंक | Digits Only").show().delay(1500).show().fadeOut('slow');
+            $("#mobileerror").html("Digits Only").show().delay(1500).show().fadeOut("slow");
+            return false;
+        }
+        if (length === 10) {
+       return false
+     }
+    });
     $.ajax({
         type: "post",
         url: "/States/CountryList",
@@ -525,6 +540,9 @@
         addOnGuestCount++;
         $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
     });
+
+
+
  function showCard(){
         alert()
       
@@ -532,27 +550,58 @@
   var name = $("#firstName").val();
   var lastname = $("#lastName").val();
   var mobile = $("#mobile").val();
-  var age = $("#age").val();
+  var email = $("#email").val();
+   var age = $("#age").val();
+  var gender = $("#genderMain").val();
+  var country = $("#countryMain").val();
+  var state = $("#stateMain").val();
+  var district = $("#districtMain").val();
+  var city = $("#cityMain").val();
+  var visitPurpose = $("#visitMain").val();
+  var comingForm = $("#comingFrom").val();
+  var idProof = $("#idtypeMain").val();
   var valid = 0;
-  
+  var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
  
   /* Name validation */
   
    if (name==""){
-    document.getElementById("nameError").innerHTML = "You must enter name to submit.";
+    document.getElementById("nameError").innerHTML = "Pleae Enter First Name";
   } else {       document.getElementById("nameError").innerHTML = "";
     valid++;
   }
    if (lastname == ""){
-    document.getElementById("cityError").innerHTML = "You must enter city to submit.";
+    document.getElementById("lastError").innerHTML = "Pleae Enter Last Name";
   } else {
-    document.getElementById("cityError").innerHTML = "";
+    document.getElementById("lastError").innerHTML = "";
     valid++;
   }
-  /* Age validation */
-  
+   /* Mobile validation */
+  if (mobile == ""){
+    document.getElementById("mobileError").innerHTML = "Please Enter Mobile Number";
+  } else {
+    document.getElementById("mobileError").innerHTML = "";
+    valid++;
+  }
+   /* Email validation */
+  if (email == ""){
+    document.getElementById("emailError").innerHTML = "Please Enter Email";
+  } else if(email.match(pattern)) {
+     document.getElementById("emailError").innerHTML = "";
+     valid++;
+   }else{
+       document.getElementById("emailError").innerHTML = "Please Enter Valid  Email";
+   
+   }
+   /* Gender validation */
+  if (gender == ""){
+    document.getElementById("genderError").innerHTML = "Please Select Gender";
+  } else {
+    document.getElementById("genderError").innerHTML = "";
+    valid++;
+  }
   if (age == ""){
-    document.getElementById("ageError").innerHTML = "You must enter age to submit.";
+    document.getElementById("ageError").innerHTML = "Please Enter Age";
   } 
   else if (age > 100 || age < 18){
     document.getElementById("ageError").innerHTML = "Age must be between 18 and 100.";
@@ -560,18 +609,63 @@
     document.getElementById("ageError").innerHTML = "";
     valid++;
   }
+  if (country == ""){
+    document.getElementById("countryError").innerHTML = "Please Select Country";
+  } else {
+    document.getElementById("countryError").innerHTML = "";
+    valid++;
+  }
+  if (state == ""){
+    document.getElementById("stateError").innerHTML = "Please Select State";
+  } else {
+    document.getElementById("stateError").innerHTML = "";
+    valid++;
+  }
+  if (district == ""){
+    document.getElementById("districtError").innerHTML = "Please Select District";
+  } else {
+    document.getElementById("districtError").innerHTML = "";
+    valid++;
+  }
+  if (city == ""){
+    document.getElementById("cityError").innerHTML = "Please Select City";
+  } else {
+    document.getElementById("cityError").innerHTML = "";
+    valid++;
+  }
+   if (visitPurpose == ""){
+    document.getElementById("visitError").innerHTML = "Please Select Visit purpose";
+  } else {
+    document.getElementById("visitError").innerHTML = "";
+    valid++;
+  }
+  if (comingForm == ""){
+    document.getElementById("comeingformError").innerHTML = "Please Enter Coming Form";
+  } else {
+    document.getElementById("comeingformError").innerHTML = "";
+    valid++;
+  }
+  if (idProof == ""){
+    document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+  } else {
+    document.getElementById("idproofError").innerHTML = "";
+    valid++;
+  }
+  /* Age validation */
+  
+  
   
   /* Hometown validation */
   
- 
+  
   
   /* Final validation */
   
-   if (valid == 3)  {
+   if (valid == 6)  {
        alert('u')
      
   }  else {
-        alert('b')
+        return false
      }
  
   
