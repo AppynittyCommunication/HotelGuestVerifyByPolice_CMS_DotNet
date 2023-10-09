@@ -435,7 +435,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="addbtn btn btn-md" type="button">Done</button>
+                        <button class="addbtn btn btn-md" type="button" onclick="showCard()">Done</button>
                     </div>
                 </div>
                     </div>
@@ -446,6 +446,8 @@
         addOnGuestCount++;
         $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
     });
+
+
     $('#addAddOnChild').click(function () {
         appendData++
          // For loading all Relation Type  List
@@ -468,18 +470,18 @@
                           <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
                         <!-- Add form fields for other AddOnGuestSource properties -->
                          <div id="formAdult${addOnGuestCount}">
-                    <h4>Adult ${addOnGuestCount}</h4>
+                    <h4>Child ${addOnGuestCount}</h4>
                     <div class="d-flex">
                         <div class="form-group">
                          <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Child" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameAdult"name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+                                <input class="form-control" id="firstNameChild" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
         
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameAdult"name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                                <input class="form-control" id="lastNameChild" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
                             </div>
                         </div>
                   
@@ -499,7 +501,7 @@
                         <div class="form-group">
                         <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderAdult">
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderChild">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
@@ -511,7 +513,7 @@
 
                         <div class="form-group">
                       <div class="form-input">
-                                <input class="form-control" id="ageAdult" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                <input class="form-control" id="ageChild" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
                             </div>
 
                         </div>
@@ -529,7 +531,7 @@
                        
                     </div>
                     <div class="text-center">
-                        <button class="addbtn btn btn-md" type="button">Done</button>
+                        <button class="addbtn btn btn-md" type="button" onclick="showCardAdult()">Done</button>
                     </div>
                 </div>
                     </div>
@@ -686,8 +688,132 @@
            </div>
           `;
     }
+
     function showCardAdult(){
-        
+         var name = $("#firstName").val();
+  var lastname = $("#lastName").val();
+  var mobile = $("#mobile").val();
+  var email = $("#email").val();
+   var age = $("#age").val();
+  var gender = $("#genderMain").val();
+  var country = $("#countryMain").val();
+  var state = $("#stateMain").val();
+  var district = $("#districtMain").val();
+  var city = $("#cityMain").val();
+  var visitPurpose = $("#visitMain").val();
+  var comingForm = $("#comingFrom").val();
+  var idProof = $("#idtypeMain").val();
+  var valid = 0;
+  var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+ 
+  /* Name validation */
+  
+   if (name==""){
+    document.getElementById("nameError").innerHTML = "Pleae Enter First Name";
+  } else {       document.getElementById("nameError").innerHTML = "";
+    valid++;
+  }
+   if (lastname == ""){
+    document.getElementById("lastError").innerHTML = "Pleae Enter Last Name";
+  } else {
+    document.getElementById("lastError").innerHTML = "";
+    valid++;
+  }
+   /* Mobile validation */
+  if (mobile == ""){
+    document.getElementById("mobileError").innerHTML = "Please Enter Mobile Number";
+  } else {
+    document.getElementById("mobileError").innerHTML = "";
+    valid++;
+  }
+   /* Email validation */
+  if (email == ""){
+    document.getElementById("emailError").innerHTML = "Please Enter Email";
+  } else if(email.match(pattern)) {
+     document.getElementById("emailError").innerHTML = "";
+     valid++;
+   }else{
+       document.getElementById("emailError").innerHTML = "Please Enter Valid  Email";
+   
+   }
+   /* Gender validation */
+  if (gender == ""){
+    document.getElementById("genderError").innerHTML = "Please Select Gender";
+  } else {
+    document.getElementById("genderError").innerHTML = "";
+    valid++;
+  }
+  if (age == ""){
+    document.getElementById("ageError").innerHTML = "Please Enter Age";
+  } 
+  else if (age > 100 || age < 18){
+    document.getElementById("ageError").innerHTML = "Age must be between 18 and 100.";
+  }  else {
+    document.getElementById("ageError").innerHTML = "";
+    valid++;
+  }
+  if (country == ""){
+    document.getElementById("countryError").innerHTML = "Please Select Country";
+  } else {
+    document.getElementById("countryError").innerHTML = "";
+    valid++;
+  }
+  if (state == ""){
+    document.getElementById("stateError").innerHTML = "Please Select State";
+  } else {
+    document.getElementById("stateError").innerHTML = "";
+    valid++;
+  }
+  if (district == ""){
+    document.getElementById("districtError").innerHTML = "Please Select District";
+  } else {
+    document.getElementById("districtError").innerHTML = "";
+    valid++;
+  }
+  if (city == ""){
+    document.getElementById("cityError").innerHTML = "Please Select City";
+  } else {
+    document.getElementById("cityError").innerHTML = "";
+    valid++;
+  }
+   if (visitPurpose == ""){
+    document.getElementById("visitError").innerHTML = "Please Select Visit purpose";
+  } else {
+    document.getElementById("visitError").innerHTML = "";
+    valid++;
+  }
+  if (comingForm == ""){
+    document.getElementById("comeingformError").innerHTML = "Please Enter Coming Form";
+  } else {
+    document.getElementById("comeingformError").innerHTML = "";
+    valid++;
+  }
+  if (idProof == ""){
+    document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+  } else {
+    document.getElementById("idproofError").innerHTML = "";
+    valid++;
+  }
+  /* Age validation */
+  
+  
+  
+  /* Hometown validation */
+  
+  
+  
+  /* Final validation */
+  
+   if (valid == 6)  {
+       alert('u')
+     
+  }  else {
+        return false
+     }
+
+
+
+
         $("#mainHotelGuest").hide();
         $("#finalData").show();
 
