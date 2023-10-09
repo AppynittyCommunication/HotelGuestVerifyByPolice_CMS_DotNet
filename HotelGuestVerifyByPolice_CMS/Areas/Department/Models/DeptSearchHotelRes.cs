@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Models
 {
+
     public class DeptSearchHotelRes
     {
         public int code { get; set; }
         public string? status { get; set; }
         public string? message { get; set; }
 
-        public HotelSearchFormModal? hotelSearchFormModal { get; set; }
+        public HotelSearchFormModal hotelSearchFormModal { get; set; }
         public HotelTitle? hotelTitle { get; set; }
         public List<HotelGuest>? hotelGuests { get; set; }
         public LastVisitor? lastVisitors { get; set; }
@@ -19,6 +21,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Models
         public string? distId { get; set; }
         public string? cityId { get; set; }
         public string? psId { get; set; }
+        [Required(ErrorMessage = "Please Select Hotel Name.")]
         public string? hotelRegNo { get; set; }
 
         public List<SelectListItem>? sdistlist { get; set; }
