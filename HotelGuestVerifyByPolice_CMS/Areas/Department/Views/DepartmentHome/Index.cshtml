@@ -99,8 +99,8 @@
 
         <div class="container-fluid" style="padding-top:1%;">
             <div class="navbar-header" style="display:inline" >
-                <a href="./DepartmentHome">   <span><i class="fa-solid fa-house" style="color: #ffffff;margin-right: 10px"></i>Dashboard</span></a>
-                <a href="./DepartmentHome/SearchHotel"> <span><i class="fa-solid fa-hotel" style="color:#fff;margin-right: 10px"></i>Find Hotels Details</span></a>
+                <a href="/Department/DepartmentHome/Index">   <span><i class="fa-solid fa-house" style="color: #ffffff;margin-right: 10px"></i>Dashboard</span></a>
+                <a href="/Department/DepartmentHome/SearchHotel"> <span><i class="fa-solid fa-hotel" style="color:#fff;margin-right: 10px"></i>Find Hotels Details</span></a>
             </div>
             <div style="float:right;padding-right:40px" id="nav-details">
                 <span id="showSecRow"><img src="../Areas/HotelDashboard/Content/Images/Icon/maximize_(1).png" style="width:24px;"/></span>
@@ -446,7 +446,7 @@
 
         $.ajax({
             type: "post",
-            url: "/Account/DepartLogout",
+            url: "../Account/DepartLogout",
             datatype: "json",
             traditional: true,
             success: function (data) {
