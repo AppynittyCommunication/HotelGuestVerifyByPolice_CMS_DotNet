@@ -10,15 +10,22 @@
     @*   <link href=" https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> *@
     @*     <link href="@Url.Content("~/Areas/HotelDashboard/Content/css/Layout_CSS.css")" rel="stylesheet" type="text/css" /> *@
     <title>@ViewBag.Title</title>
-
+    <style>
+         wordtune-read-extension{display:none}
+    body{
+        margin:0px;padding:0px
+    }
+   #content-wrapper{padding:10px !important}
+   span,p{font-size:16px}
+    </style>
 </head>
 
 <body>
     <div>
 
-        <div id="wrapper">
+      
 
-            <aside id="sidebar-wrapper">
+           @*  <aside id="sidebar-wrapper">
                 <div class="sidebar-brand">
                     <h2 style="color:#000">Logo</h2>
 
@@ -37,33 +44,37 @@
                         <a href="#"><i class="fa fa-file-text"></i>Report</a>
                     </li>
                 </ul>
-            </aside>
+            </aside> *@
 
-            <div id="navbar-wrapper" class="nav-bg">
-                <nav class="navbar navbar-inverse nav-bg">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
-                        </div>
-                        <div style="float:right;padding-top:8px;padding-right:40px">
-                            <span style="color:#fff;font-size:16px;margin-right:35px;" id="hsessionusername">
-                                @if (ViewBag.departuser != null)
-                                {
-                                    @ViewBag.departuser
-                                }
-                                else
-                                {
+            <div class="px-6 nav-bg" style="width:100%;height:50px">
 
-                                }
-                            </span>
-
-                            <span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span>
-                        </div>
-                    </div>
-
-
-                </nav>
+        <div class="container-fluid" style="padding-top:1%;">
+            <div class="navbar-header" style="display:inline" >
+                <a href="/Department/DepartmentHome/Index">   <span><i class="fa-solid fa-house" style="color: #ffffff;margin-right: 10px"></i>Dashboard</span></a>
+                <a href="/Department/DepartmentHome/SearchHotel"> <span><i class="fa-solid fa-hotel" style="color:#fff;margin-right: 10px"></i>Find Hotels Details</span></a>
             </div>
+            <div style="float:right;padding-right:40px" id="nav-details">
+                <span id="showSecRow"><img src="/Areas/HotelDashboard/Content/Images/Icon/maximize_(1).png" style="width:24px;"/></span>
+                <span id="hideSecRow"><img src="/Areas/HotelDashboard/Content/Images/Icon/minimize.png" style="width:24px;" /></span>
+                <span>Live </span>
+                <span style="display:inline-block;background:red;height:15px;width:15px;border-radius:50%"></span>
+                <span><i class="fa-regular fa-bell" style="color: #ffffff;"></i></span>
+                <span style="color:#fff;font-size:16px;">
+                    @if (ViewBag.departuser != null)
+                    {
+                        @ViewBag.departuser
+                    }
+                    else
+                    {
+
+                    }
+                </span>
+
+                <span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span>
+            </div>
+        </div>
+        
+    </div>
 
             <section id="content-wrapper">
 
@@ -71,7 +82,7 @@
                 @RenderBody()
             </section>
 
-        </div>
+       
 
     </div>
     <script>
@@ -95,7 +106,7 @@
                 traditional: true,
                 success: function (data) {
                     console.log(data);
-                    window.location.href = '../Account/DepartmentLogin';
+                    window.location.href = '../../Account/DepartmentLogin'';
 
                 }
             });

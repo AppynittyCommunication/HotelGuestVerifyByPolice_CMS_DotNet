@@ -296,51 +296,61 @@
                         <div class="form-group">
                          <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Adult" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameAdult"name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
-        
+                                <input class="form-control" id="firstNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+                                <span id="nameError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameAdult"name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
-                            </div>
+                                <input class="form-control" id="lastNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                                     <span id="lastError${appendData}" class="text-red"></span>
+                                </div>
                         </div>
                         <div class="form-group">
 
                            <div class="form-input">
-                                <input class="form-control" id="mobileAdult"name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" />
+                                <input class="form-control" id="mobileAdult${appendData}" name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" />
+                                 <span id="mobileError${appendData}" class="text-red"></span>
                            </div>
 
                         </div>
                     </div>
                     <div class="d-flex">
+                     <div class="form-group">
 
+                           <div class="form-input">
+                                <input class="form-control" id="emailAdult${appendData}" name="addOnGuest[${addOnGuestCount}].email" placeholder="email" />
+                                 <span id="emailError${appendData}" class="text-red"></span>
+                           </div>
+
+                        </div>
                         <div class="form-group">
 
                             <div class="form-input">
 
                                 <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
                                 </select>
-
+                                 <span id="nameError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
                         <div class="form-group">
                         <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderAdult">
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderAdult${appendData}">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                 </select>
-
+                                 <span id="genderError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
 
                         <div class="form-group">
                       <div class="form-input">
-                                <input class="form-control" id="ageAdult" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                <input class="form-control" id="ageAdult${appendData}" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                 <span id="ageError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -352,9 +362,9 @@
 
                                 <select name="addOnGuest[${addOnGuestCount}].country" class="form-control" id="countryAdult${appendData}" >
                                     <option value="">Select Country</option>
-                                    <option value="India">India</option>
+                                   
                                 </select>
-
+                                 <span id="countryError${appendData}" class="text-red"></span>
 
                             </div>
 
@@ -365,8 +375,9 @@
 
                                 <select name="addOnGuest[${addOnGuestCount}].state" class="form-control" id="stateAdult${appendData}">
                                     <option value="">Select State</option>
-                                    <option value="Maharashtra">Maharashtra</option>
+                                   
                                 </select>
+                                 <span id="stateError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -375,9 +386,9 @@
                          <div class="form-input">
 
                                 <select name="addOnGuest[${addOnGuestCount}].district" class="form-control" id="districtAdult${appendData}">
-                                   
+                                    <option value="">Select District</option>
                                 </select>
-
+                                 <span id="districtError${appendData}" class="text-red"></span>
 
                             </div>
 
@@ -387,9 +398,9 @@
 
                                 <select name="addOnGuest[${addOnGuestCount}].city" class="form-control" id="cityAdult${appendData}">
                                     <option value="">Select City</option>
-                                    <option value="Nagpur">Nagpur</option>
+                                   
                                 </select>
-
+                                 <span id="cityError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -399,8 +410,8 @@
                       
                        <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" name="addOnGuest[${addOnGuestCount}].comingFrom" placeholder="Coming From" id="comingAdult" />
-
+                                <input class="form-control" name="addOnGuest[${addOnGuestCount}].comingFrom" placeholder="Coming From" id="comingAdult${appendData}" />
+                                 <span id="comeingformError${appendData}" class="text-red"></span>
 
                             </div>
 
@@ -413,7 +424,7 @@
                                     <option value="">Select ID Type</option>
                                     <option value="Adhar">Adhar Card</option>
                                 </select>
-
+                                 <span id="idproofError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -435,7 +446,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="addbtn btn btn-md" type="button" onclick="showCard()">Done</button>
+                        <button class="addbtn btn btn-md" type="button" onclick="showCardAdult()">Done</button>
                     </div>
                 </div>
                     </div>
@@ -663,15 +674,8 @@
   
   /* Final validation */
   
-   if (valid == 6)  {
-       alert('u')
-     
-  }  else {
-        return false
-     }
- 
-  
-        $("#mainHotelGuest").hide();
+   if (valid == 13)  {
+       $("#mainHotelGuest").hide();
         $("#finalData").show();
 
          document.querySelector('#displayFormData').innerHTML += `
@@ -687,111 +691,119 @@
                   </div>
            </div>
           `;
+     
+  }  else {
+        return false
+     }
+ 
+  
+       
     }
 
     function showCardAdult(){
-         var name = $("#firstName").val();
-  var lastname = $("#lastName").val();
-  var mobile = $("#mobile").val();
-  var email = $("#email").val();
-   var age = $("#age").val();
-  var gender = $("#genderMain").val();
-  var country = $("#countryMain").val();
-  var state = $("#stateMain").val();
-  var district = $("#districtMain").val();
-  var city = $("#cityMain").val();
-  var visitPurpose = $("#visitMain").val();
-  var comingForm = $("#comingFrom").val();
-  var idProof = $("#idtypeMain").val();
+       
+         var name = $("#firstNameAdult"+appendData).val();
+  var lastname = $("#lastNameAdult"+appendData).val();
+  var mobile = $("#mobileAdult"+appendData).val();
+  var email = $("#emailAdult"+appendData).val();
+   var age = $("#ageAdult"+appendData).val();
+  var gender = $("#genderAdult"+appendData).val();
+  var country = $("#countryAdult"+appendData).val();
+  var state = $("#stateAdult"+appendData).val();
+  var district = $("#districtAdult"+appendData).val();
+  var city = $("#cityAdult"+appendData).val();
+  var visitPurpose = $("#visitAdult"+appendData).val();
+  var comingForm = $("#comingAdult"+appendData).val();
+  var idProof = $("#idTypeAdult"+appendData).val();
   var valid = 0;
   var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
  
   /* Name validation */
   
    if (name==""){
-    document.getElementById("nameError").innerHTML = "Pleae Enter First Name";
-  } else {       document.getElementById("nameError").innerHTML = "";
+    document.getElementById("nameError"+appendData).innerHTML = "Pleae Enter First Name";
+  } else {       document.getElementById("nameError"+appendData).innerHTML = "";
     valid++;
   }
    if (lastname == ""){
-    document.getElementById("lastError").innerHTML = "Pleae Enter Last Name";
+    document.getElementById("lastError"+appendData).innerHTML = "Pleae Enter Last Name";
   } else {
-    document.getElementById("lastError").innerHTML = "";
+    document.getElementById("lastError"+appendData).innerHTML = "";
     valid++;
   }
    /* Mobile validation */
   if (mobile == ""){
-    document.getElementById("mobileError").innerHTML = "Please Enter Mobile Number";
+    document.getElementById("mobileError"+appendData).innerHTML = "Please Enter Mobile Number";
   } else {
-    document.getElementById("mobileError").innerHTML = "";
+    document.getElementById("mobileError"+appendData).innerHTML = "";
     valid++;
   }
    /* Email validation */
   if (email == ""){
-    document.getElementById("emailError").innerHTML = "Please Enter Email";
+    document.getElementById("emailError"+appendData).innerHTML = "Please Enter Email";
   } else if(email.match(pattern)) {
-     document.getElementById("emailError").innerHTML = "";
+     document.getElementById("emailError"+appendData).innerHTML = "";
      valid++;
    }else{
-       document.getElementById("emailError").innerHTML = "Please Enter Valid  Email";
+       document.getElementById("emailError"+appendData).innerHTML = "Please Enter Valid  Email";
    
    }
    /* Gender validation */
   if (gender == ""){
-    document.getElementById("genderError").innerHTML = "Please Select Gender";
+    document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
   } else {
-    document.getElementById("genderError").innerHTML = "";
+    document.getElementById("genderError"+appendData).innerHTML = "";
     valid++;
   }
   if (age == ""){
-    document.getElementById("ageError").innerHTML = "Please Enter Age";
+    document.getElementById("ageError"+appendData).innerHTML = "Please Enter Age";
   } 
   else if (age > 100 || age < 18){
-    document.getElementById("ageError").innerHTML = "Age must be between 18 and 100.";
+    document.getElementById("ageError"+appendData).innerHTML = "Age must be between 18 and 100.";
   }  else {
-    document.getElementById("ageError").innerHTML = "";
+    document.getElementById("ageError"+appendData).innerHTML = "";
     valid++;
   }
   if (country == ""){
-    document.getElementById("countryError").innerHTML = "Please Select Country";
+    document.getElementById("countryError"+appendData).innerHTML = "Please Select Country";
   } else {
     document.getElementById("countryError").innerHTML = "";
     valid++;
   }
   if (state == ""){
-    document.getElementById("stateError").innerHTML = "Please Select State";
+    document.getElementById("stateError"+appendData).innerHTML = "Please Select State";
   } else {
-    document.getElementById("stateError").innerHTML = "";
+    document.getElementById("stateError"+appendData).innerHTML = "";
     valid++;
   }
   if (district == ""){
-    document.getElementById("districtError").innerHTML = "Please Select District";
+    document.getElementById("districtError"+appendData).innerHTML = "Please Select District";
   } else {
-    document.getElementById("districtError").innerHTML = "";
+    document.getElementById("districtError"+appendData).innerHTML = "";
     valid++;
   }
   if (city == ""){
-    document.getElementById("cityError").innerHTML = "Please Select City";
+    document.getElementById("cityError"+appendData).innerHTML = "Please Select City";
   } else {
-    document.getElementById("cityError").innerHTML = "";
+    document.getElementById("cityError"+appendData).innerHTML = "";
     valid++;
   }
-   if (visitPurpose == ""){
-    document.getElementById("visitError").innerHTML = "Please Select Visit purpose";
-  } else {
-    document.getElementById("visitError").innerHTML = "";
-    valid++;
-  }
+  // if (visitPurpose == ""){
+  //  document.getElementById("visitError"+appendData).innerHTML = "Please Select Visit purpose";
+ // } else {
+ //   document.getElementById("visitError"+appendData).innerHTML = "";
+  //  valid++;
+ // }
   if (comingForm == ""){
-    document.getElementById("comeingformError").innerHTML = "Please Enter Coming Form";
+    document.getElementById("comeingformError"+appendData).innerHTML = "Please Enter Coming Form";
   } else {
-    document.getElementById("comeingformError").innerHTML = "";
+    document.getElementById("comeingformError"+appendData).innerHTML = "";
     valid++;
   }
   if (idProof == ""){
-    document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+    document.getElementById("idproofError"+appendData).innerHTML = "Please Select ID Proof";
   } else {
-    document.getElementById("idproofError").innerHTML = "";
+    document.getElementById("idproofError"+appendData).innerHTML = "";
     valid++;
   }
   /* Age validation */
@@ -804,17 +816,10 @@
   
   /* Final validation */
   
-   if (valid == 6)  {
-       alert('u')
-     
-  }  else {
-        return false
-     }
 
-
-
-
+   if (valid == 12)  {
         $("#mainHotelGuest").hide();
+        $("#addOnGuests").hide();
         $("#finalData").show();
 
          document.querySelector('#displayFormData').innerHTML += `
@@ -824,12 +829,14 @@
         
          </div>
          <div style="margin-left:4%">
-                 <h3><span>Name:</span>${$("#firstName").val() }</h3>
+                 <h3><span>Name:</span>${$("#firstNameAdult"+appendData).val() }</h3>
                     
                      </div>
                   </div>
            </div>
-          `;
+          `;}else{
+              return false
+          }
     }
        function showCardChild(){
         alert()
