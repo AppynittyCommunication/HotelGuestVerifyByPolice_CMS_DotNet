@@ -162,6 +162,7 @@
  var addOnGuestCount = parseInt($('#addOnGuestCount').val());
  var appendData=0
     $('#addAddOnGuest').click(function () {
+         $("#finalData").hide();
         appendData++
          // For loading all Relation Type  List
     $.ajax({
@@ -276,7 +277,7 @@
         $("#mainHotelGuest").hide();
         var name = $("#firstName").val();
        
-        if(addOnGuestCount > 0){
+        if(appendData > 1){
         var hideOnCount=addOnGuestCount-1;
             
              $("#formAdult"+hideOnCount).hide();
@@ -290,7 +291,7 @@
                         <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="firstname"/>
                           <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
                         <!-- Add form fields for other AddOnGuestSource properties -->
-                         <div id="formAdult${addOnGuestCount}">
+                         <div id="formAdult${appendData}">
                     <h4>Adult ${addOnGuestCount}</h4>
                     <div class="d-flex">
                         <div class="form-group">
@@ -466,7 +467,7 @@
         $("#mainHotelGuest").hide();
         var name = $("#firstName").val();
        
-        if(addOnGuestCount > 0){
+        if(appendData > 0){
         var hideOnCount=addOnGuestCount-1;
             
              $("#formAdult"+hideOnCount).hide();
@@ -480,7 +481,7 @@
                         <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="firstname"/>
                           <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
                         <!-- Add form fields for other AddOnGuestSource properties -->
-                         <div id="formAdult${addOnGuestCount}">
+                         <div id="formAdult${appendData}">
                     <h4>Child ${addOnGuestCount}</h4>
                     <div class="d-flex">
                         <div class="form-group">
@@ -818,8 +819,9 @@
   
 
    if (valid == 12)  {
+        
         $("#mainHotelGuest").hide();
-        $("#addOnGuests").hide();
+        $("#formAdult"+appendData).hide();
         $("#finalData").show();
 
          document.querySelector('#displayFormData').innerHTML += `
@@ -841,7 +843,7 @@
        function showCardChild(){
         alert()
         $("#mainHotelGuest").hide();
-        $("#finalData").show();
+        $("#finalData"+addOnGuestCount).show();
 
          document.querySelector('#displayFormData').innerHTML += `
          <div class="card">
@@ -921,7 +923,7 @@ function previewFile() {
 
 
 
-    //Guest Id Proof Photo
+    //Guest Add on Adult 
 
 var video = document.getElementById('video');
 var canvas = document.createElement('canvas');
@@ -983,3 +985,28 @@ function previewFile() {
         alert("Web Cam Is Not Available");
     });
 }
+
+
+//Id Photo File Upload
+
+
+
+      function previewFile_ID() {
+        var preview = document.querySelector('#profile-image1_ID');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+            document.getElementById('guestIDProof').value = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    $(function () {
+        $('#profile-image1_ID').on('click', function () {
+            $('#profile-image-upload_ID').click();
+        });
+    });
