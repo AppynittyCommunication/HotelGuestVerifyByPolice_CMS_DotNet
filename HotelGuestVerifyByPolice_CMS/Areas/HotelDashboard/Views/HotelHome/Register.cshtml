@@ -241,12 +241,14 @@
         <div class="d-flex">
             @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,Type="hidden"} })
             <div class="profile-pic" id="image-placeholder">
-               
+              
                 <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200" onclick="previewFile()">
+              
                 @*  <input id="profile-image-upload" class="hidden"> *@
                 <div style="color:#999;">  </div>
                 <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                 <input type="hidden" id="myField" value="" />
+                
             </div>
             <div class="profile-pic">
                 @Html.EditorFor(model => model.guestIDProof, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
@@ -256,6 +258,17 @@
                 <div style="color:#999;">  </div>
                 <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
             </div>
+        </div>
+        <div class="d-flex" style="margin-top:20px;justify-content: space-around;">
+
+
+
+            <div> <span class="text-red" id="guestPhotoError"></span></div>
+
+
+
+            <div> <span class="text-red" id="guestIDProofError"></span></div>
+           
         </div>
         <div  class="text-center" style="margin-top:5%"><button type="button" class="addbtn btn btn-md" onclick="showCard()">Done</button></div>
     </div>
@@ -269,7 +282,7 @@
         @for (int i = 0; i < Model.addOnGuest.Count; i++)
         {
             <div class="add-on-guest">
-                <h5>Add-On Guest @(i + 1)</h5>
+               @*  <h5>Add-On Guest @(i + 1)</h5> *@
               
             </div>
         }
@@ -327,6 +340,32 @@
                     </div>
                     <div>
                         <div id="image-captureAdult"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="addImageChild" role="dialog">
+    <div class="modal-dialog" style="width: 100%;height:100%">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+            <div class="modal-body" style="margin:auto">
+                <div class="d-flex">
+                    <div>
+                        <video id="videoChild" width="640" height="480" autoplay></video>
+                        <button id="ChildImage">Capture</button>
+                    </div>
+                    <div>
+                        <div id="image-captureChild"></div>
                     </div>
                 </div>
 

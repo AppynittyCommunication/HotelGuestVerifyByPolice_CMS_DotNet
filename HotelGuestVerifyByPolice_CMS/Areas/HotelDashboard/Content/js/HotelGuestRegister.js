@@ -14,6 +14,16 @@
        return false
      }
     });
+     	jQuery('#firstName').keyup(function() {
+		var caps = jQuery('#firstName').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#firstName').val(caps);
+	}); 
+    jQuery('#lastName').keyup(function() {
+		var caps = jQuery('#lastName').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#lastName').val(caps);
+	}); 
     $.ajax({
         type: "post",
         url: "/States/CountryList",
@@ -297,20 +307,20 @@
                         <div class="form-group">
                          <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Adult" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+                                <input class="form-control" id="firstNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" onkeypress="capFirstleter()" />
                                 <span id="nameError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                                <input class="form-control" id="lastNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" onkeypress="capLastleter()"/>
                                      <span id="lastError${appendData}" class="text-red"></span>
                                 </div>
                         </div>
                         <div class="form-group">
 
                            <div class="form-input">
-                                <input class="form-control" id="mobileAdult${appendData}" name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" />
+                                <input class="form-control" id="mobileAdult${appendData}" name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" type="number" onkeypress="checkNumber()" />
                                  <span id="mobileError${appendData}" class="text-red"></span>
                            </div>
 
@@ -331,7 +341,7 @@
 
                                 <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
                                 </select>
-                                 <span id="nameError${appendData}" class="text-red"></span>
+                                 <span id="relationError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -439,14 +449,26 @@
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                         </div>
+                        <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestIDProof" id="guestIdAdult${appendData}" type="hidden" />
                         <div class="profile-pic">
 
-                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
-                            <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="IdProof_Image_Adult" onclick="guestIdproof()"height="200">
+                            <input id="ID_proofUpload_IDAdult" class="hidden" type="file" onchange="previewIdProofAdult()">
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
                         </div>
                     </div>
+                     <div class="d-flex" style="margin-top:20px;justify-content: space-around;"> 
+         
+          
+              
+                 <div> <span class="text-red" id="guestPhotoError${appendData}"></span></div>
+
+
+
+            <div> <span class="text-red" id="guestIDProofError${appendData}"></span></div>
+           
+        </div>
                     <div class="text-center">
                         <button class="addbtn btn btn-md" type="button" onclick="showCardAdult()">Done</button>
                     </div>
@@ -460,11 +482,53 @@
         $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
     });
 
+    function checkNumber(){
+       $("#mobileAdult"+appendData).keypress(function(e) {
+         var value = $("#mobileAdult"+appendData).val();
+        var length = value.length
+       
+        if (length === 10) {
+       return false
+       }
+        
+     })
+     }
+     function capFirstleter(){
+    jQuery('#firstNameAdult'+appendData).keyup(function() {
+		var caps = jQuery('#firstNameAdult'+appendData).val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#firstNameAdult'+appendData).val(caps);
+	});}
+
+
+     function capLastleter(){
+    jQuery('#lastNameAdult'+appendData).keyup(function() {
+		var caps = jQuery('#lastNameAdult'+appendData).val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#lastNameAdult'+appendData).val(caps);
+	});}
+
+
 
     $('#addAddOnChild').click(function () {
+         $("#finalData").hide();
         appendData++
          // For loading all Relation Type  List
-   
+      $.ajax({
+        type: "post",
+        url: "/States/RelationTypeList",
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            relationlist = '<option value="">Select Relation</option>';
+            for (var i = 0; i < data.length; i++) {
+                relationlist = relationlist + "<option value=" + data[i].id + ">" + data[i].name + "</option>";
+            }
+            //district = district + '</select>';
+            $("#relationChild"+appendData).html(relationlist);
+        },
+    });
         $("#mainHotelGuest").hide();
         var name = $("#firstName").val();
        
@@ -488,13 +552,14 @@
                         <div class="form-group">
                          <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Child" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameChild" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
-        
+                                <input class="form-control" id="firstNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+                                      <span id="nameError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameChild" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                                <input class="form-control" id="lastNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" /> 
+                                  <span id="lastError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                   
@@ -505,28 +570,29 @@
 
                             <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationChild${appendData}">
                                 </select>
-
+                                  <span id="relationError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
                         <div class="form-group">
                         <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderChild">
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderChild${appendData}">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                 </select>
-
+                                  <span id="genderError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
 
                         <div class="form-group">
                       <div class="form-input">
-                                <input class="form-control" id="ageChild" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                <input class="form-control" id="ageChild${appendData}" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                  <span id="ageError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -534,17 +600,28 @@
 
                    
                     <div class="d-flex">
-                        <div class="profile-pic">
+                      <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
+                        <div class="profile-pic" id="image-Child${appendData}" style="justify-content: start">
 
-                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" data-toggle="modal" data-target="#addImage" height="200">
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageChild" onclick="previewFileChild()">
                             <input id="profile-image-upload" class="hidden" type="file" >
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                         </div>
                        
                     </div>
+                    <div class="d-flex" style="margin-top:20px;justify-content: start;"> 
+         
+          
+              
+                 <div> <span class="text-red" id="guestPhotoError${appendData}"></span></div>
+
+                 </div>
+
+          
+           
                     <div class="text-center">
-                        <button class="addbtn btn btn-md" type="button" onclick="showCardAdult()">Done</button>
+                        <button class="addbtn btn btn-md" type="button" onclick="showCardChild()">Done</button>
                     </div>
                 </div>
                     </div>
@@ -577,6 +654,8 @@
   var idProof = $("#idtypeMain").val();
   var valid = 0;
   var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  var guestPhoto=$("#guestPhoto").val();
+  var guestIDProof=$("#guestIDProof").val();
  
   /* Name validation */
   
@@ -666,6 +745,26 @@
     document.getElementById("idproofError").innerHTML = "";
     valid++;
   }
+   if (guestPhoto == ""){
+    document.getElementById("guestPhotoError").innerHTML = "Please Take Guest photo";
+  } else {
+    document.getElementById("guestPhotoError").innerHTML = "";
+    valid++;
+  }
+  if (guestIDProof == ""){
+    document.getElementById("guestIDProofError").innerHTML = "Please Upload Guest Id";
+  } else {
+    document.getElementById("guestIDProofError").innerHTML = "";
+    valid++;
+  }
+
+   if (idProof == ""){
+    document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+  } else {
+    document.getElementById("idproofError").innerHTML = "";
+    valid++;
+  }
+
   /* Age validation */
   
   
@@ -676,7 +775,7 @@
   
   /* Final validation */
   
-   if (valid == 13)  {
+   if (valid == 15)  {
        $("#mainHotelGuest").hide();
         $("#finalData").show();
 
@@ -708,7 +807,8 @@
   var lastname = $("#lastNameAdult"+appendData).val();
   var mobile = $("#mobileAdult"+appendData).val();
   var email = $("#emailAdult"+appendData).val();
-   var age = $("#ageAdult"+appendData).val();
+  var relation = $("#relationAdult"+appendData).val();
+  var age = $("#ageAdult"+appendData).val();
   var gender = $("#genderAdult"+appendData).val();
   var country = $("#countryAdult"+appendData).val();
   var state = $("#stateAdult"+appendData).val();
@@ -717,9 +817,11 @@
   var visitPurpose = $("#visitAdult"+appendData).val();
   var comingForm = $("#comingAdult"+appendData).val();
   var idProof = $("#idTypeAdult"+appendData).val();
+  var guestPhoto=$("#idTypeAdult"+appendData).val();
   var valid = 0;
   var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
- 
+ var guestPhoto=$("#guestPhoto"+appendData).val();
+  var guestIDProof=$("#guestIdAdult"+appendData).val();
   /* Name validation */
   
    if (name==""){
@@ -750,6 +852,12 @@
        document.getElementById("emailError"+appendData).innerHTML = "Please Enter Valid  Email";
    
    }
+   if (relation == ""){
+    document.getElementById("relationError"+appendData).innerHTML = "Please Select Relation With Guest";
+  } else {
+    document.getElementById("relationError"+appendData).innerHTML = "";
+    valid++;
+  }
    /* Gender validation */
   if (gender == ""){
     document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
@@ -810,7 +918,18 @@
   }
   /* Age validation */
   
-  
+   if (guestPhoto == ""){
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "Please Take Guest photo";
+  } else {
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "";
+    valid++;
+  }
+  if (guestIDProof == ""){
+    document.getElementById("guestIDProofError"+appendData).innerHTML = "Please Upload Guest Id";
+  } else {
+    document.getElementById("guestIDProofError"+appendData).innerHTML = "";
+    valid++;
+  }
   
   /* Hometown validation */
   
@@ -819,7 +938,7 @@
   /* Final validation */
   
 
-   if (valid == 12)  {
+   if (valid == 15)  {
         
         $("#mainHotelGuest").hide();
         $("#formAdult"+appendData).hide();
@@ -841,10 +960,71 @@
               return false
           }
     }
-       function showCardChild(){
-        alert()
-        $("#mainHotelGuest").hide();
-        $("#finalData"+addOnGuestCount).show();
+
+
+ function showCardChild(){
+        //alert();
+
+      
+  var name = $("#firstNameChild"+appendData).val();
+  var lastname = $("#lastNameChild"+appendData).val();
+  var relation = $("#relationChild"+appendData).val();
+  var age = $("#ageChild"+appendData).val();
+  var gender = $("#genderChild"+appendData).val();
+   var guestPhoto=$("#guestPhoto"+appendData).val();
+  var valid = 0;
+ 
+ 
+  /* Name validation */
+  
+   if (name==""){
+    document.getElementById("nameError"+appendData).innerHTML = "Pleae Enter First Name";
+  } else {       document.getElementById("nameError"+appendData).innerHTML = "";
+    valid++;
+  }
+
+   if (lastname == ""){
+    document.getElementById("lastError"+appendData).innerHTML = "Pleae Enter Last Name";
+  } else {
+    document.getElementById("lastError"+appendData).innerHTML = "";
+    valid++;
+  }
+  
+   
+  
+   /* Gender validation */
+  if (gender == ""){
+    document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
+  } else {
+    document.getElementById("genderError"+appendData).innerHTML = "";
+    valid++;
+  }
+  if (relation == ""){
+    document.getElementById("relationError"+appendData).innerHTML = "Please Select Relation With Guest";
+  } else {
+    document.getElementById("relationError"+appendData).innerHTML = "";
+    valid++;
+  }
+  if (age == ""){
+    document.getElementById("ageError"+appendData).innerHTML = "Please Enter Age";
+  } 
+  else if (age > 18 || age < 0){
+    document.getElementById("ageError"+appendData).innerHTML = "Age must be between 0 and 18.";
+  }  else {
+    document.getElementById("ageError"+appendData).innerHTML = "";
+    valid++;
+  }
+     if (guestPhoto == ""){
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "Please Take Guest photo";
+  } else {
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "";
+    valid++;
+  }
+     if (valid == 6)  {
+          $("#mainHotelGuest").hide();
+        $("#formAdult"+appendData).hide();
+        $("#finalData").show();
+        
 
          document.querySelector('#displayFormData').innerHTML += `
          <div class="card">
@@ -853,13 +1033,23 @@
         
          </div>
          <div style="margin-left:4%">
-                 <h3><span>Name:</span>${$("#firstName").val() }</h3>
+                 <h3><span>Name:</span>${$("#firstNameChild"+appendData).val()  }</h3>
                     
                      </div>
                   </div>
            </div>
           `;
+     }else{
+     return false
+     }
+  
+       
     }
+
+
+
+    //Guest Main Take Photo
+
 var video = document.getElementById('video');
 var canvas = document.createElement('canvas');
 var context = canvas.getContext('2d');
@@ -988,6 +1178,74 @@ function previewFileAdult() {
 }
 
 
+ //Guest Add on Child 
+
+var video2 = document.getElementById('videoChild');
+var canvas = document.createElement('canvas');
+var context = canvas.getContext('2d');
+
+navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+    video2.srcObject = stream;
+    video2.play();
+}).catch(function (err) {
+    console.log(err);
+});
+
+document.getElementById('ChildImage').addEventListener('click', function () {
+    context.drawImage(video2, 0, 0, canvas.width, canvas.height);
+    // add time stamp
+    const timeNow = new Date()
+    context.fillStyle = '#000'
+    context.fontSize = '10px'
+    context.fillText(timeNow, 0, canvas.height - 5)
+
+    var image = canvas.toDataURL();
+    //uploadImage(image);
+    //console.log(image)
+    // image placeholder where the image will be displayed
+    var imagecapture = document.getElementById('image-captureChild');
+    var imagePlaceholder = document.getElementById('image-Child'+appendData);
+
+    // display the image in placeholder
+    displayBase64ImageAdult(imagePlaceholder, imagecapture, image);
+});
+
+function displayBase64ImageAdult(placeholder, placeholdercapture, base64Image) {
+    var image = document.createElement('img');
+    var image1 = document.createElement('img');
+    image.onload = function () {
+        placeholdercapture.innerHTML = '';
+        placeholdercapture.appendChild(this);
+
+    }
+    image1.onload = function () {
+
+        placeholder.innerHTML = '';
+        placeholder.appendChild(this);
+    }
+    image1.src = base64Image;
+    image.src = base64Image;
+    document.getElementById('guestPhoto'+appendData).value = base64Image;
+}
+function previewFileChild() {
+    navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
+
+    navigator.getMedia({ video: true }, function () {
+        $("#addImageChild").modal({ backdrop: 'static', keyboard: false }, "show");
+    }, function () {
+        // webcam is not available
+        alert("Web Cam Is Not Available");
+    });
+}
+
+
+
+
+
+
 //Id Photo File Upload
 
 
@@ -1011,3 +1269,31 @@ function previewFileAdult() {
             $('#profile-image-upload_ID').click();
         });
     });
+
+
+
+//Id Photo File Upload Adult
+
+
+
+      function previewIdProofAdult() {
+          
+        var preview = document.querySelector('#IdProof_Image_Adult');
+        var file = document.querySelector('#ID_proofUpload_IDAdult').files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+            document.getElementById('guestIdAdult'+appendData).value = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function guestIdproof(){
+alert();
+ $('#ID_proofUpload_IDAdult').click();
+    }
+    
