@@ -1,5 +1,4 @@
-﻿
-@using Newtonsoft.Json
+﻿@using Newtonsoft.Json
 @model HotelGuestVerifyByPolice_CMS.Areas.Department.Models.DeptDashboardRes
 @{
     Layout = "_DepartLayout";
@@ -14,10 +13,15 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7w-l0RWEUVqhXyshtsgdkqJDNxaKQ5lY&callback=initMap" async defer></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <style>
-    wordtune-read-extension{display:none}
-    body{
-        margin:0px;padding:0px
+    wordtune-read-extension {
+        display: none
     }
+
+    body {
+        margin: 0px;
+        padding: 0px
+    }
+
     .nav-bg {
         background-image: linear-gradient( 45deg, hsl(264deg 73% 38%) 0%, hsl(259deg 68% 39%) 16%, hsl(253deg 64% 40%) 32%, hsl(247deg 61% 41%) 49%, hsl(241deg 58% 42%) 66%, hsl(234deg 65% 40%) 83%, hsl(228deg 78% 36%) 100% ) !important;
     }
@@ -28,38 +32,39 @@
         font-size: 16px
     }
 
-    .ml-auto{margin-left:auto}
+    .ml-auto {
+        margin-left: auto
+    }
 
-    #nav-details span{
-        color:#fff;
+    #nav-details span {
+        color: #fff;
         margin-right: 12px;
     }
 
-    #userDetails{
+    #userDetails {
         background: #1831a5;
-        border-radius:5px;
-        color:#fff;
-       
-
+        border-radius: 5px;
+        color: #fff;
     }
 
-    th{
+    th {
         background: #1831a5;
         font-weight: 500;
-     padding:4px;
-     color:#fff;
-     width:100px
+        padding: 4px;
+        color: #fff;
+        width: 100px
     }
+
     tbody, td, tfoot, thead, tr {
         font-size: 13px;
-        text-align:center;
-        padding:4px;
-       /*  background: #220a52; */
+        text-align: center;
+        padding: 4px;
+        /*  background: #220a52; */
         background: #fff;
         color: #303030;
     }
 
-    table td:nth-child(3){
+    table td:nth-child(3) {
         color: #0ca10c
     }
 
@@ -67,7 +72,7 @@
         color: #cb0000
     }
 
-   .card {
+    .card {
         margin: 0 -8px 32px -8px;
         color: rgba(0, 0, 0, 0.87);
         box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
@@ -80,55 +85,94 @@
         padding-bottom: 1%;
     }
 
-        .guestDetails h6{}
-    .guestDetails h6{
-        font-size:12px;
-        margin-bottom:4px
-    }
-    .dataTime{font-size:16px}
+        .guestDetails h6 {
+        }
 
-    #secRow{display:none}
+        .guestDetails h6 {
+            font-size: 12px;
+            margin-bottom: 4px
+        }
+
+    .dataTime {
+        font-size: 16px
+    }
+
+    #secRow {
+        display: none
+    }
 
     #hideSecRow {
         display: none
     }
-    .width{width:110px !important}
+
+    .width {
+        width: 110px !important
+    }
+
+
+
+    /*Tabs*/
+
+    fieldset {
+        display: none;
+    }
+
+        fieldset.show {
+            display: block;
+        }
+
+    .tabs {
+        margin: 2px 5px 0px 5px;
+        padding-bottom: 10px;
+        cursor: pointer;
+    }
+
+        .tabs:hover, .tabs.active {
+            border-bottom: 1px solid #2196F3;
+        }
+
+    #imageDisplay
+    {
+        width : 50px;
+        height : 50px;
+        border-radius : 50%;
+    }
 </style>
 
 
 <div>
-   @*  <div class="px-6 nav-bg" style="width:100%;height:50px">
+    @*  <div class="px-6 nav-bg" style="width:100%;height:50px">
 
-        <div class="container-fluid" style="padding-top:1%;">
-            <div class="navbar-header" style="display:inline" >
-                <a href="/Department/DepartmentHome/Index">   <span><i class="fa-solid fa-house" style="color: #ffffff;margin-right: 10px"></i>Dashboard</span></a>
-                <a href="/Department/DepartmentHome/SearchHotel"> <span><i class="fa-solid fa-hotel" style="color:#fff;margin-right: 10px"></i>Find Hotels Details</span></a>
-            </div>
-            <div style="float:right;padding-right:40px" id="nav-details">
-                <span id="showSecRow"><img src="../Areas/HotelDashboard/Content/Images/Icon/maximize_(1).png" style="width:24px;"/></span>
-                <span id="hideSecRow"><img src="../Areas/HotelDashboard/Content/Images/Icon/minimize.png" style="width:24px;" /></span>
-                <span>Live </span>
-                <span style="display:inline-block;background:red;height:15px;width:15px;border-radius:50%"></span>
-                <span><i class="fa-regular fa-bell" style="color: #ffffff;"></i></span>
-                <span style="color:#fff;font-size:16px;">
-                    @if (ViewBag.departuser != null)
-                    {
-                        @ViewBag.departuser
-                    }
-                    else
-                    {
+    <div class="container-fluid" style="padding-top:1%;">
+    <div class="navbar-header" style="display:inline" >
+    <a href="/Department/DepartmentHome/Index">   <span><i class="fa-solid fa-house" style="color: #ffffff;margin-right: 10px"></i>Dashboard</span></a>
+    <a href="/Department/DepartmentHome/SearchHotel"> <span><i class="fa-solid fa-hotel" style="color:#fff;margin-right: 10px"></i>Find Hotels Details</span></a>
+    </div>
+    <div style="float:right;padding-right:40px" id="nav-details">
+    <span id="showSecRow"><img src="../Areas/HotelDashboard/Content/Images/Icon/maximize_(1).png" style="width:24px;"/></span>
+    <span id="hideSecRow"><img src="../Areas/HotelDashboard/Content/Images/Icon/minimize.png" style="width:24px;" /></span>
+    <span>Live </span>
+    <span style="display:inline-block;background:red;height:15px;width:15px;border-radius:50%"></span>
+    <span><i class="fa-regular fa-bell" style="color: #ffffff;"></i></span>
+    <span style="color:#fff;font-size:16px;">
+    @if (ViewBag.departuser != null)
+    {
+    @ViewBag.departuser
+    }
+    else
+    {
 
-                    }
-                </span>
+    }
+    </span>
 
-                <span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span>
-            </div>
-        </div>
-        
+    <span onclick="logout()"><i class="fa-solid fa-right-from-bracket" style="color:#fff"></i></span>
+    </div>
+    </div>
+
     </div> *@
     <div class="row mx-1 py-2">
         <div class="col-md-3 col-lg-3">
-           <div id="userDetails" class="py-3">
+            <div id="userDetails" class="py-3">
                 <h4 class="text-center">
                     @if (ViewBag.departuser != null)
                     {
@@ -140,13 +184,13 @@
                     }
                 </h4>
                 <h4 class="text-center">@Model.stationName</h4>
-           </div>
+            </div>
 
             <div class="p-1 mt-1" style="background:#1831a5;border-radius:5px">
                 <h6 class="text-white">Hotels Locations</h6>
                 <div id="map" style="height: 220px;"></div>
-           </div>
-           <div class="mt-2">
+            </div>
+            <div class="mt-2">
                 <table id="example" class="display" cellspacing="0" width="100%" style="display:block;overflow-y:auto;height:210px;border: 1px solid #1831a5;">
                     <thead>
                         <tr>
@@ -155,7 +199,7 @@
                             <th>Total Check-In</th>
                             <th>Today Check-In</th>
                             <th>Today Check-Out</th>
-                           
+
                         </tr>
                     </thead>
 
@@ -171,106 +215,186 @@
 
                             </tr>
                         }
-                       
+
                     </tbody>
                 </table>
-           </div>
+            </div>
         </div>
         <div class="col-md-9 col-lg-9">
-           @*  <marquee direction="up" onmouseover="this.stop();" onmouseout="this.start();"> *@
+            @*  <marquee direction="up" onmouseover="this.stop();" onmouseout="this.start();"> *@
             @for (var i = 0; i < Model.hotelGuestDetails_DeptDashes.Count; i += 2)
             {
-               
-                    <div class="row cardDeatils">
+
+                <div class="row cardDeatils">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="d-flex">
+                                <div>
+                                    @if (@Model.hotelGuestDetails_DeptDashes[i].guestPhoto == null)
+                                    {
+                                        <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
+                                    }
+                                    else
+                                    {
+
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i].guestPhoto)" alt="Image" style="width:230px;height: 250px;" />
+                                    }
+
+                                </div>
+                                <div class="guestDetails">
+                                    <h5>@Model.hotelGuestDetails_DeptDashes[i].guestName</h5>
+                                    <h6>Age : @Model.hotelGuestDetails_DeptDashes[i].age</h6>
+                                    <h6>City : @Model.hotelGuestDetails_DeptDashes[i].city</h6>
+                                    <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i].visitPurpose</h6>
+                                    <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i].comingFrom</h6>
+                                    <h6>Reservation : @Model.hotelGuestDetails_DeptDashes[i].reservation</h6>
+
+                                    <h6>@Model.hotelGuestDetails_DeptDashes[i].hotelName</h6>
+                                    <h6>Check-In</h6>
+                                    <h5 class="dataTime">@Model.hotelGuestDetails_DeptDashes[i].checkInDate</h5>
+
+                                    <h6>Remark : </h6>
+                                    @* <h6 style="text-align:end">View All</h6> *@
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View All</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (i + 1 < Model.hotelGuestDetails_DeptDashes.Count)
+                    {
                         <div class="col-md-6 col-lg-6">
                             <div class="card">
                                 <div class="d-flex">
                                     <div>
-                                        @if (@Model.hotelGuestDetails_DeptDashes[i].guestPhoto == null)
+                                        @if (@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto == null)
                                         {
                                             <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
                                         }
                                         else
                                         {
 
-                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i].guestPhoto)" alt="Image" style="width:230px;height: 250px;" />
+                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto)" alt="Image" style="width:230px;height: 250px;" />
                                         }
 
                                     </div>
                                     <div class="guestDetails">
-                                        <h5>@Model.hotelGuestDetails_DeptDashes[i].guestName</h5>
-                                        <h6>Age : @Model.hotelGuestDetails_DeptDashes[i].age</h6>
-                                        <h6>City : @Model.hotelGuestDetails_DeptDashes[i].city</h6>
-                                        <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i].visitPurpose</h6>
-                                        <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i].comingFrom</h6>
-                                        <h6>Reservation : @Model.hotelGuestDetails_DeptDashes[i].reservation</h6>
+                                        <h5>@Model.hotelGuestDetails_DeptDashes[i + 1].guestName</h5>
+                                        <h6>Age : @Model.hotelGuestDetails_DeptDashes[i + 1].age</h6>
+                                        <h6>City : @Model.hotelGuestDetails_DeptDashes[i + 1].city</h6>
+                                        <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i + 1].visitPurpose</h6>
+                                        <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i + 1].comingFrom</h6>
+                                        <h6>Reservation : @Model.hotelGuestDetails_DeptDashes[i + 1].reservation</h6>
 
-                                        <h6>@Model.hotelGuestDetails_DeptDashes[i].hotelName</h6>
+                                        <h6>@Model.hotelGuestDetails_DeptDashes[i + 1].hotelName</h6>
                                         <h6>Check-In</h6>
-                                        <h5 class="dataTime">@Model.hotelGuestDetails_DeptDashes[i].checkInDate</h5>
+                                        <h5 class="dataTime">@Model.hotelGuestDetails_DeptDashes[i + 1].checkInDate</h5>
 
                                         <h6>Remark : </h6>
-                                        @* <h6 style="text-align:end">View All</h6> *@
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View All</button>
+                                        @*  <h6 style="text-align:end">View All</h6> *@
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i + 1].roomBookingID">View All</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    }
+                </div>
 
-                        @if (i + 1 < Model.hotelGuestDetails_DeptDashes.Count)
-                        {
-                            <div class="col-md-6 col-lg-6">
-                                <div class="card">
-                                    <div class="d-flex">
-                                        <div>
-                                            @if (@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto == null)
-                                            {
-                                                <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
-                                            }
-                                            else
-                                            {
 
-                                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto)" alt="Image" style="width:230px;height: 250px;" />
-                                            }
-
-                                        </div>
-                                        <div class="guestDetails">
-                                            <h5>@Model.hotelGuestDetails_DeptDashes[i + 1].guestName</h5>
-                                            <h6>Age : @Model.hotelGuestDetails_DeptDashes[i + 1].age</h6>
-                                            <h6>City : @Model.hotelGuestDetails_DeptDashes[i + 1].city</h6>
-                                            <h6>Purpose : @Model.hotelGuestDetails_DeptDashes[i + 1].visitPurpose</h6>
-                                            <h6>Comeing From : @Model.hotelGuestDetails_DeptDashes[i + 1].comingFrom</h6>
-                                            <h6>Reservation : @Model.hotelGuestDetails_DeptDashes[i + 1].reservation</h6>
-
-                                            <h6>@Model.hotelGuestDetails_DeptDashes[i + 1].hotelName</h6>
-                                            <h6>Check-In</h6>
-                                            <h5 class="dataTime">@Model.hotelGuestDetails_DeptDashes[i + 1].checkInDate</h5>
-
-                                            <h6>Remark : </h6>
-                                           @*  <h6 style="text-align:end">View All</h6> *@
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i + 1].roomBookingID">View All</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-             
-                
             }
-         @*    </marquee> *@
+            @*    </marquee> *@
 
             <!-- The Modal -->
             <div class="modal" id="resultModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
+
+
+
                         <div class="modal-header">
-                            <h4 class="modal-title">API Result</h4>
+                            <div id="title" >
+                        </div>
+
+                        <div>
+                                <img id="imageDisplay" src="" alt="Image">
+                        </div>
+
+                        <br />
+
+                            <div class="tabs active" id="tab01">
+                                <h6 class="text-muted">Guest Details</h6>
+                            </div>
+                            <div class="tabs" id="tab02">
+                                <h6 class="text-muted">Stay Details</h6>
+                            </div>
+                            <div class="tabs" id="tab03">
+                                <h6 class="text-muted">Documents</h6>
+                            </div>
+                            <div class="tabs" id="tab04">
+                                <h6 class="text-muted">Remarks</h6>
+                            </div>
+
+
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
                             <!-- API result will be displayed here -->
                             <div id="apiResult"></div>
+                            <fieldset id="tab011">
+                                <h3>CONTACT INFORMATION</h3>
+                                <h6><span>Guest Name </span></h6>
+                                <h6><span id="name"></span></h6>
+                                <br />
+                                <h6><span>Mobile  </span></h6>
+                                <h6><span id="mobile"></span></h6>
+                                <br />
+                                <h6><span>Email  </span></h6>
+                                <h6><span id="email"></span></h6>
+                                <br />
+                                <h6><span>Gender  </span></h6>
+                                <h6><span id="gender"></span></h6>
+                                <br />
+                                <h6><span>Age  </span></h6>
+                                <h6><span id="age"></span></h6>
+                                <br />
+                                <h3>ADDRESS</h3>
+                                <br />
+                                <h6><span>Country  </span></h6>
+                                <h6><span id="country"></span></h6>
+                                <br />
+                                <h6><span>City  </span></h6>
+                                <h6><span id="city"></span></h6>
+                                <br />
+                                <h6><span>Address  </span></h6>
+                                <h6><span id="addr"></span></h6>
+                                <br />
+                                <h3>FAMAILY MEMBER</h3>
+                                
+                                
+                                <br />
+                                <ul id="data-list">
+                                    <li></li>
+                                </ul>
+
+                                <br />
+                                
+                            </fieldset>
+
+                            <fieldset id="tab021">
+                                <h3>STAY INFORMATION</h3>
+                                
+                            </fieldset>
+
+                            <fieldset id="tab031">
+                                <h3>DOCUMENTS </h3>
+                               
+                            </fieldset>
+
+                            <fieldset id="tab041">
+                                <h3>REMARK </h3>
+                              
+                            </fieldset>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -280,7 +404,7 @@
             </div>
 
             <div class="mt-2">
-                <table id="guestTable" class="display" cellspacing="0"  style="width:100%;display:block;overflow-y:auto;height:300px;border: 1px solid #1831a5;">
+                <table id="guestTable" class="display" cellspacing="0" style="width:100%;display:block;overflow-y:auto;height:300px;border: 1px solid #1831a5;">
                     <thead>
                         <tr>
                             <th class="width">Hotel Name</th>
@@ -311,8 +435,8 @@
 
                             </tr>
                         }
-                        
-                       
+
+
                     </tbody>
                 </table>
             </div>
@@ -322,13 +446,13 @@
 
 
 
-   
+
 </div>
 
 
 
 <script>
-    
+
 
     $(document).ready(function () {
 
@@ -343,8 +467,35 @@
                 url: '/Department/DepartmentHome/ShowHotelGuestDetails',
                 data: { roombookingId: divId },
                 success: function (data) {
-                    console.log(data);
-                    $('#apiResult').text(data); // Display the data as text
+                    $("#tab011").addClass("show");
+                    
+                    console.log(data.hotelGuestDetails);
+                    var imageSrc = data.hotelGuestDetails[0].guestPhoto;
+                    console.log(imageSrc);
+                    $("#imageDisplay").attr("src", "data:image/jpeg;base64," + imageSrc);
+                    $('#title').text(data.hotelGuestDetails[0].guestName);
+                    $('#name').text(data.hotelGuestDetails[0].guestName);
+                    $('#mobile').text(data.hotelGuestDetails[0].mobile);
+                    $('#email').text(data.hotelGuestDetails[0].email);
+                    $('#gender').text(data.hotelGuestDetails[0].gender);
+                    $('#age').text(data.hotelGuestDetails[0].age);
+                    $('#country').text(data.hotelGuestDetails[0].country);
+                    $('#city').text(data.hotelGuestDetails[0].city);
+                    $('#addr').text(data.hotelGuestDetails[0].address);
+
+                   // loop
+                    // $.each(data.hotelGuestDetails, function (index, value) {
+                    //     // Clone the template li element
+                    //     var listItem = $("#data-list li").clone();
+
+                    //     // Set the text of the list item to the current data item
+                    //     listItem.text(value);
+
+                    //     // Append the list item to the ul
+                    //     $("#data-list").append(listItem);
+                    // });
+
+
                     $('#resultModal').modal('show');
                 },
                 error: function (error) {
@@ -354,22 +505,55 @@
         });
 
 
+        //Code for click on different tabs
+
+        $(".tabs").click(function () {
+
+            $(".tabs").removeClass("active");
+            $(".tabs h6").removeClass("font-weight-bold");
+            $(".tabs h6").addClass("text-muted");
+            $(this).children("h6").removeClass("text-muted");
+            $(this).children("h6").addClass("font-weight-bold");
+            $(this).addClass("active");
+
+            current_fs = $(".active");
+
+            next_fs = $(this).attr('id');
+            next_fs = "#" + next_fs + "1";
+
+            $("fieldset").removeClass("show");
+            $(next_fs).addClass("show");
+
+            current_fs.animate({}, {
+                step: function () {
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({
+                        'display': 'block'
+                    });
+                }
+            });
+        });
+
+
         $('.cardDeatils').hide();
         $('.cardDeatils:first').show();
 
         var table = $('#example').DataTable({
             searching: false, paging: false, info: false
-            
+
         });//End of create main table
 
         $('#guestTable').DataTable({
             searching: false, paging: false, info: false
-           
+
         });//End of create main table
 
         $("#showSecRow").click(function () {
             $(".cardDeatils:eq(1)").show();
-           
+
             $("#showSecRow").hide();
             $("#hideSecRow").show();
 
@@ -418,20 +602,20 @@
         };
 
         if (locations.length > 0) {
-        // Calculate the center point
-        var centerLat = 0;
-        var centerLng = 0;
+            // Calculate the center point
+            var centerLat = 0;
+            var centerLng = 0;
 
-        locations.forEach(function (location) {
+            locations.forEach(function (location) {
                 centerLat += location.lat;
                 centerLng += location._long;
-        });
+            });
 
-        centerLat /= locations.length;
-        centerLng /= locations.length;
+            centerLat /= locations.length;
+            centerLng /= locations.length;
 
-        // Set the map center to the calculated center point
-        map.setCenter({ lat: centerLat, lng: centerLng });
+            // Set the map center to the calculated center point
+            map.setCenter({ lat: centerLat, lng: centerLng });
         }
 
         for (i = 0; i < locations.length; i++) {
@@ -490,22 +674,22 @@
         map.fitBounds(bounds);
         map.panToBounds(bounds);
     }
-    //google.maps.event.addDomListener(window, 'load', initMap);
+        //google.maps.event.addDomListener(window, 'load', initMap);
 
 
-    // function logout() {
-    //     debugger;
+        // function logout() {
+        //     debugger;
 
-    //     $.ajax({
-    //         type: "post",
-    //         url: "../Account/DepartLogout",
-    //         datatype: "json",
-    //         traditional: true,
-    //         success: function (data) {
-    //             console.log(data);
-    //             window.location.href = '../Account/DepartmentLogin';
+        //     $.ajax({
+        //         type: "post",
+        //         url: "../Account/DepartLogout",
+        //         datatype: "json",
+        //         traditional: true,
+        //         success: function (data) {
+        //             console.log(data);
+        //             window.location.href = '../Account/DepartmentLogin';
 
-    //         }
-    //     });
-    // }
+        //         }
+        //     });
+        // }
 </script>
