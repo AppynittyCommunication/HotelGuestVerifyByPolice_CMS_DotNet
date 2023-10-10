@@ -104,6 +104,82 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
             //return View();
         }
 
+        public async Task<IActionResult> GuestDetails()
+        {
+            string hotelregno = _contx.HttpContext.Session.GetString("hotelRegNo");
+            string hotelname = _contx.HttpContext.Session.GetString("hotelName");
+
+            ViewBag.hotelregno = hotelregno;
+            ViewBag.hotelname = hotelname;
+            if (string.IsNullOrEmpty(hotelregno))
+            {
+                // return RedirectToAction("HotelLogin", "Account");
+                return Redirect("/Account/HotelLogin");
+            }
+            else
+            {
+                HotelDashboardRes hotelDashRes = new();
+                HotelDashResData hotelDashResData = new();
+                hotelDashResData.guestDetails = new();
+               // hotelDashResData.monthlyCheckInOutCounts = new();
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                _httpClient.DefaultRequestHeaders.Add("hotelRegNo", hotelregno);
+                HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Hotel/GetGuestCheckInOutInfo");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    hotelDashRes.code = dynamicobject.code;
+                    hotelDashRes.status = dynamicobject.status;
+                    hotelDashRes.message = dynamicobject.message;
+
+                    if (hotelDashRes.status == "success")
+                    {
+                        hotelDashResData.totalGuest = dynamicobject.data[0].totalGuest;
+                        hotelDashResData.todaysCheckIn = dynamicobject.data[0].todaysCheckIn;
+                        hotelDashResData.todaysCheckOut = dynamicobject.data[0].todaysCheckOut;
+                        foreach (var i in dynamicobject.data[0].guestDetails)
+                        {
+                            hotelDashResData.guestDetails.Add(new GuestDetail
+                            {
+                                guestName = i.guestName,
+                                guestPhoto = i.guestPhoto,
+                                reservation = i.reservation,
+                                mobile = i.mobile,
+                                state = i.state,
+                                country = i.country,
+                                checkInDate = i.checkInDate,
+                            });
+                        }
+                        //foreach (var c in dynamicobject.data[0].monthlyCheckInOutCounts)
+                        //{
+                        //    hotelDashResData.monthlyCheckInOutCounts.Add(new MonthlyCheckInOutCount
+                        //    {
+                        //        month = c.month,
+                        //        monthName = c.monthName,
+                        //        checkInCount = c.checkInCount,
+                        //        checkOutCount = c.checkOutCount,
+                        //    });
+                        //}
+                        return View(hotelDashResData);
+                    }
+                    ViewBag.msg = "Please Try After Some Time";
+                    return Redirect("/Account/HotelLogin");
+                }
+                else
+                {
+                    ViewBag.msg = "Please Try After Some Time";
+                    return Redirect("/Account/HotelLogin");
+                }
+
+            }
+
+            //return View();
+        }
+
+
         public IActionResult ImageCapture()
         {
             return View();
