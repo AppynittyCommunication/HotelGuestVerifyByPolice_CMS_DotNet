@@ -86,27 +86,26 @@
 
     </div>
     <script>
-        const $button = document.querySelector('#sidebar-toggle');
-        const $wrapper = document.querySelector('#wrapper');
+        // const $button = document.querySelector('#sidebar-toggle');
+        // const $wrapper = document.querySelector('#wrapper');
 
-        $button.addEventListener('click', (e) => {
-            e.preventDefault();
-            $wrapper.classList.toggle('toggled');
-        });
+        // $button.addEventListener('click', (e) => {
+        //     e.preventDefault();
+        //     $wrapper.classList.toggle('toggled');
+        // });
 
 
 
         function logout() {
-            debugger;
-
+            
             $.ajax({
                 type: "post",
                 url: "/Account/DepartLogout",
                 datatype: "json",
                 traditional: true,
                 success: function (data) {
-                    console.log(data);
-                    window.location.href = '../../Account/DepartmentLogin'';
+                  
+                    window.location.href = '../../Account/DepartmentLogin';
 
                 }
             });
