@@ -431,9 +431,10 @@
                         </div>
                     </div>
                     <div class="d-flex">
-                        <div class="profile-pic">
+                     <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
+                        <div class="profile-pic" id="image-placeholderAdult${appendData}">
 
-                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" data-toggle="modal" data-target="#addImage" height="200">
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageAdult" onclick="previewFileAdult()" >
                             <input id="profile-image-upload" class="hidden" type="file" >
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
@@ -925,19 +926,19 @@ function previewFile() {
 
     //Guest Add on Adult 
 
-var video = document.getElementById('video');
+var video1 = document.getElementById('videoAdult');
 var canvas = document.createElement('canvas');
 var context = canvas.getContext('2d');
 
 navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-    video.srcObject = stream;
-    video.play();
+    video1.srcObject = stream;
+    video1.play();
 }).catch(function (err) {
     console.log(err);
 });
 
-document.getElementById('capture').addEventListener('click', function () {
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+document.getElementById('captureAdult').addEventListener('click', function () {
+    context.drawImage(video1, 0, 0, canvas.width, canvas.height);
     // add time stamp
     const timeNow = new Date()
     context.fillStyle = '#000'
@@ -948,14 +949,14 @@ document.getElementById('capture').addEventListener('click', function () {
     //uploadImage(image);
     //console.log(image)
     // image placeholder where the image will be displayed
-    var imagecapture = document.getElementById('image-capture');
-    var imagePlaceholder = document.getElementById('image-placeholder');
+    var imagecapture = document.getElementById('image-captureAdult');
+    var imagePlaceholder = document.getElementById('image-placeholderAdult'+appendData);
 
     // display the image in placeholder
-    displayBase64Image(imagePlaceholder, imagecapture, image);
+    displayBase64ImageAdult(imagePlaceholder, imagecapture, image);
 });
 
-function displayBase64Image(placeholder, placeholdercapture, base64Image) {
+function displayBase64ImageAdult(placeholder, placeholdercapture, base64Image) {
     var image = document.createElement('img');
     var image1 = document.createElement('img');
     image.onload = function () {
@@ -970,16 +971,16 @@ function displayBase64Image(placeholder, placeholdercapture, base64Image) {
     }
     image1.src = base64Image;
     image.src = base64Image;
-    document.getElementById('guestPhoto').value = base64Image;
+    document.getElementById('guestPhoto'+appendData).value = base64Image;
 }
-function previewFile() {
+function previewFileAdult() {
     navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia ||
         navigator.msGetUserMedia);
 
     navigator.getMedia({ video: true }, function () {
-        $("#addImage").modal({ backdrop: 'static', keyboard: false }, "show");
+        $("#addImageAdult").modal({ backdrop: 'static', keyboard: false }, "show");
     }, function () {
         // webcam is not available
         alert("Web Cam Is Not Available");

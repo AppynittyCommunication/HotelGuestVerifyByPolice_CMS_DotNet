@@ -239,7 +239,7 @@
             </div>
         </div>
         <div class="d-flex">
-            @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
+            @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,Type="hidden"} })
             <div class="profile-pic" id="image-placeholder">
                
                 <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200" onclick="previewFile()">
@@ -270,180 +270,7 @@
         {
             <div class="add-on-guest">
                 <h5>Add-On Guest @(i + 1)</h5>
-               @*  @Html.TextBoxFor(model => model.addOnGuest[i].guestName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.addOnGuest[i].guestName, "", new { @class = "text-danger" }) *@
-               @*  <div class="d-flex">
-                    <div class="form-group">
-                        @Html.EditorFor(model => model.addOnGuest[i].firstName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "First Name"} })
-
-                        @Html.ValidationMessageFor(model =>  model.addOnGuest[i].firstName, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.EditorFor(model => model.addOnGuest[i].lastName, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Last Name"} })
-
-                        @Html.ValidationMessageFor(model => model.addOnGuest[i].lastName, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.EditorFor(model => model.addOnGuest[i].mobile, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Mobile"} })
-
-                        @Html.ValidationMessageFor(model => model.addOnGuest[i].mobile, "", new { @class = "text-danger" })
-                    </div>
-                </div> *@
-               @*  <div class="d-flex">
-
-                    <div class="form-group">
-                        <div class="form-input">
-                            @Html.EditorFor(model => model.addOnGuest[i].email, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Email"} })
-
-                            @Html.ValidationMessageFor(model => model.addOnGuest[i].email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-input">
-                            <select name="Gender" class="form-control" id="genderMain">
-                                <option value="">Select Gender</option>
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
-                            </select>
-                            @Html.ValidationMessageFor(model => model.addOnGuest[i].gender, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-input">
-                            @Html.EditorFor(model => model.addOnGuest[i].age, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Age"} })
-
-                            @Html.ValidationMessageFor(model => model.addOnGuest[i].age, "", new { @class = "text-danger" })
-                        </div>
-
-                    </div>
-                </div> *@
-               @*  <div class="d-flex">
-                    <div class="form-group">
-
-
-
-                        <div class="form-input">
-
-                            <select name="Country" class="form-control" id="countryMain">
-                                <option value="">Select Country</option>
-                                @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
-                            </select>
-
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-
-
-
-                        <div class="form-input">
-
-                            <select name="State" class="form-control" id="stateMain">
-                                <option value="">Select State</option>
-                                @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
-                            </select>
-
-
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-
-
-
-                        <div class="form-input">
-
-                            <select name="District" class="form-control" id="districtMain">
-                                <option value="">Select District</option>
-                                @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
-                            </select>
-
-
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-
-
-
-                        <div class="form-input">
-
-                            <select name="City" class="form-control" id="cityMain">
-                                <option value="">Select City</option>
-                                @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
-                            </select>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-                <div class="d-flex">
-                    <div class="form-group">
-
-
-
-                        <div class="form-input">
-
-                            <select name="VisitPurpose" class="form-control" id="visitMain">
-                                <option value="">Select Visit Purpose</option>
-                                <option value="other">others</option>
-                            </select>
-                            @Html.ValidationMessageFor(model => model.visitPurpose, "", new { @class = "text-danger" })
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-
-
-
-                        <div class="form-input">
-                            @Html.EditorFor(model => model.comingFrom, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form"} })
-
-                            @Html.ValidationMessageFor(model => model.comingFrom, "", new { @class = "text-danger" })
-
-
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-
-
-
-                        <div class="form-input">
-
-                            <select name="guestIdType" class="form-control" id="idtypeMain">
-                                <option value="">Select ID Type</option>
-
-                            </select>
-                            @Html.ValidationMessageFor(model => model.guestIdType, "", new { @class = "text-danger" })
-                        </div>
-
-                    </div>
-                </div>
-                <div class="d-flex">
-                    @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
-                    <div class="profile-pic" id="image-placeholder">
-
-                        <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200" onclick="previewFile()">
-                        @*  <input id="profile-image-upload" class="hidden"> 
-                        <div style="color:#999;">  </div>
-                        <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
-                        <input type="hidden" id="myField" value="" />
-                    </div>
-                    <div class="profile-pic">
-
-                        <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
-                        <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
-                        <div style="color:#999;">  </div>
-                        <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
-                    </div>
-                </div> *@
-                <!-- Add form fields for other AddOnGuestSource properties -->
+              
             </div>
         }
     </div>
@@ -474,6 +301,32 @@
                     </div>
                     <div>
                         <div id="image-capture"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="addImageAdult" role="dialog">
+    <div class="modal-dialog" style="width: 100%;height:100%">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+            <div class="modal-body" style="margin:auto">
+                <div class="d-flex">
+                    <div>
+                        <video id="videoAdult" width="640" height="480" autoplay></video>
+                        <button id="captureAdult">Capture</button>
+                    </div>
+                    <div>
+                        <div id="image-captureAdult"></div>
                     </div>
                 </div>
 
