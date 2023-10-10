@@ -14,6 +14,7 @@
        return false
      }
     });
+       
     $.ajax({
         type: "post",
         url: "/States/CountryList",
@@ -310,7 +311,7 @@
                         <div class="form-group">
 
                            <div class="form-input">
-                                <input class="form-control" id="mobileAdult${appendData}" name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" />
+                                <input class="form-control" id="mobileAdult${appendData}" name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" type="number" onkeypress="checkNumber()" />
                                  <span id="mobileError${appendData}" class="text-red"></span>
                            </div>
 
@@ -331,7 +332,7 @@
 
                                 <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
                                 </select>
-                                 <span id="nameError${appendData}" class="text-red"></span>
+                                 <span id="relationError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -439,10 +440,11 @@
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                         </div>
+                        <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestIDProof" id="guestIdAdult${appendData}" type="hidden" />
                         <div class="profile-pic">
 
-                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
-                            <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="IdProof_Image_Adult" onclick="guestIdproof()"height="200">
+                            <input id="ID_proofUpload_IDAdult" class="hidden" type="file" onchange="previewIdProofAdult()">
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
                         </div>
@@ -460,11 +462,37 @@
         $('#addOnGuestCount').val(addOnGuestCount); // Update the count in the hidden field
     });
 
-
+    function checkNumber(){
+       $("#mobileAdult"+appendData).keypress(function(e) {
+         var value = $("#mobileAdult"+appendData).val();
+        var length = value.length
+       
+        if (length === 10) {
+       return false
+       }
+        
+     })
+     }
+    
     $('#addAddOnChild').click(function () {
+         $("#finalData").hide();
         appendData++
          // For loading all Relation Type  List
-   
+      $.ajax({
+        type: "post",
+        url: "/States/RelationTypeList",
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            relationlist = '<option value="">Select Relation</option>';
+            for (var i = 0; i < data.length; i++) {
+                relationlist = relationlist + "<option value=" + data[i].id + ">" + data[i].name + "</option>";
+            }
+            //district = district + '</select>';
+            $("#relationAdult"+appendData).html(relationlist);
+        },
+    });
         $("#mainHotelGuest").hide();
         var name = $("#firstName").val();
        
@@ -488,13 +516,14 @@
                         <div class="form-group">
                          <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Child" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameChild" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
-        
+                                <input class="form-control" id="firstNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+                                      <span id="nameError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameChild" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                                <input class="form-control" id="lastNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" /> 
+                                  <span id="lastError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                   
@@ -507,26 +536,27 @@
 
                                 <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
                                 </select>
-
+                                  <span id="relationError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
                         <div class="form-group">
                         <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderChild">
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderChild${appendData}">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
                                 </select>
-
+                                  <span id="genderError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
 
                         <div class="form-group">
                       <div class="form-input">
-                                <input class="form-control" id="ageChild" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                <input class="form-control" id="ageChild${appendData}" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                  <span id="ageError${appendData}" class="text-red"></span>
                             </div>
 
                         </div>
@@ -534,9 +564,10 @@
 
                    
                     <div class="d-flex">
-                        <div class="profile-pic">
+                      <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
+                        <div class="profile-pic" id="image-Child${appendData}" style="justify-content: end;width: 62%;">
 
-                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" data-toggle="modal" data-target="#addImage" height="200">
+                            <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageChild" onclick="previewFileChild()">
                             <input id="profile-image-upload" class="hidden" type="file" >
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
@@ -544,7 +575,7 @@
                        
                     </div>
                     <div class="text-center">
-                        <button class="addbtn btn btn-md" type="button" onclick="showCardAdult()">Done</button>
+                        <button class="addbtn btn btn-md" type="button" onclick="showCardChild()">Done</button>
                     </div>
                 </div>
                     </div>
@@ -841,10 +872,63 @@
               return false
           }
     }
-       function showCardChild(){
-        alert()
+
+
+ function showCardChild(){
+        alert();
+
+      
+  var name = $("#firstNameChild"+appendData).val();
+  var lastname = $("#lastNameChild"+appendData).val();
+ 
+  var age = $("#ageChild"+appendData).val();
+  var gender = $("#genderChild"+appendData).val();
+
+  var valid = 0;
+ 
+ 
+  /* Name validation */
+  
+   if (name==""){
+    document.getElementById("nameError"+appendData).innerHTML = "Pleae Enter First Name";
+  } else {       document.getElementById("nameError"+appendData).innerHTML = "";
+    valid++;
+  }
+
+   if (lastname == ""){
+    document.getElementById("lastError"+appendData).innerHTML = "Pleae Enter Last Name";
+  } else {
+    document.getElementById("lastError"+appendData).innerHTML = "";
+    valid++;
+  }
+  
+   
+  
+   /* Gender validation */
+  if (gender == ""){
+    document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
+  } else {
+    document.getElementById("genderError"+appendData).innerHTML = "";
+    valid++;
+  }
+  if (age == ""){
+    document.getElementById("ageError"+appendData).innerHTML = "Please Enter Age";
+  } 
+  else if (age > 18 || age < 0){
+    document.getElementById("ageError"+appendData).innerHTML = "Age must be between 0 and 18.";
+  }  else {
+    document.getElementById("ageError"+appendData).innerHTML = "";
+    valid++;
+  }
+     if (valid == 4)  {
+     }else{
+     return false
+     }
+  
         $("#mainHotelGuest").hide();
-        $("#finalData"+addOnGuestCount).show();
+        $("#formAdult"+appendData).hide();
+        $("#finalData").show();
+        
 
          document.querySelector('#displayFormData').innerHTML += `
          <div class="card">
@@ -853,7 +937,7 @@
         
          </div>
          <div style="margin-left:4%">
-                 <h3><span>Name:</span>${$("#firstName").val() }</h3>
+                 <h3><span>Name:</span>${$("#firstNameChild"+appendData).val()  }</h3>
                     
                      </div>
                   </div>
@@ -988,6 +1072,74 @@ function previewFileAdult() {
 }
 
 
+ //Guest Add on Child 
+
+var video2 = document.getElementById('videoChild');
+var canvas = document.createElement('canvas');
+var context = canvas.getContext('2d');
+
+navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+    video2.srcObject = stream;
+    video2.play();
+}).catch(function (err) {
+    console.log(err);
+});
+
+document.getElementById('ChildImage').addEventListener('click', function () {
+    context.drawImage(video2, 0, 0, canvas.width, canvas.height);
+    // add time stamp
+    const timeNow = new Date()
+    context.fillStyle = '#000'
+    context.fontSize = '10px'
+    context.fillText(timeNow, 0, canvas.height - 5)
+
+    var image = canvas.toDataURL();
+    //uploadImage(image);
+    //console.log(image)
+    // image placeholder where the image will be displayed
+    var imagecapture = document.getElementById('image-captureChild');
+    var imagePlaceholder = document.getElementById('image-Child'+appendData);
+
+    // display the image in placeholder
+    displayBase64ImageAdult(imagePlaceholder, imagecapture, image);
+});
+
+function displayBase64ImageAdult(placeholder, placeholdercapture, base64Image) {
+    var image = document.createElement('img');
+    var image1 = document.createElement('img');
+    image.onload = function () {
+        placeholdercapture.innerHTML = '';
+        placeholdercapture.appendChild(this);
+
+    }
+    image1.onload = function () {
+
+        placeholder.innerHTML = '';
+        placeholder.appendChild(this);
+    }
+    image1.src = base64Image;
+    image.src = base64Image;
+    document.getElementById('guestPhoto'+appendData).value = base64Image;
+}
+function previewFileChild() {
+    navigator.getMedia = (navigator.getUserMedia || // use the proper vendor prefix
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
+
+    navigator.getMedia({ video: true }, function () {
+        $("#addImageChild").modal({ backdrop: 'static', keyboard: false }, "show");
+    }, function () {
+        // webcam is not available
+        alert("Web Cam Is Not Available");
+    });
+}
+
+
+
+
+
+
 //Id Photo File Upload
 
 
@@ -1011,3 +1163,31 @@ function previewFileAdult() {
             $('#profile-image-upload_ID').click();
         });
     });
+
+
+
+//Id Photo File Upload Adult
+
+
+
+      function previewIdProofAdult() {
+          
+        var preview = document.querySelector('#IdProof_Image_Adult');
+        var file = document.querySelector('#ID_proofUpload_IDAdult').files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+            document.getElementById('guestIdAdult'+appendData).value = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function guestIdproof(){
+alert();
+ $('#ID_proofUpload_IDAdult').click();
+    }
+    
