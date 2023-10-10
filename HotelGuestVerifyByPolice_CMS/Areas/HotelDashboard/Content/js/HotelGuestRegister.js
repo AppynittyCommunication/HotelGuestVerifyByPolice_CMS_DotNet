@@ -633,6 +633,8 @@
   var idProof = $("#idtypeMain").val();
   var valid = 0;
   var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  var guestPhoto=$("#guestPhoto").val();
+  var guestIDProof=$("#guestIDProof").val();
  
   /* Name validation */
   
@@ -722,6 +724,26 @@
     document.getElementById("idproofError").innerHTML = "";
     valid++;
   }
+   if (guestPhoto == null){
+    document.getElementById("guestPhotoError").innerHTML = "Please Take Guest photo";
+  } else {
+    document.getElementById("guestPhotoError").innerHTML = "";
+    valid++;
+  }
+  if (guestIDProof == null){
+    document.getElementById("guestIDProofError").innerHTML = "Please Upload Guest Id";
+  } else {
+    document.getElementById("guestIDProofError").innerHTML = "";
+    valid++;
+  }
+
+   if (idProof == ""){
+    document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+  } else {
+    document.getElementById("idproofError").innerHTML = "";
+    valid++;
+  }
+
   /* Age validation */
   
   
@@ -732,7 +754,7 @@
   
   /* Final validation */
   
-   if (valid == 13)  {
+   if (valid == 15)  {
        $("#mainHotelGuest").hide();
         $("#finalData").show();
 
@@ -774,6 +796,7 @@
   var visitPurpose = $("#visitAdult"+appendData).val();
   var comingForm = $("#comingAdult"+appendData).val();
   var idProof = $("#idTypeAdult"+appendData).val();
+  var guestPhoto=$("#idTypeAdult"+appendData).val();
   var valid = 0;
   var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
  

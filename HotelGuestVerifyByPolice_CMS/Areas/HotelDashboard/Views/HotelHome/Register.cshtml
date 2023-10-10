@@ -241,12 +241,14 @@
         <div class="d-flex">
             @Html.EditorFor(model => model.guestPhoto, new { htmlAttributes = new { @class = "form-control" ,Type="hidden"} })
             <div class="profile-pic" id="image-placeholder">
-               
+              
                 <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1" height="200" onclick="previewFile()">
+              
                 @*  <input id="profile-image-upload" class="hidden"> *@
                 <div style="color:#999;">  </div>
                 <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                 <input type="hidden" id="myField" value="" />
+                
             </div>
             <div class="profile-pic">
                 @Html.EditorFor(model => model.guestIDProof, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
@@ -256,6 +258,17 @@
                 <div style="color:#999;">  </div>
                 <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
             </div>
+        </div>
+          <div class="d-flex" style="margin-top:20px"> 
+         
+          
+              
+                 <div> <span class="text-red" id="guestPhotoError"></span></div>
+                
+           
+           
+                <div> <span class="text-red" id="guestPhotoError"></span></div>
+           
         </div>
         <div  class="text-center" style="margin-top:5%"><button type="button" class="addbtn btn btn-md" onclick="showCard()">Done</button></div>
     </div>
