@@ -1045,6 +1045,11 @@
   
        
     }
+
+
+
+    //Guest Main Take Photo
+
 var video = document.getElementById('video');
 var canvas = document.createElement('canvas');
 var context = canvas.getContext('2d');
