@@ -147,6 +147,8 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
 
         public ActionResult SearchHotel()
         {
+
+
             string departuser = _contx.HttpContext.Session.GetString("departUser");
             string departtype = _contx.HttpContext.Session.GetString("dusertype");
             string dstateID = _contx.HttpContext.Session.GetString("dstateid");
@@ -154,12 +156,6 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             string dcityID = _contx.HttpContext.Session.GetString("dcityid");
             string dStationCode = _contx.HttpContext.Session.GetString("dstationcode");
 
-            ViewBag.departuser = departuser;
-            ViewBag.dType = departtype;
-            ViewBag.dStateId = dstateID;
-            ViewBag.dDistId = ddistID;
-            ViewBag.dCityId = dcityID;
-            ViewBag.dSCode = dStationCode;
             if (string.IsNullOrEmpty(departuser))
             {
                 // return RedirectToAction("HotelLogin", "Account");
@@ -167,17 +163,32 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             }
             else
             {
-                var model = new DeptSearchHotelRes
+                ViewBag.departuser = departuser;
+                ViewBag.dType = departtype;
+                ViewBag.dStateId = dstateID;
+                ViewBag.dDistId = ddistID;
+                ViewBag.dCityId = dcityID;
+                ViewBag.dSCode = dStationCode;
+                if (string.IsNullOrEmpty(departuser))
                 {
-                    // Initialize the addOnGuest property as an empty list
-                   
-                    hotelGuests = new List<HotelGuest>(),
-                };
+                    // return RedirectToAction("HotelLogin", "Account");
+                    return Redirect("/Account/DepartmentLogin");
+                }
+                else
+                {
+                    var model = new DeptSearchHotelRes
+                    {
+                        // Initialize the addOnGuest property as an empty list
 
-                return View(model);
+                        hotelGuests = new List<HotelGuest>(),
+                    };
 
-                
+                    return View(model);
+
+
+                }
             }
+            
         }
 
         [HttpPost]
@@ -193,76 +204,85 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                 string dcityID = _contx.HttpContext.Session.GetString("dcityid");
                 string dStationCode = _contx.HttpContext.Session.GetString("dstationcode");
 
-                ViewBag.departuser = departuser;
-                ViewBag.dType = departtype;
-                ViewBag.dStateId = dstateID;
-                ViewBag.dDistId = ddistID;
-                ViewBag.dCityId = dcityID;
-                ViewBag.dSCode = dStationCode;
-
-                DeptSearchHotelRes deptSearchHotelRes = new();
-                deptSearchHotelRes.hotelTitle = new();
-                deptSearchHotelRes.hotelGuests = new();
-                deptSearchHotelRes.lastVisitors = new();
-                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                _httpClient.DefaultRequestHeaders.Add("hotelRegNo", obj.hotelRegNo);
-                HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/SearchHotel");
-
-                if (response.IsSuccessStatusCode)
+                if (string.IsNullOrEmpty(departuser))
                 {
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
-
-                    deptSearchHotelRes.code = dynamicobject.code;
-                    deptSearchHotelRes.status = dynamicobject.status;
-                    deptSearchHotelRes.message = dynamicobject.message;
-
-                    if (dynamicobject.hotelTitle != null)
-                    {
-                        deptSearchHotelRes.hotelTitle.hotelName = dynamicobject.hotelTitle.hotelName;
-                        deptSearchHotelRes.hotelTitle.mobile = dynamicobject.hotelTitle.mobile;
-                        deptSearchHotelRes.hotelTitle.address = dynamicobject.hotelTitle.address;
-                        deptSearchHotelRes.hotelTitle.city = dynamicobject.hotelTitle.city;
-                        deptSearchHotelRes.hotelTitle.policeSation = dynamicobject.hotelTitle.policeSation;
-
-                    }
-                    if (dynamicobject.hotelGuests != null)
-                    {
-                        foreach (var h in dynamicobject.hotelGuests)
-                        {
-                            deptSearchHotelRes.hotelGuests.Add(new HotelGuest
-                            {
-                                guestName = h.guestName,
-                                reservation = h.reservation,
-                                nightStayed = h.nightStayed,
-                                lastVisit = h.lastVisit,
-                                mobile = h.mobile,
-                                city = h.city,
-                                address = h.address,
-                                country = h.country,
-                            });
-                        }
-                    }
-                    if (dynamicobject.lastVisitors != null)
-                    {
-                        deptSearchHotelRes.lastVisitors.guestName = dynamicobject.lastVisitors.guestName;
-                        deptSearchHotelRes.lastVisitors.age = dynamicobject.lastVisitors.age;
-                        deptSearchHotelRes.lastVisitors.city = dynamicobject.lastVisitors.city;
-                        deptSearchHotelRes.lastVisitors.purpose = dynamicobject.lastVisitors.purpose;
-                        deptSearchHotelRes.lastVisitors.commingFrom = dynamicobject.lastVisitors.commingFrom;
-                        deptSearchHotelRes.lastVisitors.reservaion = dynamicobject.lastVisitors.reservaion;
-                        deptSearchHotelRes.lastVisitors.checkInDate = dynamicobject.lastVisitors.checkInDate;
-                        deptSearchHotelRes.lastVisitors.guestPhoto = dynamicobject.lastVisitors.photo;
-
-
-                    }
-
-                    return View(deptSearchHotelRes);
+                    // return RedirectToAction("HotelLogin", "Account");
+                    return Redirect("/Account/DepartmentLogin");
                 }
                 else
                 {
-                    return View(obj);
+                    ViewBag.departuser = departuser;
+                    ViewBag.dType = departtype;
+                    ViewBag.dStateId = dstateID;
+                    ViewBag.dDistId = ddistID;
+                    ViewBag.dCityId = dcityID;
+                    ViewBag.dSCode = dStationCode;
+
+                    DeptSearchHotelRes deptSearchHotelRes = new();
+                    deptSearchHotelRes.hotelTitle = new();
+                    deptSearchHotelRes.hotelGuests = new();
+                    deptSearchHotelRes.lastVisitors = new();
+                    _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    _httpClient.DefaultRequestHeaders.Add("hotelRegNo", obj.hotelRegNo);
+                    HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/SearchHotel");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseString = await response.Content.ReadAsStringAsync();
+                        var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                        deptSearchHotelRes.code = dynamicobject.code;
+                        deptSearchHotelRes.status = dynamicobject.status;
+                        deptSearchHotelRes.message = dynamicobject.message;
+
+                        if (dynamicobject.hotelTitle != null)
+                        {
+                            deptSearchHotelRes.hotelTitle.hotelName = dynamicobject.hotelTitle.hotelName;
+                            deptSearchHotelRes.hotelTitle.mobile = dynamicobject.hotelTitle.mobile;
+                            deptSearchHotelRes.hotelTitle.address = dynamicobject.hotelTitle.address;
+                            deptSearchHotelRes.hotelTitle.city = dynamicobject.hotelTitle.city;
+                            deptSearchHotelRes.hotelTitle.policeSation = dynamicobject.hotelTitle.policeSation;
+
+                        }
+                        if (dynamicobject.hotelGuests != null)
+                        {
+                            foreach (var h in dynamicobject.hotelGuests)
+                            {
+                                deptSearchHotelRes.hotelGuests.Add(new HotelGuest
+                                {
+                                    guestName = h.guestName,
+                                    reservation = h.reservation,
+                                    nightStayed = h.nightStayed,
+                                    lastVisit = h.lastVisit,
+                                    mobile = h.mobile,
+                                    city = h.city,
+                                    address = h.address,
+                                    country = h.country,
+                                });
+                            }
+                        }
+                        if (dynamicobject.lastVisitors != null)
+                        {
+                            deptSearchHotelRes.lastVisitors.guestName = dynamicobject.lastVisitors.guestName;
+                            deptSearchHotelRes.lastVisitors.age = dynamicobject.lastVisitors.age;
+                            deptSearchHotelRes.lastVisitors.city = dynamicobject.lastVisitors.city;
+                            deptSearchHotelRes.lastVisitors.purpose = dynamicobject.lastVisitors.purpose;
+                            deptSearchHotelRes.lastVisitors.commingFrom = dynamicobject.lastVisitors.commingFrom;
+                            deptSearchHotelRes.lastVisitors.reservaion = dynamicobject.lastVisitors.reservaion;
+                            deptSearchHotelRes.lastVisitors.checkInDate = dynamicobject.lastVisitors.checkInDate;
+                            deptSearchHotelRes.lastVisitors.guestPhoto = dynamicobject.lastVisitors.photo;
+
+
+                        }
+
+                        return View(deptSearchHotelRes);
+                    }
+                    else
+                    {
+                        return View(obj);
+                    }
                 }
+               
             }
             else
             {
