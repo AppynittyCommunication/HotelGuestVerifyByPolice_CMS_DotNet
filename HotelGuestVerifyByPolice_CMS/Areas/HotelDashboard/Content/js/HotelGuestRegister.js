@@ -907,7 +907,7 @@
 
 
  function showCardChild(){
-        alert();
+        //alert();
 
       
   var name = $("#firstNameChild"+appendData).val();
@@ -958,12 +958,8 @@
     document.getElementById("ageError"+appendData).innerHTML = "";
     valid++;
   }
-     if (valid == 4)  {
-     }else{
-     return false
-     }
-  
-        $("#mainHotelGuest").hide();
+     if (valid == 5)  {
+          $("#mainHotelGuest").hide();
         $("#formAdult"+appendData).hide();
         $("#finalData").show();
         
@@ -981,6 +977,11 @@
                   </div>
            </div>
           `;
+     }else{
+     return false
+     }
+  
+       
     }
 var video = document.getElementById('video');
 var canvas = document.createElement('canvas');
