@@ -14,7 +14,16 @@
        return false
      }
     });
-       
+     	jQuery('#firstName').keyup(function() {
+		var caps = jQuery('#firstName').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#firstName').val(caps);
+	}); 
+    jQuery('#lastName').keyup(function() {
+		var caps = jQuery('#lastName').val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#lastName').val(caps);
+	}); 
     $.ajax({
         type: "post",
         url: "/States/CountryList",
@@ -298,13 +307,13 @@
                         <div class="form-group">
                          <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Adult" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+                                <input class="form-control" id="firstNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" onkeypress="capFirstleter()" />
                                 <span id="nameError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" />
+                                <input class="form-control" id="lastNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" onkeypress="capLastleter()"/>
                                      <span id="lastError${appendData}" class="text-red"></span>
                                 </div>
                         </div>
@@ -473,7 +482,23 @@
         
      })
      }
-    
+     function capFirstleter(){
+    jQuery('#firstNameAdult'+appendData).keyup(function() {
+		var caps = jQuery('#firstNameAdult'+appendData).val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#firstNameAdult'+appendData).val(caps);
+	});}
+
+
+     function capLastleter(){
+    jQuery('#lastNameAdult'+appendData).keyup(function() {
+		var caps = jQuery('#lastNameAdult'+appendData).val(); 
+		caps = caps.charAt(0).toUpperCase() + caps.slice(1);
+        jQuery('#lastNameAdult'+appendData).val(caps);
+	});}
+
+
+
     $('#addAddOnChild').click(function () {
          $("#finalData").hide();
         appendData++
@@ -490,7 +515,7 @@
                 relationlist = relationlist + "<option value=" + data[i].id + ">" + data[i].name + "</option>";
             }
             //district = district + '</select>';
-            $("#relationAdult"+appendData).html(relationlist);
+            $("#relationChild"+appendData).html(relationlist);
         },
     });
         $("#mainHotelGuest").hide();
@@ -534,7 +559,7 @@
 
                             <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationChild${appendData}">
                                 </select>
                                   <span id="relationError${appendData}" class="text-red"></span>
                             </div>
@@ -565,7 +590,7 @@
                    
                     <div class="d-flex">
                       <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
-                        <div class="profile-pic" id="image-Child${appendData}" style="justify-content: end;width: 62%;">
+                        <div class="profile-pic" id="image-Child${appendData}" style="justify-content: start">
 
                             <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageChild" onclick="previewFileChild()">
                             <input id="profile-image-upload" class="hidden" type="file" >
@@ -739,7 +764,8 @@
   var lastname = $("#lastNameAdult"+appendData).val();
   var mobile = $("#mobileAdult"+appendData).val();
   var email = $("#emailAdult"+appendData).val();
-   var age = $("#ageAdult"+appendData).val();
+  var relation = $("#relationAdult"+appendData).val();
+  var age = $("#ageAdult"+appendData).val();
   var gender = $("#genderAdult"+appendData).val();
   var country = $("#countryAdult"+appendData).val();
   var state = $("#stateAdult"+appendData).val();
@@ -781,6 +807,12 @@
        document.getElementById("emailError"+appendData).innerHTML = "Please Enter Valid  Email";
    
    }
+   if (relation == ""){
+    document.getElementById("relationError"+appendData).innerHTML = "Please Select Relation With Guest";
+  } else {
+    document.getElementById("relationError"+appendData).innerHTML = "";
+    valid++;
+  }
    /* Gender validation */
   if (gender == ""){
     document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
@@ -850,7 +882,7 @@
   /* Final validation */
   
 
-   if (valid == 12)  {
+   if (valid == 13)  {
         
         $("#mainHotelGuest").hide();
         $("#formAdult"+appendData).hide();
@@ -880,7 +912,7 @@
       
   var name = $("#firstNameChild"+appendData).val();
   var lastname = $("#lastNameChild"+appendData).val();
- 
+  var relation = $("#relationChild"+appendData).val();
   var age = $("#ageChild"+appendData).val();
   var gender = $("#genderChild"+appendData).val();
 
@@ -909,6 +941,12 @@
     document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
   } else {
     document.getElementById("genderError"+appendData).innerHTML = "";
+    valid++;
+  }
+  if (relation == ""){
+    document.getElementById("relationError"+appendData).innerHTML = "Please Select Relation With Guest";
+  } else {
+    document.getElementById("relationError"+appendData).innerHTML = "";
     valid++;
   }
   if (age == ""){
