@@ -610,6 +610,16 @@
                         </div>
                        
                     </div>
+                    <div class="d-flex" style="margin-top:20px;justify-content: start;"> 
+         
+          
+              
+                 <div> <span class="text-red" id="guestPhotoError${appendData}"></span></div>
+
+                 </div>
+
+          
+           
                     <div class="text-center">
                         <button class="addbtn btn btn-md" type="button" onclick="showCardChild()">Done</button>
                     </div>
@@ -961,7 +971,7 @@
   var relation = $("#relationChild"+appendData).val();
   var age = $("#ageChild"+appendData).val();
   var gender = $("#genderChild"+appendData).val();
-
+   var guestPhoto=$("#guestPhoto"+appendData).val();
   var valid = 0;
  
  
@@ -1004,7 +1014,13 @@
     document.getElementById("ageError"+appendData).innerHTML = "";
     valid++;
   }
-     if (valid == 5)  {
+     if (guestPhoto == ""){
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "Please Take Guest photo";
+  } else {
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "";
+    valid++;
+  }
+     if (valid == 6)  {
           $("#mainHotelGuest").hide();
         $("#formAdult"+appendData).hide();
         $("#finalData").show();
