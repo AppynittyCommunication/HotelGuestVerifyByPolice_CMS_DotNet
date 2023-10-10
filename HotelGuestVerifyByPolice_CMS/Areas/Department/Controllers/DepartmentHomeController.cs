@@ -191,6 +191,38 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             
         }
 
+     
+        public async Task<ActionResult> ShowHotelGuestDetails(string roombookingId)
+        {
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("roomBookingID", roombookingId);
+            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/ShowHotelGuestDetails");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                ShowHotelGuestDetailsRes GuestDetailsResponce = JsonConvert.DeserializeObject<ShowHotelGuestDetailsRes>(responseString);
+
+                var code = GuestDetailsResponce.code;
+                var status = GuestDetailsResponce.status;
+                var message = GuestDetailsResponce.message;
+
+                if(status == "success")
+                {
+                    return Json(GuestDetailsResponce);
+                }
+                else
+                {
+                    return Json("");
+                }
+
+            }
+            else
+            {
+                return Json(response);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> SearchHotel(HotelSearchFormModal obj)
         {
