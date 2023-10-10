@@ -458,6 +458,17 @@
                             <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
                         </div>
                     </div>
+                     <div class="d-flex" style="margin-top:20px;justify-content: space-around;"> 
+         
+          
+              
+                 <div> <span class="text-red" id="guestPhotoError${appendData}"></span></div>
+
+
+
+            <div> <span class="text-red" id="guestIDProofError${appendData}"></span></div>
+           
+        </div>
                     <div class="text-center">
                         <button class="addbtn btn btn-md" type="button" onclick="showCardAdult()">Done</button>
                     </div>
@@ -724,13 +735,13 @@
     document.getElementById("idproofError").innerHTML = "";
     valid++;
   }
-   if (guestPhoto == null){
+   if (guestPhoto == ""){
     document.getElementById("guestPhotoError").innerHTML = "Please Take Guest photo";
   } else {
     document.getElementById("guestPhotoError").innerHTML = "";
     valid++;
   }
-  if (guestIDProof == null){
+  if (guestIDProof == ""){
     document.getElementById("guestIDProofError").innerHTML = "Please Upload Guest Id";
   } else {
     document.getElementById("guestIDProofError").innerHTML = "";
@@ -799,7 +810,8 @@
   var guestPhoto=$("#idTypeAdult"+appendData).val();
   var valid = 0;
   var pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
- 
+ var guestPhoto=$("#guestPhoto"+appendData).val();
+  var guestIDProof=$("#guestIdAdult"+appendData).val();
   /* Name validation */
   
    if (name==""){
@@ -896,7 +908,18 @@
   }
   /* Age validation */
   
-  
+   if (guestPhoto == ""){
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "Please Take Guest photo";
+  } else {
+    document.getElementById("guestPhotoError"+appendData).innerHTML = "";
+    valid++;
+  }
+  if (guestIDProof == ""){
+    document.getElementById("guestIDProofError"+appendData).innerHTML = "Please Upload Guest Id";
+  } else {
+    document.getElementById("guestIDProofError"+appendData).innerHTML = "";
+    valid++;
+  }
   
   /* Hometown validation */
   
@@ -905,7 +928,7 @@
   /* Final validation */
   
 
-   if (valid == 13)  {
+   if (valid == 15)  {
         
         $("#mainHotelGuest").hide();
         $("#formAdult"+appendData).hide();
