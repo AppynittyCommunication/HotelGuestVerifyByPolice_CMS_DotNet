@@ -404,9 +404,7 @@
                                 
                                 
                                 <br />
-                                <ul id="data-list">
-                                    <li></li>
-                                </ul>
+                                <ul id="addOnGuestList"></ul>
 
                                 <br />
                                 
@@ -492,6 +490,7 @@
         $('[data-toggle="modal"]').click(function () {
             const divId = $(this).data('div-id');
             const dataToSend = `divId=${divId}`;
+            const addOnGuestListElement = document.getElementById("addOnGuestList");
             debugger;
             // Make a POST request to your server route with data as a string using $.ajax
             $.ajax({
@@ -501,7 +500,7 @@
                 success: function (data) {
                  
                     
-                    //console.log(data.hotelGuestDetails);
+                    console.log(data);
                     var imageSrc = data.hotelGuestDetails[0].guestPhoto;
                     var default_img = '../Areas/Department/Content/Images/Icons/avatars.jpg';
                     //console.log(imageSrc);
@@ -523,17 +522,16 @@
                     $('#city').text(data.hotelGuestDetails[0].city);
                     $('#addr').text(data.hotelGuestDetails[0].address);
 
-                   // loop
-                    // $.each(data.hotelGuestDetails, function (index, value) {
-                    //     // Clone the template li element
-                    //     var listItem = $("#data-list li").clone();
+                 
 
-                    //     // Set the text of the list item to the current data item
-                    //     listItem.text(value);
-
-                    //     // Append the list item to the ul
-                    //     $("#data-list").append(listItem);
-                    // });
+                    // Populate the "addOnGuestDetails1" data
+                    const addOnGuestDetails = data.addOnGuestDetails1;
+                    addOnGuestListElement.innerHTML = "";
+                    for (const guest of addOnGuestDetails) {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `Relation: ${guest.relationWithGuest}, Name: ${guest.guestName}`;
+                        addOnGuestListElement.appendChild(listItem);
+                    }
 
                     $("#tab011").addClass("show");
                     $('#resultModal').modal('show');
