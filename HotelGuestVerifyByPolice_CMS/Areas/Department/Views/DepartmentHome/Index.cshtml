@@ -503,8 +503,16 @@
                     
                     //console.log(data.hotelGuestDetails);
                     var imageSrc = data.hotelGuestDetails[0].guestPhoto;
+                    var default_img = '../Areas/Department/Content/Images/Icons/avatars.jpg';
                     //console.log(imageSrc);
-                    $("#imageDisplay").attr("src", "data:image/jpeg;base64," + imageSrc);
+                    if (imageSrc != null || imageSrc != "null") {
+                        $("#imageDisplay").attr("src", "data:image/jpeg;base64," + imageSrc);
+                    }
+                    else
+                    {
+                        $("#imageDisplay").attr("src", default_img);
+                    }
+                   
                     $('#title').text(data.hotelGuestDetails[0].guestName);
                     $('#name').text(data.hotelGuestDetails[0].guestName);
                     $('#mobile').text(data.hotelGuestDetails[0].mobile);
