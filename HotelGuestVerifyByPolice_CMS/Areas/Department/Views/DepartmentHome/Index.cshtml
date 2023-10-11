@@ -148,6 +148,10 @@
         height : 50px;
         border-radius : 50%;
     }
+
+    #addOnGuestDetailsModal{
+        display:none;
+    }
     .modal{
         right:0;
         transition: 0.5s; /* Add a transition for smooth opening */
@@ -354,30 +358,34 @@
 
 
                         <div class="modal-header">
-                            <div id="title" >
-                        </div>
-
-                        <div>
-                                <img id="imageDisplay" src="" alt="Image">
-                        </div>
-
-                        <br />
-
-                            <div class="tabs active" id="tab01">
-                                <h6 class="text-muted">Guest Details</h6>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-2" style="margin-left: -25px;">
+                                        <button type="button" class="close" data-dismiss="modal" style="font-size: 30px;">&times;</button>
+                                    </div>
+                                  
+                                    <div class="col-md-10" style="margin-top: 35px;margin-left: -20px;">
+                                        <img id="imageDisplay" src="" alt="Image"/>
+                                        <span id="title"></span>
+                                    </div>
+                                
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 tabs active" id="tab01">
+                                        <h6 class="text-muted">Guest Details</h6>
+                                    </div>
+                                    <div class="col-md-3 tabs" id="tab02">
+                                        <h6 class="text-muted">Stay Details</h6>
+                                    </div>
+                                    <div class="col-md-3 tabs" id="tab03">
+                                        <h6 class="text-muted">Documents</h6>
+                                    </div>
+                                    <div class="col-md-3 tabs" id="tab04">
+                                        <h6 class="text-muted">Remarks</h6>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tabs" id="tab02">
-                                <h6 class="text-muted">Stay Details</h6>
-                            </div>
-                            <div class="tabs" id="tab03">
-                                <h6 class="text-muted">Documents</h6>
-                            </div>
-                            <div class="tabs" id="tab04">
-                                <h6 class="text-muted">Remarks</h6>
-                            </div>
-
-
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                         
                         </div>
                         <div class="modal-body">
                             <!-- API result will be displayed here -->
@@ -410,13 +418,16 @@
                                 <h6><span>Address  </span></h6>
                                 <h6><span id="addr"></span></h6>
                                 <br />
-                                <h3>FAMAILY MEMBER</h3>
-                                
-                                
-                                <br />
-                                <ul id="addOnGuestList"></ul>
+                                <div id="addOnGuestDetailsModal">
+                                    <h3>FAMAILY MEMBER</h3>
 
-                                <br />
+
+                                    <br />
+                                    <ul id="addOnGuestList"></ul>
+
+                                    <br />
+                                </div>
+                              
                                 
                             </fieldset>
 
@@ -500,6 +511,7 @@
         $('[data-toggle="modal"]').click(function () {
             const divId = $(this).data('div-id');
             const dataToSend = `divId=${divId}`;
+              var showAddOnDetails = document.getElementById('addOnGuestDetailsModal');
             const addOnGuestListElement = document.getElementById("addOnGuestList");
             debugger;
             // Make a POST request to your server route with data as a string using $.ajax
@@ -533,15 +545,21 @@
                     $('#addr').text(data.hotelGuestDetails[0].address);
 
                  
-
-                    // Populate the "addOnGuestDetails1" data
-                    const addOnGuestDetails = data.addOnGuestDetails1;
-                    addOnGuestListElement.innerHTML = "";
-                    for (const guest of addOnGuestDetails) {
-                        const listItem = document.createElement("li");
-                        listItem.textContent = `Relation: ${guest.relationWithGuest}, Name: ${guest.guestName}`;
-                        addOnGuestListElement.appendChild(listItem);
+                    if (data.addOnGuestDetails1.length > 0) {
+                        showAddOnDetails.style.display = "block";
+                        // Populate the "addOnGuestDetails1" data
+                        const addOnGuestDetails = data.addOnGuestDetails1;
+                        addOnGuestListElement.innerHTML = "";
+                        for (const guest of addOnGuestDetails) {
+                            const listItem = document.createElement("li");
+                            listItem.textContent = `Relation: ${guest.relationWithGuest}, Name: ${guest.guestName}`;
+                            addOnGuestListElement.appendChild(listItem);
+                        }
+                    }else{
+                          showAddOnDetails.style.display = "none";
+                           addOnGuestListElement.innerHTML = "";
                     }
+                  
 
                     $("#tab011").addClass("show");
                     $('#resultModal').modal('show');
