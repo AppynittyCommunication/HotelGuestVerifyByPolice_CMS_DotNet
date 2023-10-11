@@ -337,7 +337,7 @@
             @*    </marquee> *@
 
             <!-- The Modal -->
-            <div class="modal fade  come-from-modal right" id="resultModal">
+            <div class="modal" id="resultModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
 
@@ -499,13 +499,13 @@
                 url: '/Department/DepartmentHome/ShowHotelGuestDetails',
                 data: { roombookingId: divId },
                 success: function (data) {
-                    $("#tab011").addClass("show");
+                 
                     
                     //console.log(data.hotelGuestDetails);
                     var imageSrc = data.hotelGuestDetails[0].guestPhoto;
                     var default_img = '../Areas/Department/Content/Images/Icons/avatars.jpg';
                     //console.log(imageSrc);
-                    if (imageSrc != null || imageSrc != "null") {
+                    if (imageSrc != null) {
                         $("#imageDisplay").attr("src", "data:image/jpeg;base64," + imageSrc);
                     }
                     else
@@ -535,7 +535,7 @@
                     //     $("#data-list").append(listItem);
                     // });
 
-
+                    $("#tab011").addClass("show");
                     $('#resultModal').modal('show');
                 },
                 error: function (error) {
