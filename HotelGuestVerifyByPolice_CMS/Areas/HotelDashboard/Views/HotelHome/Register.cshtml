@@ -79,6 +79,12 @@
     }
      .px-5{padding-left:5%;padding-right:2%}
      .text-red{color:red}
+    .card {
+            margin: 0 -8px 32px -8px;
+            color: rgba(0, 0, 0, 0.87);
+            box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+            background:#fff;
+        }
 </style>
 <form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
     <div id="mainHotelGuest" class="formCheckIn px-5">
@@ -292,7 +298,12 @@
     <div id="finalData">
     <div style="text-align:end"><button type="button" class="addbtn btn btn-md" id="addAddOnGuest">Add-On Guest</button>
     <button type="button"class="addbtn btn btn-md" id="addAddOnChild">Add-On Child</button></div>
-     <div id="displayFormData"></div>
+     <div id="displayFormData">
+<div id="mainFormData">
+     </div>
+     <div id="childFormData">
+     </div>
+     </div>
         <div id="submitbtn" style="text-align:center"><button type="submit" class="btn btn-primary">Submit</button></div>
     </div>
 </form>

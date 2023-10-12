@@ -296,12 +296,12 @@
          
         var addOnGuestHtml = `
         
-                    <div class="add-on-guest">
+                    <div class="add-on-guest"  id="formAdult${appendData}" >
                           <!--  <h5>Add-On Guest ${addOnGuestCount}</h5>
                         <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="firstname"/>
                           <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
                         <!-- Add form fields for other AddOnGuestSource properties -->
-                         <div id="formAdult${appendData}">
+                         <div>
                     <h4>Adult ${addOnGuestCount}</h4>
                     <div class="d-flex">
                         <div class="form-group">
@@ -470,7 +470,7 @@
            
         </div>
                     <div class="text-center">
-                        <button class="addbtn btn btn-md" type="button" onclick="showCardAdult()">Done</button>
+                        <button class="addbtn btn btn-md" type="button" onclick="showCardAdult(${appendData})">Done</button>
                     </div>
                 </div>
                     </div>
@@ -621,7 +621,7 @@
           
            
                     <div class="text-center">
-                        <button class="addbtn btn btn-md" type="button" onclick="showCardChild()">Done</button>
+                        <button class="addbtn btn btn-md" type="button" onclick="showCardChild(${appendData})">Done</button>
                     </div>
                 </div>
                     </div>
@@ -775,23 +775,50 @@
   
   /* Final validation */
   
-   if (valid == 15)  {
+   if (valid == 16)  {
        $("#mainHotelGuest").hide();
         $("#finalData").show();
-
-         document.querySelector('#displayFormData').innerHTML += `
-         <div class="card">
+        var mainID = "mainData";
+  if($("#"+ mainID).length == 0) {
+      document.querySelector('#mainFormData').innerHTML += `
+         <div class="card" style="margin-top:2%" id="${mainID}">
          <div class="d-flex">
          <div>
-        
+         <img src="${guestPhoto}"/>
          </div>
          <div style="margin-left:4%">
-                 <h3><span>Name:</span>${$("#firstName").val() }</h3>
-                    
+                 <h3><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
+                  <h4><span>Age: </span> ${age}</h4>
+                   <p><span>Mobile No: </span> ${mobile}</p>
+                    <p><span>Coming Form: </span> ${comingForm}</p>
                      </div>
+                   <div><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
+                   <button type="button" class="btn btn-md btn-danger" onClick="deleteMain()">Delete</button>
                   </div>
            </div>
           `;
+  } else {
+    //alert('this record already exists');
+     $('#mainFormData').empty();
+     document.querySelector('#mainFormData').innerHTML += `
+         <div class="card" style="margin-top:2%" id="${mainID}">
+         <div class="d-flex">
+         <div>
+         <img src="${guestPhoto}"/>
+         </div>
+         <div style="margin-left:4%">
+                 <h3><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
+                  <h4><span>Age: </span> ${age}</h4>
+                   <p><span>Mobile No: </span> ${mobile}</p>
+                    <p><span>Coming Form: </span> ${comingForm}</p>
+                     </div>
+                   <div><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
+                   <button type="button" class="btn btn-md btn-danger" onClick="deleteMain()">Delete</button> 
+                  </div>
+           </div>
+          `;
+  }
+       
      
   }  else {
         return false
@@ -801,7 +828,13 @@
        
     }
 
-    function showCardAdult(){
+
+  function editMain(){
+ $("#mainHotelGuest").show();
+  $("#finalData").hide();
+  }
+
+    function showCardAdult(appendData){
        
          var name = $("#firstNameAdult"+appendData).val();
   var lastname = $("#lastNameAdult"+appendData).val();
@@ -941,28 +974,56 @@
    if (valid == 15)  {
         
         $("#mainHotelGuest").hide();
-        $("#formAdult"+appendData).hide();
+        $("#formAdult" + appendData).hide();
         $("#finalData").show();
-
-         document.querySelector('#displayFormData').innerHTML += `
-         <div class="card">
+         //var mainID = "mainData";
+  if($("#Adult"+appendData).length == 0) {
+         document.querySelector('#childFormData').innerHTML += `
+          <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-        
+         <img src="${guestPhoto}"/>
          </div>
          <div style="margin-left:4%">
-                 <h3><span>Name:</span>${$("#firstNameAdult"+appendData).val() }</h3>
-                    
+                 <h3><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4><span>Age: </span> ${age}</h4>
+                   <p><span>Mobile No: </span> ${mobile}</p>
+                    <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
+                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                  </div> 
                   </div>
            </div>
-          `;}else{
-              return false
-          }
+          `;
+    }else{
+         var ChildAudltId = document.getElementById('Adult'+ appendData);
+        document.getElementById("childFormData").removeChild(ChildAudltId);
+         document.querySelector('#childFormData').innerHTML += `
+          <div class="card" id="Adult${appendData}">
+         <div class="d-flex">
+         <div>
+         <img src="${guestPhoto}"/>
+         </div>
+         <div style="margin-left:4%">
+                 <h3><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4><span>Age: </span> ${age}</h4>
+                   <p><span>Mobile No: </span> ${mobile}</p>
+                    <p><span>Relation With Guest: </span> ${relation}</p>
+                     </div>
+                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                  </div> 
+                  </div>
+           </div>
+          `;}
+    }else{
+        return false
     }
-
-
- function showCardChild(){
+    }
+function editAdult(appendData) {
+    $("#formAdult" + appendData).show();
+     $("#finalData").hide();
+}
+ function showCardChild(appendData){
         //alert();
 
       
@@ -1022,23 +1083,48 @@
   }
      if (valid == 6)  {
           $("#mainHotelGuest").hide();
-        $("#formAdult"+appendData).hide();
+       $("#formAdult" + appendData).hide();
         $("#finalData").show();
         
 
-         document.querySelector('#displayFormData').innerHTML += `
-         <div class="card">
+         if($("#Adult"+appendData).length == 0) {
+         document.querySelector('#childFormData').innerHTML += `
+          <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-        
+         <img src="${guestPhoto}"/>
          </div>
          <div style="margin-left:4%">
-                 <h3><span>Name:</span>${$("#firstNameChild"+appendData).val()  }</h3>
-                    
+                 <h3><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4><span>Age: </span> ${age}</h4>
+               
+                    <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
+                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                  </div> 
                   </div>
            </div>
           `;
+    }else{
+         var ChildAudltId = document.getElementById('Adult'+ appendData);
+        document.getElementById("childFormData").removeChild(ChildAudltId);
+         document.querySelector('#childFormData').innerHTML += `
+          <div class="card" id="Adult${appendData}">
+         <div class="d-flex">
+         <div>
+         <img src="${guestPhoto}"/>
+         </div>
+         <div style="margin-left:4%">
+                 <h3><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4><span>Age: </span> ${age}</h4>
+                   <p><span>Mobile No: </span> ${mobile}</p>
+                    <p><span>Relation With Guest: </span> ${relation}</p>
+                     </div>
+                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                  </div> 
+                  </div>
+           </div>
+          `;}
      }else{
      return false
      }
@@ -1088,12 +1174,13 @@ function displayBase64Image(placeholder, placeholdercapture, base64Image) {
         placeholdercapture.appendChild(this);
 
     }
-    image1.onload = function () {
+    //image1.onload = function () {
 
-        placeholder.innerHTML = '';
-        placeholder.appendChild(this);
-    }
-    image1.src = base64Image;
+       // placeholder.innerHTML = '';
+       // placeholder.appendChild(this);
+    //}
+    document.getElementById("profile-image1").src = base64Image;
+    //image1.src = base64Image;
     image.src = base64Image;
     document.getElementById('guestPhoto').value = base64Image;
 }
@@ -1297,3 +1384,14 @@ alert();
  $('#ID_proofUpload_IDAdult').click();
     }
     
+
+ //$(function(){
+ //     window.history.pushState({page: 1}, "", "");
+ //     history.back();
+ //     history.forward();
+ //     window.onpopstate = function(event) {
+ //       if(event){
+ //         var confirm = window.confirm("Please, note that you may lose your move details by returning to the previous page.");
+ //       }
+ //     }
+ //   });
