@@ -153,14 +153,15 @@
                     <div class="row">
                         <div class="col-md-6">
                              @if (@Model.lastVisitors.guestPhoto == null)
-                                    {
-                                        <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:150px;height: 165px;" />
-                                    }
-                                    else
-                                    {
+                            {
+                                <img src="/Areas/Department/Content/Images/Icons/avatars.jpg" style="width:150px;height: 165px;" />
 
-                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.lastVisitors.guestPhoto)" alt="Image" style="width:150px;height: 165px;" />
-                                    }
+                            }
+                            else
+                            {
+
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.lastVisitors.guestPhoto)" alt="Image" style="width:150px;height: 165px;" />
+                            }
                         </div>
                         <div class="col-md-6">
 
@@ -253,18 +254,22 @@
         const filterButton = document.getElementById('filterButton');
 
         filterButton.addEventListener('click', function () {
+            debugger;
             const startDate = new Date(document.getElementById('startDate').value);
             const endDate = new Date(document.getElementById('endDate').value);
 
+          
             // Ensure that both dates are valid
             if (!isNaN(startDate) && !isNaN(endDate)) {
+                const sdate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+                const edate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
                 const rows = table.getElementsByTagName('tr');
 
                 for (let i = 1; i < rows.length; i++) {
                     const row = rows[i];
                     const cellDate = new Date(row.getElementsByTagName('td')[3].textContent); // Assuming date is in the third column
 
-                    if (cellDate >= startDate && cellDate <= endDate) {
+                    if (cellDate >= sdate && cellDate <= edate) {
                         row.style.display = '';
                     } else {
                         row.style.display = 'none';

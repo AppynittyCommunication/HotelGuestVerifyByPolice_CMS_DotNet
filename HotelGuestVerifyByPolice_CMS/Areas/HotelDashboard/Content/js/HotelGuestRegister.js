@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    debugger;
+  
+
     $("#mobile").keypress(function (e) {
         var $input = $(this),
         value = $input.val(),

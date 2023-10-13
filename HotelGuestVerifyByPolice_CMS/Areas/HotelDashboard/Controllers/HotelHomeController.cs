@@ -391,14 +391,14 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                     }
                     else
                     {
-                        ViewBag.msg = message;
+                        ViewBag.errormsg = message;
                         var addguestcount = new HotelGuestRegistration
                         {
                             // Initialize the addOnGuest property as an empty list
                             addOnGuest = new List<AddOnGuestSource>()
                         };
 
-                        return View();
+                        return View(addguestcount);
                     }
                 }
                 else
