@@ -283,8 +283,8 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                                 deptSearchHotelRes.hotelGuests.Add(new HotelGuest
                                 {
                                     guestName = h.guestName,
-                                    reservation = h.reservation,
-                                    nightStayed = h.nightStayed,
+                                    reservation = h.reservation.ToString(),
+                                    nightStayed = h.nightStayed.ToString(),
                                     lastVisit = h.lastVisit,
                                     mobile = h.mobile,
                                     city = h.city,
@@ -296,7 +296,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                         if (dynamicobject.lastVisitors != null)
                         {
                             deptSearchHotelRes.lastVisitors.guestName = dynamicobject.lastVisitors.guestName;
-                            deptSearchHotelRes.lastVisitors.age = dynamicobject.lastVisitors.age;
+                            deptSearchHotelRes.lastVisitors.age = dynamicobject.lastVisitors.age.ToString();
                             deptSearchHotelRes.lastVisitors.city = dynamicobject.lastVisitors.city;
                             deptSearchHotelRes.lastVisitors.purpose = dynamicobject.lastVisitors.purpose;
                             deptSearchHotelRes.lastVisitors.commingFrom = dynamicobject.lastVisitors.commingFrom;
@@ -306,7 +306,10 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
 
 
                         }
-
+                        else
+                        {
+                            deptSearchHotelRes.lastVisitors = null;
+                        }
                         return View(deptSearchHotelRes);
                     }
                     else
