@@ -186,6 +186,28 @@
     #showallguestdetails{
         width:100%;
     }
+
+    /* ===== Scrollbar CSS ===== */
+    /* Firefox */
+    * {
+        scrollbar-width: auto;
+        scrollbar-color: #c2b3c7 #e9e2e2;
+    }
+
+        /* Chrome, Edge, and Safari */
+        *::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background-color: #c2b3c7;
+            border-radius: 10px;
+            border: 3px solid #ffffff;
+        }
 </style>
 
 
@@ -239,8 +261,8 @@
                 <h6 class="text-white">Hotels Locations</h6>
                 <div id="map" style="height: 220px;"></div>
             </div>
-            <div class="mt-2">
-                <table id="example" class="display" cellspacing="0" width="100%" style="display:block;overflow-y:auto;height:210px;border: 1px solid #1831a5;">
+            <div class="mt-4 scrollbar">
+                <table id="example" class="display" cellspacing="0" width="100%" style="display:block;overflow-y:auto;height:210px;border: 1px solid rgb(206 212 241);border-radius:5px;box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);">
                     <thead>
                         <tr>
                             <th>Police Station</th>
