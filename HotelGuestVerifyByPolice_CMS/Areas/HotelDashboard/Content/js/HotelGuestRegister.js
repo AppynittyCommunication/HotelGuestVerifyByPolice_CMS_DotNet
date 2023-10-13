@@ -780,15 +780,15 @@
          <div class="card" style="margin-top:2%" id="${mainID}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Coming Form: </span> ${comingForm}</p>
                      </div>
-                   <div><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
+                   <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
                    <button type="button" class="btn btn-md btn-danger" onClick="deleteMain()">Delete</button>
                   </div>
            </div>
@@ -800,15 +800,15 @@
          <div class="card" style="margin-top:2%" id="${mainID}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Coming Form: </span> ${comingForm}</p>
                      </div>
-                   <div><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
+                   <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
                    <button type="button" class="btn btn-md btn-danger" onClick="deleteMain()">Delete</button> 
                   </div>
            </div>
@@ -996,15 +996,15 @@
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
                      <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
@@ -1017,15 +1017,15 @@
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button"class="btn btn-md btn-primary"  onClick="editAdult(${appendData})">Edit</button> 
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button"class="btn btn-md btn-primary"  onClick="editAdult(${appendData})">Edit</button> 
                     <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
@@ -1151,15 +1151,15 @@ function editAdult(appendData) {
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
                      <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
@@ -1172,15 +1172,15 @@ function editAdult(appendData) {
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width: 60%;">
+                 <h3 style="display:inline-block;"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
                      <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
