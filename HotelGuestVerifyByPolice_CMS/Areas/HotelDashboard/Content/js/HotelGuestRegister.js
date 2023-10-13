@@ -300,30 +300,27 @@
         var addOnGuestHtml = `
         
                     <div class="add-on-guest"  id="formAdult${appendData}" >
-                          <!--  <h5>Add-On Guest ${addOnGuestCount}</h5>
-                        <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="firstname"/>
-                          <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
-                        <!-- Add form fields for other AddOnGuestSource properties -->
+
                          <div>
                     <h4>Adult ${addOnGuestCount}</h4>
                     <div class="d-flex">
                         <div class="form-group">
-                         <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Adult" />
+                         <input class="form-control type" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Adult" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" onkeypress="capFirstleter()" />
+                                <input class="form-control firstName" id="firstNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" onkeypress="capFirstleter()" />
                                 <span id="nameError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" onkeypress="capLastleter()"/>
+                                <input class="form-control lastName" id="lastNameAdult${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" onkeypress="capLastleter()"/>
                                      <span id="lastError${appendData}" class="text-red"></span>
                                 </div>
                         </div>
                         <div class="form-group">
 
                            <div class="form-input">
-                                <input class="form-control" id="mobileAdult${appendData}" name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" type="number" onkeypress="checkNumber()" />
+                                <input class="form-control mobile" id="mobileAdult${appendData}" name="addOnGuest[${addOnGuestCount}].mobile" placeholder="Mobile" type="number" onkeypress="checkNumber()" />
                                  <span id="mobileError${appendData}" class="text-red"></span>
                            </div>
 
@@ -333,7 +330,7 @@
                      <div class="form-group">
 
                            <div class="form-input">
-                                <input class="form-control" id="emailAdult${appendData}" name="addOnGuest[${addOnGuestCount}].email" placeholder="email" />
+                                <input class="form-control email" id="emailAdult${appendData}" name="addOnGuest[${addOnGuestCount}].email" placeholder="email" />
                                  <span id="emailError${appendData}" class="text-red"></span>
                            </div>
 
@@ -342,7 +339,8 @@
 
                             <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control relation" id="relationAdult${appendData}">
+                                 <option value="">Select Relation</option>
                                 </select>
                                  <span id="relationError${appendData}" class="text-red"></span>
                             </div>
@@ -351,7 +349,7 @@
                         <div class="form-group">
                         <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control gender" id="genderAdult${appendData}">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
@@ -363,7 +361,7 @@
 
                         <div class="form-group">
                       <div class="form-input">
-                                <input class="form-control" id="ageAdult${appendData}" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                <input class="form-control age" id="ageAdult${appendData}" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
                                  <span id="ageError${appendData}" class="text-red"></span>
                             </div>
 
@@ -374,7 +372,7 @@
                         <div class="form-group">
                           <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].country" class="form-control" id="countryAdult${appendData}" >
+                                <select name="addOnGuest[${addOnGuestCount}].country" class="form-control country" id="countryAdult${appendData}" >
                                     <option value="">Select Country</option>
                                    
                                 </select>
@@ -387,7 +385,7 @@
                         <div class="form-group">
                             <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].state" class="form-control" id="stateAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].state" class="form-control state" id="stateAdult${appendData}">
                                     <option value="">Select State</option>
                                    
                                 </select>
@@ -399,7 +397,7 @@
                         <div class="form-group">
                          <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].district" class="form-control" id="districtAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].district" class="form-control district" id="districtAdult${appendData}">
                                     <option value="">Select District</option>
                                 </select>
                                  <span id="districtError${appendData}" class="text-red"></span>
@@ -410,7 +408,7 @@
                         <div class="form-group">
                           <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].city" class="form-control" id="cityAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].city" class="form-control city" id="cityAdult${appendData}">
                                     <option value="">Select City</option>
                                    
                                 </select>
@@ -424,7 +422,7 @@
                       
                        <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" name="addOnGuest[${addOnGuestCount}].comingFrom" placeholder="Coming From" id="comingAdult${appendData}" />
+                                <input class="form-control comingForm" name="addOnGuest[${addOnGuestCount}].comingFrom" placeholder="Coming From" id="comingAdult${appendData}" />
                                  <span id="comeingformError${appendData}" class="text-red"></span>
 
                             </div>
@@ -434,7 +432,7 @@
 
                             <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].guestIdType" class="form-control" id="idTypeAdult${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].guestIdType" class="form-control idType" id="idTypeAdult${appendData}">
                                     <option value="">Select ID Type</option>
                                     <option value="Adhar">Adhar Card</option>
                                 </select>
@@ -444,7 +442,7 @@
                         </div>
                     </div>
                     <div class="d-flex">
-                     <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
+                     <input class="form-control photo" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
                         <div class="profile-pic" id="image-placeholderAdult${appendData}">
 
                             <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageAdult" onclick="previewFileAdult()" >
@@ -452,7 +450,7 @@
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                         </div>
-                        <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestIDProof" id="guestIdAdult${appendData}" type="hidden" />
+                        <input class="form-control idProof" name="addOnGuest[${addOnGuestCount}].guestIDProof" id="guestIdAdult${appendData}" type="hidden" />
                         <div class="profile-pic">
 
                             <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="IdProof_Image_Adult" onclick="guestIdproof()"height="200">
@@ -544,24 +542,21 @@
          
         var addOnGuestHtml = `
         
-                    <div class="add-on-guest">
-                          <!--  <h5>Add-On Guest ${addOnGuestCount}</h5>
-                        <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="firstname"/>
-                          <input type="text" class="form-control" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="lastname"/>-->
-                        <!-- Add form fields for other AddOnGuestSource properties -->
-                         <div id="formAdult${appendData}">
+                    <div class="add-on-guest"  id="formAdult${appendData}">
+                        
+                         <div>
                     <h4>Child ${addOnGuestCount}</h4>
                     <div class="d-flex">
                         <div class="form-group">
-                         <input class="form-control" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Child" />
+                         <input class="form-control type" id="guestType"name="addOnGuest[${addOnGuestCount}].guestType" type="hidden" value="Child" />
                             <div class="form-input">
-                                <input class="form-control" id="firstNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
+                                <input class="form-control firstName" id="firstNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].firstName" placeholder="First Name" />
                                       <span id="nameError${appendData}" class="text-red"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-input">
-                                <input class="form-control" id="lastNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" /> 
+                                <input class="form-control lastName" id="lastNameChild${appendData}" name="addOnGuest[${addOnGuestCount}].lastName" placeholder="Last Name" /> 
                                   <span id="lastError${appendData}" class="text-red"></span>
                             </div>
                         </div>
@@ -573,7 +568,8 @@
 
                             <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control" id="relationChild${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].relationWithGuest" class="form-control relation" id="relationChild${appendData}">
+                                <option value="">Select Relation</option>
                                 </select>
                                   <span id="relationError${appendData}" class="text-red"></span>
                             </div>
@@ -582,7 +578,7 @@
                         <div class="form-group">
                         <div class="form-input">
 
-                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control" id="genderChild${appendData}">
+                                <select name="addOnGuest[${addOnGuestCount}].gender" class="form-control gender" id="genderChild${appendData}">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
                                     <option value="F">Female</option>
@@ -594,7 +590,7 @@
 
                         <div class="form-group">
                       <div class="form-input">
-                                <input class="form-control" id="ageChild${appendData}" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
+                                <input class="form-control age" id="ageChild${appendData}" placeholder="Age" name="addOnGuest[${addOnGuestCount}].age"/>
                                   <span id="ageError${appendData}" class="text-red"></span>
                             </div>
 
@@ -603,7 +599,7 @@
 
                    
                     <div class="d-flex">
-                      <input class="form-control" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
+                      <input class="form-control photo" name="addOnGuest[${addOnGuestCount}].guestPhoto" id="guestPhoto${appendData}" type="hidden" />
                         <div class="profile-pic" id="image-Child${appendData}" style="justify-content: start">
 
                             <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageChild" onclick="previewFileChild()">
@@ -639,7 +635,7 @@
 
 
  function showCard(){
-        alert()
+        //alert()
       
        
   var name = $("#firstName").val();
@@ -778,7 +774,7 @@
   
   /* Final validation */
   
-   if (valid == 16)  {
+   if (valid == 14)  {
        $("#mainHotelGuest").hide();
         $("#finalData").show();
         var mainID = "mainData";
@@ -787,15 +783,15 @@
          <div class="card" style="margin-top:2%" id="${mainID}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Coming Form: </span> ${comingForm}</p>
                      </div>
-                   <div><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
+                   <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
                    <button type="button" class="btn btn-md btn-danger" onClick="deleteMain()">Delete</button>
                   </div>
            </div>
@@ -807,15 +803,15 @@
          <div class="card" style="margin-top:2%" id="${mainID}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${$("#firstName").val()} ${$("#lastName").val()}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Coming Form: </span> ${comingForm}</p>
                      </div>
-                   <div><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
+                   <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editMain()">Edit</button> 
                    <button type="button" class="btn btn-md btn-danger" onClick="deleteMain()">Delete</button> 
                   </div>
            </div>
@@ -836,6 +832,24 @@
  $("#mainHotelGuest").show();
   $("#finalData").hide();
   }
+
+
+  function deleteMain(){
+      let text = "Are You Sure Delete All Data";
+  if (confirm(text) == true) {
+    var forms = document.getElementById('checkInForm');
+        forms.reset();
+        $("#finalData").hide();
+        $("#mainHotelGuest").show();
+        $("#mainFormData").empty();
+        $("#childFormData").empty();
+  } else {
+    return false
+  }
+      
+
+  }
+ 
 
     function showCardAdult(appendData){
        
@@ -974,7 +988,7 @@
   /* Final validation */
   
 
-   if (valid == 15)  {
+   if (valid == 13)  {
         
         $("#mainHotelGuest").hide();
         $("#formAdult" + appendData).hide();
@@ -985,15 +999,16 @@
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
+                     <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
            </div>
@@ -1005,15 +1020,16 @@
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button"class="btn btn-md btn-primary"  onClick="editAdult(${appendData})">Edit</button> 
+                    <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
            </div>
@@ -1022,10 +1038,53 @@
         return false
     }
     }
+
+
+
 function editAdult(appendData) {
     $("#formAdult" + appendData).show();
      $("#finalData").hide();
 }
+
+
+ function deleteChild(appendData){
+    var row = document.getElementById("formAdult" + appendData);
+    row.parentNode.removeChild(row);
+    var ChildAudltId = document.getElementById('Adult'+ appendData);
+    document.getElementById("childFormData").removeChild(ChildAudltId);
+    reassignIds();
+  }
+
+
+
+  function reassignIds() {
+     // addOnGuestCount--;
+    var rows = document.querySelectorAll('.add-on-guest');
+    for (var i = 0; i < rows.length; i++) {
+         rows[i].querySelector('.type').setAttribute('name', `addOnGuest[${i}].guestType`);
+        rows[i].querySelector('.firstName').setAttribute('name', `addOnGuest[${i}].firstName`);
+        rows[i].querySelector('.lastName').setAttribute('name', `addOnGuest[${i}].lastName`);
+        rows[i].querySelector('.mobile').setAttribute('name', `addOnGuest[${i}].mobile`);
+        rows[i].querySelector('.email').setAttribute('name', `addOnGuest[${i}].email`);
+        rows[i].querySelector('.relation').setAttribute('name', `addOnGuest[${i}].relationWithGuest`);
+        rows[i].querySelector('.gender').setAttribute('name', `addOnGuest[${i}].gender`);
+        rows[i].querySelector('.age').setAttribute('name', `addOnGuest[${i}].age`);
+        rows[i].querySelector('.country').setAttribute('name', `addOnGuest[${i}].country`);
+        rows[i].querySelector('.state').setAttribute('name', `addOnGuest[${i}].state`);
+        rows[i].querySelector('.district').setAttribute('name', `addOnGuest[${i}].district`);
+        rows[i].querySelector('.city').setAttribute('name', `addOnGuest[${i}].city`);
+        rows[i].querySelector('.comingForm').setAttribute('name', `addOnGuest[${i}].comingForm`);
+        rows[i].querySelector('.idType').setAttribute('name', `addOnGuest[${i}].guestIdType`);
+        rows[i].querySelector('.photo').setAttribute('name', `addOnGuest[${i}].guestPhoto`);
+        rows[i].querySelector('.idProof').setAttribute('name', `addOnGuest[${i}].guestIDProof`);
+
+    }
+}
+
+
+
+
+
  function showCardChild(appendData){
         //alert();
 
@@ -1084,7 +1143,7 @@ function editAdult(appendData) {
     document.getElementById("guestPhotoError"+appendData).innerHTML = "";
     valid++;
   }
-     if (valid == 6)  {
+     if (valid == 5)  {
           $("#mainHotelGuest").hide();
        $("#formAdult" + appendData).hide();
         $("#finalData").show();
@@ -1095,15 +1154,16 @@ function editAdult(appendData) {
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width:60%">
+                 <h3 style="display:inline-block"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
+                     <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
            </div>
@@ -1115,15 +1175,16 @@ function editAdult(appendData) {
           <div class="card" id="Adult${appendData}">
          <div class="d-flex">
          <div>
-         <img src="${guestPhoto}"/>
+         <img src="${guestPhoto}" style="width:120px"/>
          </div>
-         <div style="margin-left:4%">
-                 <h3><span>Name: </span> ${name} ${lastname}</h3>
-                  <h4><span>Age: </span> ${age}</h4>
+         <div style="margin-left:4%;width: 60%;">
+                 <h3 style="display:inline-block;"><span>Name: </span> ${name} ${lastname}</h3>
+                  <h4 style="display:inline-block;margin-left:2%"><span>Age: </span> ${age}</h4>
                    <p><span>Mobile No: </span> ${mobile}</p>
                     <p><span>Relation With Guest: </span> ${relation}</p>
                      </div>
-                    <div><button type="button" onClick="editAdult(${appendData})">Edit</button>  
+                    <div style="margin-top: auto;margin-bottom: auto;"><button type="button" class="btn btn-md btn-primary" onClick="editAdult(${appendData})">Edit</button>  
+                     <button type="button" class="btn btn-md btn-danger" onClick="deleteChild(${appendData})">Delete</button>
                   </div> 
                   </div>
            </div>
