@@ -567,6 +567,9 @@
                     $('#city').text(data.hotelGuestDetails[0].city);
                     $('#addr').text(data.hotelGuestDetails[0].address);
 
+
+                    $('#nightstayed').text(data.hotelGuestDetails[0].nightStayed);
+                    $('#lastvisit').text(data.hotelGuestDetails[0].lastVisit);
                  
                     if (data.addOnGuestDetails1.length > 0) {
                         showAddOnDetails.style.display = "block";
