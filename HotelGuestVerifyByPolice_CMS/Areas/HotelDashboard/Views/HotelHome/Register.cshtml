@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "CheckInS";
     Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
+    string ermsg = ViewBag.errormsg;
 }
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -86,7 +87,7 @@
             background:#fff;
         }
 </style>
-<form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data">
+<form asp-controller="Hotel" asp-action="Register" method="post" enctype="multipart/form-data" id="checkInForm">
     <div id="mainHotelGuest" class="formCheckIn px-5">
         <div class="d-flex">
     <div class="form-group">
@@ -386,6 +387,15 @@
     </div>
 </div>
 <script src="../../Areas/HotelDashboard/Content/js/HotelGuestRegister.js"></script>
+@if (ViewBag.errormsg != null)
+{
+    <script type="text/javascript">
+
+        window.onload = function () {
+            alert("@ViewBag.errormsg");
+        };
+    </script>
+}
 <script>
 
  @*    $(document).ready(function () {

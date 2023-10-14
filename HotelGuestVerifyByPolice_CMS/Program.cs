@@ -10,7 +10,7 @@ builder.Services.AddSingleton<IHttpContextAccessor , HttpContextAccessor>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(option =>
 {
-    option.IdleTimeout = TimeSpan.FromMinutes(5);
+    option.IdleTimeout = TimeSpan.FromMinutes(60);
 });
 builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
 {

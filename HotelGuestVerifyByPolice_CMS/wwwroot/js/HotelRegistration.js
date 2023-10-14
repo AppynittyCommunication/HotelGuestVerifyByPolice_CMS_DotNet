@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
     debugger;
- 
+
     var mvs = $("#isMobileVerify:checked").val();
     if ((mvs == "true")) {
         $("#verifyNo").modal("hide");

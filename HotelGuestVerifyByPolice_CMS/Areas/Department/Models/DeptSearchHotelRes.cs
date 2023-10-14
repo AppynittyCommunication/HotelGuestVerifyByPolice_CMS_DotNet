@@ -32,8 +32,8 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Models
     public class HotelGuest
     {
         public string? guestName { get; set; }
-        public int reservation { get; set; }
-        public int nightStayed { get; set; }
+        public string? reservation { get; set; }
+        public string? nightStayed { get; set; }
         public string? lastVisit { get; set; }
         public string? mobile { get; set; }
         public string? city { get; set; }
@@ -53,7 +53,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Models
     public class LastVisitor
     {
         public string? guestName { get; set; }
-        public int age { get; set; }
+        public string? age { get; set; }
         public string? city { get; set; }
         public string? purpose { get; set; }
         public string? commingFrom { get; set; }

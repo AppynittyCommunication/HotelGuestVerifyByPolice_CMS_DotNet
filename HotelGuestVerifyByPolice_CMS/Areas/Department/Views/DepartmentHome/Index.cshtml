@@ -183,7 +183,31 @@
         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
         transition: opacity 0.3s linear, right 0.3s ease-out;
     }
+    #showallguestdetails{
+        width:100%;
+    }
 
+    /* ===== Scrollbar CSS ===== */
+    /* Firefox */
+    * {
+        scrollbar-width: auto;
+        scrollbar-color: #c2b3c7 #e9e2e2;
+    }
+
+        /* Chrome, Edge, and Safari */
+        *::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: #fff;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background-color: #c2b3c7;
+            border-radius: 10px;
+            border: 3px solid #ffffff;
+        }
 </style>
 
 
@@ -237,8 +261,8 @@
                 <h6 class="text-white">Hotels Locations</h6>
                 <div id="map" style="height: 220px;"></div>
             </div>
-            <div class="mt-2">
-                <table id="example" class="display" cellspacing="0" width="100%" style="display:block;overflow-y:auto;height:210px;border: 1px solid #1831a5;">
+            <div class="mt-4 scrollbar">
+                <table id="example" class="display" cellspacing="0" width="100%" style="display:block;overflow-y:auto;height:210px;border: 1px solid rgb(206 212 241);border-radius:5px;box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);">
                     <thead>
                         <tr>
                             <th>Police Station</th>
@@ -279,7 +303,7 @@
                                 <div>
                                     @if (@Model.hotelGuestDetails_DeptDashes[i].guestPhoto == null)
                                     {
-                                        <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
+                                        <img src="/Areas/Department/Content/Images/Icons/avatars.jpg" style="width:230px;height: 250px;" />
                                     }
                                     else
                                     {
@@ -316,7 +340,7 @@
                                     <div>
                                         @if (@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto == null)
                                         {
-                                            <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
+                                            <img src="/Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
                                         }
                                         else
                                         {
@@ -352,7 +376,7 @@
 
             <!-- The Modal -->
             <div class="modal right" id="resultModal">
-                <div class="modal-dialog">
+                <div class="modal-dialog" id="showallguestdetails">
                     <div class="modal-content">
 
 
@@ -380,9 +404,7 @@
                                     <div class="col-md-3 tabs" id="tab03">
                                         <h6 class="text-muted">Documents</h6>
                                     </div>
-                                    <div class="col-md-3 tabs" id="tab04">
-                                        <h6 class="text-muted">Remarks</h6>
-                                    </div>
+                                 
                                 </div>
                             </div>
                          
@@ -446,10 +468,6 @@
                                
                             </fieldset>
 
-                            <fieldset id="tab041">
-                                <h3>REMARK </h3>
-                              
-                            </fieldset>
 
                         </div>
                         <div class="modal-footer">
@@ -527,9 +545,9 @@
                 success: function (data) {
                  
                     
-                    console.log(data);
+                    //console.log(data);
                     var imageSrc = data.hotelGuestDetails[0].guestPhoto;
-                    var default_img = '../Areas/Department/Content/Images/Icons/avatars.jpg';
+                    var default_img = '/Areas/Department/Content/Images/Icons/avatars.jpg';
                     //console.log(imageSrc);
                     if (imageSrc != null) {
                         $("#imageDisplay").attr("src", "data:image/jpeg;base64," + imageSrc);
