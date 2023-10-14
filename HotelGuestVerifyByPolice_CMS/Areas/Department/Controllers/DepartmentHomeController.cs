@@ -202,7 +202,6 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             {
                 var responseString = await response.Content.ReadAsStringAsync();
                 ShowHotelGuestDetailsRes GuestDetailsResponce = JsonConvert.DeserializeObject<ShowHotelGuestDetailsRes>(responseString);
-                ShowHotelGuestDetailsResData GuestDetailsResponceData = JsonConvert.DeserializeObject<ShowHotelGuestDetailsResData>(responseString);
 
                 var code = GuestDetailsResponce.code;
                 var status = GuestDetailsResponce.status;
