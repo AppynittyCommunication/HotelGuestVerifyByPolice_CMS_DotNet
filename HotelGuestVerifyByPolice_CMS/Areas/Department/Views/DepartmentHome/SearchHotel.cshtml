@@ -44,7 +44,7 @@
     }
 
     #userDetails {
-        background: #1831a5;
+        background: #ebebeb;
         border-radius: 5px;
         color: #fff;
     }
@@ -77,18 +77,18 @@
     .card {
         margin: 0 -8px 32px -8px;
         color: rgba(0, 0, 0, 0.87);
-        box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+        box-shadow:0px 0px 12px 2px rgb(0 0 0 / 31%);;
         background: #fff;
     }
 
-   #showSecRow,#hideSecRow{display:none}
+   #showSecRow,#hideSecRow{display:none;}
     .searchbtn {
         margin-left: 35%;
         margin-top: 10%;
     }
-
+    #shlist{padding:10px 10px}
     #sdlist, #sclist, #spolicelist{
-        display:none;
+        display:none;padding:10px 10px
     }
 </style>
 
@@ -147,10 +147,10 @@
             }
         
           
-            <div id="lastvisitor" class="card">
+            <div id="lastvisitor" class="" style="margin-top: 10%;">
                 @if(Model.lastVisitors != null)
                 {
-                    <div class="row">
+                    <div class="row" style="box-shadow:0px 0px 12px 2px rgb(0 0 0 / 31%);border-radius:5px">
                         <div class="col-md-6">
                              @if (@Model.lastVisitors.guestPhoto == null)
                             {
@@ -182,7 +182,7 @@
         @if (Model.hotelTitle != null)
         {
             <div class="col-md-9 col-lg-9">
-                <div class="row card" style="display:-webkit-box">
+                <div class="row card" style="display:-webkit-box;padding:25px">
                     <div class="col-lg-6 col-md-6">
                         <h6>@Model.hotelTitle.hotelName</h6>
                         <p><span>Address: </span> @Model.hotelTitle.address</p>
