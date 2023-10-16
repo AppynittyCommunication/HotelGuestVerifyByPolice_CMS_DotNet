@@ -5,6 +5,11 @@
         public int code { get; set; }
         public string status { get; set; }
         public string message { get; set; }
+        public ShowHotelGuestDetailsResData? data { get; set; }
+      
+    }
+
+    public class ShowHotelGuestDetailsResData {
         public List<HotelGuestDetail> hotelGuestDetails { get; set; }
         public List<AddOnGuestDetails1> addOnGuestDetails1 { get; set; }
     }
@@ -13,6 +18,8 @@
     {
         public string relationWithGuest { get; set; }
         public string guestName { get; set; }
+        public string guestPhoto { get; set; }
+        public string guestIdPhoto { get; set; }
     }
 
     public class HotelGuestDetail
@@ -25,7 +32,10 @@
         public int age { get; set; }
         public string country { get; set; }
         public string city { get; set; }
+        public int NightStyed { get; set; }
+        public string? LastVisit { get; set; }
         public object address { get; set; }
         public string guestPhoto { get; set; }
+        public string guestIdPhoto { get; set; }
     }
 }

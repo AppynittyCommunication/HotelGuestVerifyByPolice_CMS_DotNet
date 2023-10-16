@@ -636,7 +636,7 @@
 
  function showCard(){
         //alert()
-      
+      debugger;
        
   var name = $("#firstName").val();
   var lastname = $("#lastName").val();
@@ -660,109 +660,126 @@
   
    if (name==""){
     document.getElementById("nameError").innerHTML = "Pleae Enter First Name";
-  } else {       document.getElementById("nameError").innerHTML = "";
-    valid++;
+     valid++;
+  } else { document.getElementById("nameError").innerHTML = "";
+    //valid++;
   }
    if (lastname == ""){
     document.getElementById("lastError").innerHTML = "Pleae Enter Last Name";
+     valid++;
   } else {
     document.getElementById("lastError").innerHTML = "";
-    valid++;
+    //valid++;
   }
    /* Mobile validation */
   if (mobile == ""){
     document.getElementById("mobileError").innerHTML = "Please Enter Mobile Number";
+     valid++;
   } else {
     document.getElementById("mobileError").innerHTML = "";
-    valid++;
+    //valid++;
   }
    /* Email validation */
   if (email == ""){
     document.getElementById("emailError").innerHTML = "Please Enter Email";
+     valid++;
   } else if(email.match(pattern)) {
      document.getElementById("emailError").innerHTML = "";
-     valid++;
+     //valid++;
    }else{
        document.getElementById("emailError").innerHTML = "Please Enter Valid  Email";
-   
+    valid++;
    }
    /* Gender validation */
   if (gender == ""){
     document.getElementById("genderError").innerHTML = "Please Select Gender";
+     valid++;
   } else {
     document.getElementById("genderError").innerHTML = "";
-    valid++;
+   // valid++;
   }
   if (age == ""){
     document.getElementById("ageError").innerHTML = "Please Enter Age";
+     valid++;
   } 
   else if (age > 100 || age < 18){
     document.getElementById("ageError").innerHTML = "Age must be between 18 and 100.";
+     valid++;
   }  else {
     document.getElementById("ageError").innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (country == ""){
     document.getElementById("countryError").innerHTML = "Please Select Country";
+     valid++;
   } else {
     document.getElementById("countryError").innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (state == ""){
     document.getElementById("stateError").innerHTML = "Please Select State";
+     valid++;
   } else {
     document.getElementById("stateError").innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (district == ""){
     document.getElementById("districtError").innerHTML = "Please Select District";
+     valid++;
   } else {
     document.getElementById("districtError").innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (city == ""){
     document.getElementById("cityError").innerHTML = "Please Select City";
+     valid++;
   } else {
     document.getElementById("cityError").innerHTML = "";
-    valid++;
+    //valid++;
   }
    if (visitPurpose == ""){
     document.getElementById("visitError").innerHTML = "Please Select Visit purpose";
+     valid++;
   } else {
     document.getElementById("visitError").innerHTML = "";
-    valid++;
+   // valid++;
   }
   if (comingForm == ""){
     document.getElementById("comeingformError").innerHTML = "Please Enter Coming Form";
+     valid++;
   } else {
     document.getElementById("comeingformError").innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (idProof == ""){
     document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+     valid++;
   } else {
     document.getElementById("idproofError").innerHTML = "";
-    valid++;
+    //valid++;
   }
    if (guestPhoto == ""){
     document.getElementById("guestPhotoError").innerHTML = "Please Take Guest photo";
+     valid++;
   } else {
     document.getElementById("guestPhotoError").innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (guestIDProof == ""){
     document.getElementById("guestIDProofError").innerHTML = "Please Upload Guest Id";
+     valid++;
   } else {
     document.getElementById("guestIDProofError").innerHTML = "";
-    valid++;
+    //valid++;
   }
 
-   if (idProof == ""){
+   /*if (idProof == ""){
     document.getElementById("idproofError").innerHTML = "Please Select ID Proof";
+     valid++;
   } else {
     document.getElementById("idproofError").innerHTML = "";
-    valid++;
-  }
+    //valid++;
+  }*/
 
   /* Age validation */
   
@@ -774,7 +791,7 @@
   
   /* Final validation */
   
-   if (valid == 14)  {
+   if (valid == 0)  {
        $("#mainHotelGuest").hide();
         $("#finalData").show();
         var mainID = "mainData";
@@ -876,77 +893,89 @@
   
    if (name==""){
     document.getElementById("nameError"+appendData).innerHTML = "Pleae Enter First Name";
-  } else {       document.getElementById("nameError"+appendData).innerHTML = "";
     valid++;
+  } else {       document.getElementById("nameError"+appendData).innerHTML = "";
+    //valid++;
   }
    if (lastname == ""){
     document.getElementById("lastError"+appendData).innerHTML = "Pleae Enter Last Name";
+    valid++;
   } else {
     document.getElementById("lastError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
    /* Mobile validation */
   if (mobile == ""){
     document.getElementById("mobileError"+appendData).innerHTML = "Please Enter Mobile Number";
+    valid++;
   } else {
     document.getElementById("mobileError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
    /* Email validation */
   if (email == ""){
     document.getElementById("emailError"+appendData).innerHTML = "Please Enter Email";
+    valid++;
   } else if(email.match(pattern)) {
      document.getElementById("emailError"+appendData).innerHTML = "";
-     valid++;
+     //valid++;
    }else{
        document.getElementById("emailError"+appendData).innerHTML = "Please Enter Valid  Email";
-   
+     valid++;
    }
    if (relation == ""){
     document.getElementById("relationError"+appendData).innerHTML = "Please Select Relation With Guest";
+    valid++;
   } else {
     document.getElementById("relationError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
    /* Gender validation */
   if (gender == ""){
     document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
+    valid++;
   } else {
     document.getElementById("genderError"+appendData).innerHTML = "";
-    valid++;
+   // valid++;
   }
   if (age == ""){
     document.getElementById("ageError"+appendData).innerHTML = "Please Enter Age";
+    valid++;
   } 
   else if (age > 100 || age < 18){
     document.getElementById("ageError"+appendData).innerHTML = "Age must be between 18 and 100.";
+    valid++;
   }  else {
     document.getElementById("ageError"+appendData).innerHTML = "";
-    valid++;
+   // valid++;
   }
   if (country == ""){
     document.getElementById("countryError"+appendData).innerHTML = "Please Select Country";
+    valid++;
   } else {
     document.getElementById("countryError").innerHTML = "";
-    valid++;
+   // valid++;
   }
   if (state == ""){
     document.getElementById("stateError"+appendData).innerHTML = "Please Select State";
+    valid++;
   } else {
     document.getElementById("stateError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (district == ""){
     document.getElementById("districtError"+appendData).innerHTML = "Please Select District";
+    valid++;
   } else {
     document.getElementById("districtError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (city == ""){
     document.getElementById("cityError"+appendData).innerHTML = "Please Select City";
+    valid++;
   } else {
     document.getElementById("cityError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   // if (visitPurpose == ""){
   //  document.getElementById("visitError"+appendData).innerHTML = "Please Select Visit purpose";
@@ -956,29 +985,33 @@
  // }
   if (comingForm == ""){
     document.getElementById("comeingformError"+appendData).innerHTML = "Please Enter Coming Form";
+    valid++;
   } else {
     document.getElementById("comeingformError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (idProof == ""){
     document.getElementById("idproofError"+appendData).innerHTML = "Please Select ID Proof";
+    valid++;
   } else {
     document.getElementById("idproofError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   /* Age validation */
   
    if (guestPhoto == ""){
     document.getElementById("guestPhotoError"+appendData).innerHTML = "Please Take Guest photo";
+    valid++;
   } else {
     document.getElementById("guestPhotoError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (guestIDProof == ""){
     document.getElementById("guestIDProofError"+appendData).innerHTML = "Please Upload Guest Id";
+    valid++;
   } else {
     document.getElementById("guestIDProofError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   
   /* Hometown validation */
@@ -988,7 +1021,7 @@
   /* Final validation */
   
 
-   if (valid == 13)  {
+   if (valid == 0)  {
         
         $("#mainHotelGuest").hide();
         $("#formAdult" + appendData).hide();
@@ -1102,15 +1135,17 @@ function editAdult(appendData) {
   
    if (name==""){
     document.getElementById("nameError"+appendData).innerHTML = "Pleae Enter First Name";
-  } else {       document.getElementById("nameError"+appendData).innerHTML = "";
     valid++;
+  } else {       document.getElementById("nameError"+appendData).innerHTML = "";
+    //valid++;
   }
 
    if (lastname == ""){
     document.getElementById("lastError"+appendData).innerHTML = "Pleae Enter Last Name";
+    valid++;
   } else {
     document.getElementById("lastError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   
    
@@ -1118,32 +1153,37 @@ function editAdult(appendData) {
    /* Gender validation */
   if (gender == ""){
     document.getElementById("genderError"+appendData).innerHTML = "Please Select Gender";
+    valid++;
   } else {
     document.getElementById("genderError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (relation == ""){
     document.getElementById("relationError"+appendData).innerHTML = "Please Select Relation With Guest";
+    valid++;
   } else {
     document.getElementById("relationError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
   if (age == ""){
     document.getElementById("ageError"+appendData).innerHTML = "Please Enter Age";
+    valid++;
   } 
-  else if (age > 18 || age < 0){
-    document.getElementById("ageError"+appendData).innerHTML = "Age must be between 0 and 18.";
+  else if (age >= 18 || age <= 0){
+    document.getElementById("ageError"+appendData).innerHTML = "Age must be between 1 and 17.";
+    valid++;
   }  else {
     document.getElementById("ageError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
      if (guestPhoto == ""){
     document.getElementById("guestPhotoError"+appendData).innerHTML = "Please Take Guest photo";
+    valid++;
   } else {
     document.getElementById("guestPhotoError"+appendData).innerHTML = "";
-    valid++;
+    //valid++;
   }
-     if (valid == 5)  {
+     if (valid == 0)  {
           $("#mainHotelGuest").hide();
        $("#formAdult" + appendData).hide();
         $("#finalData").show();

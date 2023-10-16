@@ -206,10 +206,11 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                 var code = GuestDetailsResponce.code;
                 var status = GuestDetailsResponce.status;
                 var message = GuestDetailsResponce.message;
+                var data = GuestDetailsResponce.data;
 
                 if(status == "success")
                 {
-                    return Json(GuestDetailsResponce);
+                    return Json(data);
                 }
                 else
                 {

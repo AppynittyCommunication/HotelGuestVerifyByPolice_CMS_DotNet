@@ -150,7 +150,7 @@
         border-radius : 50%;
     }
 
-    #addOnGuestDetailsModal{
+    #addOnGuestDetailsModal ,#addOnGuestDetailsModalDoc{
         display:none;
     }
     .modal{
@@ -459,12 +459,46 @@
 
                             <fieldset id="tab021">
                                 <h3>STAY INFORMATION</h3>
-                                
+                                <h6><span>Night Stayed </span></h6>
+                                <h6><span id="nightstayed"></span></h6>
+                                <br />
+                                <h6><span>Last Visit  </span></h6>
+                                <h6><span id="lastvisit"></span></h6>
+                                <br />
                             </fieldset>
 
                             <fieldset id="tab031">
                                 <h3>DOCUMENTS </h3>
-                               
+                                  <h6><span>Guest Name </span></h6>
+                                  <h6><span id="dmainname"></span></h6>
+                                  <br />
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <h6>Guest Photo</h6>
+                                           <img id="dimageDisplay" src="" alt="Image" style="width:100%"/>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <h6>Guest ID Photo</h6>
+                                        <img id="mainGuestIdProof" src="" alt="Image" style="width:100%" />
+                                      </div>
+
+                                  </div>
+                                    <div id="addOnGuestDetailsModalDoc">
+                                        <div id="addguestDoc">
+
+                                        </div>
+                                      @*    <div class="row">
+                                              <div class="col-md-6">
+                                                  <h6>Guest Photo</h6>
+                                                   <img id="addOnGuestImg" src="" alt="Image"/>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <h6>Guest ID Photo</h6>
+                                                  <img id="addonGuestIdProof" src="" alt="Image"/>
+                                              </div>
+
+                                          </div> *@
+                                    </div>
                             </fieldset>
 
 
@@ -534,7 +568,9 @@
             const divId = $(this).data('div-id');
             const dataToSend = `divId=${divId}`;
               var showAddOnDetails = document.getElementById('addOnGuestDetailsModal');
+              var showAddOnDetailsDoc = document.getElementById('addOnGuestDetailsModalDoc');
             const addOnGuestListElement = document.getElementById("addOnGuestList");
+            const addOnGuestDocElement = document.getElementById("addguestDoc");
             debugger;
             // Make a POST request to your server route with data as a string using $.ajax
             $.ajax({
@@ -544,20 +580,31 @@
                 success: function (data) {
                  
                     
-                    //console.log(data);
+                    console.log(data);
                     var imageSrc = data.hotelGuestDetails[0].guestPhoto;
+                    var imageSrcIdProof = data.hotelGuestDetails[0].guestIdPhoto;
                     var default_img = '/Areas/Department/Content/Images/Icons/avatars.jpg';
                     //console.log(imageSrc);
                     if (imageSrc != null) {
                         $("#imageDisplay").attr("src", "data:image/jpeg;base64," + imageSrc);
+                        $("#dimageDisplay").attr("src", "data:image/jpeg;base64," + imageSrc);
                     }
                     else
                     {
                         $("#imageDisplay").attr("src", default_img);
+                        $("#dimageDisplay").attr("src", default_img);
+                    }
+                    if (imageSrcIdProof != null) {
+                        $("#mainGuestIdProof").attr("src", "data:image/jpeg;base64," + imageSrcIdProof);
+                    }
+                    else
+                    {
+                        $("#mainGuestIdProof").attr("src", default_img);
                     }
                    
                     $('#title').text(data.hotelGuestDetails[0].guestName);
                     $('#name').text(data.hotelGuestDetails[0].guestName);
+                    $('#dmainname').text(data.hotelGuestDetails[0].guestName);
                     $('#mobile').text(data.hotelGuestDetails[0].mobile);
                     $('#email').text(data.hotelGuestDetails[0].email);
                     $('#gender').text(data.hotelGuestDetails[0].gender);
@@ -566,9 +613,13 @@
                     $('#city').text(data.hotelGuestDetails[0].city);
                     $('#addr').text(data.hotelGuestDetails[0].address);
 
+
+                    $('#nightstayed').text(data.hotelGuestDetails[0].nightStayed);
+                    $('#lastvisit').text(data.hotelGuestDetails[0].lastVisit);
                  
                     if (data.addOnGuestDetails1.length > 0) {
                         showAddOnDetails.style.display = "block";
+                        showAddOnDetailsDoc.style.display = "block";
                         // Populate the "addOnGuestDetails1" data
                         const addOnGuestDetails = data.addOnGuestDetails1;
                         addOnGuestListElement.innerHTML = "";
@@ -577,6 +628,68 @@
                             listItem.textContent = `Relation: ${guest.relationWithGuest}, Name: ${guest.guestName}`;
                             addOnGuestListElement.appendChild(listItem);
                         }
+
+                        const addOnGuestDetailsDoc = data.addOnGuestDetails1;
+                        addOnGuestDocElement.innerHTML = "";
+                        for (const guestDoc of addOnGuestDetailsDoc){
+
+                            for (let i = 0; i < data.addOnGuestDetails1.length; i += 2)
+                             {
+                                  const row = document.createElement('div');
+                                  row.className = 'row';
+                                  const column1 = document.createElement('div');
+                                  column1.className = 'col-md-6';
+
+                                   // Create a div element for the image name
+                                    const imageName = document.createElement('div');
+                                    imageName.className = 'image-name';
+                                    imageName.textContent = guestDoc.guestName;
+
+
+                                  const img1 = document.createElement('img');
+                                  if(guestDoc.guestPhoto != null){
+                                       img1.src = "data:image/jpeg;base64," + guestDoc.guestPhoto;
+                                  }
+                                  else{
+                                      img1.src = default_img;
+                                  }
+                                  img1.alt = `Image ${i + 1}`;
+                                  img1.style.width = '100%';
+                                  column1.appendChild(imageName);
+                                  column1.appendChild(img1);
+                                  row.appendChild(column1);
+
+                                    if (i + 1 < data.addOnGuestDetails1.length)
+                                    {
+                                    const column2 = document.createElement('div');
+                                    column2.className = 'col-md-6';
+                                      // Create a div element for the image name
+                                    const imageName = document.createElement('div');
+                                    imageName.className = 'image-name';
+                                    imageName.textContent = guestDoc.guestName;
+
+                                    const img2 = document.createElement('img');
+                                    if(guestDoc.guestIdPhoto != null){
+                                        img2.src = "data:image/jpeg;base64,"+ guestDoc.guestIdPhoto;
+                                    }
+                                    else{
+                                          img2.src = default_img;
+                                    }
+                                  
+                                    img2.alt = `Image ${i + 2}`;
+                                    img2.style.width = '100%';
+                                    column2.appendChild(imageName);
+                                    column2.appendChild(img2);
+                                    row.appendChild(column2);
+                                    }
+
+                                addOnGuestDocElement.appendChild(row);
+                             }
+
+                           
+                        }
+                         
+
                     }else{
                           showAddOnDetails.style.display = "none";
                            addOnGuestListElement.innerHTML = "";
