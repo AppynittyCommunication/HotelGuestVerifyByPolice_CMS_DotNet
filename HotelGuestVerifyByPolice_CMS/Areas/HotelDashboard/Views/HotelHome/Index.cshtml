@@ -237,7 +237,7 @@
             <button class="buttonCheck"><a href="/HotelDashboard/HotelHome/Register"><img src="../Areas/HotelDashboard/Content/Images/Icon/check-in.png" style="width:45px;"></a></button>
      </div>
         <div class="slide-left mt-5">
-            <button class="buttonCheck"><img src="../Areas/HotelDashboard/Content/Images/Icon/check-out.png" style="width:45px;"></button>
+            <button class="buttonCheck"><a href="/HotelDashboard/HotelHome/CheckOut"><img src="../Areas/HotelDashboard/Content/Images/Icon/check-out.png" style="width:45px;"></a></button>
         </div>
     </div>
 
@@ -292,7 +292,7 @@
                         }
                     </td> *@
                     <td>
-                        @if (@hDash.guestPhoto == null)
+                        @if (@hDash.guestPhoto == null || hDash.guestPhoto == "")
                         {
                             <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:60px;height: 60px;border-radius:50%" />
                         }

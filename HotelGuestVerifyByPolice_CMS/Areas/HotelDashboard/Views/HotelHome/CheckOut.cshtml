@@ -1,0 +1,109 @@
+﻿@using Newtonsoft.Json
+@model HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.HotelDashResData
+@{
+    Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+
+<style>
+    /* Define a CSS style for the custom dialog */
+    .custom-dialog {
+        display: none;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+
+<div style="margin-top:8%">
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                @*  <th>Guest Photo</th> *@
+                <th>Guest Photo</th>
+                <th>Guest Name</th>
+                <th>Reservation</th>
+                <th>Country</th>
+                <th>Mobile</th>
+                <th>Check-In Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var hDash in Model.guestDetails)
+            {
+                <tr>
+                   
+                    <td>
+                        @if (@hDash.guestPhoto == null || hDash.guestPhoto == "")
+                        {
+                            <img src="/Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:60px;height: 60px;border-radius:50%" />
+                        }
+                        else
+                        {
+
+                            <img src="data:image/jpeg;base64,@hDash.guestPhoto" alt="Image" style="width:50px;height: 50px;border-radius:50%" />
+                        }
+                    </td>
+                    <td>@hDash.guestName</td>
+                    <td>@hDash.reservation</td>
+                    <td>@hDash.country</td>
+                    <td>@hDash.mobile</td>
+                    <td>@hDash.checkInDate</td>
+                    <td><button onclick="GuestCheckOut(@hDash.roomBookingID)">Check-Out</button></td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+    <div id="customDialog" class="custom-dialog">
+        <p>Do you want to Check Out?</p>
+        <button onclick="closeCustomDialog('yes')">Yes</button>
+        <button onclick="closeCustomDialog('no')">No</button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+        var table = $('#example').DataTable({
+            select: false,
+          
+        });
+
+      
+
+    });
+
+    function GuestCheckOut(roomId) {
+        //alert(roomId);
+        var customDialog = document.getElementById("customDialog");
+        customDialog.style.display = "block";
+    }
+
+    function closeCustomDialog(response) {
+        var customDialog = document.getElementById("customDialog");
+        customDialog.style.display = "none";
+
+        if (response === 'yes') {
+            // User clicked "Yes"
+            alert("Operation performed.");
+        } else {
+            // User clicked "No" or closed the dialog
+            alert("Operation canceled.");
+        }
+    }
+</script>
