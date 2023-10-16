@@ -435,5 +435,73 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
             }
         }
 
+        public async Task<ActionResult> CheckOut()
+        {
+
+            string hotelregno = _contx.HttpContext.Session.GetString("hotelRegNo");
+            string hotelname = _contx.HttpContext.Session.GetString("hotelName");
+
+            ViewBag.hotelregno = hotelregno;
+            ViewBag.hotelname = hotelname;
+            if (string.IsNullOrEmpty(hotelregno))
+            {
+                // return RedirectToAction("HotelLogin", "Account");
+                return Redirect("/Account/HotelLogin");
+            }
+            else
+            {
+                HotelDashboardRes hotelDashRes = new();
+                HotelDashResData hotelDashResData = new();
+                hotelDashResData.guestDetails = new();
+
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                _httpClient.DefaultRequestHeaders.Add("hotelRegNo", hotelregno);
+                HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Hotel/GetGuestCheckInOutInfo");
+
+                if(response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var dynamicobject = JsonConvert.DeserializeObject<dynamic>(responseString);
+
+                    hotelDashRes.code = dynamicobject.code;
+                    hotelDashRes.status = dynamicobject.status;
+                    hotelDashRes.message = dynamicobject.message;
+
+                    if (hotelDashRes.status == "success")
+                    {
+                       
+                        foreach (var i in dynamicobject.data[0].guestDetails)
+                        {
+                            hotelDashResData.guestDetails.Add(new GuestDetail
+                            {
+                                roomBookingID = i.roomBookingID,
+                                guestName = i.guestName,
+                                guestPhoto = i.guestPhoto,
+                                reservation = i.reservation,
+                                mobile = i.mobile,
+                                state = i.state,
+                                country = i.country,
+                                checkInDate = i.checkInDate,
+                            });
+                        }
+                      
+                        return View(hotelDashResData);
+                    }
+                    else
+                    {
+                        ViewBag.msg = "Please Try After Some Time";
+                        return Redirect("/Account/HotelLogin");
+                    }
+                 
+
+                }
+                else
+                {
+                    ViewBag.msg = "Please Try After Some Time";
+                    return Redirect("/Account/HotelLogin");
+                }
+               
+            }
+        }
     }
 }

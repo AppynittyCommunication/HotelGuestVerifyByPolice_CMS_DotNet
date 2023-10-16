@@ -21,6 +21,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models
 
     public class GuestDetail
     {
+        public string roomBookingID { get; set; }
         public string guestName { get; set; }
         public string guestPhoto { get; set; }
         public string reservation {  get; set; }
