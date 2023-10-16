@@ -54,6 +54,7 @@
 
     #userDetails {
         background: #1831a5;
+        /* #847cff */
         border-radius: 5px;
         color: #fff;
     }
@@ -208,6 +209,9 @@
             border-radius: 10px;
             border: 3px solid #ffffff;
         }
+        .tableDesign{
+            display:block;overflow-y:auto;height:210px;border: 1px solid rgb(206 212 241);border-radius:5px;box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+        }
 </style>
 
 
@@ -262,7 +266,7 @@
                 <div id="map" style="height: 220px;"></div>
             </div>
             <div class="mt-4 scrollbar">
-                <table id="example" class="display" cellspacing="0" width="100%" style="display:block;overflow-y:auto;height:210px;border: 1px solid rgb(206 212 241);border-radius:5px;box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);">
+                <table id="example" class="display tableDesign" cellspacing="0" width="100%" style="">
                     <thead>
                         <tr>
                             <th>Police Station</th>
@@ -473,7 +477,7 @@
             </div>
 
             <div class="mt-2">
-                <table id="guestTable" class="display" cellspacing="0" style="width:100%;display:block;overflow-y:auto;height:300px;border: 1px solid #1831a5;">
+                <table id="guestTable" class="display tableDesign" cellspacing="0" >
                     <thead>
                         <tr>
                             <th class="width">Hotel Name</th>
