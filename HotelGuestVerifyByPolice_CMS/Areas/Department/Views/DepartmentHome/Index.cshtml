@@ -12,6 +12,10 @@
 <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7w-l0RWEUVqhXyshtsgdkqJDNxaKQ5lY&callback=initMap" async defer></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 <style>
     [aria-label="Show satellite imagery"], [aria-label="Show street map"] {
         font-size:12px !important;
@@ -52,15 +56,23 @@
         margin-right: 12px;
     }
 
-    #userDetails {
+   /*  #userDetails {
         background: #1831a5;
         /* #847cff */
-        border-radius: 5px;
+        /*border-radius: 5px;
         color: #fff;
+    } */
+    #userDetails{
+        background: #ffffff;
+        border-radius: 5px;
+        color: #0a0a0a;
+       /*  box-shadow: 1px 3px 9px 0px #3e27a8; */
+        box-shadow: 1px 3px 9px 0px #189ea5;
+        margin-bottom: 9%;
     }
-
     th {
-        background: #1831a5;
+        /* background: #1831a5; */
+        background: #189ea5;
         font-weight: 500;
         padding: 4px;
         color: #fff;
@@ -85,7 +97,7 @@
     }
 
     .card {
-        margin: 0 -8px 32px -8px;
+        margin: 0 -8px 13px -8px;
         color: rgba(0, 0, 0, 0.87);
         box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
         background: #fff;
@@ -118,7 +130,7 @@
     }
 
     .width {
-        width: 110px !important
+        width: 122px !important
     }
 
 
@@ -192,26 +204,34 @@
     /* Firefox */
     * {
         scrollbar-width: auto;
-        scrollbar-color: #c2b3c7 #e9e2e2;
+        scrollbar-color:#c7c7c7 #e9e2e2;
     }
 
         /* Chrome, Edge, and Safari */
-        *::-webkit-scrollbar {
-            width: 16px;
+    .tableDesign::-webkit-scrollbar {
+            width: 10px;
         }
 
-        *::-webkit-scrollbar-track {
+    .tableDesign::-webkit-scrollbar-track {
             background: #fff;
         }
 
-        *::-webkit-scrollbar-thumb {
-            background-color: #c2b3c7;
+    .tableDesign::-webkit-scrollbar-thumb {
+        background-color: #c7c7c7;
             border-radius: 10px;
-            border: 3px solid #ffffff;
+        border: 1px groove #d6d6d6;
         }
         .tableDesign{
-            display:block;overflow-y:auto;height:210px;border: 1px solid rgb(206 212 241);border-radius:5px;box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+            display:block;overflow-y:auto;height:260px;border: 1px solid rgb(206 212 241);border-radius:5px;box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
         }
+        .card-padding{
+        padding: 0px 15px;
+        }
+
+    .cardDeatils{padding:10px 40px;}
+
+
+
 </style>
 
 
@@ -261,9 +281,9 @@
                 <h4 class="text-center">@Model.stationName</h4>
             </div>
 
-            <div class="p-1 mt-1" style="background:#1831a5;border-radius:5px">
-                <h6 class="text-white">Hotels Locations</h6>
-                <div id="map" style="height: 220px;"></div>
+            <div class="mt-1" style="background:#189ea5;border-radius:5px;box-shadow: 2px 2px 8px rgb(0 0 0 / 31%)">
+                <h3 class="text-white text-center py-1">Hotels Locations</h3>
+                <div id="map" style="height: 220px;width:100%"></div>
             </div>
             <div class="mt-4 scrollbar">
                 <table id="example" class="display tableDesign" cellspacing="0" width="100%" style="">
@@ -297,22 +317,23 @@
         </div>
         <div class="col-md-9 col-lg-9">
             @*  <marquee direction="up" onmouseover="this.stop();" onmouseout="this.start();"> *@
+            <div class="carousel">
             @for (var i = 0; i < Model.hotelGuestDetails_DeptDashes.Count; i += 2)
             {
-
-                <div class="row cardDeatils">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="card">
+               
+                    <div class="row cardDeatils carousel-cell">
+                    <div class="col-md-6 col-lg-6 card-padding">
+                        <div class="card animate__animated animate__zoomIn carousel-cell">
                             <div class="d-flex">
                                 <div>
                                     @if (@Model.hotelGuestDetails_DeptDashes[i].guestPhoto == null)
                                     {
-                                        <img src="/Areas/Department/Content/Images/Icons/avatars.jpg" style="width:230px;height: 250px;" />
+                                        <img src="/Areas/Department/Content/Images/Icons/avatars.jpg" style="width:200px;height: 100%;" />
                                     }
                                     else
                                     {
 
-                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i].guestPhoto)" alt="Image" style="width:230px;height: 250px;" />
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i].guestPhoto)" alt="Image" style="width:200px;height: 100%;" />
                                     }
 
                                 </div>
@@ -338,18 +359,18 @@
 
                     @if (i + 1 < Model.hotelGuestDetails_DeptDashes.Count)
                     {
-                        <div class="col-md-6 col-lg-6">
-                            <div class="card">
+                        <div class="col-md-6 col-lg-6 card-padding">
+                            <div class="card animate__animated animate__zoomIn">
                                 <div class="d-flex">
                                     <div>
                                         @if (@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto == null)
                                         {
-                                            <img src="/Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
+                                            <img src="/Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:200px;height: 100%;" />
                                         }
                                         else
                                         {
 
-                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto)" alt="Image" style="width:230px;height: 250px;" />
+                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto)" alt="Image" style="width:200px;height: 100%;" />
                                         }
 
                                     </div>
@@ -375,11 +396,12 @@
                     }
                 </div>
 
-            }
+                }
+            </div>
             @*    </marquee> *@
 
             <!-- The Modal -->
-            <div class="modal right" id="resultModal">
+            <div class="modal right animate__animated animate__slideInRight" id="resultModal">
                 <div class="modal-dialog" id="showallguestdetails">
                     <div class="modal-content">
 
@@ -562,7 +584,18 @@
 
 
     $(document).ready(function () {
-
+        // var elem = document.querySelector('.carousel');
+        // var flkty = new Flickity(elem, {
+        //     // options
+        //     cellalign: 'right',
+        //     pageDots: false,
+        //     groupCells: '40%',
+        //     selectedAttraction: 0.03,
+        //     friction: 0.65
+        // });
+        // var flkty = new Flickity('.carousel', {
+        //     // options
+        // });
 
         $('[data-toggle="modal"]').click(function () {
             const divId = $(this).data('div-id');
@@ -743,12 +776,12 @@
         $('.cardDeatils:first').show();
 
         var table = $('#example').DataTable({
-            searching: false, paging: false, info: false
+            searching: false, paging: false, info: false,autoWidth:false
 
         });//End of create main table
 
         $('#guestTable').DataTable({
-            searching: false, paging: false, info: false
+            searching: false, paging: false, info: false, autoWidth: false
 
         });//End of create main table
 
