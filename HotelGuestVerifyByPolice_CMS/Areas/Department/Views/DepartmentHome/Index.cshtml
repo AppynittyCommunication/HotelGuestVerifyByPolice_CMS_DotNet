@@ -67,8 +67,8 @@
         border-radius: 5px;
         color: #0a0a0a;
        /*  box-shadow: 1px 3px 9px 0px #3e27a8; */
-        box-shadow: 1px 3px 9px 0px #189ea5;
-        margin-bottom: 9%;
+        /* box-shadow: 1px 3px 9px 0px #189ea5; */
+        box-shadow: inset 0px -4px 4px 0px #189ea5; margin-bottom: 9%;
     }
     th {
         /* background: #1831a5; */
@@ -168,6 +168,8 @@
     .modal{
         right:0;
         transition: 0.5s; /* Add a transition for smooth opening */
+        animation: slideInRight;
+        animation-duration: 2s;
     }
 
     .modal.right .modal-dialog {
@@ -195,7 +197,8 @@
         -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
         -o-transition: opacity 0.3s linear, right 0.3s ease-out;
         transition: opacity 0.3s linear, right 0.3s ease-out;
-    }
+           
+        }
     #showallguestdetails{
         width:100%;
     }
@@ -230,7 +233,11 @@
 
     .cardDeatils{padding:10px 40px;}
 
-
+    .cardImage{
+        padding: 15px;
+        width: 200px;
+        height: 210px;
+    }
 
 </style>
 
@@ -266,7 +273,7 @@
 
     </div> *@
     <div class="row mx-1 py-2">
-        <div class="col-md-3 col-lg-3">
+        <div class="col-md-3 col-lg-3 animate__animated animate__fadeInLeft">
             <div id="userDetails" class="py-3">
                 <h4 class="text-center">
                     @if (ViewBag.departuser != null)
@@ -323,17 +330,17 @@
                
                     <div class="row cardDeatils carousel-cell">
                     <div class="col-md-6 col-lg-6 card-padding">
-                        <div class="card animate__animated animate__zoomIn carousel-cell">
+                            <div class="card animate__animated animate__fadeInDown">
                             <div class="d-flex">
                                 <div>
                                     @if (@Model.hotelGuestDetails_DeptDashes[i].guestPhoto == null)
                                     {
-                                        <img src="/Areas/Department/Content/Images/Icons/avatars.jpg" style="width:200px;height: 100%;" />
+                                            <img src="/Areas/Department/Content/Images/Icons/avatars.jpg" class="cardImage" />
                                     }
                                     else
                                     {
 
-                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i].guestPhoto)" alt="Image" style="width:200px;height: 100%;" />
+                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i].guestPhoto)" alt="Image" class="cardImage" />
                                     }
 
                                 </div>
@@ -360,17 +367,17 @@
                     @if (i + 1 < Model.hotelGuestDetails_DeptDashes.Count)
                     {
                         <div class="col-md-6 col-lg-6 card-padding">
-                            <div class="card animate__animated animate__zoomIn">
+                                <div class="card animate__animated animate__fadeInDown">
                                 <div class="d-flex">
                                     <div>
                                         @if (@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto == null)
                                         {
-                                            <img src="/Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:200px;height: 100%;" />
+                                                <img src="/Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" class="cardImage" />
                                         }
                                         else
                                         {
 
-                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto)" alt="Image" style="width:200px;height: 100%;" />
+                                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(@Model.hotelGuestDetails_DeptDashes[i + 1].guestPhoto)" alt="Image" class="cardImage" />
                                         }
 
                                     </div>
@@ -401,7 +408,7 @@
             @*    </marquee> *@
 
             <!-- The Modal -->
-            <div class="modal right animate__animated animate__slideInRight" id="resultModal">
+            <div class="modal right" id="resultModal">
                 <div class="modal-dialog" id="showallguestdetails">
                     <div class="modal-content">
 
@@ -738,7 +745,7 @@
             });
         });
 
-
+       
         //Code for click on different tabs
 
         $(".tabs").click(function () {
@@ -770,7 +777,7 @@
                 }
             });
         });
-
+       
 
         $('.cardDeatils').hide();
         $('.cardDeatils:first').show();
@@ -781,7 +788,7 @@
         });//End of create main table
 
         $('#guestTable').DataTable({
-            searching: false, paging: false, info: false, autoWidth: false
+            searching: true, paging: false, info: false, autoWidth: false
 
         });//End of create main table
 
@@ -792,10 +799,12 @@
             $("#hideSecRow").show();
 
         });
+        var html = $(".cardDeatils:eq(1)").html();
         $("#hideSecRow").click(function () {
             $(".cardDeatils:eq(1)").hide();
             $("#showSecRow").show();
             $("#hideSecRow").hide();
+            //console.log(html)
 
         });
 
