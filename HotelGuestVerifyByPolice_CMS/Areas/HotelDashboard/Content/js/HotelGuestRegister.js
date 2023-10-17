@@ -446,7 +446,7 @@
                         <div class="profile-pic" id="image-placeholderAdult${appendData}">
 
                             <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageAdult" onclick="previewFileAdult()" >
-                            <input id="profile-image-upload" class="hidden" type="file" >
+                            <input id="profile-image-upload" class="hidden" type="file" accept=".jpg, .jpeg" >
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                         </div>
@@ -454,7 +454,7 @@
                         <div class="profile-pic">
 
                             <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="IdProof_Image_Adult" onclick="guestIdproof()"height="200">
-                            <input id="ID_proofUpload_IDAdult" class="hidden" type="file" onchange="previewIdProofAdult()">
+                            <input id="ID_proofUpload_IDAdult" class="hidden" type="file" accept=".jpg, .jpeg" onchange="previewIdProofAdult()">
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
                         </div>
@@ -603,7 +603,7 @@
                         <div class="profile-pic" id="image-Child${appendData}" style="justify-content: start">
 
                             <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-imageChild" onclick="previewFileChild()">
-                            <input id="profile-image-upload" class="hidden" type="file" >
+                            <input id="profile-image-upload" class="hidden" type="file" accept=".jpg, .jpeg">
                             <div style="color:#999;">  </div>
                             <p style="margin-top: auto;margin-bottom: auto;">Take Photo</p>
                         </div>
