@@ -838,13 +838,8 @@
      
   }  else {
         return false
-     }
- 
-  
-       
+     }  
     }
-
-
   function editMain(){
  $("#mainHotelGuest").show();
   $("#finalData").hide();
