@@ -1435,11 +1435,15 @@ function previewFileChild() {
 //Id Photo File Upload
 
 
-
+var fileTypes = ['jpg', 'jpeg', 'png'];
       function previewFile_ID() {
         var preview = document.querySelector('#profile-image1_ID');
         var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
+
+        var extension = file.name.split('.').pop().toLowerCase(),  //file extension from input file
+            isSuccess = fileTypes.indexOf(extension) > -1;
+            if (isSuccess) { //yes
+            var reader = new FileReader();
 
         reader.addEventListener("load", function () {
             preview.src = reader.result;
@@ -1449,6 +1453,13 @@ function previewFileChild() {
         if (file) {
             reader.readAsDataURL(file);
         }
+        }
+        else { alert('Upload Only jpg, jpeg, png')
+        }
+        
+
+
+
     }
     $(function () {
         $('#profile-image1_ID').on('click', function () {
@@ -1467,7 +1478,9 @@ function previewFileChild() {
         var preview = document.querySelector('#IdProof_Image_Adult');
         var file = document.querySelector('#ID_proofUpload_IDAdult').files[0];
         var reader = new FileReader();
-
+         var extension = file.name.split('.').pop().toLowerCase(),  //file extension from input file
+            isSuccess = fileTypes.indexOf(extension) > -1;
+            if (isSuccess) { //yes
         reader.addEventListener("load", function () {
             preview.src = reader.result;
             document.getElementById('guestIdAdult'+appendData).value = reader.result;
@@ -1475,11 +1488,13 @@ function previewFileChild() {
 
         if (file) {
             reader.readAsDataURL(file);
+        }}
+        else { alert('Upload Only jpg, jpeg, png')
         }
     }
 
     function guestIdproof(){
-alert();
+//alert();
  $('#ID_proofUpload_IDAdult').click();
     }
     

@@ -68,7 +68,8 @@
         color: #0a0a0a;
        /*  box-shadow: 1px 3px 9px 0px #3e27a8; */
         /* box-shadow: 1px 3px 9px 0px #189ea5; */
-        box-shadow: inset 0px -4px 4px 0px #189ea5; margin-bottom: 9%;
+        box-shadow: inset 0px -4px 4px 0px #511ca8;
+         margin-bottom: 9%;
     }
     th {
         /* background: #1831a5; */
@@ -76,11 +77,11 @@
         font-weight: 500;
         padding: 4px;
         color: #fff;
-        width: 100px
+        min-width: 75px;
     }
 
     tbody, td, tfoot, thead, tr {
-        font-size: 13px;
+        font-size: 11px;
         text-align: center;
         padding: 4px;
         /*  background: #220a52; */
@@ -101,6 +102,7 @@
         color: rgba(0, 0, 0, 0.87);
         box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
         background: #fff;
+        border-radius: 20px;
     }
 
     .guestDetails {
@@ -168,8 +170,8 @@
     .modal{
         right:0;
         transition: 0.5s; /* Add a transition for smooth opening */
-        animation: slideInRight;
-        animation-duration: 2s;
+        animation: fadeInRight;
+        animation-duration: 1s;
     }
 
     .modal.right .modal-dialog {
@@ -199,6 +201,13 @@
         transition: opacity 0.3s linear, right 0.3s ease-out;
            
         }
+         .fade-out {
+            
+            animation:fadeOutRight;
+        animation-duration: 2s;
+        }
+
+       
     #showallguestdetails{
         width:100%;
     }
@@ -238,7 +247,7 @@
         width: 200px;
         height: 210px;
     }
-
+   
 </style>
 
 
@@ -293,7 +302,7 @@
                 <div id="map" style="height: 220px;width:100%"></div>
             </div>
             <div class="mt-4 scrollbar">
-                <table id="example" class="display tableDesign" cellspacing="0" width="100%" style="">
+                <table id="example" class="display tableDesign" cellspacing="0" width="100%" style="height:210px;">
                     <thead>
                         <tr>
                             <th>Police Station</th>
@@ -358,7 +367,7 @@
 
                                     <h6>Remark : </h6>
                                     @* <h6 style="text-align:end">View All</h6> *@
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View All</button>
+                                   <div style="text-align:end"> <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View All</button></div>
                                 </div>
                             </div>
                         </div>
@@ -395,7 +404,7 @@
 
                                         <h6>Remark : </h6>
                                         @*  <h6 style="text-align:end">View All</h6> *@
-                                        <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i + 1].roomBookingID">View All</button>
+                                       <div style="text-align:end"> <button class="btn btn-primary" data-toggle="modal" data-target="#resultModal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i + 1].roomBookingID">View All</button></div>
                                     </div>
                                 </div>
                             </div>
@@ -418,7 +427,7 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-2" style="margin-left: -25px;">
-                                        <button type="button" class="close" data-dismiss="modal" style="font-size: 30px;">&times;</button>
+                                        <button type="button" class="close" onclick="animateModalClose()" style="font-size: 30px;">&times;</button>
                                     </div>
                                   
                                     <div class="col-md-10" style="margin-top: 35px;margin-left: -20px;">
@@ -533,7 +542,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" onclick="animateModalClose()">Close</button>
                         </div>
                     </div>
                 </div>
@@ -745,7 +754,7 @@
             });
         });
 
-       
+     
         //Code for click on different tabs
 
         $(".tabs").click(function () {
@@ -822,7 +831,14 @@
     // }
 
     // initMap();
-
+      function animateModalClose() {
+            var modal = document.getElementById('resultModal');
+            modal.classList.add('fade-out');
+            setTimeout(function () {
+                $('#resultModal').modal('hide');
+                modal.classList.remove('fade-out');
+            }, 500);
+        }
     var map;
     function initMap() {
         debugger;
