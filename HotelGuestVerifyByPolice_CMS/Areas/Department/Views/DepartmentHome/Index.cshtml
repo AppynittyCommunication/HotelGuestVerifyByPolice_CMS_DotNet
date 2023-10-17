@@ -16,6 +16,12 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <style>
     [aria-label="Show satellite imagery"], [aria-label="Show street map"] {
         font-size:12px !important;
@@ -247,7 +253,11 @@
         width: 200px;
         height: 210px;
     }
-   
+   .dt-button {
+       border:1px solid #bfbdbd;
+       border-radius:5px;
+   }
+   table.dataTable thead th, table.dataTable thead td{padding:5px}
 </style>
 
 
@@ -305,7 +315,7 @@
                 <table id="example" class="display tableDesign" cellspacing="0" width="100%" style="height:210px;">
                     <thead>
                         <tr>
-                            <th>Police Station</th>
+                            <th style="min-width: 155px;">Police Station</th>
                             <th>Hotels</th>
                             <th>Total Check-In</th>
                             <th>Today Check-In</th>
@@ -612,7 +622,7 @@
         // var flkty = new Flickity('.carousel', {
         //     // options
         // });
-
+        initMap();
         $('[data-toggle="modal"]').click(function () {
             const divId = $(this).data('div-id');
             const dataToSend = `divId=${divId}`;
@@ -797,7 +807,23 @@
         });//End of create main table
 
         $('#guestTable').DataTable({
-            searching: true, paging: false, info: false, autoWidth: false
+            dom: 'Bfrtip',
+            searching: true, paging: false, info: false, autoWidth: false,
+            buttons: [
+           
+            {
+                extend:    'excelHtml5',
+                text:      '<img src="/Areas/Department/Content/Images/Icons/excel.jpg" style="width:30px;border:none"/>',
+                titleAttr: 'Excel'
+            },
+           
+            
+             {
+                extend:    'pdfHtml5',
+                text:      '<img src="/Areas/Department/Content/Images/Icons/Icon_pdf_file.svg.png" style="width:25px;border:none"/>',
+                titleAttr: 'PDF'
+            }
+        ]
 
         });//End of create main table
 
@@ -839,6 +865,10 @@
                 modal.classList.remove('fade-out');
             }, 500);
         }
+
+
+
+
     var map;
     function initMap() {
         debugger;
@@ -930,6 +960,7 @@
 
 
         }
+
         map.fitBounds(bounds);
         map.panToBounds(bounds);
     }
