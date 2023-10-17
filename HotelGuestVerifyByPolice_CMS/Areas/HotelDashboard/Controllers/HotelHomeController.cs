@@ -503,5 +503,31 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Controllers
                
             }
         }
+
+        public async Task<IActionResult> CheckOutClick(String roomBookingID)
+        {
+            if (roomBookingID != null)
+            {
+                _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                _httpClient.DefaultRequestHeaders.Add("roomBookingID", roomBookingID);
+                HttpResponseMessage response = await _httpClient.PostAsync(_httpClient.BaseAddress + "Hotel/CheckOutGuest",null);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    CommonResponse cr = JsonConvert.DeserializeObject<CommonResponse>(responseString);
+                  
+                    return Json(cr);
+                }
+                else
+                {
+                    return Json(null);
+                }
+            }
+            else
+            {
+                return Json(null);
+            }
+        }
     }
 }
