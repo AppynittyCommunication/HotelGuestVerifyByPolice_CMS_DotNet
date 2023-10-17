@@ -261,7 +261,7 @@
                 @Html.EditorFor(model => model.guestIDProof, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Coming Form",Type="hidden"} })
                 
                 <img alt="User Pic" src="/Areas/HotelDashboard/Content/Images/Icon/Screenshot 2023-09-28 143659.png" id="profile-image1_ID" height="200">
-                <input id="profile-image-upload_ID" class="hidden" type="file" onchange="previewFile_ID()">
+                <input id="profile-image-upload_ID" class="hidden" type="file" accept=".jpg, .jpeg" onchange="previewFile_ID()">
                 <div style="color:#999;">  </div>
                 <p style="margin-top: auto;margin-bottom: auto;">Take ID Photo</p>
             </div>

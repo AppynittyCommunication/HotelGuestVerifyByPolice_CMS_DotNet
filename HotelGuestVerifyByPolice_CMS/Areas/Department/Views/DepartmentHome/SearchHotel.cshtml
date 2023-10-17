@@ -50,7 +50,8 @@
     }
 
     th {
-        background: #1831a5;
+       /*  background: #1831a5; */
+        background: #189ea5;    
         font-weight: 500;
         padding: 4px;
         color: #fff;
@@ -90,6 +91,21 @@
     #sdlist, #sclist, #spolicelist{
         display:none;padding:10px 10px
     }
+
+    .tableDesign {
+        display: block;
+        overflow-y: auto;
+        height: 260px;
+        border: 1px solid rgb(206 212 241);
+        border-radius: 5px;
+        box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+    }
+
+    .width {
+        width: 122px !important
+    }
+
+    table.dataTable.no-footer{border-color:#fff !important}
 </style>
 
 @* <div>
@@ -140,7 +156,7 @@
                         <select id="shotellist" name="hotelRegNo" class="form-control"></select>
                     </div>
                     <div class="searchbtn">
-                        <button class="btn btn-primary" id="hsearchbtn" type="submit">Search</button>
+                        <button class="btn btn-lg btn-primary" id="hsearchbtn" type="submit">Search</button>
                     </div>
                
                 </div>
@@ -150,7 +166,7 @@
             <div id="lastvisitor" class="" style="margin-top: 10%;">
                 @if(Model.lastVisitors != null)
                 {
-                    <div class="row" style="box-shadow:0px 0px 12px 2px rgb(0 0 0 / 31%);border-radius:5px">
+                <div class="row" style="box-shadow:0px 0px 12px 2px rgb(0 0 0 / 31%);border-radius:5px;margin: 0px 0px 20px 0px">
                         <div class="col-md-6">
                              @if (@Model.lastVisitors.guestPhoto == null)
                             {
@@ -202,22 +218,22 @@
                             <input type="date" id="endDate" class="form-control">
                         </div>
 
-                        <button type="button" id="filterButton" class="btn btn-primary">Filter</button>
+                        <button type="button" id="filterButton" class="btn btn-lg btn-primary">Filter</button>
                     </div>
                 </div>
 
                 <div class="row">
-                    <table id="data-table" class="display" cellspacing="0" width="100%">
+                <table id="data-table" class="display tableDesign" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                              
-                                <th>Guest Name</th>
-                                <th>Reservation</th>
-                                <th>Night Stay</th>
-                                <th>Last Visit</th>
-                                <th>Contact</th>
-                                <th>City</th>
-                                <th>Address</th>
+
+                            <th class="width">Guest Name</th>
+                            <th class="width">Reservation</th>
+                            <th class="width">Night Stay</th>
+                            <th class="width">Last Visit</th>
+                            <th class="width">Contact</th>
+                            <th class="width">City</th>
+                            <th class="width">Address</th>
                             </tr>
                         </thead>
 
@@ -277,6 +293,10 @@
                 }
             }
         });
+        $('#data-table').DataTable({
+            searching: false, paging: false, info: false, autoWidth: false
+
+        });//End of create main table
     });
 </script>
 
