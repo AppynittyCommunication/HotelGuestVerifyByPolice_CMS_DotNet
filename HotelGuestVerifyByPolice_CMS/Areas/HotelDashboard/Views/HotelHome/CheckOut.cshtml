@@ -67,6 +67,7 @@
 
     <div id="customDialog" class="custom-dialog">
         <p>Do you want to Check Out?</p>
+        <p id="roomid" style="display:none"></p>
         <button onclick="closeCustomDialog('yes')">Yes</button>
         <button onclick="closeCustomDialog('no')">No</button>
     </div>
@@ -91,6 +92,8 @@
     function GuestCheckOut(roomId) {
         //alert(roomId);
         var customDialog = document.getElementById("customDialog");
+        const rid = document.getElementById("roomid");
+        rid.innerText = roomId;
         customDialog.style.display = "block";
     }
 
@@ -100,10 +103,36 @@
 
         if (response === 'yes') {
             // User clicked "Yes"
-            alert("Operation performed.");
+            var roomID = document.getElementById("roomid").innerText;
+            $.ajax({
+                type: "post",
+                url: "../HotelHome/CheckOutClick",
+                data: { roomBookingID: roomID },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    if (data.status == "success") {
+                        //alert(data.message);
+                        if (confirm(data.message)) {
+                            window.location.reload();
+                        }
+                    }
+                    else 
+                    {
+                        if (confirm(data.message)) {
+                            window.location.reload();
+                        }
+                    }
+                },
+            });
+            
+           
         } else {
             // User clicked "No" or closed the dialog
-            alert("Operation canceled.");
+            //alert("Operation canceled.");
+            if (confirm("Operation canceled.")) {
+                window.location.reload();
+            }
         }
     }
 </script>
