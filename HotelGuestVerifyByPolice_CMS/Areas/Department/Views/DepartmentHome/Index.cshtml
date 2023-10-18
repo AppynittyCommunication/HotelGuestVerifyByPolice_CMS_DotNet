@@ -443,6 +443,7 @@
                                     <div class="col-md-10" style="margin-top: 35px;margin-left: -20px;">
                                         <img id="imageDisplay" src="" alt="Image"/>
                                         <span id="title"></span>
+                                         <span id="rbookid" style="display:none"></span>
                                     </div>
                                 
                                 </div>
@@ -520,6 +521,7 @@
                                   <h6><span>Guest Name </span></h6>
                                   <h6><span id="dmainname"></span></h6>
                                   <br />
+                                  <button id="downloadButton">Download PDF</button>
                                   <div class="row">
                                       <div class="col-md-6">
                                           <h6>Guest Photo</h6>
@@ -604,7 +606,42 @@
 
 </div>
 
+<script>
+    document.getElementById("downloadButton").addEventListener("click", function() {
+        debugger;
+        // Replace 'yourRidValue' with the actual 'rid' parameter value you want to pass
+        const rid = document.getElementById("rbookid").innerText;
 
+        fetch(`/Department/DepartmentHome/DownloadGuestDetailsPDF?rid=${rid}`, {
+            method: 'GET',
+        })
+        .then(response => {
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            // Create a blob URL for the PDF content
+            const url = window.URL.createObjectURL(blob);
+
+            // Create an anchor element to trigger the download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'guest_details.pdf';
+
+            // Trigger a click event on the anchor element to initiate the download
+            a.click();
+
+            // Clean up resources
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
 
 <script>
 
@@ -661,6 +698,7 @@
                         $("#mainGuestIdProof").attr("src", default_img);
                     }
                    
+                    $('#rbookid').text(data.hotelGuestDetails[0].roomBookingId);
                     $('#title').text(data.hotelGuestDetails[0].guestName);
                     $('#name').text(data.hotelGuestDetails[0].guestName);
                     $('#dmainname').text(data.hotelGuestDetails[0].guestName);

@@ -1,10 +1,15 @@
-﻿using HotelGuestVerifyByPolice_CMS.Areas.Department.Models;
+﻿using DinkToPdf;
+using DinkToPdf.Contracts;
+using HotelGuestVerifyByPolice_CMS.Areas.Department.Models;
 using HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models;
 using HotelGuestVerifyByPolice_CMS.Models.APIModels;
+using HotelGuestVerifyByPolice_CMS.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
 {
@@ -14,14 +19,16 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
         private readonly IHttpContextAccessor _contx;
         private readonly string _myApi;
         private readonly HttpClient _httpClient;
+        private readonly IConverter _converter;
 
-        public DepartmentHomeController(IConfiguration configuration, IHttpContextAccessor contx)
+        public DepartmentHomeController(IConfiguration configuration, IHttpContextAccessor contx , IConverter converter)
         {
             _httpClient = new HttpClient();
             _myApi = configuration["MyApi:API"];
             Uri baseUri = new Uri(_myApi);
             _httpClient.BaseAddress = baseUri;
             _contx = contx;
+            _converter = converter;
         }
         public async Task<IActionResult> IndexAsync()
         {
@@ -327,6 +334,125 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DownloadGuestDetailsPDF(string rid)
+        {
+            //var testdata = await CreatePDF_GuestDetails(rid);
 
+            JsonResult testdata = (JsonResult)await CreatePDF_GuestDetails(rid);
+            string jsonString = JsonConvert.SerializeObject(testdata.Value);
+
+            var htmlpdfdata = GetHTMLString(jsonString);
+            //if (testdata != null)
+            //{
+            //    string tdata = testdata.ToString();
+            //    var htmlpdfdata = GetHTMLString(tdata);
+            //}
+         
+
+            if (testdata != null)
+            {
+                var globalSetting = new GlobalSettings
+                {
+                    ColorMode = ColorMode.Color,
+                    Orientation = Orientation.Portrait,
+                    PaperSize = PaperKind.A4,
+                    Margins = new MarginSettings { Top = 10 },
+                    DocumentTitle = "PDF Report",
+                   // Out = @"D:\PDFCreator\Employee_Report.pdf"
+                };
+
+                var objectSettings = new ObjectSettings
+                {
+                    PagesCount = true,
+                    HtmlContent = htmlpdfdata,
+                    //Page = "https://code-maze.com/",
+                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "", "") },
+                    HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                    FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+                };
+                //var converter = new BasicConverter(new PdfTools());
+
+                var pdf = new HtmlToPdfDocument
+                {
+                    GlobalSettings = globalSetting,
+                    Objects = { objectSettings },
+                };
+
+
+                //_converter.Convert(pdf);
+
+                //return Ok("Successfully Create PDF Document");
+                var file = _converter.Convert(pdf);
+                return File(file, "application/pdf");
+            }
+            return Ok();
+           
+        }
+
+        public async Task<ActionResult> CreatePDF_GuestDetails(string roombookingId)
+        {
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("roomBookingID", roombookingId);
+            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/ShowHotelGuestDetails");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                ShowHotelGuestDetailsRes GuestDetailsResponce = JsonConvert.DeserializeObject<ShowHotelGuestDetailsRes>(responseString);
+
+                var code = GuestDetailsResponce.code;
+                var status = GuestDetailsResponce.status;
+                var message = GuestDetailsResponce.message;
+                var data = GuestDetailsResponce.data;
+
+
+                if (status == "success")
+                {
+                    return Json(data);
+                }
+                else
+                {
+                    return Json("");
+                }
+
+            }
+            else
+            {
+                return Json(response);
+            }
+        }
+
+        public static string GetHTMLString(string gdata)
+        {
+            dynamic jsonObject = Newtonsoft.Json.JsonConvert.DeserializeObject(gdata);
+
+            var sb = new StringBuilder();
+            sb.AppendLine(@"
+                    <html>
+                    <head></head>
+                    <body>
+                         <div class='header'><h1>This is the generated PDF report!!!</h1></div>
+                            <table align='center'>
+                                <tr>
+                                    <th>Guest Name</th>
+                                    <th>Registered Mobile No.</th>
+                                    <th>Email</th>
+                                </tr>");
+            foreach (var item in jsonObject.hotelGuestDetails)
+            {
+                sb.AppendFormat(@"<tr>
+                                    <td>{0}</td>
+                                    <td>{1}</td>
+                                    <td>{2}</td>
+                                </tr>", item.guestName, item.mobile, item.email);
+            }
+            sb.Append(@"</table>
+                        </div>
+                        </body>
+                        </html>");
+
+            return sb.ToString();
+        }
     }
 }
