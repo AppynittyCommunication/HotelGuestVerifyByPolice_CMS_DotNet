@@ -675,84 +675,86 @@
 
                     $('#nightstayed').text(data.hotelGuestDetails[0].nightStayed);
                     $('#lastvisit').text(data.hotelGuestDetails[0].lastVisit);
-                 
-                    if (data.addOnGuestDetails1.length > 0) {
-                        showAddOnDetails.style.display = "block";
-                        showAddOnDetailsDoc.style.display = "block";
-                        // Populate the "addOnGuestDetails1" data
-                        const addOnGuestDetails = data.addOnGuestDetails1;
-                        addOnGuestListElement.innerHTML = "";
-                        for (const guest of addOnGuestDetails) {
-                            const listItem = document.createElement("li");
-                            listItem.textContent = `Relation: ${guest.relationWithGuest}, Name: ${guest.guestName}`;
-                            addOnGuestListElement.appendChild(listItem);
-                        }
+                    if (data.addOnGuestDetails1 != null) {
+                        if (data.addOnGuestDetails1.length > 0) {
+                            showAddOnDetails.style.display = "block";
+                            showAddOnDetailsDoc.style.display = "block";
+                            // Populate the "addOnGuestDetails1" data
+                            const addOnGuestDetails = data.addOnGuestDetails1;
+                            addOnGuestListElement.innerHTML = "";
+                            for (const guest of addOnGuestDetails) {
+                                const listItem = document.createElement("li");
+                                listItem.textContent = `Relation: ${guest.relationWithGuest}, Name: ${guest.guestName}`;
+                                addOnGuestListElement.appendChild(listItem);
+                            }
 
-                        const addOnGuestDetailsDoc = data.addOnGuestDetails1;
-                        addOnGuestDocElement.innerHTML = "";
-                        for (const guestDoc of addOnGuestDetailsDoc){
+                            const addOnGuestDetailsDoc = data.addOnGuestDetails1;
+                            addOnGuestDocElement.innerHTML = "";
+                            for (const guestDoc of addOnGuestDetailsDoc) {
 
-                            for (let i = 0; i < data.addOnGuestDetails1.length; i += 2)
-                             {
-                                  const row = document.createElement('div');
-                                  row.className = 'row';
-                                  const column1 = document.createElement('div');
-                                  column1.className = 'col-md-6';
+                                for (let i = 0; i < data.addOnGuestDetails1.length; i += 2) {
+                                    const row = document.createElement('div');
+                                    row.className = 'row';
+                                    const column1 = document.createElement('div');
+                                    column1.className = 'col-md-6';
 
-                                   // Create a div element for the image name
+                                    // Create a div element for the image name
                                     const imageName = document.createElement('div');
                                     imageName.className = 'image-name';
                                     imageName.textContent = guestDoc.guestName;
 
 
-                                  const img1 = document.createElement('img');
-                                  if(guestDoc.guestPhoto != null){
-                                       img1.src = "data:image/jpeg;base64," + guestDoc.guestPhoto;
-                                  }
-                                  else{
-                                      img1.src = default_img;
-                                  }
-                                  img1.alt = `Image ${i + 1}`;
-                                  img1.style.width = '100%';
-                                  column1.appendChild(imageName);
-                                  column1.appendChild(img1);
-                                  row.appendChild(column1);
-
-                                    if (i + 1 < data.addOnGuestDetails1.length)
-                                    {
-                                    const column2 = document.createElement('div');
-                                    column2.className = 'col-md-6';
-                                      // Create a div element for the image name
-                                    const imageName = document.createElement('div');
-                                    imageName.className = 'image-name';
-                                    imageName.textContent = guestDoc.guestName;
-
-                                    const img2 = document.createElement('img');
-                                    if(guestDoc.guestIdPhoto != null){
-                                        img2.src = "data:image/jpeg;base64,"+ guestDoc.guestIdPhoto;
+                                    const img1 = document.createElement('img');
+                                    if (guestDoc.guestPhoto != null) {
+                                        img1.src = "data:image/jpeg;base64," + guestDoc.guestPhoto;
                                     }
-                                    else{
-                                          img2.src = default_img;
+                                    else {
+                                        img1.src = default_img;
                                     }
-                                  
-                                    img2.alt = `Image ${i + 2}`;
-                                    img2.style.width = '100%';
-                                    column2.appendChild(imageName);
-                                    column2.appendChild(img2);
-                                    row.appendChild(column2);
+                                    img1.alt = `Image ${i + 1}`;
+                                    img1.style.width = '100%';
+                                    column1.appendChild(imageName);
+                                    column1.appendChild(img1);
+                                    row.appendChild(column1);
+
+                                    if (i + 1 < data.addOnGuestDetails1.length) {
+                                        const column2 = document.createElement('div');
+                                        column2.className = 'col-md-6';
+                                        // Create a div element for the image name
+                                        const imageName = document.createElement('div');
+                                        imageName.className = 'image-name';
+                                        imageName.textContent = guestDoc.guestName;
+
+                                        const img2 = document.createElement('img');
+                                        if (guestDoc.guestIdPhoto != null) {
+                                            img2.src = "data:image/jpeg;base64," + guestDoc.guestIdPhoto;
+                                        }
+                                        else {
+                                            img2.src = default_img;
+                                        }
+
+                                        img2.alt = `Image ${i + 2}`;
+                                        img2.style.width = '100%';
+                                        column2.appendChild(imageName);
+                                        column2.appendChild(img2);
+                                        row.appendChild(column2);
                                     }
 
-                                addOnGuestDocElement.appendChild(row);
-                             }
+                                    addOnGuestDocElement.appendChild(row);
+                                }
 
-                           
+
+                            }
+
+
+                        } 
+                        else
+                        {
+                            showAddOnDetails.style.display = "none";
+                            addOnGuestListElement.innerHTML = "";
                         }
-                         
-
-                    }else{
-                          showAddOnDetails.style.display = "none";
-                           addOnGuestListElement.innerHTML = "";
                     }
+                    
                   
 
                     $("#tab011").addClass("show");
