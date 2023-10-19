@@ -339,7 +339,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
         {
             //var testdata = await CreatePDF_GuestDetails(rid);
 
-            JsonResult testdata = (JsonResult)await CreatePDF_GuestDetails(rid);
+            JsonResult testdata = (JsonResult)await ShowHotelGuestDetails(rid);
             string jsonString = JsonConvert.SerializeObject(testdata.Value);
 
             var htmlpdfdata = GetHTMLString(jsonString);
@@ -367,7 +367,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                     PagesCount = true,
                     HtmlContent = htmlpdfdata,
                     //Page = "https://code-maze.com/",
-                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "", "") },
+                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
                     HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
                     FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
                 };
@@ -390,38 +390,6 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
            
         }
 
-        public async Task<ActionResult> CreatePDF_GuestDetails(string roombookingId)
-        {
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Add("roomBookingID", roombookingId);
-            HttpResponseMessage response = await _httpClient.GetAsync(_httpClient.BaseAddress + "Department/ShowHotelGuestDetails");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseString = await response.Content.ReadAsStringAsync();
-                ShowHotelGuestDetailsRes GuestDetailsResponce = JsonConvert.DeserializeObject<ShowHotelGuestDetailsRes>(responseString);
-
-                var code = GuestDetailsResponce.code;
-                var status = GuestDetailsResponce.status;
-                var message = GuestDetailsResponce.message;
-                var data = GuestDetailsResponce.data;
-
-
-                if (status == "success")
-                {
-                    return Json(data);
-                }
-                else
-                {
-                    return Json("");
-                }
-
-            }
-            else
-            {
-                return Json(response);
-            }
-        }
 
         public static string GetHTMLString(string gdata)
         {
@@ -436,21 +404,66 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                             <table align='center'>
                                 <tr>
                                     <th>Guest Name</th>
+                                    <th>Guest Photo</th>
+                                    <th>Guest ID Proof</th>
                                     <th>Registered Mobile No.</th>
                                     <th>Email</th>
+                                    <th>Age</th>
+                                    <th>City</th>
                                 </tr>");
-            foreach (var item in jsonObject.hotelGuestDetails)
+            if(jsonObject != null)
             {
-                sb.AppendFormat(@"<tr>
+                foreach (var item in jsonObject.hotelGuestDetails)
+                {
+
+                    sb.AppendFormat(@"<tr>
                                     <td>{0}</td>
-                                    <td>{1}</td>
-                                    <td>{2}</td>
-                                </tr>", item.guestName, item.mobile, item.email);
-            }
-            sb.Append(@"</table>
+                                    <td><img src='data:image/jpeg;base64,{1}' alt='Guest Photo' style='width:100%'/></td>
+                                    <td><img src='data:image/jpeg;base64,{2}' alt='Guest ID Proof' style='width:100%'/></td>
+                                    <td>{3}</td>
+                                    <td>{4}</td>
+                                    <td>{5}</td>
+                                    <td>{6}</td>
+                                </tr>",
+                                    item.guestName, item.guestPhoto, item.guestIdPhoto, item.mobile, item.email, item.age, item.city);
+                }
+                sb.Append(@"</table>");
+
+                if(jsonObject.addOnGuestDetails1 != null)
+                {
+                    sb.AppendLine(@"<table align='center'>
+                                      <tr>
+                                            <th>Guest Name</th>
+                                            <th>Guest Photo</th>
+                                            <th>Guest ID Proof</th>
+                                            <th>Relation</th>
+                                       </tr>");
+
+                    foreach (var item2 in jsonObject.addOnGuestDetails1)
+                    {
+                        sb.AppendFormat(@"<tr>
+                                            <td>{0}</td>
+                                             <td><img src='data:image/jpeg;base64,{1}' alt='Guest Photo' style='width:100%'/></td>
+                                             <td><img src='data:image/jpeg;base64,{2}' alt='Guest ID Proof' style='width:100%'/></td>
+                                             <td>{3}</td>
+                                        </tr>",
+                                        item2.guestName , item2.guestPhoto , item2.guestIdPhoto, item2.relationWithGuest);
+                    }
+                    sb.Append(@"</table>");
+                }
+
+                sb.Append(@"
                         </div>
                         </body>
                         </html>");
+            }
+            else
+            {
+                sb.Append(@"<h6>Data Not Fount</h6></table>
+                        </div>
+                        </body>
+                        </html>");
+            }
 
             return sb.ToString();
         }

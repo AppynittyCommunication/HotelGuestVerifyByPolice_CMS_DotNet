@@ -522,6 +522,8 @@
                                   <h6><span id="dmainname"></span></h6>
                                   <br />
                                   <button id="downloadButton">Download PDF</button>
+                                <iframe id="pdfPreview" width="100%" height="500" style="display: none;"></iframe>
+                            
                                   <div class="row">
                                       <div class="col-md-6">
                                           <h6>Guest Photo</h6>
@@ -627,9 +629,16 @@
             const url = window.URL.createObjectURL(blob);
 
             // Create an anchor element to trigger the download
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'guest_details.pdf';
+                const a = document.createElement('a');
+                a.href = url;
+                const filename = document.getElementById("dmainname").innerText;
+                a.download = filename+'.pdf';
+
+            // Display the PDF in the iframe
+               
+                // const pdfPreview = document.getElementById('pdfPreview');
+                // pdfPreview.src = url;
+                // pdfPreview.style.display = 'block';
 
             // Trigger a click event on the anchor element to initiate the download
             a.click();
