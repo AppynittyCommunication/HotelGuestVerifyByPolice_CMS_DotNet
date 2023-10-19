@@ -400,7 +400,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                     <html>
                     <head></head>
                     <body>
-                         <div class='header'><h1>This is the generated PDF report!!!</h1></div>
+                         <div class='header'><h1>Main Guest Details</h1></div>
                             <table align='center'>
                                 <tr>
                                     <th>Guest Name</th>
@@ -437,7 +437,9 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
 
                 if(jsonObject.addOnGuestDetails1 != null)
                 {
-                    sb.AppendLine(@"<table align='center'>
+                    sb.AppendLine(@"</br>
+                                    <div class='header'><h1>Added Guest Details</h1></div>
+                                    <table align='center'>
                                       <tr>
                                             <th>Guest Name</th>
                                             <th>Guest Photo</th>
@@ -462,14 +464,12 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                 }
 
                 sb.Append(@"
-                        </div>
                         </body>
                         </html>");
             }
             else
             {
                 sb.Append(@"<h6>Data Not Fount</h6></table>
-                        </div>
                         </body>
                         </html>");
             }
