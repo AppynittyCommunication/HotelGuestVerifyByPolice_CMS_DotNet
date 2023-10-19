@@ -418,14 +418,20 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
 
                     sb.AppendFormat(@"<tr>
                                     <td>{0}</td>
-                                    <td><img src='data:image/jpeg;base64,{1}' alt='Guest Photo' style='width:100%'/></td>
-                                    <td><img src='data:image/jpeg;base64,{2}' alt='Guest ID Proof' style='width:100%'/></td>
+                                    <td>{1}</td>
+                                    <td>{2}</td>
                                     <td>{3}</td>
                                     <td>{4}</td>
                                     <td>{5}</td>
                                     <td>{6}</td>
                                 </tr>",
-                                    item.guestName, item.guestPhoto, item.guestIdPhoto, item.mobile, item.email, item.age, item.city);
+                                    item.guestName,
+                                    item.guestPhoto != null ? $"<img src='data:image/jpeg;base64,{item.guestPhoto}' alt='Guest Photo' style='width:100%'/>" : "No Guest Photo",
+                                    item.guestIdPhoto != null ? $"<img src='data:image/jpeg;base64,{item.guestIdPhoto}' alt='Guest ID Proof' style='width:100%'/>" : "No ID Proof",
+                                    item.mobile,
+                                    item.email,
+                                    item.age,
+                                    item.city);
                 }
                 sb.Append(@"</table>");
 
@@ -443,11 +449,14 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                     {
                         sb.AppendFormat(@"<tr>
                                             <td>{0}</td>
-                                             <td><img src='data:image/jpeg;base64,{1}' alt='Guest Photo' style='width:100%'/></td>
-                                             <td><img src='data:image/jpeg;base64,{2}' alt='Guest ID Proof' style='width:100%'/></td>
+                                             <td>{1}</td>
+                                             <td>{2}</td>
                                              <td>{3}</td>
                                         </tr>",
-                                        item2.guestName , item2.guestPhoto , item2.guestIdPhoto, item2.relationWithGuest);
+                                        item2.guestName ,
+                                        item2.guestPhoto != null ? $"<img src='data:image/jpeg;base64,{item2.guestPhoto}' alt='Guest Photo' style='width:100%'/>" : "No Guest Photo",
+                                        item2.guestIdPhoto != null ? $"<img src='data:image/jpeg;base64,{item2.guestIdPhoto}' alt='Guest ID Proof' style='width:100%'/>" : "No ID Proof",
+                                        item2.relationWithGuest);
                     }
                     sb.Append(@"</table>");
                 }
