@@ -1,0 +1,437 @@
+﻿@using Newtonsoft.Json
+@model HotelGuestVerifyByPolice_CMS.Areas.HotelDashboard.Models.HotelDashResData
+@{
+    Layout = "~/Areas/HotelDashboard/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+<style>
+    body {
+        background: #f5f5f7;
+        font-family: "Roboto", sans-serif;
+    }
+
+    /*     h1 {
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0px 12px 16px rgba(0, 0, 0, 0.2);
+            margin: 100px auto;
+        } */
+
+    #about {
+        padding: 16px;
+    }
+
+    .bdr {
+        border: 1px solid red;
+    }
+
+    #portfolio {
+        background: #fafafa;
+        padding: 8px 0;
+    }
+
+        #portfolio .card {
+            margin: 0 -8px 32px -8px;
+            color: rgba(0, 0, 0, 0.87);
+            box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+            background: #fff;
+            border-radius: 25px
+        }
+
+            #portfolio .card .card-title {
+                display: flex;
+                justify-content: flex-end;
+                padding: 16px;
+                font-weight: 600;
+                color: #939393
+            }
+
+            #portfolio .card .card-data {
+                display: flex;
+                justify-content: flex-end;
+                padding: 0px 16px 0 0;
+                font-size: 32px;
+                font-weight: 600;
+            }
+
+            #portfolio .card hr {
+                width: 90%;
+            }
+
+            #portfolio .card .card-hint {
+                display: flex;
+                padding: 0 0 8px 8px;
+                font-size: 14px;
+                font-weight: 300;
+            }
+
+                #portfolio .card .card-hint i {
+                    font-size: 1.3rem;
+                    color: red;
+                    margin-right: 8px;
+                }
+
+            #portfolio .card .card-icon {
+                display: flex;
+                position: absolute;
+                top: -20px;
+                left: 30px;
+                background: linear-gradient(60deg, #ffa726, #EF6C00);
+                color: white;
+                width: 90px;
+                height: 90px;
+                box-shadow: 2px 2px 16px rgba(0, 0, 0, 0.15);
+                align-items: center;
+                justify-content: center;
+                border-radius: 25%;
+            }
+
+                #portfolio .card .card-icon i {
+                    font-size: 4rem;
+                }
+
+        #portfolio #storageCard .card-icon {
+            background: linear-gradient(60deg, #5E35B1, #039BE5);
+        }
+
+        #portfolio #storageCard .card-hint i {
+            color: red;
+        }
+
+        #portfolio #loveCard .card-icon {
+            background: linear-gradient(60deg, #F50057, #FF8A80);
+        }
+
+        #portfolio #loveCard .card-hint i {
+            color: blue;
+        }
+
+        #portfolio #pizzaCard .card-icon {
+            background: linear-gradient(60deg, #fb8c00, #FFCA29);
+        }
+
+        #portfolio #pizzaCard .card-hint i {
+            color: red;
+        }
+
+        #portfolio #gameCard .card-icon {
+            background: linear-gradient(60deg, #43A047, #FFEB3B);
+        }
+
+        #portfolio #gameCard .card-hint i {
+            color: green;
+        }
+
+    .card-hint a {
+        color: #939393;
+    }
+
+    /*  .col-lg-4 {
+            width: 30.333333%;
+        } */
+    .mr-2 {
+        margin-right: 0px;
+    }
+
+    /*  chart */
+
+    .chart_div {
+        /*width:calc(100vw - 40px);*/
+        width: 100%;
+        /*height: calc(100vh - 40px);*/
+        height: 100%;
+        background-color: #fff;
+        padding: 10px;
+        box-sizing: border-box;
+        /*  margin: 20px; */
+        box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+        border-radius: 25px
+    }
+
+    .buttonCheck {
+        border-radius: 50%;
+        padding: 10px;
+        height: 70px;
+        width: 70px;
+        border: 1px #efefefef;
+        background: #8b84f9;
+        box-shadow: 2px 2px 8px rgb(0 0 0 / 31%);
+        margin-bottom: 15px;
+    }
+
+    .slide-left {
+        animation: 8s slide-left;
+    }
+
+    @@keyframes slide-left {
+        from {
+            margin-left: 100%;
+        }
+
+        to {
+            margin-left: 0%;
+        }
+    }
+</style>
+@* <div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Employee List</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.ID</td>
+                    <td>@p.Address</td>
+                    <td>@p.City</td>
+                    <td>
+                        <a asp-area="Employee"
+                           asp-controller="SalesEmployee"
+                           asp-action="GetEmployeeListByLocation"
+                           asp-route-locationID=@p.ID>
+                            View Employee List
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> *@
+
+<div style="margin-top:8%">
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                @*  <th>Guest Photo</th> *@
+                <th>Guest Photo</th>
+                <th>Guest Name</th>
+                <th>Reservation</th>
+                <th>Country</th>
+                <th>Mobile</th>
+                <th>Check-In Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var hDash in Model.guestDetails)
+            {
+                <tr>
+                    @* <td>
+                @if (@hDash.guestPhoto == null)
+                {
+                <img src="./Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:230px;height: 250px;" />
+                }
+                else
+                {
+
+                <img src="data:image/jpeg;base64+@hDash.guestPhoto" alt="Image" style="width:50px;height: 50px;" />
+                }
+                </td> *@
+                    <td>
+                        @if (@hDash.guestPhoto == null || hDash.guestPhoto == "")
+                        {
+                            <img src="../Areas/HotelDashboard/Content/Images/Icon/avatars-000396781371-h4mpjo-t500x500.jpg" style="width:60px;height: 60px;border-radius:50%" />
+                        }
+                        else
+                        {
+
+                            <img src="data:image/jpeg;base64,@hDash.guestPhoto" alt="Image" style="width:50px;height: 50px;border-radius:50%" />
+                        }
+                    </td>
+                    <td>@hDash.guestName</td>
+                    <td>@hDash.reservation</td>
+                    <td>@hDash.country</td>
+                    <td>@hDash.mobile</td>
+                    <td>@hDash.checkInDate</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+
+        var table = $('#example').DataTable({
+            select: false,
+            // "columnDefs": [{
+            //     className: "Name",
+            //     "targets": [0],
+            //     "visible": false,
+            //     "searchable": false
+            // }]
+        });//End of create main table
+
+
+
+    });
+    var green = "rgba(52,191,158,1)";
+    var lightgreen = "rgba(45, 204, 170, 1)";
+    var blue = "rgba(0,147,214,1)";
+    var lightblue = "rgba(0, 157, 230, 1)";
+    var orange = "rgba(239,141,54,1)";
+    var yellow = "rgba(255,232,124,1)";
+    var red = "#FF4242";
+    var transparent = "rgba(0,0,0,0)";
+
+    Chart.defaults.global.defaultFontColor = '#888888';
+    Chart.defaults.global.defaultFontFamily = '"Open Sans"';
+    //Chart.defaults.global.legend = false;
+    var MonthlyCtx = document.getElementById("Monthly");
+    debugger;
+    var monthlyData = @Html.Raw(JsonConvert.SerializeObject(Model.monthlyCheckInOutCounts));
+    var Monthly = new Chart(MonthlyCtx, {
+        type: 'bar',
+        data: {
+            labels: monthlyData.map(item => item.monthName),
+            datasets: [{
+                label: 'Check-In',
+                data: monthlyData.map(item => item.checkInCount),
+                fill: true,
+                backgroundColor: [blue, green, red, lightgreen, lightblue, orange, yellow, lightgreen, lightblue, 'blue', 'pink', 'orange'],
+
+            }]
+        },
+        options: {
+            layout: { padding: { right: 0, left: 2, bottom: 5 } },
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+                display: false
+            },
+            scales: {
+                display: false,
+                xAxes: [{
+                    barPercentage: 1.2,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: true
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        display: true,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    }
+                }]
+            }
+        }
+    });
+
+    var DailyCtx = document.getElementById("Daily");
+    var Daily = new Chart(DailyCtx, {
+        type: 'line',
+        data: {
+            labels: monthlyData.map(item => item.monthName),
+            datasets: [{
+                label: 'Check-In',
+                data: monthlyData.map(item => item.checkInCount),
+                fill: false,
+                backgroundColor: orange,
+                borderColor: orange,
+                borderWidth: 3,
+                cubicInterpolationMode: "monotone"
+            }]
+        },
+        options: {
+            maintainAspectRatio: true,
+            responsive: true,
+            layout: { padding: { right: 10 } },
+            legend: {
+                display: false
+            },
+            scales: {
+                display: false,
+                xAxes: [{
+                    gridLines: {
+                        display: true,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: true
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        display: true,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: true,
+                        drawBorder: false
+                    }
+                }]
+            }
+        }
+    });
+    var WeekCtx = document.getElementById("Weekly");
+    var Weekly = new Chart(WeekCtx, {
+        type: 'bar',
+        data: {
+            labels: monthlyData.map(item => item.monthName),
+            datasets: [{
+                label: 'Check-Out',
+                data: monthlyData.map(item => item.checkOutCount),
+                fill: true,
+                backgroundColor: [blue, green, red, lightgreen, lightblue, orange, yellow, lightgreen, lightblue, 'blue', 'pink', 'orange'],
+
+            }]
+        },
+        options: {
+            layout: { padding: { right: 0, left: 2 } },
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+                display: false
+            },
+            scales: {
+                display: false,
+                xAxes: [{
+                    barPercentage: 1.2,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        display: true
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        display: true,
+                        beginAtZero: false
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    }
+                }]
+            }
+        }
+    });
+
+
+
+
+
+</script>
