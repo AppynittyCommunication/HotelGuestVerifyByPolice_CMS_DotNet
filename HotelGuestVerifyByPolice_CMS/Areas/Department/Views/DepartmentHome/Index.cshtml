@@ -675,47 +675,7 @@
 </div>
 
 <script>
-    document.getElementById("downloadButton").addEventListener("click", function() {
-        debugger;
-        // Replace 'yourRidValue' with the actual 'rid' parameter value you want to pass
-        const rid = document.getElementById("rbookid").innerText;
-
-        fetch(`/Department/DepartmentHome/DownloadGuestDetailsPDF?rid=${rid}`, {
-            method: 'GET',
-        })
-        .then(response => {
-            // Check if the response is successful
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.blob();
-        })
-        .then(blob => {
-            // Create a blob URL for the PDF content
-            const url = window.URL.createObjectURL(blob);
-
-            // Create an anchor element to trigger the download
-                const a = document.createElement('a');
-                a.href = url;
-                const filename = document.getElementById("dmainname").innerText;
-                a.download = filename+'.pdf';
-
-            // Display the PDF in the iframe
-               
-                // const pdfPreview = document.getElementById('pdfPreview');
-                // pdfPreview.src = url;
-                // pdfPreview.style.display = 'block';
-
-            // Trigger a click event on the anchor element to initiate the download
-            a.click();
-
-            // Clean up resources
-            window.URL.revokeObjectURL(url);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
+   
 </script>
 
 <script>
@@ -734,10 +694,24 @@
         // var flkty = new Flickity('.carousel', {
         //     // options
         // });
-       
+         $("#showSecRow").click(function () {
+            $(".cardDeatils:eq(1)").show();
+
+            $("#showSecRow").hide();
+            $("#hideSecRow").show();
+
+        });
+        var html = $(".cardDeatils:eq(1)").html();
+        $("#hideSecRow").click(function () {
+            $(".cardDeatils:eq(1)").hide();
+            $("#showSecRow").show();
+            $("#hideSecRow").hide();
+            //console.log(html)
+
+        });
         initMap();
         $('[data-toggle="modal"]').click(function () {
-           
+            alert();
             const divId = $(this).data('div-id');
             const dataToSend = `divId=${divId}`;
               var showAddOnDetails = document.getElementById('addOnGuestDetailsModal');
@@ -947,21 +921,7 @@
 
         });//End of create main table
 
-        $("#showSecRow").click(function () {
-            $(".cardDeatils:eq(1)").show();
-
-            $("#showSecRow").hide();
-            $("#hideSecRow").show();
-
-        });
-        var html = $(".cardDeatils:eq(1)").html();
-        $("#hideSecRow").click(function () {
-            $(".cardDeatils:eq(1)").hide();
-            $("#showSecRow").show();
-            $("#hideSecRow").hide();
-            //console.log(html)
-
-        });
+      
 
 
     });
@@ -1102,4 +1062,47 @@
         //         }
         //     });
         // }
+
+
+         document.getElementById("downloadButton").addEventListener("click", function() {
+        debugger;
+        // Replace 'yourRidValue' with the actual 'rid' parameter value you want to pass
+        const rid = document.getElementById("rbookid").innerText;
+
+        fetch(`/Department/DepartmentHome/DownloadGuestDetailsPDF?rid=${rid}`, {
+            method: 'GET',
+        })
+        .then(response => {
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            // Create a blob URL for the PDF content
+            const url = window.URL.createObjectURL(blob);
+
+            // Create an anchor element to trigger the download
+                const a = document.createElement('a');
+                a.href = url;
+                const filename = document.getElementById("dmainname").innerText;
+                a.download = filename+'.pdf';
+
+            // Display the PDF in the iframe
+               
+                // const pdfPreview = document.getElementById('pdfPreview');
+                // pdfPreview.src = url;
+                // pdfPreview.style.display = 'block';
+
+            // Trigger a click event on the anchor element to initiate the download
+            a.click();
+
+            // Clean up resources
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
 </script>

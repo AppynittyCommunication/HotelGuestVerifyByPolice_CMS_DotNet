@@ -1,7 +1,14 @@
-﻿.header {
+﻿/*@font-face {
+    font-family: Lexend;
+    src: url('/Fonts/Lexend-VariableFont_wght.ttf');
+}
+body {
+    font-family: Lexend !important;
+}*/
+.header {
     text-align: center;
-    color: green;
-    padding-bottom: 35px;
+    color: #2d4154;
+    padding-bottom: 25px;
 }
 
 table {
@@ -12,11 +19,11 @@ table {
 td, th {
     border: 1px solid gray;
     padding: 15px;
-    font-size: 22px;
+    font-size: 18px;
     text-align: center;
 }
 
 table th {
-    background-color: green;
-    color: white;
+    background-color: #2d4154;
+    color: #ffffff !important;
 }
