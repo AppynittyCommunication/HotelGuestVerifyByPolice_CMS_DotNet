@@ -1,3 +1,6 @@
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using HotelGuestVerifyByPolice_CMS.Utility;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +10,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IHttpContextAccessor , HttpContextAccessor>();
 
+var context = new CustomAssemblyLoadContext();
+context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
+
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(option =>
 {
