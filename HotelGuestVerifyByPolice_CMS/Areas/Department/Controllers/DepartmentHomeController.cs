@@ -476,5 +476,11 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
 
             return sb.ToString();
         }
+        public IActionResult ModelPDF()
+        {
+            return View();
+        }
     }
+
+   
 }
