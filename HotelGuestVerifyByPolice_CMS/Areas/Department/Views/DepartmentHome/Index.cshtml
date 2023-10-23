@@ -398,7 +398,7 @@
 
                                     <h6>Remark : </h6>
                                     @* <h6 style="text-align:end">View All</h6> *@
-                                        <div style="text-align:end"> <a class="btn btn-orange" data-toggle="modal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View Details</a></div>
+                                        <div style="text-align:end"> <a class="btn btn-orange" data-toggle="modal" id="viewmodal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View Details</a></div>
                                 </div>
                             </div>
                         </div>
@@ -587,7 +587,7 @@
                                 <h6><span class="modelHeading" style="margin-right: 5%;">Guest Name </span><span id="dmainname"></span></h6>
                                   
                                   <br />
-                                  <button id="downloadButton">Download PDF</button>
+                                  <button id="downloadButton" class="btn btn-md btn-primary">Download PDF</button>
                                 <iframe id="pdfPreview" width="100%" height="500" style="display: none;"></iframe>
                             
                                   <div class="row">
@@ -710,7 +710,7 @@
 
         });
         initMap();
-        $('[data-toggle="modal"]').click(function () {
+        $('[id="viewmodal"]').click(function () {
             alert();
             const divId = $(this).data('div-id');
             const dataToSend = `divId=${divId}`;
