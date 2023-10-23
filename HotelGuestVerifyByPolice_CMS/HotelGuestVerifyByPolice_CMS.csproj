@@ -5,7 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+	<ItemGroup>
+		<None Include="Areas\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
   <ItemGroup>
     <None Remove="Areas\HotelDashboard\Content\css\Lexend-VariableFont_wght.ttf" />
     <None Remove="libwkhtmltox.dll" />
@@ -29,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Department\Data\" />
-    <Folder Include="Areas\HotelDashboard\Data\" />
+    <Folder Include="Areas\Department\" />
+    <Folder Include="Areas\HotelDashboard\" />
     <Folder Include="Data\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
@@ -44,6 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Department\Views\DepartmentHome\Index.cshtml" />
+    <None Include="Areas\Department\Views\DepartmentHome\ModelPDF.cshtml" />
+    <None Include="Areas\Department\Views\DepartmentHome\SearchHotel.cshtml" />
+    <None Include="Areas\Department\Views\Shared\_DepartLayout.cshtml" />
     <None Include="wwwroot\images\HOTEL PROJECT %281%29.pdf" />
   </ItemGroup>
 
