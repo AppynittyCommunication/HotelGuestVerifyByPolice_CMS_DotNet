@@ -487,7 +487,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                 foreach (var item in jsonObject.hotelGuestDetails)
                 {
                     sb.AppendFormat(@"
-                                <div class='py-3 text-center' style='border-bottom:2px solid #000'>
+                                <div class='py-3 text-center' style='border-bottom:2px solid #000;text-align: center;'>
                                         <h2 class='text-center'>HARDEO HOTEL</h2>
                                         <h6 class='text-center'>Address:43RP+C8G, Munje Marg Near Laxmi Nagar Thecter, Sitabuldi, Nagpuyr,Maharashtra 440012</h6>
                                             <span style='margin-right:5%'>Mobile:9584685485</span>   <span>Email:Umesh@gmail.com</span>
@@ -507,8 +507,8 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                                     </div>
                                 <div class='py-3' style='border-bottom:2px solid #000'>
                                     <h5 class=''>Primary Guest</h5>
-                                    <div class='row'>
-                                        <div class='col-md-4 d-flex justify-content-between'>
+                                    <div class='row' style='display:display: grid;'>
+                                        <div class='col-md-4 d-flex justify-content-between'style='display:inline-flex'>
                                             <div class=''>
                                                 <p class='phead'>Name</p>
                                                 <p class='mb-2'>" + item.guestName + @"</p>
