@@ -279,6 +279,28 @@
     #addOnGuestList li{
         font-size:14px
     }
+    .loader {
+    width: 48px;
+    height: 48px;
+        border: 5px solid #2162f3;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    position:absolute;
+        top: 25%;
+        left: 45%;
+    }
+
+    @@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
 </style>
 
 
@@ -398,7 +420,7 @@
 
                                     <h6>Remark : </h6>
                                     @* <h6 style="text-align:end">View All</h6> *@
-                                        <div style="text-align:end"> <a class="btn btn-orange" data-toggle="modal" id="viewmodal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View Details</a></div>
+                                        <div style="text-align:end"> <a class="btn btn-orange viewmodal" data-div-id="@Model.hotelGuestDetails_DeptDashes[i].roomBookingID">View Details</a></div>
                                 </div>
                             </div>
                         </div>
@@ -486,6 +508,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- API result will be displayed here -->
+                            <span class="loader"></span>
                             <div id="apiResult"></div>
                             <fieldset id="tab011">
                                 <h3 class="mb-3 mt-2">CONTACT INFORMATION</h3>
@@ -710,7 +733,8 @@
 
         });
         initMap();
-        $('[id="viewmodal"]').click(function () {
+        
+        $('.viewmodal').click(function () {
             alert();
             const divId = $(this).data('div-id');
             const dataToSend = `divId=${divId}`;
@@ -724,8 +748,15 @@
                 type: 'POST',
                 url: '/Department/DepartmentHome/ShowHotelGuestDetails',
                 data: { roombookingId: divId },
-                success: function (data) {
+                beforeSend: function () {
                     $('#resultModal').modal('show');
+                    $(".loader").show();
+                },
+                complete: function () {
+                    $(".loader").hide();
+                },
+                success: function (data) {
+                   
                     $("#tab011").addClass("show");
                     
                     console.log(data);
