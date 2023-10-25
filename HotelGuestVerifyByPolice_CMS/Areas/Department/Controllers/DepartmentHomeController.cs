@@ -367,7 +367,7 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
                     PagesCount = true,
                     HtmlContent = htmlpdfdata,
                     //Page = "https://code-maze.com/",
-                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+                    WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css","bootstrap.css") },
                     HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
                     FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
                 };
@@ -396,85 +396,218 @@ namespace HotelGuestVerifyByPolice_CMS.Areas.Department.Controllers
             dynamic jsonObject = Newtonsoft.Json.JsonConvert.DeserializeObject(gdata);
 
             var sb = new StringBuilder();
-            sb.AppendLine(@"
-                    <html>
-                    <head></head>
-                    <body>
-                         <div class='header'><h1>Main Guest Details</h1></div>
-                            <table align='center'>
-                                <tr>
-                                    <th>Guest Name</th>
-                                    <th>Guest Photo</th>
-                                    <th>Guest ID Proof</th>
-                                    <th>Registered Mobile No.</th>
-                                    <th>Email</th>
-                                    <th>Age</th>
-                                    <th>City</th>
-                                </tr>");
-            if(jsonObject != null)
+            //sb.AppendLine(@"
+            //        <html>
+            //        <head></head>
+            //        <body>
+            //             <div class='header'><h1>Main Guest Details</h1></div>
+            //                <table align='center'>
+            //                    <tr>
+            //                        <th>Guest Name</th>
+            //                        <th>Guest Photo</th>
+            //                        <th>Guest ID Proof</th>
+            //                        <th>Registered Mobile No.</th>
+            //                        <th>Email</th>
+            //                        <th>Age</th>
+            //                        <th>City</th>
+            //                    </tr>");
+            //if(jsonObject != null)
+            //{
+            //    foreach (var item in jsonObject.hotelGuestDetails)
+            //    {
+
+            //        sb.AppendFormat(@"<tr>
+            //                        <td>{0}</td>
+            //                        <td>{1}</td>
+            //                        <td>{2}</td>
+            //                        <td>{3}</td>
+            //                        <td>{4}</td>
+            //                        <td>{5}</td>
+            //                        <td>{6}</td>
+            //                    </tr>",
+            //                        item.guestName,
+            //                        item.guestPhoto != null ? $"<img src='data:image/jpeg;base64,{item.guestPhoto}' alt='Guest Photo' style='width:100%'/>" : "No Guest Photo",
+            //                        item.guestIdPhoto != null ? $"<img src='data:image/jpeg;base64,{item.guestIdPhoto}' alt='Guest ID Proof' style='width:100%'/>" : "No ID Proof",
+            //                        item.mobile,
+            //                        item.email,
+            //                        item.age,
+            //                        item.city);
+            //    }
+            //    sb.Append(@"</table>");
+
+            //    if(jsonObject.addOnGuestDetails1 != null)
+            //    {
+            //        sb.AppendLine(@"</br>
+            //                        <div class='header'><h1>Added Guest Details</h1></div>
+            //                        <table align='center'>
+            //                          <tr>
+            //                                <th>Guest Name</th>
+            //                                <th>Guest Photo</th>
+            //                                <th>Guest ID Proof</th>
+            //                                <th>Relation</th>
+            //                           </tr>");
+
+            //        foreach (var item2 in jsonObject.addOnGuestDetails1)
+            //        {
+            //            sb.AppendFormat(@"<tr>
+            //                                <td>{0}</td>
+            //                                 <td>{1}</td>
+            //                                 <td>{2}</td>
+            //                                 <td>{3}</td>
+            //                            </tr>",
+            //                            item2.guestName ,
+            //                            item2.guestPhoto != null ? $"<img src='data:image/jpeg;base64,{item2.guestPhoto}' alt='Guest Photo' style='width:100%'/>" : "No Guest Photo",
+            //                            item2.guestIdPhoto != null ? $"<img src='data:image/jpeg;base64,{item2.guestIdPhoto}' alt='Guest ID Proof' style='width:100%'/>" : "No ID Proof",
+            //                            item2.relationWithGuest);
+            //        }
+            //        sb.Append(@"</table>");
+            //    }
+
+            //    sb.Append(@"
+            //            </body>
+            //            </html>");
+            //}
+            //else
+            //{
+            //    sb.Append(@"<h6>Data Not Fount</h6></table>
+            //            </body>
+            //            </html>");
+            //}
+
+
+
+            sb.AppendLine(@"<html>
+                                <head>
+                                    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' integrity='sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65' crossorigin='anonymous'>
+                               </head>
+                            <body>
+                            <div style='padding:15px'>");
+            if (jsonObject != null)
             {
                 foreach (var item in jsonObject.hotelGuestDetails)
                 {
-
-                    sb.AppendFormat(@"<tr>
-                                    <td>{0}</td>
-                                    <td>{1}</td>
-                                    <td>{2}</td>
-                                    <td>{3}</td>
-                                    <td>{4}</td>
-                                    <td>{5}</td>
-                                    <td>{6}</td>
-                                </tr>",
-                                    item.guestName,
-                                    item.guestPhoto != null ? $"<img src='data:image/jpeg;base64,{item.guestPhoto}' alt='Guest Photo' style='width:100%'/>" : "No Guest Photo",
-                                    item.guestIdPhoto != null ? $"<img src='data:image/jpeg;base64,{item.guestIdPhoto}' alt='Guest ID Proof' style='width:100%'/>" : "No ID Proof",
-                                    item.mobile,
-                                    item.email,
-                                    item.age,
-                                    item.city);
+                    sb.AppendFormat(@"
+                                <div class='py-3 text-center' style='border-bottom:2px solid #000'>
+                                        <h2 class='text-center'>HARDEO HOTEL</h2>
+                                        <h6 class='text-center'>Address:43RP+C8G, Munje Marg Near Laxmi Nagar Thecter, Sitabuldi, Nagpuyr,Maharashtra 440012</h6>
+                                            <span style='margin-right:5%'>Mobile:9584685485</span>   <span>Email:Umesh@gmail.com</span>
+                                </div>
+                                    <div class='py-3' style='border-bottom:2px solid #000;'>
+                                        <h5>Guest Details</h5>
+                                        <div style='display:flex; justify-content:space-between'>
+                                            <p style='color:#919191'>Check IN</p>
+                                            <p>2 Adults And 1 Child</p>
+                                            <p style='color:#919191'>Check Out</p>
+                                        </div>
+                                        <div style='display:flex; justify-content:space-between'>
+                                            <p>20-10-2023 12:15 PM</p>
+                                            <p>[1 Night Stay]</p>
+                                            <p>21-10-2023 11:10 AM</p>
+                                        </div>
+                                    </div>
+                                <div class='py-3' style='border-bottom:2px solid #000'>
+                                    <h5 class=''>Primary Guest</h5>
+                                    <div class='row'>
+                                        <div class='col-md-4 d-flex justify-content-between'>
+                                            <div class=''>
+                                                <p class='phead'>Name</p>
+                                                <p class='mb-2'>" + item.guestName + @"</p>
+                                                <p class='phead'>Relation</p>
+                                                <p class='mb-2'>Self</p>
+                                                <p class='phead'>Age</p>
+                                                <p class='mb-2'>" + item.age + @"</p>
+                                                <p class='phead'>State</p>
+                                                <p class='mb-2'>Maharashtra</p>
+                                                <p class='phead'>Visit Purpose</p>
+                                                <p class='mb-2'>Wedding</p>
+                                            </div>
+                                            <div class=''>
+                                                <p class='phead'>Mobile</p>
+                                                <p class='mb-2'>9856324587</p>
+                                                <p class='phead'>Gender</p>
+                                                <p class='mb-2'>Male</p>
+                                                <p class='phead'>Country</p>
+                                                <p class='mb-2'>India</p>
+                                                <p class='phead'>City</p>
+                                                <p class='mb-2'>Nagpur</p>
+                                                <p class='phead'>Coming From</p>
+                                                <p class='mb-2'>Nagpur</p>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-6'>
+                                            <div class='d-flex justify-content-around'>
+                                                <div>
+                                                    " + (item.guestPhoto != null ? @"<img src='data:image/jpeg;base64," + item.guestPhoto + "' alt='Guest Photo' style='width:200px;margin-left:4%'/>" : "No Guest Photo") + @"
+                                                </div>
+                                                <div>
+                                                    " + (item.guestIdPhoto != null ? @"<img src='data:image/jpeg;base64," + item.guestIdPhoto + "' alt='Guest ID Proof' style='width:200px'/>" : "No Guest ID Proof") + @"
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>");
                 }
-                sb.Append(@"</table>");
 
-                if(jsonObject.addOnGuestDetails1 != null)
+                if (jsonObject.addOnGuestDetails1 != null)
                 {
-                    sb.AppendLine(@"</br>
-                                    <div class='header'><h1>Added Guest Details</h1></div>
-                                    <table align='center'>
-                                      <tr>
-                                            <th>Guest Name</th>
-                                            <th>Guest Photo</th>
-                                            <th>Guest ID Proof</th>
-                                            <th>Relation</th>
-                                       </tr>");
-
                     foreach (var item2 in jsonObject.addOnGuestDetails1)
                     {
-                        sb.AppendFormat(@"<tr>
-                                            <td>{0}</td>
-                                             <td>{1}</td>
-                                             <td>{2}</td>
-                                             <td>{3}</td>
-                                        </tr>",
-                                        item2.guestName ,
-                                        item2.guestPhoto != null ? $"<img src='data:image/jpeg;base64,{item2.guestPhoto}' alt='Guest Photo' style='width:100%'/>" : "No Guest Photo",
-                                        item2.guestIdPhoto != null ? $"<img src='data:image/jpeg;base64,{item2.guestIdPhoto}' alt='Guest ID Proof' style='width:100%'/>" : "No ID Proof",
-                                        item2.relationWithGuest);
-                    }
-                    sb.Append(@"</table>");
-                }
+                        sb.AppendFormat(@"<div class='py-3' style='border-bottom:2px solid #000'>
+                            <h5 class=''> Guest 2</h5>
+                            <div class='row'>
+                                <div class='col-md-4 d-flex justify-content-between'>
+                                    <div class=''>
+                                        <p class='phead'>Name</p>
+                                        <p class='mb-2'>" + item2.guestName + @"</p>
+                                        <p class='phead'>Relation</p>
+                                        <p class='mb-2'>"+ item2.relationWithGuest + @"</p>
+                                        <p class='phead'>Age</p>
+                                        <p class='mb-2'>"+ item2.age + @"</p>
+                                        <p class='phead'>State</p>
+                                        <p class='mb-2'>Maharashtra</p>
+                                        <p class='phead'>Visit Purpose</p>
+                                        <p class='mb-2'>Wedding</p>
+                                    </div>
+                                    <div class=''>
+                                        <p class='phead'>Mobile</p>
+                                        <p class='mb-2'>9856324587</p>
+                                        <p class='phead'>Gender</p>
+                                        <p class='mb-2'>Male</p>
+                                        <p class='phead'>Country</p>
+                                        <p class='mb-2'>India</p>
+                                        <p class='phead'>City</p>
+                                        <p class='mb-2'>Nagpur</p>
+                                        <p class='phead'>Coming From</p>
+                                        <p class='mb-2'>Nagpur</p>
+                                    </div>
+                                </div>
+                                <div class='col-md-6'>
+                                    <div class='d-flex justify-content-around'>
+                                         <div>
+                                                    " + (item2.guestPhoto != null ? @"<img src='data:image/jpeg;base64," + item2.guestPhoto + "' alt='Guest Photo' style='width:200px;margin-left:4%'/>" : "No Guest Photo") + @"
+                                                </div>
+                                                <div>
+                                                    " + (item2.guestIdPhoto != null ? @"<img src='data:image/jpeg;base64," + item2.guestIdPhoto + "' alt='Guest ID Proof' style='width:200px'/>" : "No Guest ID Proof") + @"
+                                                </div>
+                                    </div>
 
-                sb.Append(@"
-                        </body>
-                        </html>");
+
+                                </div>
+                            </div>
+                        </div>");
+                    }
+                }
+                    sb.Append(@"</div>
+                            </body>
+                            </html>");
             }
             else
             {
-                sb.Append(@"<h6>Data Not Fount</h6></table>
-                        </body>
-                        </html>");
+                sb.Append(@"<h6>Data Not Fount</h6></div>
+                            </body>
+                            </html>");
             }
-
-            return sb.ToString();
+                return sb.ToString();
         }
         public IActionResult ModelPDF()
         {
